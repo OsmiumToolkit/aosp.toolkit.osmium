@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">OsmiumToolkit</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="nav_header_title">Android Studio</string>
+    <string name="nav_header_subtitle">android.studio@android.com</string>
+    <string name="nav_header_desc">Navigation header</string>
+    <string name="action_reboot">Reboot</string>
+    <string name="action_rec">Reboot Recovery</string>
+
+    <string name="item_card_device">Device</string>
+    <string name="item_card_device_android">Android %s(%s, API %d)</string>
+
+    <string name="reboot_option">Reboot option(Operation in Beta)</string>
+    <string name="reboot_click">Click to reboot</string>
+    <string name="re_rec_click">Click to reboot to Recovery</string>
+    <string name="reboot_getRoot">Reboot automatically after finish getting ROOT permission</string>
+    <string name="reboot_fail">Fail while trying to rebooting！</string>
+
+    <string name="welcome_1_title">Wellcome</string>
+    <string name="welcome_1_subtitle">Here is Osmium Toolkit</string>
+
+    <string name="welcome_2_title">#BeUnstable</string>
+    <string name="welcome_2_subtitle">An Open-Sourced project! Do what you want!</string>
+
+    <string name="welcome_3_title">About</string>
+    <string name="welcome_3_subtitle">Author \n＠1552980358(AlphaVulpecula)</string>
+    <string name="welcome_3_spcialthank">Special Thanks \n＠xzr467706992</string>
+    
+    <string name="welcome_4_title">Ready To Start&#8230;</string>
+    <string name="welcome_4_subtitle">But I need Root permission first&#8230;</string>
+    <string name="welcome_4_btn">→ Click here continue ←</string>
+
+    <string name="welcome_swipe_1">Swipe to continue→ (25 %)</string>
+    <string name="welcome_swipe_2">Swipe to continue→ (50 %)</string>
+    <string name="welcome_swipe_3">Swipe to continue→ (75 %)</string>
+    <string name="welcome_swipe_4">(100 %)</string>
+
+    <string name="welcome_get_root">Try getting Root permission(Command\"su\")</string>
+    <string name="welcome_get_root_success">Successed!</string>
+    <string name="welcome_get_root_fail">Failed!</string>
+    <string name="welcome_get_root_pbm">Failed!Something wrong with the process&#8230;</string>
+</resources>

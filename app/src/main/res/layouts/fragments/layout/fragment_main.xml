@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context=".MainActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="8dip"
+        android:layout_marginRight="8dip"
+        android:layout_marginTop="4dp"
+        android:orientation="vertical">
+        <com.earth.OsToolkit.Items.CardItem
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:title="@string/item_card_device"
+            android:id="@+id/device"/>
+        <com.earth.OsToolkit.Items.CardItem
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:title="@string/reboot_option"
+            android:id="@+id/reboot"/>
+    </LinearLayout>
+</LinearLayout>
