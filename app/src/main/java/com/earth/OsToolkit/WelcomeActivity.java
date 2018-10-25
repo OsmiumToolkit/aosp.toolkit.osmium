@@ -89,7 +89,10 @@ public class WelcomeActivity extends AppCompatActivity {
         listFragment.add(new WelcomeFragment3());
         listFragment.add(new WelcomeFragment4());
 
-        myFragmentPagerAdapter myFragmentPagerAdapter = new myFragmentPagerAdapter(getSupportFragmentManager(),listFragment);
+        myFragmentPagerAdapter myFragmentPagerAdapter =
+                new myFragmentPagerAdapter(
+                        getSupportFragmentManager()
+                        ,listFragment);
         viewPager.setAdapter(myFragmentPagerAdapter);
         viewPager.setCurrentItem(0);
     }
@@ -106,12 +109,12 @@ public class WelcomeActivity extends AppCompatActivity {
 
         @Override
         public Fragment getItem(int arg0) {
-            return listFragment.get(arg0); //返回第几个fragment
+            return listFragment.get(arg0); //返回fragment
         }
 
         @Override
         public int getCount() {
-            return listFragment.size(); //总共有多少个fragment
+            return listFragment.size(); // fragment
         }
 
 
