@@ -1,13 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">锇 工具箱</string>
+    <string name="app_name">锇•工具箱</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
-    <string name="nav_header_title">Android Studio</string>
-    <string name="nav_header_subtitle">android.studio@android.com</string>
+    <string name="nav_header_title">锇•工具箱 &lt;v1.0&gt;</string>
+    <string name="nav_header_subtitle">- 住在地球真累 -</string>
     <string name="nav_header_desc">Navigation header</string>
     <string name="action_reboot">重启</string>
     <string name="action_rec">重启Recovery</string>
+    <string name="action_soft">软重启</string>
 
     <string name="item_card_device">设备</string>
     <string name="item_card_device_android">Android %s(%s, API %d)</string>
@@ -15,6 +16,7 @@
     <string name="reboot_option">重启选项(测试功能 慎用)</string>
     <string name="reboot_click">点击重启</string>
     <string name="re_rec_click">点击重启到Recovery</string>
+    <string name="re_soft_click">点击软重启</string>
     <string name="reboot_getRoot">要求ROOT限权后会尝试自动重启哦~</string>
     <string name="reboot_fail">重启失败！</string>
 
@@ -23,10 +25,13 @@
 
     <string name="welcome_2_title">#BeUnstable</string>
     <string name="welcome_2_subtitle">开源项目，让你为所欲为！</string>
+    <string name="welcome_2_title2">!#/bin/bash</string>
+    <string name="welcone_2_subtitle2">本应由采用的Linux Shell脚本并开放脚本源码</string>
 
     <string name="welcome_3_title">关于</string>
     <string name="welcome_3_subtitle">作者 \n＠住在地球真累</string>
     <string name="welcome_3_spcialthank">特别感谢 \n＠xzr467706992</string>
+
 
     <string name="welcome_4_title">准备启程&#8230;</string>
     <string name="welcome_4_subtitle">但是启程前我需要ROOT限权&#8230;</string>

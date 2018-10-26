@@ -12,6 +12,8 @@ import com.earth.OsToolkit.*;
 
 import java.io.File;
 
+import javax.net.SocketFactory;
+
 @SuppressWarnings("all")
 public class MainFragment extends Fragment {
     @Override
@@ -102,20 +104,37 @@ public class MainFragment extends Fragment {
 
     public void setRebootMenu(){
         CardItem reboot = getView().findViewById(R.id.reboot);
-        CardItem.Item linux = new CardItem.Item(getActivity(),R.drawable.ic_nav_reboot,R.string.reboot_click);
-        CardItem.Item recovery = new CardItem.Item(getActivity(),R.drawable.ic_nav_reboot,R.string.re_rec_click);
+        CardItem.Item linux = new CardItem.Item(getActivity(),
+                R.drawable.ic_nav_reboot,R.string.reboot_click);
+        CardItem.Item soft = new CardItem.Item(getActivity(),
+                R.drawable.ic_nav_reboot,getString(R.string.re_soft_click));
+        CardItem.Item recovery = new CardItem.Item(getActivity(),
+                R.drawable.ic_nav_reboot,R.string.re_rec_click);
 
         linux.setOnClickListener(v -> reboot_linux());
+        soft.setOnClickListener(v -> reboot_soft());
         recovery.setOnClickListener(v -> reboot_recovery());
 
-        reboot.addItems(linux,recovery);
+        reboot.addItems(linux,soft,recovery);
     }
 
-    public void reboot_linux(){
+    public void reboot_linux() {
         try {                       // 使用linux shell的reboot重启
             Toast.makeText(getActivity(), getString(R.string.reboot_getRoot),
                     Toast.LENGTH_SHORT).show();
             Process reboot = Runtime.getRuntime().exec("su -c reboot");
+            reboot.waitFor();
+        } catch (Exception e){
+            Toast.makeText(getActivity(), getString(R.string.reboot_fail),
+                    Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    public void reboot_soft() {
+        try {                       // 使用linux shell的reboot重启
+            Toast.makeText(getActivity(), getString(R.string.reboot_getRoot),
+                    Toast.LENGTH_SHORT).show();
+            Process reboot = Runtime.getRuntime().exec(new String[]{"su -c","killall zygote"});
             reboot.waitFor();
         } catch (Exception e){
             Toast.makeText(getActivity(), getString(R.string.reboot_fail),

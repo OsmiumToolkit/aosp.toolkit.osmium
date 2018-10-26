@@ -3,11 +3,13 @@
     <string name="app_name">OsmiumToolkit</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
-    <string name="nav_header_title">Android Studio</string>
-    <string name="nav_header_subtitle">android.studio@android.com</string>
+    <string name="nav_header_title">OsmiumToolkit &lt;v1.0&gt;</string>
+    <string name="nav_header_subtitle">- Vulpecula -</string>
     <string name="nav_header_desc">Navigation header</string>
     <string name="action_reboot">Reboot</string>
     <string name="action_rec">Reboot Recovery</string>
+    <string name="re_soft_click">Soft Reboot</string>
+    <string name="action_soft">Soft Reboot</string>
 
     <string name="item_card_device">Device</string>
     <string name="item_card_device_android">Android %s(%s, API %d)</string>
@@ -23,6 +25,8 @@
 
     <string name="welcome_2_title">#BeUnstable</string>
     <string name="welcome_2_subtitle">An Open-Sourced project! Do what you want!</string>
+    <string name="welcome_2_title2">#!/bin/sh</string>
+    <string name="welcone_2_subtitle2">Shell commands are used and being Open-Sourced</string>
 
     <string name="welcome_3_title">About</string>
     <string name="welcome_3_subtitle">Author \n＠1552980358(AlphaVulpecula)</string>

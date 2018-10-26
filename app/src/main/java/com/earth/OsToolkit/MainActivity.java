@@ -81,6 +81,14 @@ public class MainActivity extends AppCompatActivity
                     Toast.makeText(this, getString(R.string.reboot_fail), Toast.LENGTH_SHORT).show();
                 }
                 return true;
+            case R.id.action_soft :
+                try {
+                    Toast.makeText(this, getString(R.string.reboot_getRoot), Toast.LENGTH_SHORT).show();
+                    process = Runtime.getRuntime().exec(new String[]{"su -c","killall zygote"});
+                } catch (Exception e) {
+                    Toast.makeText(this, getString(R.string.reboot_fail), Toast.LENGTH_SHORT).show();
+                }
+                return true;
         }
 
         return super.onOptionsItemSelected(item);
