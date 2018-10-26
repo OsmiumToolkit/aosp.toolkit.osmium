@@ -7,5 +7,5 @@ then
     else
         X=1
     fi
-    echo $X > /sys/class/power_supply/battery/allow_hvdcp3
+    echo ${X} > /sys/class/power_supply/battery/allow_hvdcp3
 fi
