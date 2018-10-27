@@ -15,7 +15,6 @@ import com.earth.OsToolkit.R;
 
 import static android.content.Context.MODE_PRIVATE;
 import static android.support.constraint.Constraints.TAG;
-import static android.view.View.resolveSize;
 import static com.earth.OsToolkit.Working.BaseClass.Checking.checkRoot;
 
 public class WelcomeFragment4 extends Fragment {

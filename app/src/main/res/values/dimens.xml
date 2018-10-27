@@ -11,4 +11,7 @@
 
     <dimen name="welcome_icons">100dp</dimen>
 
+    <dimen name="frag_pad">10dp</dimen>
+    <dimen name="frag_title">20sp</dimen>
+    <dimen name="frag_des">11sp</dimen>
 </resources>

@@ -131,7 +131,7 @@ public class MainFragment extends Fragment {
     }
 
     public void reboot_soft() {
-        try {                       // 使用linux shell的reboot重启
+        try {                       // 使用android的killall zygote杀死所有进程
             Toast.makeText(getActivity(), getString(R.string.reboot_getRoot),
                     Toast.LENGTH_SHORT).show();
             Process reboot = Runtime.getRuntime().exec(new String[]{"su -c","killall zygote"});

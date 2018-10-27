@@ -46,4 +46,11 @@
     <string name="welcome_get_root_success">获取成功!</string>
     <string name="welcome_get_root_fail">获取失败!</string>
     <string name="welcome_get_root_pbm">失败!某些东西貌似炸了&#8230;</string>
+
+    <string name="nav_main">主页</string>
+    <string name="nav_charging">充电相关</string>
+
+    <string name="charging_not_support">警告：\n你的设备不支持“充电选项”</string>
+    <string name="charging_qc3_title">QC3.0 快充</string>
+    <string name="charging_qc3_des">启用/金庸 QC3.0 - 他不一定有效</string>
 </resources>

@@ -1,11 +1,6 @@
 package com.earth.OsToolkit;
 
-import android.app.Activity;
-import android.app.AppComponentFactory;
-import android.content.SharedPreferences;
-import android.graphics.Color;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;

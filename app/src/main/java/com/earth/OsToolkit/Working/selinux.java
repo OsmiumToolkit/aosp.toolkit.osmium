@@ -11,7 +11,9 @@ public class selinux {
     public static int run(Context context) {
         int copy = copyAssets2Cache(context,SELINUX);
         if (copy != 0) {
-            String path = context.getCacheDir() + File.separator + SELINUX;
+            String path = context.getCacheDir().getAbsolutePath()
+                    + File.separator
+                    + SELINUX;
             try {
                 Process process = Runtime.getRuntime().exec("chmod a+x " + path);
                 if (process.waitFor() == 1) {

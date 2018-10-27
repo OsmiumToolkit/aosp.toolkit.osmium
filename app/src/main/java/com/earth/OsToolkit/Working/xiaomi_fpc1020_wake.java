@@ -13,7 +13,9 @@ public class xiaomi_fpc1020_wake {
     public static int run(Context context){
         int copy = copyAssets2Cache(context,XIAOMI_FPC1020_WAKEUP);
         if (copy != 0) {
-            String path = context.getCacheDir() + File.separator + XIAOMI_FPC1020_WAKEUP;
+            String path = context.getCacheDir().getAbsolutePath()
+                    + File.separator
+                    + XIAOMI_FPC1020_WAKEUP;
             try {
                 Process process = Runtime.getRuntime().exec("chmod a+x " + path);
                 if (process.waitFor() == 1) {

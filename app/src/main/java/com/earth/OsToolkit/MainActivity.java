@@ -12,10 +12,13 @@ import android.support.v7.widget.Toolbar;
 import android.view.*;
 import android.widget.Toast;
 
+import com.earth.OsToolkit.Fragment.ChargingFragment;
+
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
     FragmentManager fragmentManager = getSupportFragmentManager();
     FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+    Toolbar toolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,7 +28,7 @@ public class MainActivity extends AppCompatActivity
     }
 
     public void initUI(){
-        Toolbar toolbar = findViewById(R.id.toolbar);
+        toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
@@ -100,8 +103,13 @@ public class MainActivity extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.nav_share) {
-
+        switch (id) {
+            case R.id.nav_main :
+                break;
+            case R.id.nav_charging :
+                toolbar.setTitle(R.string.nav_charging);
+                fragmentTransaction.replace(R.id.main_fragment,new ChargingFragment());
+                break;
         }
 
         DrawerLayout drawer = findViewById(R.id.drawer_layout);

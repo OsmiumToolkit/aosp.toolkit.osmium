@@ -11,7 +11,9 @@ public class charge_qc3 {
     public static int run(Context context) {
         int copy = copyAssets2Cache(context,CHARGE_QC3);
         if (copy != 0) {
-            String path = context.getCacheDir() + File.separator + CHARGE_QC3;
+            String path = context.getCacheDir().getAbsolutePath()
+                    + File.separator
+                    + CHARGE_QC3;
             try {
                 Process process = Runtime.getRuntime().exec("chmod a+x " + path);
                 if (process.waitFor() == 1) {

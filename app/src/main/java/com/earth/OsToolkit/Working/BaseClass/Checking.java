@@ -1,10 +1,11 @@
 package com.earth.OsToolkit.Working.BaseClass;
 
 import java.io.DataOutputStream;
+import java.io.File;
 
 @SuppressWarnings("all")
 public class Checking {
-    public static boolean checkRoot(){
+    public static boolean checkRoot() {
         Process process;
         DataOutputStream os;
         try {
@@ -21,4 +22,14 @@ public class Checking {
             return false;
         }
     }
+
+    public static boolean checkSupportQC3() {
+        File file = new File("/sys/class/power_supply/battery/allow_hvdcp3");
+        if (file.exists()) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
 }
