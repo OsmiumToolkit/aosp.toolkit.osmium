@@ -33,14 +33,16 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="5dp"
-            android:clickable="true"
             android:padding="5dp"
             app:cardCornerRadius="6dp">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                android:clickable="true"
+                android:focusable="true"
+                android:id="@+id/qc3_linearlayout">
 
                 <RelativeLayout
                     android:layout_width="match_parent"
@@ -79,7 +81,8 @@
                 <RelativeLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal">
+                    android:visibility="gone"
+                    android:id="@+id/rl_qc3">
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -91,7 +94,6 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentEnd="true"
-                        android:layout_gravity="clip_vertical|end"
                         android:layout_margin="5dp"
                         android:paddingRight="15dp"
                         android:paddingLeft="15dp"
