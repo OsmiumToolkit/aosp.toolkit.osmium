@@ -20,11 +20,11 @@
 
     </android.support.design.widget.AppBarLayout>
 
-    <fragment
-        android:id="@+id/main_fragment"
+    <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior"
-        android:name="com.earth.OsToolkit.Fragment.MainFragment"/>
+        android:id="@+id/main_fragment"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
+
 
 </android.support.design.widget.CoordinatorLayout>

@@ -51,6 +51,8 @@
 
     <string name="sw_dis">Disabled</string>
     <string name="sw_en">Enabled</string>
+    <string name="toast_succeed">Succeed</string>
+    <string name="toast_failed">Failed!</string>
 
     <string name="charging_not_support">WARNING:\nCharging Options are not supported on your device</string>
     <string name="charging_qc3_title">QC3.0 Fast Charging</string>

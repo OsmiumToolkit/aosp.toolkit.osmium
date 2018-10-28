@@ -3,6 +3,7 @@ package com.earth.OsToolkit;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
@@ -13,9 +14,11 @@ import android.view.*;
 import android.widget.Toast;
 
 import com.earth.OsToolkit.Fragment.ChargingFragment;
+import com.earth.OsToolkit.Fragment.MainFragment;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
+
     FragmentManager fragmentManager = getSupportFragmentManager();
     FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
     Toolbar toolbar;
@@ -30,6 +33,7 @@ public class MainActivity extends AppCompatActivity
     public void initUI(){
         toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        fragmentTransaction.replace(R.id.main_fragment,new MainFragment()).commit();
 
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -102,15 +106,22 @@ public class MainActivity extends AppCompatActivity
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         // Handle navigation view item clicks here.
         int id = item.getItemId();
-
+        FragmentTransaction ft = fragmentManager.beginTransaction();
+        ft.setCustomAnimations(R.animator.fade_in,R.animator.fade_out);
+        Fragment fragment = new MainFragment();
+        int title = R.string.app_name;
         switch (id) {
             case R.id.nav_main :
+                fragment = new MainFragment();
                 break;
             case R.id.nav_charging :
-                toolbar.setTitle(R.string.nav_charging);
-                fragmentTransaction.replace(R.id.main_fragment,new ChargingFragment());
+                title = R.string.nav_charging;
+                fragment = new ChargingFragment();
                 break;
         }
+
+        toolbar.setTitle(title);
+        ft.replace(R.id.main_fragment,fragment).commit();
 
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);

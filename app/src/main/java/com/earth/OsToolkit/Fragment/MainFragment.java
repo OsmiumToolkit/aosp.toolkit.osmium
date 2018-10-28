@@ -12,8 +12,6 @@ import com.earth.OsToolkit.*;
 
 import java.io.File;
 
-import javax.net.SocketFactory;
-
 @SuppressWarnings("all")
 public class MainFragment extends Fragment {
     @Override
@@ -118,12 +116,13 @@ public class MainFragment extends Fragment {
         reboot.addItems(linux,soft,recovery);
     }
 
+    Process process;
+
     public void reboot_linux() {
         try {                       // 使用linux shell的reboot重启
             Toast.makeText(getActivity(), getString(R.string.reboot_getRoot),
                     Toast.LENGTH_SHORT).show();
-            Process reboot = Runtime.getRuntime().exec("su -c reboot");
-            reboot.waitFor();
+            process = Runtime.getRuntime().exec("su -c reboot");
         } catch (Exception e){
             Toast.makeText(getActivity(), getString(R.string.reboot_fail),
                     Toast.LENGTH_SHORT).show();
@@ -134,8 +133,7 @@ public class MainFragment extends Fragment {
         try {                       // 使用android的killall zygote杀死所有进程
             Toast.makeText(getActivity(), getString(R.string.reboot_getRoot),
                     Toast.LENGTH_SHORT).show();
-            Process reboot = Runtime.getRuntime().exec(new String[]{"su -c","killall zygote"});
-            reboot.waitFor();
+            process = Runtime.getRuntime().exec(new String[]{"su -c","killall zygote"});
         } catch (Exception e){
             Toast.makeText(getActivity(), getString(R.string.reboot_fail),
                     Toast.LENGTH_SHORT).show();
@@ -146,8 +144,7 @@ public class MainFragment extends Fragment {
         try {                       // 使用linux shell的reboot重启
             Toast.makeText(getActivity(), getString(R.string.reboot_getRoot),
                     Toast.LENGTH_SHORT).show();
-            Process reboot = Runtime.getRuntime().exec(new String[]{"su -c","reboot recovery"});
-            reboot.waitFor();
+            process = Runtime.getRuntime().exec(new String[]{"su -c","reboot recovery"});
         } catch (Exception e){
             Toast.makeText(getActivity(), getString(R.string.reboot_fail),
                     Toast.LENGTH_SHORT).show();

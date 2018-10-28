@@ -34,7 +34,7 @@
             android:layout_height="wrap_content"
             android:layout_margin="5dp"
             android:padding="5dp"
-            app:cardCornerRadius="6dp">
+            app:cardCornerRadius="6dp" >
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -42,7 +42,8 @@
                 android:orientation="vertical"
                 android:clickable="true"
                 android:focusable="true"
-                android:id="@+id/qc3_linearlayout">
+                android:id="@+id/qc3_linearlayout"
+                android:background="?android:attr/selectableItemBackground">
 
                 <RelativeLayout
                     android:layout_width="match_parent"

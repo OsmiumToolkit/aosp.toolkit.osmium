@@ -21,7 +21,6 @@ public class ChargingFragment extends Fragment implements View.OnClickListener {
     SwitchCompat qc3_sw;
     TextView qc3_txt;
 
-
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container,
@@ -43,12 +42,18 @@ public class ChargingFragment extends Fragment implements View.OnClickListener {
         qc3_sw.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                int result;
                 if (isChecked) {
                     qc3_txt.setText(R.string.sw_en);
-                    charge_qc3.run(getActivity());
+                    result = charge_qc3.run(getActivity());
                 } else {
                     qc3_txt.setText(R.string.sw_dis);
-                    charge_qc3.run(getActivity());
+                    result = charge_qc3.run(getActivity());
+                }
+                if (result == 1) {
+                    Toast.makeText(getActivity(), R.string.toast_succeed, Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(getActivity(), R.string.toast_failed, Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -75,9 +80,14 @@ public class ChargingFragment extends Fragment implements View.OnClickListener {
 
         qc3_txt = view.findViewById(R.id.txt_qc3);
         qc3_sw = view.findViewById(R.id.switch_qc3);
-        if (result.equals("1")) {
-            qc3_txt.setText(R.string.sw_en);
-            qc3_sw.setChecked(true);
+        if (result != null) {
+            if (result.equals("1")) {
+                qc3_txt.setText(R.string.sw_en);
+                qc3_sw.setChecked(true);
+            } else {
+                qc3_txt.setText(R.string.sw_dis);
+                qc3_sw.setChecked(false);
+            }
         } else {
             qc3_txt.setText(R.string.sw_dis);
             qc3_sw.setChecked(false);

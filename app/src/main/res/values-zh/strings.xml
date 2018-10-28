@@ -52,8 +52,7 @@
 
     <string name="sw_dis">已禁用</string>
     <string name="sw_en">已启用</string>
+    <string name="toast_succeed">成功!</string>
+    <string name="toast_failed">失败!</string>
 
-    <string name="charging_not_support">警告：\n你的设备不支持“充电选项”</string>
-    <string name="charging_qc3_title">QC3.0 快充</string>
-    <string name="charging_qc3_des">启用/金庸 QC3.0 - 他不一定有效</string>
-</resources>
+<string name="charging_not_support">警告：\n你的设备不支持“充电选项”</string><string name="charging_qc3_title">QC3.0 快充</string><string name="charging_qc3_des">启用/金庸 QC3.0 - 他不一定有效</string></resources>
