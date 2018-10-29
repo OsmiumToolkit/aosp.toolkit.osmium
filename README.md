@@ -3,7 +3,7 @@ Name / 名字
 --------
 - English : OsmiumToolkit
 
-- Chinese : 锇•工具箱
+- 中文 : 锇•工具箱
 
 Package Name / 包名
 ----------
@@ -33,4 +33,4 @@ About / 关于
 
 Credit / 鸣谢
 ----------
-- @xzr467706992 for his module
+- @xzr467706992
