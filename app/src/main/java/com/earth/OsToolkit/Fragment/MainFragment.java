@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.view.*;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.earth.OsToolkit.Items.CardItem;
@@ -25,6 +26,7 @@ public class MainFragment extends Fragment {
     public void onViewCreated(@NonNull View view, Bundle savedInstance){
         super.onViewCreated(view,savedInstance);
         setDeviceInfo(view);
+        setTitleImage(view);
         setRebootMenu();
     }
 
@@ -66,6 +68,17 @@ public class MainFragment extends Fragment {
                     exists() ? "(MIUI)" : "(AOSP-based ROM)";
         }
         return manufacturer;
+    }
+
+    public void setTitleImage(View view) {
+        ImageView imageView = view.findViewById(R.id.cpu_manu);
+        if (getCpu().contains("Qualcomm")) {
+            imageView.setImageDrawable(view.getResources().getDrawable(R.drawable.ic_snapdragon));
+        } else if (getCpu().contains("Exynos")){
+            imageView.setImageDrawable(view.getResources().getDrawable(R.drawable.ic_exynos));
+        } else if (getCpu().contains("MediaTel")) {
+            imageView.setImageDrawable(view.getResources().getDrawable(R.drawable.ic_mediatek));
+        }
     }
 
     private String getAndroidVersion() {

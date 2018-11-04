@@ -8,6 +8,19 @@
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context=".MainActivity">
 
+    <android.support.v7.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:layout_marginLeft="8dip"
+        android:layout_marginRight="8dip"
+        android:layout_marginTop="4dp">
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/cpu_manu"/>
+
+    </android.support.v7.widget.CardView>
+
     <com.earth.OsToolkit.Items.CardItem
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -16,6 +29,7 @@
         android:layout_marginLeft="8dip"
         android:layout_marginRight="8dip"
         android:layout_marginTop="4dp"/>
+
     <com.earth.OsToolkit.Items.CardItem
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -25,8 +39,4 @@
         android:layout_marginRight="8dip"
         android:layout_marginTop="4dp"/>
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/text_cpu"/>
 </LinearLayout>
