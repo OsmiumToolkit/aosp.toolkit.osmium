@@ -40,10 +40,12 @@ public class MainFragment extends Fragment {
         CardItem.Item android = new CardItem.Item(getActivity(), R.drawable.ic_item_card_device_android,
                 String.format(getString(R.string.item_card_device_android),
                         Build.VERSION.RELEASE, getAndroidVersion(), Build.VERSION.SDK_INT));
+
+        CardItem.Item cpu = new CardItem.Item(getActivity(),R.drawable.ic_item_developer_board,getCpu());
         // 获取CPU架构
         // Get CPU Info
         CardItem.Item cpuinfo = new CardItem.Item(getActivity(),R.drawable.ic_item_memory,getCpuABI());
-        device.addItems(android,menufactor,cpuinfo);
+        device.addItems(android,menufactor,cpu,cpuinfo);
     }
 
     private String getDevice() {
@@ -78,6 +80,36 @@ public class MainFragment extends Fragment {
             case 28: return "Pie";
             default: return "unknown";
         }
+    }
+
+    private static String getCpu(){
+        // 获取处理器制造商
+        // Fetch SoC manufactor
+        String socManu = Build.HARDWARE.toUpperCase();
+        String manufactor;
+        if (socManu.equals("QCOM") || socManu.equals("QUALCOMM")) {
+            manufactor = "Qualcomm Snapdragon";
+        } else if (socManu.equals("MTK") || socManu.equals("MEDIATEK")) {
+            manufactor = "MediaTek";
+        } else if (socManu.equals("EXYNOS")) {
+            manufactor = "Samsung Exynos";
+        } else {
+            manufactor = socManu;
+        }
+
+        // 获取SoC型号
+        // Fetch SoC model
+        String soc = Build.BOARD.toUpperCase();
+        String board;
+        if (soc.contains("EXYNOS")) {
+            board = soc.replace("EXYNOS","");
+        } else if (soc.contains("MSM")) {
+            board = soc.replace("MSM","msm");
+        } else {
+            board = soc;
+        }
+
+        return manufactor + " " + board;
     }
 
     private static String getCpuABI(){

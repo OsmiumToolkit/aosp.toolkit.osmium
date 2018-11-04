@@ -8,12 +8,14 @@ import android.view.*;
 import android.widget.*;
 
 import com.earth.OsToolkit.R;
-import com.earth.OsToolkit.Working.charge_qc3;
+import com.earth.OsToolkit.Working.runScript;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 
 import static com.earth.OsToolkit.Working.BaseClass.Checking.checkSupportQC3;
+
+import static com.earth.OsToolkit.Working.BaseClass.BaseIndex.CHARGE_QC3;
 
 public class ChargingFragment extends Fragment implements View.OnClickListener {
 
@@ -45,10 +47,10 @@ public class ChargingFragment extends Fragment implements View.OnClickListener {
                 int result;
                 if (isChecked) {
                     qc3_txt.setText(R.string.sw_en);
-                    result = charge_qc3.run(getActivity());
+                    result = runScript.run(getActivity(),CHARGE_QC3);
                 } else {
                     qc3_txt.setText(R.string.sw_dis);
-                    result = charge_qc3.run(getActivity());
+                    result = runScript.run(getActivity(),CHARGE_QC3);
                 }
                 if (result == 1) {
                     Toast.makeText(getActivity(), R.string.toast_succeed, Toast.LENGTH_SHORT).show();

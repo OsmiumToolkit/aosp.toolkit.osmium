@@ -20,7 +20,7 @@ public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     FragmentManager fragmentManager = getSupportFragmentManager();
-    FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+
     Toolbar toolbar;
 
     @Override
@@ -33,6 +33,7 @@ public class MainActivity extends AppCompatActivity
     public void initUI(){
         toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.replace(R.id.main_fragment,new MainFragment()).commit();
 
         DrawerLayout drawer = findViewById(R.id.drawer_layout);

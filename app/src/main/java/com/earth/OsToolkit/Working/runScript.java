@@ -4,16 +4,15 @@ import android.content.Context;
 
 import java.io.File;
 
-import static com.earth.OsToolkit.Working.BaseClass.BaseIndex.CHARGE_QC3;
 import static com.earth.OsToolkit.Working.BaseClass.Copy.copyAssets2Cache;
 
-public class charge_qc3 {
-    public static int run(Context context) {
-        int copy = copyAssets2Cache(context,CHARGE_QC3);
+public class runScript {
+    public static int run(Context context, String fileName) {
+        int copy = copyAssets2Cache(context,fileName);
         if (copy != 0) {
             String path = context.getCacheDir().getAbsolutePath()
                     + File.separator
-                    + CHARGE_QC3;
+                    + fileName;
             try {
                 Process process = Runtime.getRuntime().exec("chmod a+x " + path);
                 if (process.waitFor() == 1) {
