@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
 
-if [ -e /sys/class/power_supply/battery/safety_timer_enabled ]
+if [[ -e /sys/class/power_supply/battery/safety_timer_enabled ]]
 then
-    if [ `cat /sys/class/power_supply/battery/safety_timer_enabled` == 1 ]
+    if [[ `cat /sys/class/power_supply/battery/safety_timer_enabled` == 1 ]]
     then
         X=0
     else

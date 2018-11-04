@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-if [ `getenforce` == Enforcing ]
+if [[ `getenforce` == Enforcing ]]
 then
     X=0
 else

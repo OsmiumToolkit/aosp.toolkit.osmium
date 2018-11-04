@@ -55,6 +55,7 @@ public class ChargingFragment extends Fragment implements View.OnClickListener {
                 if (result == 1) {
                     Toast.makeText(getActivity(), R.string.toast_succeed, Toast.LENGTH_SHORT).show();
                 } else {
+                    qc3_sw.setChecked(false);
                     Toast.makeText(getActivity(), R.string.toast_failed, Toast.LENGTH_SHORT).show();
                 }
             }
