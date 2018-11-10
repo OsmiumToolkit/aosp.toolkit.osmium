@@ -20,6 +20,8 @@
     <string name="reboot_getRoot">Reboot automatically after finish getting ROOT permission</string>
     <string name="reboot_fail">Fail while trying to rebooting！</string>
 
+    <string name="script_title_head">Run Script \"%s\"</string>
+
     <string name="welcome_1_title">Wellcome</string>
     <string name="welcome_1_subtitle">Here is Osmium Toolkit</string>
 

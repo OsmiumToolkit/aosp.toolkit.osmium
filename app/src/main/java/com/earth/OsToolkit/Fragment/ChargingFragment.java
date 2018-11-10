@@ -1,17 +1,18 @@
 package com.earth.OsToolkit.Fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.*;
+import android.util.Log;
 import android.view.*;
 import android.widget.*;
 
 import com.earth.OsToolkit.R;
-import com.earth.OsToolkit.Working.runScript;
+import com.earth.OsToolkit.ScriptActivity;
 
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
+import java.io.*;
 
 import static com.earth.OsToolkit.Working.BaseClass.Checking.checkSupportQC3;
 
@@ -22,6 +23,8 @@ public class ChargingFragment extends Fragment implements View.OnClickListener {
     LinearLayout linearLayout_qc3 ;
     SwitchCompat qc3_sw;
     TextView qc3_txt;
+
+    Boolean result;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater,
@@ -41,6 +44,7 @@ public class ChargingFragment extends Fragment implements View.OnClickListener {
         // QC 3.0
         linearLayout_qc3 = view.findViewById(R.id.qc3_linearlayout);
         linearLayout_qc3.setOnClickListener(this);
+        /*
         qc3_sw.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
@@ -52,6 +56,7 @@ public class ChargingFragment extends Fragment implements View.OnClickListener {
                     qc3_txt.setText(R.string.sw_dis);
                     result = runScript.run(getActivity(),CHARGE_QC3);
                 }
+
                 if (result == 1) {
                     Toast.makeText(getActivity(), R.string.toast_succeed, Toast.LENGTH_SHORT).show();
                 } else {
@@ -60,7 +65,19 @@ public class ChargingFragment extends Fragment implements View.OnClickListener {
                 }
             }
         });
+        */
+        qc3_sw.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            Intent intent = new Intent(getActivity(),ScriptActivity.class)
+                    .putExtra("script",CHARGE_QC3);
+            startActivityForResult(intent,1);
+        });
 
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent intent) {
+        result = intent.getBooleanExtra("result",false);
+        Log.e("ChargingFragment","return");
     }
 
     public void setWarning(View view) {
@@ -109,4 +126,5 @@ public class ChargingFragment extends Fragment implements View.OnClickListener {
                 break;
         }
     }
+
 }

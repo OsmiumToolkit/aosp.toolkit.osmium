@@ -20,6 +20,8 @@
     <string name="reboot_getRoot">要求ROOT限权后会尝试自动重启哦~</string>
     <string name="reboot_fail">重启失败！</string>
 
+    <string name="script_title_head">运行脚本 \"%s\"</string>
+
     <string name="welcome_1_title">欢迎</string>
     <string name="welcome_1_subtitle">这里是 锇•工具箱</string>
 
