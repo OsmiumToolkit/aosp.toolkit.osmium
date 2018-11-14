@@ -36,12 +36,16 @@ public class MainFragment extends Fragment {
         CardItem device = view.findViewById(R.id.device);
         // 获取设备信息
         // Get Device info
-        CardItem.Item menufactor = new CardItem.Item(getActivity(),R.drawable.ic_item_card_device_phone,getDevice());
+        CardItem.Item menufactor = new CardItem.Item(getActivity(),
+                R.drawable.ic_item_card_device_phone,getDevice());
         // 获取安卓版本
         // Get Android Version
-        CardItem.Item android = new CardItem.Item(getActivity(), R.drawable.ic_item_card_device_android,
+        CardItem.Item android = new CardItem.Item(getActivity(),
+                R.drawable.ic_item_card_device_android,
                 String.format(getString(R.string.item_card_device_android),
-                        Build.VERSION.RELEASE, getAndroidVersion(), Build.VERSION.SDK_INT));
+                        getAndroidVersion(),
+                        getAndroidVersionName(),
+                        Build.VERSION.SDK_INT));
 
         CardItem.Item cpu = new CardItem.Item(getActivity(),R.drawable.ic_item_developer_board,getCpu());
         // 获取CPU架构
@@ -57,7 +61,8 @@ public class MainFragment extends Fragment {
                 Character.toUpperCase(android.os.Build.MANUFACTURER.charAt(0)) +
                         android.os.Build.MANUFACTURER.substring(1);
         if (!android.os.Build.BRAND.equals(android.os.Build.MANUFACTURER)) {
-            manufacturer += " " + Character.toUpperCase(android.os.Build.BRAND.charAt(0)) + android.os.Build.BRAND.substring(1);
+            manufacturer += " " + Character.toUpperCase(android.os.Build.BRAND.charAt(0))
+                    + android.os.Build.BRAND.substring(1);
         }
         manufacturer += " " + Build.MODEL + " ";
         if (manufacturer.contains("Samsung")) { // 三星TouchWiz
@@ -79,16 +84,56 @@ public class MainFragment extends Fragment {
         } else if (getCpu().contains("MediaTel")) {
             imageView.setImageDrawable(view.getResources().getDrawable(R.drawable.ic_mediatek));
         }
+
+        imageView = view.findViewById(R.id.android_ver);
+        switch (getAndroidVersionName()) {
+            case "Lolipop" :
+                imageView.setImageDrawable(getResources().
+                        getDrawable(R.drawable.ic_android_lollipop,null));
+                break;
+            case "Marshmallow" :
+                imageView.setImageDrawable(getResources().
+                        getDrawable(R.drawable.ic_android_marshmallow,null));
+                break;
+            case "Nougat" :
+                imageView.setImageDrawable(getResources().
+                        getDrawable(R.drawable.ic_android_nougat,null));
+                break;
+            case "Oreo" :
+                imageView.setImageDrawable(getResources().
+                        getDrawable(R.drawable.ic_android_oreo,null));
+                break;
+            case "Pie" :
+                imageView.setImageDrawable(getResources().
+                        getDrawable(R.drawable.ic_android_pie,null));
+                break;
+        }
     }
 
     private String getAndroidVersion() {
+        switch (Build.VERSION.SDK_INT) {
+            case 21 : return "5.0";
+            case 22 : return "5.1";
+            case 23 : return "6.0";
+            case 24 : return "7.0";
+            case 25 : return "7.1";
+            case 26 : return "8.0";
+            case 27 : return "8.1";
+            case 28 : return "9.0";
+            default : return Build.VERSION.RELEASE.toString();
+        }
+    }
+
+    private String getAndroidVersionName() {
         // 获取Android版本
         // Get Android Version
         switch (Build.VERSION.SDK_INT) {
+            case 21:
+            case 22: return "Lolipop";
             case 23: return "Marshmallow";
-            case 24: return "Nougat";
+            case 24:
             case 25: return "Nougat";
-            case 26: return "Oreo";
+            case 26:
             case 27: return "Oreo";
             case 28: return "Pie";
             default: return "unknown";
@@ -120,6 +165,10 @@ public class MainFragment extends Fragment {
             board = soc.replace("MSM","msm");
         } else {
             board = soc;
+        }
+
+        if (Build.PRODUCT.equals("kenzo")) {
+            board = "msm8956";
         }
 
         return manufactor + " " + board;
