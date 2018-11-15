@@ -1,58 +1,62 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:background="@color/navy_blue">
+    android:background="@color/navy_blue"
+    android:orientation="vertical">
+
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:orientation="vertical"
-        android:layout_weight="10">
+        android:layout_weight="10"
+        android:orientation="vertical">
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:textSize="@dimen/welcome_title"
             android:text="@string/welcome_4_title"
-            android:textColor="@android:color/white"/>
+            android:textColor="@android:color/white"
+            android:textSize="@dimen/welcome_title" />
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/welcome_4_subtitle"
-            android:textSize="@dimen/welcome_subtitle"
-            android:textColor="@android:color/white"/>
+            android:textColor="@android:color/white"
+            android:textSize="@dimen/welcome_subtitle" />
     </LinearLayout>
 
     <LinearLayout
+        android:id="@+id/start_su"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_weight="5"
-        android:orientation="vertical"
         android:clickable="true"
-        android:id="@+id/start_su">
+        android:orientation="vertical">
 
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_gravity="center">
+            android:layout_gravity="center"
+            android:orientation="horizontal">
 
             <ImageView
                 android:layout_width="@dimen/welcome_icons"
                 android:layout_height="@dimen/welcome_icons"
                 android:layout_gravity="center"
-                android:src="@drawable/ic_magisk_logo"
-                android:layout_marginEnd="5dp"/>
+                android:layout_marginEnd="5dp"
+                android:src="@drawable/ic_magisk_logo" />
+
             <ImageView
                 android:layout_width="@dimen/welcome_icons"
                 android:layout_height="@dimen/welcome_icons"
-                android:src="@drawable/supersu"
-                android:layout_marginStart="5dp"/>
-    </LinearLayout>
+                android:layout_marginStart="5dp"
+                android:src="@drawable/supersu" />
+        </LinearLayout>
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -66,11 +70,10 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_weight="1"
         android:layout_gravity="center"
-        android:textColor="@android:color/white"
-        android:text="@string/welcome_swipe_4"/>
-
+        android:layout_weight="1"
+        android:text="@string/welcome_swipe_4"
+        android:textColor="@android:color/white" />
 
 
 </LinearLayout>

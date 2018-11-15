@@ -2,6 +2,7 @@ package com.earth.OsToolkit;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -10,6 +11,8 @@ import android.widget.TextView;
 import com.earth.OsToolkit.Working.BaseClass.Copy;
 
 import java.io.*;
+
+import static com.earth.OsToolkit.Working.BaseClass.BaseIndex.CHARGE_QC3;
 
 public class ScriptActivity extends AppCompatActivity {
     Intent intent;
@@ -21,7 +24,8 @@ public class ScriptActivity extends AppCompatActivity {
         setContentView(R.layout.activity_script);
 
         setToolBar();
-        script = intent.getStringExtra("script");
+        //script = intent.getStringExtra("script");
+        script = CHARGE_QC3;
         runScript(script);
     }
 
@@ -32,11 +36,14 @@ public class ScriptActivity extends AppCompatActivity {
         // Call Toolbar
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        getWindow().setStatusBarColor(ContextCompat.getColor(this,android.R.color.black));
 
         // 设置标题属性
         // Set Title property
         toolbar.setTitle(title);
-        toolbar.setTitleTextColor(getResources().getColor(android.R.color.black));
+        toolbar.setTitleTextColor(getResources().getColor(android.R.color.white));
         // 设置返回监听
         // Set Navigation button listener
         toolbar.setNavigationOnClickListener(v -> ActivityFinish());

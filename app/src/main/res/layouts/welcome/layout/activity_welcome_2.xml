@@ -42,21 +42,22 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:textSize="@dimen/welcome_title"
+            android:text="@string/welcome_2_title2"
             android:textColor="@android:color/white"
-            android:text="@string/welcome_2_title2"/>
+            android:textSize="@dimen/welcome_title" />
 
         <ImageView
             android:layout_width="@dimen/welcome_icons"
             android:layout_height="@dimen/welcome_icons"
             android:layout_gravity="center"
             android:src="@drawable/terminal" />
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="@android:color/white"
+            android:layout_gravity="center"
             android:text="@string/welcone_2_subtitle2"
-            android:layout_gravity="center"/>
+            android:textColor="@android:color/white" />
 
     </LinearLayout>
 

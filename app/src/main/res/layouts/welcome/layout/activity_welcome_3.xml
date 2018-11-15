@@ -1,46 +1,48 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:background="@color/navy_blue">
+    android:background="@color/navy_blue"
+    android:orientation="vertical">
 
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
+        android:layout_gravity="center"
         android:layout_weight="15"
-        android:layout_gravity="center">
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/welcome_3_title"
-        android:layout_gravity="center"
-        android:textColor="@android:color/white"
-        android:textSize="@dimen/welcome_title"/>
+        android:orientation="vertical">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:textSize="@dimen/welcome_subtitle"
-        android:textColor="@android:color/white"
-        android:text="@string/welcome_3_subtitle"/>
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="@dimen/welcome_subtitle"
+            android:layout_gravity="center"
+            android:text="@string/welcome_3_title"
             android:textColor="@android:color/white"
-            android:text="@string/welcome_3_spcialthank"/>
+            android:textSize="@dimen/welcome_title" />
 
-</LinearLayout>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="@string/welcome_3_subtitle"
+            android:textColor="@android:color/white"
+            android:textSize="@dimen/welcome_subtitle" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/welcome_3_spcialthank"
+            android:textColor="@android:color/white"
+            android:textSize="@dimen/welcome_subtitle" />
+
+    </LinearLayout>
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textColor="@android:color/white"
-        android:text="@string/welcome_swipe_3"
+        android:layout_gravity="center"
         android:layout_weight="1"
-        android:layout_gravity="center"/>
+        android:text="@string/welcome_swipe_3"
+        android:textColor="@android:color/white" />
 
 </LinearLayout>

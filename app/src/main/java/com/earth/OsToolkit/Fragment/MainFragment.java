@@ -85,26 +85,26 @@ public class MainFragment extends Fragment {
             imageView.setImageDrawable(view.getResources().getDrawable(R.drawable.ic_mediatek));
         }
 
-        imageView = view.findViewById(R.id.android_ver);
+        ImageView imageView1 = view.findViewById(R.id.android_ver);
         switch (getAndroidVersionName()) {
             case "Lolipop" :
-                imageView.setImageDrawable(getResources().
+                imageView1.setImageDrawable(getResources().
                         getDrawable(R.drawable.ic_android_lollipop,null));
                 break;
             case "Marshmallow" :
-                imageView.setImageDrawable(getResources().
+                imageView1.setImageDrawable(getResources().
                         getDrawable(R.drawable.ic_android_marshmallow,null));
                 break;
             case "Nougat" :
-                imageView.setImageDrawable(getResources().
+                imageView1.setImageDrawable(getResources().
                         getDrawable(R.drawable.ic_android_nougat,null));
                 break;
             case "Oreo" :
-                imageView.setImageDrawable(getResources().
+                imageView1.setImageDrawable(getResources().
                         getDrawable(R.drawable.ic_android_oreo,null));
                 break;
             case "Pie" :
-                imageView.setImageDrawable(getResources().
+                imageView1.setImageDrawable(getResources().
                         getDrawable(R.drawable.ic_android_pie,null));
                 break;
         }

@@ -22,18 +22,20 @@
         android:layout_marginBottom="4dp"
         android:layout_marginTop="4dp">
         <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
             android:orientation="horizontal">
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/cpu_manu" />
+                android:id="@+id/cpu_manu"
+                android:layout_weight="1"/>
 
             <ImageView
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/android_ver"/>
+                android:layout_height="100dp"
+                android:id="@+id/android_ver"
+                android:layout_weight="1"/>
         </LinearLayout>
 
 
