@@ -11,11 +11,9 @@ import android.widget.TextView;
 import com.earth.OsToolkit.Working.BaseClass.Copy;
 
 import java.io.*;
-
-import static com.earth.OsToolkit.Working.BaseClass.BaseIndex.CHARGE_QC3;
+import java.util.Objects;
 
 public class ScriptActivity extends AppCompatActivity {
-    Intent intent;
     String script;
 
     @Override
@@ -23,9 +21,9 @@ public class ScriptActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_script);
 
+
         setToolBar();
-        //script = intent.getStringExtra("script");
-        script = CHARGE_QC3;
+        script = getIntent().getStringExtra("script");
         runScript(script);
     }
 
@@ -36,7 +34,8 @@ public class ScriptActivity extends AppCompatActivity {
         // Call Toolbar
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        if (getSupportActionBar() != null)
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         getWindow().setStatusBarColor(ContextCompat.getColor(this,android.R.color.black));
 
@@ -47,14 +46,6 @@ public class ScriptActivity extends AppCompatActivity {
         // 设置返回监听
         // Set Navigation button listener
         toolbar.setNavigationOnClickListener(v -> ActivityFinish());
-    }
-
-    public void ActivityFinish() {
-        Intent intent = new Intent()
-                .putExtra("result", true);
-        this.setResult(RESULT_OK, intent);
-        ScriptActivity.this.finish();
-        Log.e("ScriptActivity", "return true");
     }
 
     public void runScript(String fileName) {
@@ -88,13 +79,31 @@ public class ScriptActivity extends AppCompatActivity {
         if (working == 11 || working == 1) {
             try {
                 Process process = Runtime.getRuntime()
-                        .exec(new String[]{"su -c ",
-                                "source",
+                        .exec(new String[]{"source",
                                 path});
+
+                bufferedReader = new BufferedReader(new InputStreamReader(process.getInputStream()));
+
+                String newLine;
+
+                while ((newLine = bufferedReader.readLine()) != null ) {
+                    textView.append(newLine + "\n");
+                }
+
+                textView.append("Removing script file");
+                process = Runtime.getRuntime().exec("rm -rf" + path);
+                if (new File(path).exists()) {
+                    textView.append("Error when removing. Try remove it by cleaning cache in device setting.\n");
+                } else {
+                    textView.append("Remove success.\n");
+                }
+
+
+                /*
                 if (process.waitFor() == 0) {
                     dos = new DataOutputStream(process.getOutputStream());
                     bufferedReader = new BufferedReader(new InputStreamReader(process.getInputStream()));
-                    dos.writeBytes("su -c source "
+                    dos.writeBytes("source "
                             + path
                             + "\n");
                     dos.flush();
@@ -113,10 +122,20 @@ public class ScriptActivity extends AppCompatActivity {
                             textView.append("File remove failed! Try remove by cleaning cache in system setting.");
                         }
                     }
-                }
+                }*/
             } catch (Exception e) {
                 e.printStackTrace();
             } finally {
+                if (bufferedReader != null) {
+                    try {
+                        bufferedReader.close();
+                    } catch (Exception e){
+                        e.printStackTrace();
+                    }
+                }
+
+
+                /*
                 if (dos != null) {
                     try {
                         dos.close();
@@ -130,8 +149,9 @@ public class ScriptActivity extends AppCompatActivity {
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
-                }
+                }*/
             }
+
         }
 
         /*final StringBuilder result = new StringBuilder();
@@ -175,12 +195,20 @@ public class ScriptActivity extends AppCompatActivity {
         } */
     }
 
+    public void ActivityFinish() {
+        ScriptActivity.this.setResult(
+                RESULT_CANCELED,
+                new Intent().putExtra("result", true));
+
+        ScriptActivity.this.finish();
+        Log.e("ScriptActivity", "return true");
+    }
+
+
     @Override
     public void onBackPressed() {
-        Intent intent = new Intent()
-                .putExtra("result", true);
-        this.setResult(RESULT_OK, intent);
-        Log.e("ScriptActivity", "return true");
+        ScriptActivity.this.setResult(RESULT_CANCELED, new Intent().putExtra("result", true));
         super.onBackPressed();
+        Log.e("Script","backPress");
     }
 }

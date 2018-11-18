@@ -30,9 +30,7 @@
             android:theme="@style/AppTheme.NoActionBar"/>
 
         <activity android:name=".ScriptActivity"
-            android:theme="@style/AppTheme.NoActionBar"
-            android:parentActivityName=".MainActivity"
-            />
+            android:theme="@style/AppTheme.NoActionBar" />
     </application>
 
 </manifest>

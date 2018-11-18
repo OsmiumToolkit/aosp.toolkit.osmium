@@ -4,6 +4,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.*;
 import android.util.Log;
 import android.view.*;
@@ -14,6 +16,8 @@ import com.earth.OsToolkit.ScriptActivity;
 
 import java.io.*;
 
+import static android.app.Activity.RESULT_CANCELED;
+import static android.app.Activity.RESULT_OK;
 import static com.earth.OsToolkit.Working.BaseClass.Checking.checkSupportQC3;
 
 import static com.earth.OsToolkit.Working.BaseClass.BaseIndex.CHARGE_QC3;
@@ -69,14 +73,21 @@ public class ChargingFragment extends Fragment implements View.OnClickListener {
         qc3_sw.setOnCheckedChangeListener((buttonView, isChecked) -> {
             Intent intent = new Intent(getActivity(),ScriptActivity.class)
                     .putExtra("script",CHARGE_QC3);
-            startActivityForResult(intent,1);
+            startActivityForResult(intent,0);
+            //startActivity(intent);
         });
 
     }
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent intent) {
-        result = intent.getBooleanExtra("result",false);
+        if (requestCode == 0 && resultCode == RESULT_CANCELED) {
+            result = intent.getBooleanExtra("result", true);
+        }
+
+        FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
+        fragmentTransaction.replace(R.id.main_fragment,new ChargingFragment()).commit();
+
         Log.e("ChargingFragment","return");
     }
 

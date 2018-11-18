@@ -36,10 +36,25 @@ public class Copy {
 
     public static int setScriptPermission(Context context, String fileName) {
         String path = context.getCacheDir().getAbsolutePath() + File.separator + fileName;
+        File file = new File(path);
+
+        if (file.exists()) {
+            file.setReadable(true);
+            file.setWritable(true);
+            file.setExecutable(true);
+            if (file.canExecute())
+                return 1;
+            else
+                return 0;
+        } else {
+            return -1;
+        }
+
+        /*
         Process process;
         try {
             if (new File(path).exists()) {
-                 process = Runtime.getRuntime().exec(new String[]{"chmod 777 ", path});
+                 process = Runtime.getRuntime().exec(new String[]{"su -c ","chmod 777 " + path});
                  if (process.waitFor() == 0) {
                      return 1;
                  } else {
@@ -52,5 +67,7 @@ public class Copy {
             e.printStackTrace();
             return 0;
         }
+        */
     }
+
 }

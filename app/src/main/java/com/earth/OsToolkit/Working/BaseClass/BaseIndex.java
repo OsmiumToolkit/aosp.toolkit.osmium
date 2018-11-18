@@ -1,6 +1,5 @@
 package com.earth.OsToolkit.Working.BaseClass;
 
-@SuppressWarnings("all")
 public class BaseIndex {
     public static String XIAOMI_FPC1020_WAKEUP = "xiaomi_fpc_10200_wakeup.sh";
     public static String SELINUX = "selinux.sh";
