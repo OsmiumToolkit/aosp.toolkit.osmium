@@ -1,5 +1,3 @@
-#!/usr/bin/env bash
-
 # 检查QC3文件是否存在
 # Check QC3 file present
 if [[ -e /sys/class/power_supply/battery/allow_hvdcp3 ]]
@@ -27,6 +25,7 @@ then
         echo -e "Process Failed! \n"
     fi
 
-    else
-        echo -e "'/sys/class/power_supply/battery/allow_hvdcp3' not found. \n"
+else
+    echo -e "'/sys/class/power_supply/battery/allow_hvdcp3' not found. \n"
 fi
+

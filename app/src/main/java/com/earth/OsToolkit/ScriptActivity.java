@@ -11,7 +11,6 @@ import android.widget.TextView;
 import com.earth.OsToolkit.Working.BaseClass.Copy;
 
 import java.io.*;
-import java.util.Objects;
 
 public class ScriptActivity extends AppCompatActivity {
     String script;
@@ -37,7 +36,7 @@ public class ScriptActivity extends AppCompatActivity {
         if (getSupportActionBar() != null)
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        getWindow().setStatusBarColor(ContextCompat.getColor(this,android.R.color.black));
+        getWindow().setStatusBarColor(ContextCompat.getColor(this, android.R.color.black));
 
         // 设置标题属性
         // Set Title property
@@ -49,150 +48,88 @@ public class ScriptActivity extends AppCompatActivity {
     }
 
     public void runScript(String fileName) {
-        final TextView textView = findViewById(R.id.script_txt);
-        final String path = getCacheDir().getAbsolutePath() + File.separator + fileName;
-        int working;
+        TextView textView = findViewById(R.id.script_txt);
+        final String path = getCacheDir() + File.separator + fileName;
 
-        DataOutputStream dos = null;
-        BufferedReader bufferedReader = null;
+        textView.append(path + "\n");
 
-        if (!new File(path).exists()) {
-            textView.append("Copy script from assets to cache\n");
-            working = Copy.copyAssets2Cache(this, fileName) * 10;
-            if (working == 10) {
-                textView.append("Set permission\n");
-                working += (Copy.setScriptPermission(this, fileName));
-                if (working == 9 || working == 10) {
-                    textView.append("Error when setting permission");
+        //DataOutputStream dos = null;
+        BufferedReader bufferedReaderIn = null;
+        BufferedReader bufferedReaderError = null;
+
+        Process process = null;
+
+        if (new File(path).exists()) {
+            textView.append("File Already exists \n");
+            Copy.setScriptPermission(this, fileName);
+        } else {
+            if (Copy.copyAssets2Cache(this, script) == 1) {
+                textView.append("Copy Success");
+                if (Copy.setScriptPermission(this, fileName)) {
+                    textView.append("Setting Success\n");
+                } else {
+                    textView.append("Setting Failed\n");
                 }
             } else {
-                textView.append("Error when copying script to cache");
-            }
-        } else {
-            textView.append("Script already exist. Now set permission\n");
-            working = (Copy.setScriptPermission(this, fileName));
-            if (working == 0 || working == -1) {
-                textView.append("Error when setting permission");
+                textView.append("Copy Failed\n");
             }
         }
-
-        if (working == 11 || working == 1) {
-            try {
-                Process process = Runtime.getRuntime()
-                        .exec(new String[]{"source",
-                                path});
-
-                bufferedReader = new BufferedReader(new InputStreamReader(process.getInputStream()));
-
-                String newLine;
-
-                while ((newLine = bufferedReader.readLine()) != null ) {
-                    textView.append(newLine + "\n");
-                }
-
-                textView.append("Removing script file");
-                process = Runtime.getRuntime().exec("rm -rf" + path);
-                if (new File(path).exists()) {
-                    textView.append("Error when removing. Try remove it by cleaning cache in device setting.\n");
-                } else {
-                    textView.append("Remove success.\n");
-                }
-
-
-                /*
-                if (process.waitFor() == 0) {
-                    dos = new DataOutputStream(process.getOutputStream());
-                    bufferedReader = new BufferedReader(new InputStreamReader(process.getInputStream()));
-                    dos.writeBytes("source "
-                            + path
-                            + "\n");
-                    dos.flush();
-                    dos.writeBytes("exit\n");
-                    dos.flush();
-                    String line;
-                    if ((line = bufferedReader.readLine()) != null) {
-                        textView.append(line + "\n");
-                    }
-                    if (process.waitFor() == 0) {
-                        textView.append(String.format("Remove script file located at '%s'\n", path));
-                        process = Runtime.getRuntime().exec(new String[]{"su -c rm -rf ", path});
-                        if (process.waitFor() == 0 && !new File(path).exists()) {
-                            textView.append("File Removed!");
-                        } else {
-                            textView.append("File remove failed! Try remove by cleaning cache in system setting.");
-                        }
-                    }
-                }*/
-            } catch (Exception e) {
-                e.printStackTrace();
-            } finally {
-                if (bufferedReader != null) {
-                    try {
-                        bufferedReader.close();
-                    } catch (Exception e){
-                        e.printStackTrace();
-                    }
-                }
-
-
-                /*
-                if (dos != null) {
-                    try {
-                        dos.close();
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
-                }
-                if (bufferedReader != null) {
-                    try {
-                        bufferedReader.close();
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
-                }*/
-            }
-
-        }
-
-        /*final StringBuilder result = new StringBuilder();
 
         try {
-            Process process = Runtime.getRuntime().exec(new String[]{"su -c ","source",fileName});
-            if (process.waitFor() == 0) {
-                dos = new DataOutputStream(process.getOutputStream());
-                bufferedReader = new BufferedReader(new InputStreamReader(process.getInputStream()));
+            textView.append("Run Script\n");
+            process = Runtime.getRuntime()
+                    .exec(new String[]{"source",
+                            path});
+            process.waitFor();
 
+            bufferedReaderIn = new BufferedReader(new InputStreamReader(process.getInputStream(), "UTF-8"));
+            bufferedReaderError = new BufferedReader(new InputStreamReader(process.getErrorStream(), "UTF-8"));
 
-                dos.writeBytes("su -c source " + fileName + "\n");
-                dos.flush();
-                dos.writeBytes("exit\n");
-                dos.flush();
-                String line;
+            String newLine;
 
-                while ((line = bufferedReader.readLine()) != null) {
-                    result.append(line);
-                }
-
-                process.waitFor();
+            while ((newLine = bufferedReaderIn.readLine()) != null) {
+                textView.append(newLine + "\n");
+            }
+            while ((newLine = bufferedReaderError.readLine()) != null) {
+                textView.append(newLine + "\n");
             }
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
-            if (dos != null) {
-                try {
-                    dos.close();
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
+            closeStream(bufferedReaderIn);
+            closeStream(bufferedReaderError);
+
+            if (process != null) {
+                process.destroy();
             }
-            if (bufferedReader != null) {
-                try {
-                    bufferedReader.close();
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
+        }
+
+        try {
+            textView.append("Removing script file");
+            process = Runtime.getRuntime().exec(new String[]{"su -c ,","rm -rf ",path});
+            process.waitFor();
+            textView.append(process.waitFor()+"");
+            if (new File(path).exists()) {
+                textView.append("Error when removing. Try remove it by cleaning cache in device setting.\n");
+            } else {
+                textView.append("Remove success.\n");
             }
-        } */
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+
+    }
+
+
+    public void closeStream(Closeable stream) {
+        if (stream != null) {
+            try {
+                stream.close();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
     }
 
     public void ActivityFinish() {
@@ -209,6 +146,6 @@ public class ScriptActivity extends AppCompatActivity {
     public void onBackPressed() {
         ScriptActivity.this.setResult(RESULT_CANCELED, new Intent().putExtra("result", true));
         super.onBackPressed();
-        Log.e("Script","backPress");
+        Log.e("Script", "backPress");
     }
 }
