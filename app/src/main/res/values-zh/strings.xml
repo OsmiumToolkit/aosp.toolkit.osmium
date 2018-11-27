@@ -10,6 +10,9 @@
     <string name="action_rec">重启Recovery</string>
     <string name="action_soft">软重启</string>
 
+    <string name="update_found">更新已发布!</string>
+    <string name="update_msg">版本：%s\n日期：%s\n更新日志：\n%s</string>
+
     <string name="item_card_device">设备</string>
     <string name="item_card_device_android">Android %s(%s, API %d)</string>
 

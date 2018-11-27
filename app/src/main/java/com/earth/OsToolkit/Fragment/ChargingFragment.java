@@ -74,7 +74,6 @@ public class ChargingFragment extends Fragment implements View.OnClickListener {
             Intent intent = new Intent(getActivity(),ScriptActivity.class)
                     .putExtra("script",CHARGE_QC3);
             startActivityForResult(intent,0);
-            //startActivity(intent);
         });
 
     }

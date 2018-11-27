@@ -17,6 +17,10 @@ import android.widget.Toast;
 import com.earth.OsToolkit.Fragment.ChargingFragment;
 import com.earth.OsToolkit.Fragment.MainFragment;
 
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.net.URL;
+
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
@@ -29,6 +33,7 @@ public class MainActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         initUI();
+        checkUpdate();
     }
 
     public void initUI(){
@@ -45,6 +50,40 @@ public class MainActivity extends AppCompatActivity
 
         NavigationView navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+    }
+
+    public void checkUpdate() {
+        String version = null;
+        int count = 0;
+        do {
+            count++;
+            try {
+                URL url = new URL("https://raw.githubusercontent.com/1552980358/1552980358.github.io/master/OsToolkit");
+                BufferedReader bufferedReader = new BufferedReader(
+                        new InputStreamReader(url.openStream(), "UTF-8"));
+                version = bufferedReader.readLine();
+                if (version != null
+                        && !version.equals(getPackageManager()
+                        .getPackageInfo(getPackageName(), 0).versionName)) {
+                    String date = bufferedReader.readLine();
+
+                    String line = bufferedReader.readLine();
+                    StringBuffer changelog = new StringBuffer(line);
+
+                    while ((line = bufferedReader.readLine()) != null) {
+                        changelog.append(line);
+                        changelog.append("\n");
+                    }
+
+                    AlertDialog.Builder builder = new AlertDialog.Builder(this);
+                    builder.setTitle(R.string.update_found).setMessage(
+                            String.format(getString(R.string.update_msg), version, date, changelog));
+                }
+                bufferedReader.close();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        } while (version == null || count <= 3);
     }
 
     @Override
@@ -89,7 +128,7 @@ public class MainActivity extends AppCompatActivity
                 try {
                     Toast.makeText(this, getString(R.string.reboot_getRoot),
                             Toast.LENGTH_SHORT).show();
-                    process = Runtime.getRuntime().exec(new String[]{"su -c","reboot recovery"});
+                    process = Runtime.getRuntime().exec(new String[]{"su -c ","reboot recovery"});
                     Log.e("Reboot","reboot rec");
                 } catch (Exception e) {
                     Log.e("Reboot","reboot rec");
@@ -100,7 +139,7 @@ public class MainActivity extends AppCompatActivity
                 try {
                     Toast.makeText(this, getString(R.string.reboot_getRoot),
                             Toast.LENGTH_SHORT).show();
-                    process = Runtime.getRuntime().exec(new String[]{"su -c","killall zygote"});
+                    process = Runtime.getRuntime().exec(new String[]{"su -c ","killall zygote"});
                     Log.e("Reboot","killall zygote");
                 } catch (Exception e) {
                     Log.e("Reboot","killall zygote");

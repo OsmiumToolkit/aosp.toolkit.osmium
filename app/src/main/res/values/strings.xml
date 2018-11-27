@@ -11,6 +11,9 @@
     <string name="re_soft_click">Soft Reboot</string>
     <string name="action_soft">Soft Reboot</string>
 
+    <string name="update_found">New Update is released!</string>
+    <string name="update_msg">Version: %s\nDate: %s\nChangelog: \n%s</string>
+
     <string name="item_card_device">Device</string>
     <string name="item_card_device_android">Android %s(%s, API %d)</string>
 
