@@ -16,6 +16,12 @@ import android.widget.Toast;
 
 import com.earth.OsToolkit.Fragment.ChargingFragment;
 import com.earth.OsToolkit.Fragment.MainFragment;
+import com.earth.OsToolkit.Fragment.UpdateDialogFragment;
+
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
+import org.jsoup.select.Elements;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
@@ -65,25 +71,42 @@ public class MainActivity extends AppCompatActivity
                 if (version != null
                         && !version.equals(getPackageManager()
                         .getPackageInfo(getPackageName(), 0).versionName)) {
-                    String date = bufferedReader.readLine();
 
-                    String line = bufferedReader.readLine();
-                    StringBuffer changelog = new StringBuffer(line);
+                    UpdateDialogFragment updateDialogFragment = new UpdateDialogFragment();
+                    FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                    updateDialogFragment.show(fragmentTransaction,"updateDialogFragment");
 
-                    while ((line = bufferedReader.readLine()) != null) {
-                        changelog.append(line);
-                        changelog.append("\n");
-                    }
-
-                    AlertDialog.Builder builder = new AlertDialog.Builder(this);
-                    builder.setTitle(R.string.update_found).setMessage(
-                            String.format(getString(R.string.update_msg), version, date, changelog));
                 }
                 bufferedReader.close();
             } catch (Exception e) {
                 e.printStackTrace();
             }
-        } while (version == null || count <= 3);
+        } while (version == null && count <= 3);
+
+        if (version == null) {
+            new Thread(() -> {
+                try {
+                    Document document = Jsoup.connect("https://www.coolapk.com/apk/com.earth.OsToolkit")
+                            .timeout(5000)
+                            .get();
+
+                    Elements elements = document.select("list_app_info");
+
+                    for (Element element : elements) {
+                        if (!element.select("span").text().equals(
+                                getPackageManager().getPackageInfo(
+                                        getPackageName(),0).versionCode + "")) {
+                            Toast.makeText(this, getString(R.string.update_found_coolapk),
+                                    Toast.LENGTH_SHORT).show();
+                        }
+                    }
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            });
+        }
+
     }
 
     @Override

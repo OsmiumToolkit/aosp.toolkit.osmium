@@ -13,6 +13,8 @@
     <string name="update_found">更新已发布!</string>
     <string name="update_msg">版本：%s\n日期：%s\n更新日志：\n%s</string>
 
+    <string name="update_found_coolapk">更新已发布!请使用酷安升级!</string>
+
     <string name="item_card_device">设备</string>
     <string name="item_card_device_android">Android %s(%s, API %d)</string>
 

@@ -53,7 +53,6 @@ public class ScriptActivity extends AppCompatActivity {
 
         textView.append(path + "\n");
 
-        //DataOutputStream dos = null;
         BufferedReader bufferedReaderIn = null;
         BufferedReader bufferedReaderError = null;
 

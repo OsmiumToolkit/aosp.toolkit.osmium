@@ -14,6 +14,8 @@
     <string name="update_found">New Update is released!</string>
     <string name="update_msg">Version: %s\nDate: %s\nChangelog: \n%s</string>
 
+    <string name="update_found_coolapk">New Update is released!Please update through Coolapk.</string>
+
     <string name="item_card_device">Device</string>
     <string name="item_card_device_android">Android %s(%s, API %d)</string>
 
