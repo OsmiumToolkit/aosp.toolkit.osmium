@@ -12,9 +12,15 @@
     <string name="action_soft">Soft Reboot</string>
 
     <string name="update_found">New Update is released!</string>
-    <string name="update_msg">Version: %s\nDate: %s\nChangelog: \n%s</string>
+    <string name="update_version">Version: </string>
+    <string name="update_date">Date: </string>
+    <string name="update_changelog">Changelog:</string>
+    <string name="update_coolapk">Coolapk</string>
+    <string name="update_github">GitHub</string>
+    <string name="update_cancle">Cancle</string>
 
-    <string name="update_found_coolapk">New Update is released!Please update through Coolapk.</string>
+    <string name="load_fail">Fail!</string>
+    <string name="reflash">Reloading……</string>
 
     <string name="item_card_device">Device</string>
     <string name="item_card_device_android">Android %s(%s, API %d)</string>

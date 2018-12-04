@@ -8,9 +8,9 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.widget.TextView;
 
-import com.earth.OsToolkit.Working.BaseClass.Copy;
-
 import java.io.*;
+
+import com.earth.OsToolkit.Working.BaseClass.Copy;
 
 public class ScriptActivity extends AppCompatActivity {
     String script;
@@ -20,10 +20,9 @@ public class ScriptActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_script);
 
-
         setToolBar();
         script = getIntent().getStringExtra("script");
-        runScript(script);
+        ScriptWorking(script);
     }
 
     public void setToolBar() {
@@ -47,89 +46,62 @@ public class ScriptActivity extends AppCompatActivity {
         toolbar.setNavigationOnClickListener(v -> ActivityFinish());
     }
 
-    public void runScript(String fileName) {
-        TextView textView = findViewById(R.id.script_txt);
-        final String path = getCacheDir() + File.separator + fileName;
+    TextView textView;
 
-        textView.append(path + "\n");
+    public void ScriptWorking(String fileName) {
+        textView = findViewById(R.id.script_txt);
+        String path = getCacheDir().getAbsolutePath() + File.separator + fileName;
 
-        BufferedReader bufferedReaderIn = null;
-        BufferedReader bufferedReaderError = null;
-
-        Process process = null;
-
-        if (new File(path).exists()) {
-            textView.append("File Already exists \n");
-            Copy.setScriptPermission(this, fileName);
+        textView.append("Copying file.");
+        if (Copy.copyAssets2Cache(ScriptActivity.this, fileName)) {
+            textView.append("File exists.\nTarget: " + "\"" + path + "\"\n");
+            textView.append("Set permission.\n");
+            if (Copy.setScriptPermission(ScriptActivity.this, fileName)) {
+                textView.append("Permission setting succeed.\nNow try running script.\n");
+                runScript(path);
+            }
         } else {
-            if (Copy.copyAssets2Cache(this, script) == 1) {
-                textView.append("Copy Success");
-                if (Copy.setScriptPermission(this, fileName)) {
-                    textView.append("Setting Success\n");
-                } else {
-                    textView.append("Setting Failed\n");
-                }
-            } else {
-                textView.append("Copy Failed\n");
-            }
+            textView.append("Fail when copying file.");
         }
-
-        try {
-            textView.append("Run Script\n");
-            process = Runtime.getRuntime()
-                    .exec(new String[]{"source",
-                            path});
-            process.waitFor();
-
-            bufferedReaderIn = new BufferedReader(new InputStreamReader(process.getInputStream(), "UTF-8"));
-            bufferedReaderError = new BufferedReader(new InputStreamReader(process.getErrorStream(), "UTF-8"));
-
-            String newLine;
-
-            while ((newLine = bufferedReaderIn.readLine()) != null) {
-                textView.append(newLine + "\n");
-            }
-            while ((newLine = bufferedReaderError.readLine()) != null) {
-                textView.append(newLine + "\n");
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        } finally {
-            closeStream(bufferedReaderIn);
-            closeStream(bufferedReaderError);
-
-            if (process != null) {
-                process.destroy();
-            }
-        }
-
-        try {
-            textView.append("Removing script file");
-            process = Runtime.getRuntime().exec(new String[]{"su -c ,","rm -rf ",path});
-            process.waitFor();
-            textView.append(process.waitFor()+"");
-            if (new File(path).exists()) {
-                textView.append("Error when removing. Try remove it by cleaning cache in device setting.\n");
-            } else {
-                textView.append("Remove success.\n");
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-
     }
 
-
-    public void closeStream(Closeable stream) {
-        if (stream != null) {
+    public void runScript(String filePath) {
+        textView.append("Start a new thread to run script.\n");
+        new Thread(() -> {
+            textView.append("New Thread started succeed.\n");
             try {
-                stream.close();
+                textView.append("source " + filePath + "\n");
+                Process process = Runtime.getRuntime().exec(new String[]{"/system/bin/sh",filePath});
+                process.waitFor();
+                InputStream inputStream = process.getInputStream();
+                InputStream inputStreamError = process.getErrorStream();
+                InputStreamReader inputStreamReader = new InputStreamReader(inputStream,"UTF-8");
+                InputStreamReader inputStreamReaderError = new InputStreamReader(inputStreamError,"UTF-8");
+                BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
+                BufferedReader bufferedReaderError = new BufferedReader(inputStreamReaderError);
+
+                String line;
+                while ((line = bufferedReader.readLine()) != null) {
+                    textView.append(line + "\n");
+                }
+
+                while ((line = bufferedReaderError.readLine()) != null) {
+                    textView.append(line + "\n");
+                }
+
+                inputStream.close();
+                inputStreamError.close();
+                inputStreamReader.close();
+                inputStreamReaderError.close();
+                bufferedReader.close();
+                bufferedReaderError.close();
             } catch (Exception e) {
                 e.printStackTrace();
+                textView.append("Error when trying running script.");
             }
-        }
+        }).start();
     }
+
 
     public void ActivityFinish() {
         ScriptActivity.this.setResult(
@@ -143,7 +115,9 @@ public class ScriptActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        ScriptActivity.this.setResult(RESULT_CANCELED, new Intent().putExtra("result", true));
+        ScriptActivity.this.setResult(
+                RESULT_CANCELED,
+                new Intent().putExtra("result", true));
         super.onBackPressed();
         Log.e("Script", "backPress");
     }

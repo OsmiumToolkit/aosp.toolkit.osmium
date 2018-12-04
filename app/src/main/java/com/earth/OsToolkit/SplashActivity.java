@@ -1,8 +1,10 @@
 package com.earth.OsToolkit;
 
+import android.Manifest;
 import android.app.Activity;
 import android.content.*;
 import android.os.Bundle;
+import android.support.v4.app.ActivityCompat;
 
 import static com.earth.OsToolkit.Working.BaseClass.Checking.checkRoot;
 
@@ -15,6 +17,9 @@ public class SplashActivity extends Activity {
 
         SharedPreferences sp = getSharedPreferences("save",MODE_PRIVATE);
         int welcome = sp.getInt("welcome",0);
+
+
+        ActivityCompat.requestPermissions(this,new String[]{Manifest.permission.INTERNET,},1);
 
         Intent intent = new Intent();
         if (welcome == 0 || !checkRoot()){

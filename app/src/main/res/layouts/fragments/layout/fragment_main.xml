@@ -12,47 +12,55 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginLeft="8dip"
-        android:layout_marginRight="8dip"
         android:layout_marginTop="4dp"
-        android:orientation="vertical" >
+        android:layout_marginRight="8dip"
+        android:orientation="vertical">
 
-    <android.support.v7.widget.CardView
-        android:layout_width="match_parent"
-        android:layout_height="100dp"
-        android:layout_marginBottom="4dp"
-        android:layout_marginTop="4dp">
-        <LinearLayout
+        <android.support.v7.widget.CardView
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="horizontal">
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/cpu_manu"
-                android:layout_weight="1"/>
+            android:layout_height="100dp"
+            android:layout_marginTop="4dp"
+            android:layout_marginBottom="4dp">
 
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="100dp"
-                android:id="@+id/android_ver"
-                android:layout_weight="1"/>
-        </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:id="@+id/cpu_manu"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1" />
+
+                <ImageView
+                    android:id="@+id/android_ver"
+                    android:layout_width="wrap_content"
+                    android:layout_height="100dp"
+                    android:layout_weight="1" />
+            </LinearLayout>
 
 
-    </android.support.v7.widget.CardView>
+        </android.support.v7.widget.CardView>
 
-    <com.earth.OsToolkit.Items.CardItem
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:title="@string/item_card_device"
-        android:id="@+id/device"/>
+        <com.earth.OsToolkit.Items.CardItem
+            android:id="@+id/device"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:title="@string/item_card_device" />
 
-    <com.earth.OsToolkit.Items.CardItem
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:title="@string/reboot_option"
-        android:id="@+id/reboot"/>
+        <com.earth.OsToolkit.Items.CardItem
+            android:id="@+id/reboot"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:title="@string/reboot_option" />
+
+        <TextView
+            android:id="@+id/txt_main"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
 
     </LinearLayout>
+
 
 </LinearLayout>

@@ -1,67 +1,63 @@
 package com.earth.OsToolkit.Fragment;
 
+import android.app.*;
+import android.content.Context;
+import android.content.DialogInterface;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.speech.tts.TextToSpeech;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v4.app.DialogFragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.Window;
 import android.widget.TextView;
 
 import com.earth.OsToolkit.R;
+import com.earth.OsToolkit.Working.BaseClass.UpdateJump;
 
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
-import java.net.URL;
 
 public class UpdateDialogFragment extends DialogFragment {
-    TextView version;
-    TextView date;
-    TextView changelog;
 
-
+    @NonNull
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        getDialog().requestWindowFeature(Window.FEATURE_CUSTOM_TITLE);
-        return inflater.inflate(R.layout.dialogfragment_update, container);
+    public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+
+        builder.setTitle(R.string.update_found);
+
+        View view = LayoutInflater.from(getActivity()).inflate(R.layout.dialogfragment_update,null);
+
+        builder.setView(view);
+
+        SharedPreferences sharedPreferences = getActivity().getSharedPreferences("save", Context.MODE_PRIVATE);
+
+        TextView version = view.findViewById(R.id.df_update_version);
+        TextView date = view.findViewById(R.id.df_update_date);
+        TextView changelog = view.findViewById(R.id.df_update_changelog);
+
+        version.setText(sharedPreferences.getString("updateVersion","fail"));
+        date.setText(sharedPreferences.getString("updateDate","fail"));
+        changelog.setText(sharedPreferences.getString("updateChangelog","fail"));
+
+        builder.setPositiveButton(getText(R.string.update_github), (dialog, which) -> {
+            UpdateJump.jumpGithub(getActivity());
+        });
+
+
+        builder.setNegativeButton(getText(R.string.update_coolapk), (dialog, which) -> {
+
+        });
+
+        builder.setNeutralButton(getString(R.string.update_cancle), (dialog, which) -> {});
+
+        return builder.create() ;
     }
 
     @Override
-    public void onActivityCreated(Bundle bundle) {
-        super.onActivityCreated(bundle);
-        getDialog().getWindow().setFeatureInt(Window.FEATURE_CUSTOM_TITLE, R.string.update_found);
-    }
-
-    @Override
-    public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        version = view.findViewById(R.id.df_update_version);
-        date = view.findViewById(R.id.df_update_date);
-        changelog = view.findViewById(R.id.df_update_changelog);
-
-        setContent();
     }
-
-    public void setContent() {
-        String s_version;
-        try {
-            URL url = new URL("https://raw.githubusercontent.com/1552980358/1552980358.github.io/master/OsToolkit");
-            BufferedReader bufferedReader = new BufferedReader(
-                    new InputStreamReader(url.openStream(), "UTF-8"));
-
-            version.append(bufferedReader.readLine());
-            date.append(bufferedReader.readLine());
-
-            while ((s_version = bufferedReader.readLine()) != null) {
-                changelog.append(s_version + "\n");
-            }
-
-            bufferedReader.close();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
 }

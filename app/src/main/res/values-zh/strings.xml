@@ -11,9 +11,15 @@
     <string name="action_soft">软重启</string>
 
     <string name="update_found">更新已发布!</string>
-    <string name="update_msg">版本：%s\n日期：%s\n更新日志：\n%s</string>
+    <string name="update_version">版本: </string>
+    <string name="update_date">日期: </string>
+    <string name="update_changelog">更新内容:</string>
+    <string name="update_coolapk">酷安</string>
+    <string name="update_github">GitHub</string>
+    <string name="update_cancle">取消</string>
 
-    <string name="update_found_coolapk">更新已发布!请使用酷安升级!</string>
+    <string name="load_fail">跳转失败!</string>
+    <string name="reflash">刷新中……</string>
 
     <string name="item_card_device">设备</string>
     <string name="item_card_device_android">Android %s(%s, API %d)</string>

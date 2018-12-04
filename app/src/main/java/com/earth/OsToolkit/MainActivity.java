@@ -1,5 +1,9 @@
 package com.earth.OsToolkit;
 
+import android.Manifest;
+import android.app.AlertDialog;
+import android.content.SharedPreferences;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
@@ -17,15 +21,9 @@ import android.widget.Toast;
 import com.earth.OsToolkit.Fragment.ChargingFragment;
 import com.earth.OsToolkit.Fragment.MainFragment;
 import com.earth.OsToolkit.Fragment.UpdateDialogFragment;
+import com.earth.OsToolkit.Working.BaseClass.Checking;
 
-import org.jsoup.Jsoup;
-import org.jsoup.nodes.Document;
-import org.jsoup.nodes.Element;
-import org.jsoup.select.Elements;
-
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
-import java.net.URL;
+import java.util.logging.Logger;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -42,11 +40,11 @@ public class MainActivity extends AppCompatActivity
         checkUpdate();
     }
 
-    public void initUI(){
+    public void initUI() {
         toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.replace(R.id.main_fragment,new MainFragment()).commit();
+        fragmentTransaction.replace(R.id.main_fragment, new MainFragment()).commit();
 
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -59,55 +57,27 @@ public class MainActivity extends AppCompatActivity
     }
 
     public void checkUpdate() {
-        String version = null;
-        int count = 0;
-        do {
-            count++;
-            try {
-                URL url = new URL("https://raw.githubusercontent.com/1552980358/1552980358.github.io/master/OsToolkit");
-                BufferedReader bufferedReader = new BufferedReader(
-                        new InputStreamReader(url.openStream(), "UTF-8"));
-                version = bufferedReader.readLine();
-                if (version != null
-                        && !version.equals(getPackageManager()
-                        .getPackageInfo(getPackageName(), 0).versionName)) {
-
-                    UpdateDialogFragment updateDialogFragment = new UpdateDialogFragment();
-                    FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                    updateDialogFragment.show(fragmentTransaction,"updateDialogFragment");
-
-                }
-                bufferedReader.close();
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        } while (version == null && count <= 3);
-
-        if (version == null) {
-            new Thread(() -> {
-                try {
-                    Document document = Jsoup.connect("https://www.coolapk.com/apk/com.earth.OsToolkit")
-                            .timeout(5000)
-                            .get();
-
-                    Elements elements = document.select("list_app_info");
-
-                    for (Element element : elements) {
-                        if (!element.select("span").text().equals(
-                                getPackageManager().getPackageInfo(
-                                        getPackageName(),0).versionCode + "")) {
-                            Toast.makeText(this, getString(R.string.update_found_coolapk),
-                                    Toast.LENGTH_SHORT).show();
-                        }
-                    }
-
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            });
+        Checking.checkVersion(this);
+        String PackageVersionCode = null;
+        try {
+            PackageVersionCode = getPackageManager().getPackageInfo(getPackageName(),0).versionName;
+        }catch (Exception e) {
+            e.printStackTrace();
         }
 
+        Log.i("PackageVersionCode",PackageVersionCode);
+
+        SharedPreferences sharedPreferences = getSharedPreferences("save",MODE_PRIVATE);
+        if (!sharedPreferences.getString("updateVersion","fail")
+                .equals(PackageVersionCode)) {
+            UpdateDialogFragment updateDialogFragment = new UpdateDialogFragment();
+            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+            updateDialogFragment.show(fragmentTransaction, "updateDialogFragment");
+        }
     }
+
+
+
 
     @Override
     public void onBackPressed() {
@@ -136,36 +106,36 @@ public class MainActivity extends AppCompatActivity
         //noinspection SimplifiableIfStatement
         Process process;
         switch (id) {
-            case R.id.action_reboot :
+            case R.id.action_reboot:
                 try {
                     Toast.makeText(this, getString(R.string.reboot_getRoot),
                             Toast.LENGTH_SHORT).show();
                     process = Runtime.getRuntime().exec("su -c reboot");
-                    Log.e("Reboot","reboot");
+                    Log.e("Reboot", "reboot");
                 } catch (Exception e) {
-                    Log.e("Reboot","reboot");
+                    Log.e("Reboot", "reboot");
                     Toast.makeText(this, getString(R.string.reboot_fail), Toast.LENGTH_SHORT).show();
                 }
                 return true;
-            case R.id.action_recovery :
+            case R.id.action_recovery:
                 try {
                     Toast.makeText(this, getString(R.string.reboot_getRoot),
                             Toast.LENGTH_SHORT).show();
-                    process = Runtime.getRuntime().exec(new String[]{"su -c ","reboot recovery"});
-                    Log.e("Reboot","reboot rec");
+                    process = Runtime.getRuntime().exec(new String[]{"su -c ", "reboot recovery"});
+                    Log.e("Reboot", "reboot rec");
                 } catch (Exception e) {
-                    Log.e("Reboot","reboot rec");
+                    Log.e("Reboot", "reboot rec");
                     Toast.makeText(this, getString(R.string.reboot_fail), Toast.LENGTH_SHORT).show();
                 }
                 return true;
-            case R.id.action_soft :
+            case R.id.action_soft:
                 try {
                     Toast.makeText(this, getString(R.string.reboot_getRoot),
                             Toast.LENGTH_SHORT).show();
-                    process = Runtime.getRuntime().exec(new String[]{"su -c ","killall zygote"});
-                    Log.e("Reboot","killall zygote");
+                    process = Runtime.getRuntime().exec(new String[]{"su -c ", "killall zygote"});
+                    Log.e("Reboot", "killall zygote");
                 } catch (Exception e) {
-                    Log.e("Reboot","killall zygote");
+                    Log.e("Reboot", "killall zygote");
                     Toast.makeText(this, getString(R.string.reboot_fail), Toast.LENGTH_SHORT).show();
                 }
                 return true;
@@ -180,21 +150,21 @@ public class MainActivity extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
         FragmentTransaction ft = fragmentManager.beginTransaction();
-        ft.setCustomAnimations(R.animator.fade_in,R.animator.fade_out);
+        ft.setCustomAnimations(R.animator.fade_in, R.animator.fade_out);
         Fragment fragment = new MainFragment();
         int title = R.string.app_name;
         switch (id) {
-            case R.id.nav_main :
+            case R.id.nav_main:
                 fragment = new MainFragment();
                 break;
-            case R.id.nav_charging :
+            case R.id.nav_charging:
                 title = R.string.nav_charging;
                 fragment = new ChargingFragment();
                 break;
         }
 
         toolbar.setTitle(title);
-        ft.replace(R.id.main_fragment,fragment).commit();
+        ft.replace(R.id.main_fragment, fragment).commit();
 
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);

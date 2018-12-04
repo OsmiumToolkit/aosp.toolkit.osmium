@@ -8,8 +8,9 @@ import java.io.InputStream;
 
 @SuppressWarnings("all")
 public class Copy {
-    public static int copyAssets2Cache(Context context, String fileName){
+    public static boolean copyAssets2Cache(Context context, String fileName) {
         File file = new File(context.getCacheDir()
+                .getAbsolutePath()
                 + File.separator
                 + fileName);
         try {
@@ -19,7 +20,7 @@ public class Copy {
                 int len = -1;
                 byte[] buffer = new byte[1024];
                 while ((len = inputStream.read(buffer)) != -1)
-                    fos.write(buffer,0,len);
+                    fos.write(buffer, 0, len);
                 fos.flush();
                 inputStream.close();
                 fos.close();
@@ -28,18 +29,22 @@ public class Copy {
             e.printStackTrace();
         }
         if (file.exists()) {
-            return 1;
+            return true;
         } else {
-            return 0;
+            return false;
         }
     }
 
     public static boolean setScriptPermission(Context context, String fileName) {
-        String path = context.getCacheDir()+ File.separator + fileName;
+        String path = context.getCacheDir().getAbsolutePath() + File.separator + fileName;
         File file = new File(path);
-            file.setReadable(true);
-            file.setWritable(true);
-            file.setExecutable(true);
+        file.setReadable(true);
+        file.setWritable(true);
+        file.setExecutable(true);
+        if (file.canExecute()) {
             return true;
+        } else {
+            return false;
+        }
     }
 }

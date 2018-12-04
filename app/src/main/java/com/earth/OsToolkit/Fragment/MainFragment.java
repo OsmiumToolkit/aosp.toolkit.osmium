@@ -6,38 +6,43 @@ import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.view.*;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.earth.OsToolkit.Items.CardItem;
 import com.earth.OsToolkit.*;
 
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.net.URL;
 
 @SuppressWarnings("all")
 public class MainFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container,
-                             Bundle savedInstanceState){
-        return inflater.inflate(R.layout.fragment_main,container,false);
+                             Bundle savedInstanceState) {
+        return inflater.inflate(R.layout.fragment_main, container, false);
     }
 
     @Override
-    public void onViewCreated(@NonNull View view, Bundle savedInstance){
-        super.onViewCreated(view,savedInstance);
+    public void onViewCreated(@NonNull View view, Bundle savedInstance) {
+        super.onViewCreated(view, savedInstance);
         setDeviceInfo(view);
         setTitleImage(view);
         setRebootMenu();
     }
 
-    public void setDeviceInfo(View view){
+    public void setDeviceInfo(View view) {
         // 实例化CardItem
         // Initialize CardItem
         CardItem device = view.findViewById(R.id.device);
         // 获取设备信息
         // Get Device info
         CardItem.Item menufactor = new CardItem.Item(getActivity(),
-                R.drawable.ic_item_card_device_phone,getDevice());
+                R.drawable.ic_item_card_device_phone, getDevice());
         // 获取安卓版本
         // Get Android Version
         CardItem.Item android = new CardItem.Item(getActivity(),
@@ -47,11 +52,11 @@ public class MainFragment extends Fragment {
                         getAndroidVersionName(),
                         Build.VERSION.SDK_INT));
 
-        CardItem.Item cpu = new CardItem.Item(getActivity(),R.drawable.ic_item_developer_board,getCpu());
+        CardItem.Item cpu = new CardItem.Item(getActivity(), R.drawable.ic_item_developer_board, getCpu());
         // 获取CPU架构
         // Get CPU Info
-        CardItem.Item cpuinfo = new CardItem.Item(getActivity(),R.drawable.ic_item_memory,getCpuABI());
-        device.addItems(android,menufactor,cpu,cpuinfo);
+        CardItem.Item cpuinfo = new CardItem.Item(getActivity(), R.drawable.ic_item_memory, getCpuABI());
+        device.addItems(android, menufactor, cpu, cpuinfo);
     }
 
     private String getDevice() {
@@ -79,7 +84,7 @@ public class MainFragment extends Fragment {
         ImageView imageView = view.findViewById(R.id.cpu_manu);
         if (getCpu().contains("Qualcomm")) {
             imageView.setImageDrawable(view.getResources().getDrawable(R.drawable.ic_snapdragon));
-        } else if (getCpu().contains("Exynos")){
+        } else if (getCpu().contains("Exynos")) {
             imageView.setImageDrawable(view.getResources().getDrawable(R.drawable.ic_exynos));
         } else if (getCpu().contains("MediaTel")) {
             imageView.setImageDrawable(view.getResources().getDrawable(R.drawable.ic_mediatek));
@@ -87,40 +92,49 @@ public class MainFragment extends Fragment {
 
         ImageView imageView1 = view.findViewById(R.id.android_ver);
         switch (getAndroidVersionName()) {
-            case "Lolipop" :
+            case "Lolipop":
                 imageView1.setImageDrawable(getResources().
-                        getDrawable(R.drawable.ic_android_lollipop,null));
+                        getDrawable(R.drawable.ic_android_lollipop, null));
                 break;
-            case "Marshmallow" :
+            case "Marshmallow":
                 imageView1.setImageDrawable(getResources().
-                        getDrawable(R.drawable.ic_android_marshmallow,null));
+                        getDrawable(R.drawable.ic_android_marshmallow, null));
                 break;
-            case "Nougat" :
+            case "Nougat":
                 imageView1.setImageDrawable(getResources().
-                        getDrawable(R.drawable.ic_android_nougat,null));
+                        getDrawable(R.drawable.ic_android_nougat, null));
                 break;
-            case "Oreo" :
+            case "Oreo":
                 imageView1.setImageDrawable(getResources().
-                        getDrawable(R.drawable.ic_android_oreo,null));
+                        getDrawable(R.drawable.ic_android_oreo, null));
                 break;
-            case "Pie" :
+            case "Pie":
                 imageView1.setImageDrawable(getResources().
-                        getDrawable(R.drawable.ic_android_pie,null));
+                        getDrawable(R.drawable.ic_android_pie, null));
                 break;
         }
     }
 
     private String getAndroidVersion() {
         switch (Build.VERSION.SDK_INT) {
-            case 21 : return "5.0";
-            case 22 : return "5.1";
-            case 23 : return "6.0";
-            case 24 : return "7.0";
-            case 25 : return "7.1";
-            case 26 : return "8.0";
-            case 27 : return "8.1";
-            case 28 : return "9.0";
-            default : return Build.VERSION.RELEASE.toString();
+            case 21:
+                return "5.0";
+            case 22:
+                return "5.1";
+            case 23:
+                return "6.0";
+            case 24:
+                return "7.0";
+            case 25:
+                return "7.1";
+            case 26:
+                return "8.0";
+            case 27:
+                return "8.1";
+            case 28:
+                return "9.0";
+            default:
+                return Build.VERSION.RELEASE.toString();
         }
     }
 
@@ -129,18 +143,24 @@ public class MainFragment extends Fragment {
         // Get Android Version
         switch (Build.VERSION.SDK_INT) {
             case 21:
-            case 22: return "Lolipop";
-            case 23: return "Marshmallow";
+            case 22:
+                return "Lolipop";
+            case 23:
+                return "Marshmallow";
             case 24:
-            case 25: return "Nougat";
+            case 25:
+                return "Nougat";
             case 26:
-            case 27: return "Oreo";
-            case 28: return "Pie";
-            default: return "unknown";
+            case 27:
+                return "Oreo";
+            case 28:
+                return "Pie";
+            default:
+                return "unknown";
         }
     }
 
-    private static String getCpu(){
+    private static String getCpu() {
         // 获取处理器制造商
         // Fetch SoC manufactor
         String socManu = Build.HARDWARE.toUpperCase();
@@ -160,9 +180,9 @@ public class MainFragment extends Fragment {
         String soc = Build.BOARD.toUpperCase();
         String board;
         if (soc.contains("EXYNOS")) {
-            board = soc.replace("EXYNOS","");
+            board = soc.replace("EXYNOS", "");
         } else if (soc.contains("MSM")) {
-            board = soc.replace("MSM","msm");
+            board = soc.replace("MSM", "msm");
         } else {
             board = soc;
         }
@@ -174,9 +194,10 @@ public class MainFragment extends Fragment {
         return manufactor + " " + board;
     }
 
-    private static String getCpuABI(){
+    private static String getCpuABI() {
         //获取CPU架构
         // Get CPU ABIs
+        /*
         if (Build.CPU_ABI.equals("arm64-v8a")) {
             return "arm64";
         } else if (Build.CPU_ABI.equals("x86_64")) {
@@ -190,24 +211,42 @@ public class MainFragment extends Fragment {
         } else if (Build.CPU_ABI.startsWith("armeabi-v5") || Build.CPU_ABI.startsWith("armeabi-v6")) {
             return "armv5";
         } else {
-            return "arm";
+            return Build.CPU_ABI;
         }
+        */
+
+        switch (Build.CPU_ABI) {
+            case "arm64-v8a":
+                return "arm64";
+            case "x86_64" :
+                return Build.CPU_ABI;
+            default :
+                if (Build.CPU_ABI.startsWith("x86") || Build.CPU_ABI2.startsWith("x86")) {
+                    return "x86";
+                } else if (Build.CPU_ABI.startsWith("armeabi-v5") || Build.CPU_ABI.startsWith("armeabi-v6")) {
+                    return "mips";
+                } else {
+                    return Build.CPU_ABI;
+                }
+        }
+
+
     }
 
-    public void setRebootMenu(){
+    public void setRebootMenu() {
         CardItem reboot = getView().findViewById(R.id.reboot);
         CardItem.Item linux = new CardItem.Item(getActivity(),
-                R.drawable.ic_nav_reboot,R.string.reboot_click);
+                R.drawable.ic_nav_reboot, R.string.reboot_click);
         CardItem.Item soft = new CardItem.Item(getActivity(),
-                R.drawable.ic_nav_reboot,getString(R.string.re_soft_click));
+                R.drawable.ic_nav_reboot, getString(R.string.re_soft_click));
         CardItem.Item recovery = new CardItem.Item(getActivity(),
-                R.drawable.ic_nav_reboot,R.string.re_rec_click);
+                R.drawable.ic_nav_reboot, R.string.re_rec_click);
 
         linux.setOnClickListener(v -> reboot_linux());
         soft.setOnClickListener(v -> reboot_soft());
         recovery.setOnClickListener(v -> reboot_recovery());
 
-        reboot.addItems(linux,soft,recovery);
+        reboot.addItems(linux, soft, recovery);
     }
 
     Process process;
@@ -217,7 +256,7 @@ public class MainFragment extends Fragment {
             Toast.makeText(getActivity(), getString(R.string.reboot_getRoot),
                     Toast.LENGTH_SHORT).show();
             process = Runtime.getRuntime().exec("su -c reboot");
-        } catch (Exception e){
+        } catch (Exception e) {
             Toast.makeText(getActivity(), getString(R.string.reboot_fail),
                     Toast.LENGTH_SHORT).show();
         }
@@ -227,8 +266,8 @@ public class MainFragment extends Fragment {
         try {                       // 使用android的killall zygote杀死所有进程
             Toast.makeText(getActivity(), getString(R.string.reboot_getRoot),
                     Toast.LENGTH_SHORT).show();
-            process = Runtime.getRuntime().exec(new String[]{"su -c","killall zygote"});
-        } catch (Exception e){
+            process = Runtime.getRuntime().exec(new String[]{"su -c ", "killall zygote"});
+        } catch (Exception e) {
             Toast.makeText(getActivity(), getString(R.string.reboot_fail),
                     Toast.LENGTH_SHORT).show();
         }
@@ -238,8 +277,8 @@ public class MainFragment extends Fragment {
         try {                       // 使用linux shell的reboot重启
             Toast.makeText(getActivity(), getString(R.string.reboot_getRoot),
                     Toast.LENGTH_SHORT).show();
-            process = Runtime.getRuntime().exec(new String[]{"su -c","reboot recovery"});
-        } catch (Exception e){
+            process = Runtime.getRuntime().exec(new String[]{"su -c", "reboot recovery"});
+        } catch (Exception e) {
             Toast.makeText(getActivity(), getString(R.string.reboot_fail),
                     Toast.LENGTH_SHORT).show();
         }
