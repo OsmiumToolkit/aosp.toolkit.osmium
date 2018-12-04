@@ -1,10 +1,7 @@
 package com.earth.OsToolkit;
 
-import android.Manifest;
-import android.app.AlertDialog;
 import android.content.SharedPreferences;
-import android.os.Build;
-import android.os.Bundle;
+import android.os.*;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
@@ -23,7 +20,7 @@ import com.earth.OsToolkit.Fragment.MainFragment;
 import com.earth.OsToolkit.Fragment.UpdateDialogFragment;
 import com.earth.OsToolkit.Working.BaseClass.Checking;
 
-import java.util.logging.Logger;
+import java.lang.Process;
 
 public class MainActivity extends AppCompatActivity
 		implements NavigationView.OnNavigationItemSelectedListener {
@@ -97,6 +94,7 @@ public class MainActivity extends AppCompatActivity
 	}
 
 	@Override
+	@SuppressWarnings("all")
 	public boolean onOptionsItemSelected(MenuItem item) {
 		// Handle action bar item clicks here. The action bar will
 		// automatically handle clicks on the Home/Up button, so long
@@ -132,7 +130,7 @@ public class MainActivity extends AppCompatActivity
 				try {
 					Toast.makeText(this, getString(R.string.reboot_getRoot),
 							Toast.LENGTH_SHORT).show();
-					process = Runtime.getRuntime().exec(new String[]{"su -c ", "killall zygote"});
+					process = Runtime.getRuntime().exec(new String[]{"su -c", "killall zygote"});
 					Log.e("Reboot", "killall zygote");
 				} catch (Exception e) {
 					Log.e("Reboot", "killall zygote");

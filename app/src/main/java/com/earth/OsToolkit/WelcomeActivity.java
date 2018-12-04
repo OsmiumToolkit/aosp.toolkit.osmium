@@ -40,6 +40,7 @@ public class WelcomeActivity extends AppCompatActivity {
 		viewPager.setCurrentItem(0);
 	}
 
+	@SuppressWarnings("all")
 	public class myFragmentPagerAdapter extends FragmentPagerAdapter {
 
 		private FragmentManager fragmetnManager;  //创建FragmentManager

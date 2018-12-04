@@ -9,6 +9,8 @@ import android.support.v7.widget.CardView;
 import android.support.v7.widget.SwitchCompat;
 import android.util.Log;
 import android.view.*;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.*;
 
 import com.earth.OsToolkit.R;
@@ -16,7 +18,7 @@ import com.earth.OsToolkit.ScriptActivity;
 
 import java.io.*;
 
-import static android.app.Activity.RESULT_CANCELED;
+import static android.app.Activity.RESULT_OK;
 import static com.earth.OsToolkit.Working.BaseClass.BaseIndex.CHARGE_QC3;
 import static com.earth.OsToolkit.Working.BaseClass.Checking.checkSupportQC3;
 
@@ -25,8 +27,6 @@ public class ChargingFragment extends Fragment implements View.OnClickListener {
 	LinearLayout linearLayout_qc3;
 	SwitchCompat qc3_sw;
 	TextView qc3_txt;
-
-	Boolean result;
 
 	@Override
 	public View onCreateView(@NonNull LayoutInflater inflater,
@@ -99,9 +99,16 @@ public class ChargingFragment extends Fragment implements View.OnClickListener {
 		switch (view.getId()) {
 			case R.id.qc3_linearlayout:
 				RelativeLayout relativeLayout_qc3 = view.findViewById(R.id.rl_qc3);
+				ImageView imageView = view.findViewById(R.id.qc3_0_img);
 				if (relativeLayout_qc3.getVisibility() == View.GONE) {
+					imageView.setAnimation(
+							AnimationUtils.loadAnimation(getActivity(),R.anim.arrow_open));
+					imageView.setImageDrawable(getResources().getDrawable(R.drawable.ic_open));
 					relativeLayout_qc3.setVisibility(View.VISIBLE);
 				} else {
+					imageView.setAnimation(
+							AnimationUtils.loadAnimation(getActivity(),R.anim.arrow_hide));
+					imageView.setImageDrawable(getResources().getDrawable(R.drawable.ic_hide));
 					relativeLayout_qc3.setVisibility(View.GONE);
 				}
 				break;
@@ -110,15 +117,12 @@ public class ChargingFragment extends Fragment implements View.OnClickListener {
 
 	@Override
 	public void onActivityResult(int requestCode, int resultCode, Intent intent) {
-		if (requestCode == 0 && resultCode == RESULT_CANCELED) {
-			result = intent.getBooleanExtra("result", true);
-		}
+		intent.getBooleanExtra("result", true);
 
 		Toast.makeText(getContext(), getText(R.string.reflash), Toast.LENGTH_SHORT).show();
 
 		FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
 		fragmentTransaction.replace(R.id.main_fragment, new ChargingFragment()).commit();
-
 		Log.e("ChargingFragment", "return");
 	}
 }

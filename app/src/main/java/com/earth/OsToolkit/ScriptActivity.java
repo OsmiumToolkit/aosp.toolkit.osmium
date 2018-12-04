@@ -105,7 +105,7 @@ public class ScriptActivity extends AppCompatActivity {
 
 	public void ActivityFinish() {
 		ScriptActivity.this.setResult(
-				RESULT_CANCELED,
+				RESULT_OK,
 				new Intent().putExtra("result", true));
 
 		ScriptActivity.this.finish();
@@ -116,7 +116,7 @@ public class ScriptActivity extends AppCompatActivity {
 	@Override
 	public void onBackPressed() {
 		ScriptActivity.this.setResult(
-				RESULT_CANCELED,
+				RESULT_OK,
 				new Intent().putExtra("result", true));
 		super.onBackPressed();
 		Log.e("Script", "backPress");
