@@ -26,149 +26,149 @@ import com.earth.OsToolkit.Working.BaseClass.Checking;
 import java.util.logging.Logger;
 
 public class MainActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener {
+		implements NavigationView.OnNavigationItemSelectedListener {
 
-    FragmentManager fragmentManager = getSupportFragmentManager();
+	FragmentManager fragmentManager = getSupportFragmentManager();
 
-    Toolbar toolbar;
+	Toolbar toolbar;
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-        initUI();
-        checkUpdate();
-    }
+	@Override
+	protected void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		setContentView(R.layout.activity_main);
+		initUI();
+		checkUpdate();
+	}
 
-    public void initUI() {
-        toolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.replace(R.id.main_fragment, new MainFragment()).commit();
+	public void initUI() {
+		toolbar = findViewById(R.id.toolbar);
+		setSupportActionBar(toolbar);
+		FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+		fragmentTransaction.replace(R.id.main_fragment, new MainFragment()).commit();
 
-        DrawerLayout drawer = findViewById(R.id.drawer_layout);
-        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
-                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-        drawer.addDrawerListener(toggle);
-        toggle.syncState();
+		DrawerLayout drawer = findViewById(R.id.drawer_layout);
+		ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
+				this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+		drawer.addDrawerListener(toggle);
+		toggle.syncState();
 
-        NavigationView navigationView = findViewById(R.id.nav_view);
-        navigationView.setNavigationItemSelectedListener(this);
-    }
+		NavigationView navigationView = findViewById(R.id.nav_view);
+		navigationView.setNavigationItemSelectedListener(this);
+	}
 
-    public void checkUpdate() {
-        Checking.checkVersion(this);
-        String PackageVersionCode = null;
-        try {
-            PackageVersionCode = getPackageManager().getPackageInfo(getPackageName(),0).versionName;
-        }catch (Exception e) {
-            e.printStackTrace();
-        }
+	public void checkUpdate() {
+		Checking.checkVersion(this);
+		String PackageVersionCode = null;
+		try {
+			PackageVersionCode = getPackageManager().getPackageInfo(getPackageName(),0).versionName;
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
 
-        Log.i("PackageVersionCode",PackageVersionCode);
+		Log.i("PackageVersionCode",PackageVersionCode);
 
-        SharedPreferences sharedPreferences = getSharedPreferences("save",MODE_PRIVATE);
-        if (!sharedPreferences.getString("updateVersion","fail")
-                .equals(PackageVersionCode)) {
-            UpdateDialogFragment updateDialogFragment = new UpdateDialogFragment();
-            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-            updateDialogFragment.show(fragmentTransaction, "updateDialogFragment");
-        }
-    }
-
-
+		SharedPreferences sharedPreferences = getSharedPreferences("save",MODE_PRIVATE);
+		if (!sharedPreferences.getString("updateVersion","fail")
+				.equals(PackageVersionCode)) {
+			UpdateDialogFragment updateDialogFragment = new UpdateDialogFragment();
+			FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+			updateDialogFragment.show(fragmentTransaction, "updateDialogFragment");
+		}
+	}
 
 
-    @Override
-    public void onBackPressed() {
-        DrawerLayout drawer = findViewById(R.id.drawer_layout);
-        if (drawer.isDrawerOpen(GravityCompat.START)) {
-            drawer.closeDrawer(GravityCompat.START);
-        } else {
-            super.onBackPressed();
-        }
-    }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.main, menu);
-        return true;
-    }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
+	@Override
+	public void onBackPressed() {
+		DrawerLayout drawer = findViewById(R.id.drawer_layout);
+		if (drawer.isDrawerOpen(GravityCompat.START)) {
+			drawer.closeDrawer(GravityCompat.START);
+		} else {
+			super.onBackPressed();
+		}
+	}
 
-        //noinspection SimplifiableIfStatement
-        Process process;
-        switch (id) {
-            case R.id.action_reboot:
-                try {
-                    Toast.makeText(this, getString(R.string.reboot_getRoot),
-                            Toast.LENGTH_SHORT).show();
-                    process = Runtime.getRuntime().exec("su -c reboot");
-                    Log.e("Reboot", "reboot");
-                } catch (Exception e) {
-                    Log.e("Reboot", "reboot");
-                    Toast.makeText(this, getString(R.string.reboot_fail), Toast.LENGTH_SHORT).show();
-                }
-                return true;
-            case R.id.action_recovery:
-                try {
-                    Toast.makeText(this, getString(R.string.reboot_getRoot),
-                            Toast.LENGTH_SHORT).show();
-                    process = Runtime.getRuntime().exec(new String[]{"su -c ", "reboot recovery"});
-                    Log.e("Reboot", "reboot rec");
-                } catch (Exception e) {
-                    Log.e("Reboot", "reboot rec");
-                    Toast.makeText(this, getString(R.string.reboot_fail), Toast.LENGTH_SHORT).show();
-                }
-                return true;
-            case R.id.action_soft:
-                try {
-                    Toast.makeText(this, getString(R.string.reboot_getRoot),
-                            Toast.LENGTH_SHORT).show();
-                    process = Runtime.getRuntime().exec(new String[]{"su -c ", "killall zygote"});
-                    Log.e("Reboot", "killall zygote");
-                } catch (Exception e) {
-                    Log.e("Reboot", "killall zygote");
-                    Toast.makeText(this, getString(R.string.reboot_fail), Toast.LENGTH_SHORT).show();
-                }
-                return true;
-        }
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		// Inflate the menu; this adds items to the action bar if it is present.
+		getMenuInflater().inflate(R.menu.main, menu);
+		return true;
+	}
 
-        return super.onOptionsItemSelected(item);
-    }
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		// Handle action bar item clicks here. The action bar will
+		// automatically handle clicks on the Home/Up button, so long
+		// as you specify a parent activity in AndroidManifest.xml.
+		int id = item.getItemId();
 
-    @SuppressWarnings("StatementWithEmptyBody")
-    @Override
-    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-        // Handle navigation view item clicks here.
-        int id = item.getItemId();
-        FragmentTransaction ft = fragmentManager.beginTransaction();
-        ft.setCustomAnimations(R.animator.fade_in, R.animator.fade_out);
-        Fragment fragment = new MainFragment();
-        int title = R.string.app_name;
-        switch (id) {
-            case R.id.nav_main:
-                fragment = new MainFragment();
-                break;
-            case R.id.nav_charging:
-                title = R.string.nav_charging;
-                fragment = new ChargingFragment();
-                break;
-        }
+		//noinspection SimplifiableIfStatement
+		Process process;
+		switch (id) {
+			case R.id.action_reboot:
+				try {
+					Toast.makeText(this, getString(R.string.reboot_getRoot),
+							Toast.LENGTH_SHORT).show();
+					process = Runtime.getRuntime().exec("su -c reboot");
+					Log.e("Reboot", "reboot");
+				} catch (Exception e) {
+					Log.e("Reboot", "reboot");
+					Toast.makeText(this, getString(R.string.reboot_fail), Toast.LENGTH_SHORT).show();
+				}
+				return true;
+			case R.id.action_recovery:
+				try {
+					Toast.makeText(this, getString(R.string.reboot_getRoot),
+							Toast.LENGTH_SHORT).show();
+					process = Runtime.getRuntime().exec(new String[]{"su -c ", "reboot recovery"});
+					Log.e("Reboot", "reboot rec");
+				} catch (Exception e) {
+					Log.e("Reboot", "reboot rec");
+					Toast.makeText(this, getString(R.string.reboot_fail), Toast.LENGTH_SHORT).show();
+				}
+				return true;
+			case R.id.action_soft:
+				try {
+					Toast.makeText(this, getString(R.string.reboot_getRoot),
+							Toast.LENGTH_SHORT).show();
+					process = Runtime.getRuntime().exec(new String[]{"su -c ", "killall zygote"});
+					Log.e("Reboot", "killall zygote");
+				} catch (Exception e) {
+					Log.e("Reboot", "killall zygote");
+					Toast.makeText(this, getString(R.string.reboot_fail), Toast.LENGTH_SHORT).show();
+				}
+				return true;
+		}
 
-        toolbar.setTitle(title);
-        ft.replace(R.id.main_fragment, fragment).commit();
+		return super.onOptionsItemSelected(item);
+	}
 
-        DrawerLayout drawer = findViewById(R.id.drawer_layout);
-        drawer.closeDrawer(GravityCompat.START);
-        return true;
-    }
+	@SuppressWarnings("StatementWithEmptyBody")
+	@Override
+	public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+		// Handle navigation view item clicks here.
+		int id = item.getItemId();
+		FragmentTransaction ft = fragmentManager.beginTransaction();
+		ft.setCustomAnimations(R.animator.fade_in, R.animator.fade_out);
+		Fragment fragment = new MainFragment();
+		int title = R.string.app_name;
+		switch (id) {
+			case R.id.nav_main:
+				fragment = new MainFragment();
+				break;
+			case R.id.nav_charging:
+				title = R.string.nav_charging;
+				fragment = new ChargingFragment();
+				break;
+		}
+
+		toolbar.setTitle(title);
+		ft.replace(R.id.main_fragment, fragment).commit();
+
+		DrawerLayout drawer = findViewById(R.id.drawer_layout);
+		drawer.closeDrawer(GravityCompat.START);
+		return true;
+	}
 
 }

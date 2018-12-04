@@ -1,74 +1,74 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">OsmiumToolkit</string>
-    <string name="navigation_drawer_open">Open navigation drawer</string>
-    <string name="navigation_drawer_close">Close navigation drawer</string>
-    <string name="nav_header_title">OsmiumToolkit &lt;v1.0&gt;</string>
-    <string name="nav_header_subtitle">- Vulpecula -</string>
-    <string name="nav_header_desc">Navigation header</string>
-    <string name="action_reboot">Reboot</string>
-    <string name="action_rec">Reboot Recovery</string>
-    <string name="re_soft_click">Soft Reboot</string>
-    <string name="action_soft">Soft Reboot</string>
+	<string name="app_name">OsmiumToolkit</string>
+	<string name="navigation_drawer_open">Open navigation drawer</string>
+	<string name="navigation_drawer_close">Close navigation drawer</string>
+	<string name="nav_header_title">OsmiumToolkit &lt;v1.0&gt;</string>
+	<string name="nav_header_subtitle">- Vulpecula -</string>
+	<string name="nav_header_desc">Navigation header</string>
+	<string name="action_reboot">Reboot</string>
+	<string name="action_rec">Reboot Recovery</string>
+	<string name="re_soft_click">Soft Reboot</string>
+	<string name="action_soft">Soft Reboot</string>
 
-    <string name="update_found">New Update is released!</string>
-    <string name="update_version">Version: </string>
-    <string name="update_date">Date: </string>
-    <string name="update_changelog">Changelog:</string>
-    <string name="update_coolapk">Coolapk</string>
-    <string name="update_github">GitHub</string>
-    <string name="update_cancle">Cancle</string>
+	<string name="update_found">New Update is released!</string>
+	<string name="update_version">Version: </string>
+	<string name="update_date">Date: </string>
+	<string name="update_changelog">Changelog:</string>
+	<string name="update_coolapk">Coolapk</string>
+	<string name="update_github">GitHub</string>
+	<string name="update_cancle">Cancle</string>
 
-    <string name="load_fail">Fail!</string>
-    <string name="reflash">Reloading……</string>
+	<string name="load_fail">Fail!</string>
+	<string name="reflash">Reloading……</string>
 
-    <string name="item_card_device">Device</string>
-    <string name="item_card_device_android">Android %s(%s, API %d)</string>
+	<string name="item_card_device">Device</string>
+	<string name="item_card_device_android">Android %s(%s, API %d)</string>
 
-    <string name="reboot_option">Reboot option(Operation in Beta)</string>
-    <string name="reboot_click">Click to reboot</string>
-    <string name="re_rec_click">Click to reboot to Recovery</string>
-    <string name="reboot_getRoot">Reboot automatically after finish getting ROOT permission</string>
-    <string name="reboot_fail">Fail while trying to rebooting！</string>
+	<string name="reboot_option">Reboot option(Operation in Beta)</string>
+	<string name="reboot_click">Click to reboot</string>
+	<string name="re_rec_click">Click to reboot to Recovery</string>
+	<string name="reboot_getRoot">Reboot automatically after finish getting ROOT permission</string>
+	<string name="reboot_fail">Fail while trying to rebooting！</string>
 
-    <string name="script_title_head">Run Script \"%s\"</string>
+	<string name="script_title_head">Run Script \"%s\"</string>
 
-    <string name="welcome_1_title">Wellcome</string>
-    <string name="welcome_1_subtitle">Here is Osmium Toolkit</string>
+	<string name="welcome_1_title">Wellcome</string>
+	<string name="welcome_1_subtitle">Here is Osmium Toolkit</string>
 
-    <string name="welcome_2_title">#BeUnstable</string>
-    <string name="welcome_2_subtitle">An Open-Sourced project! Do what you want!</string>
-    <string name="welcome_2_title2">#!/bin/sh</string>
-    <string name="welcone_2_subtitle2">Shell commands are used and being Open-Sourced</string>
+	<string name="welcome_2_title">#BeUnstable</string>
+	<string name="welcome_2_subtitle">An Open-Sourced project! Do what you want!</string>
+	<string name="welcome_2_title2">#!/bin/sh</string>
+	<string name="welcone_2_subtitle2">Shell commands are used and being Open-Sourced</string>
 
-    <string name="welcome_3_title">About</string>
-    <string name="welcome_3_subtitle">Author \n＠1552980358(AlphaVulpecula)</string>
-    <string name="welcome_3_spcialthank">Special Thanks \n＠xzr467706992</string>
-    
-    <string name="welcome_4_title">Ready To Start&#8230;</string>
-    <string name="welcome_4_subtitle">But I need Root permission first&#8230;</string>
-    <string name="welcome_4_btn">→ Click here continue ←</string>
+	<string name="welcome_3_title">About</string>
+	<string name="welcome_3_subtitle">Author \n＠1552980358(AlphaVulpecula)</string>
+	<string name="welcome_3_spcialthank">Special Thanks \n＠xzr467706992</string>
 
-    <string name="welcome_swipe_1">Swipe to continue→ (25 %)</string>
-    <string name="welcome_swipe_2">Swipe to continue→ (50 %)</string>
-    <string name="welcome_swipe_3">Swipe to continue→ (75 %)</string>
-    <string name="welcome_swipe_4">(100 %)</string>
+	<string name="welcome_4_title">Ready To Start&#8230;</string>
+	<string name="welcome_4_subtitle">But I need Root permission first&#8230;</string>
+	<string name="welcome_4_btn">→ Click here continue ←</string>
 
-    <string name="welcome_get_root">Try getting Root permission(Command\"su\")</string>
-    <string name="welcome_get_root_success">Successed!</string>
-    <string name="welcome_get_root_fail">Failed!</string>
-    <string name="welcome_get_root_pbm">Failed!Something wrong with the process&#8230;</string>
+	<string name="welcome_swipe_1">Swipe to continue→ (25 %)</string>
+	<string name="welcome_swipe_2">Swipe to continue→ (50 %)</string>
+	<string name="welcome_swipe_3">Swipe to continue→ (75 %)</string>
+	<string name="welcome_swipe_4">(100 %)</string>
 
-    <string name="nav_main">Home</string>
-    <string name="nav_charging">Charging</string>
+	<string name="welcome_get_root">Try getting Root permission(Command\"su\")</string>
+	<string name="welcome_get_root_success">Successed!</string>
+	<string name="welcome_get_root_fail">Failed!</string>
+	<string name="welcome_get_root_pbm">Failed!Something wrong with the process&#8230;</string>
 
-    <string name="sw_dis">Disabled</string>
-    <string name="sw_en">Enabled</string>
-    <string name="toast_succeed">Succeed</string>
-    <string name="toast_failed">Failed!</string>
+	<string name="nav_main">Home</string>
+	<string name="nav_charging">Charging</string>
 
-    <string name="charging_not_support">WARNING:\nCharging Options are not supported on your device</string>
-    <string name="charging_qc3_title">QC3.0 Fast Charging</string>
-    <string name="charging_qc3_des">Enable/Disable QC3.0 - It might not work</string>
+	<string name="sw_dis">Disabled</string>
+	<string name="sw_en">Enabled</string>
+	<string name="toast_succeed">Succeed</string>
+	<string name="toast_failed">Failed!</string>
+
+	<string name="charging_not_support">WARNING:\nCharging Options are not supported on your device</string>
+	<string name="charging_qc3_title">QC3.0 Fast Charging</string>
+	<string name="charging_qc3_des">Enable/Disable QC3.0 - It might not work</string>
 
 </resources>

@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
-    <item
-        android:id="@+id/action_reboot"
-        android:orderInCategory="100"
-        android:title="@string/action_reboot"
-        app:showAsAction="never" />
-    <item
-        android:id="@+id/action_recovery"
-        android:orderInCategory="100"
-        android:title="@string/action_rec"
-        app:showAsAction="never" />
-    <item
-        android:id="@+id/action_soft"
-        android:title="@string/action_soft"
-        android:orderInCategory="100"
-        app:showAsAction="never" />
+	xmlns:app="http://schemas.android.com/apk/res-auto">
+	<item
+		android:id="@+id/action_reboot"
+		android:orderInCategory="100"
+		android:title="@string/action_reboot"
+		app:showAsAction="never" />
+	<item
+		android:id="@+id/action_recovery"
+		android:orderInCategory="100"
+		android:title="@string/action_rec"
+		app:showAsAction="never" />
+	<item
+		android:id="@+id/action_soft"
+		android:orderInCategory="100"
+		android:title="@string/action_soft"
+		app:showAsAction="never" />
 </menu>
