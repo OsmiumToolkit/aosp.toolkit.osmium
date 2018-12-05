@@ -60,7 +60,7 @@ public class Checking {
 
 					// 共享资源
 					// Save data in SharedPreference
-					SharedPreferences sharedPreferences = context.getSharedPreferences("save", Context.MODE_PRIVATE);
+					SharedPreferences sharedPreferences = context.getSharedPreferences("UpdateSP", Context.MODE_PRIVATE);
 					sharedPreferences.edit()
 							.putString("updateVersion", version)
 							.putString("updateDate", date)

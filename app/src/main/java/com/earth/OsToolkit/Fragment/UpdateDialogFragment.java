@@ -25,7 +25,7 @@ public class UpdateDialogFragment extends DialogFragment {
 
 		builder.setView(view);
 
-		SharedPreferences sharedPreferences = getActivity().getSharedPreferences("save", Context.MODE_PRIVATE);
+		SharedPreferences sharedPreferences = getActivity().getSharedPreferences("UpdateSP", Context.MODE_PRIVATE);
 
 		TextView version = view.findViewById(R.id.df_update_version);
 		TextView date = view.findViewById(R.id.df_update_date);
@@ -35,17 +35,12 @@ public class UpdateDialogFragment extends DialogFragment {
 		date.setText(sharedPreferences.getString("updateDate", "fail"));
 		changelog.setText(sharedPreferences.getString("updateChangelog", "fail"));
 
-		builder.setPositiveButton(getText(R.string.update_github), (dialog, which) -> {
-			UpdateJump.jumpGithub(getActivity());
-		});
+		builder.setPositiveButton(getText(R.string.update_github), (dialog, which) -> UpdateJump.jumpGithub(getActivity()));
 
 
-		builder.setNegativeButton(getText(R.string.update_coolapk), (dialog, which) -> {
+		builder.setNegativeButton(getText(R.string.update_coolapk), (dialog, which) -> UpdateJump.jumpCoolapk(getActivity(),getActivity()));
 
-		});
-
-		builder.setNeutralButton(getString(R.string.update_cancle), (dialog, which) -> {
-		});
+		builder.setNeutralButton(getString(R.string.update_cancle), (dialog, which) -> {});
 
 		return builder.create();
 	}

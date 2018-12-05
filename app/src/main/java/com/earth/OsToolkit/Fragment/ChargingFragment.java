@@ -9,7 +9,6 @@ import android.support.v7.widget.CardView;
 import android.support.v7.widget.SwitchCompat;
 import android.util.Log;
 import android.view.*;
-import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.*;
 
@@ -18,7 +17,6 @@ import com.earth.OsToolkit.ScriptActivity;
 
 import java.io.*;
 
-import static android.app.Activity.RESULT_OK;
 import static com.earth.OsToolkit.Working.BaseClass.BaseIndex.CHARGE_QC3;
 import static com.earth.OsToolkit.Working.BaseClass.Checking.checkSupportQC3;
 

@@ -1,11 +1,11 @@
-package com.earth.OsToolkit.Working.BaseClass;
+package com.earth.OsToolkit.Working;
 
 import android.content.Context;
 
 import java.io.*;
 
 @SuppressWarnings("all")
-public class Copy {
+public class FileWorking {
 	public static boolean copyAssets2Cache(Context context, String fileName) {
 		File file = new File(context.getCacheDir()
 				                     .getAbsolutePath()

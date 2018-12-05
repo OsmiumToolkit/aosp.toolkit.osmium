@@ -10,7 +10,7 @@ import android.widget.TextView;
 
 import java.io.*;
 
-import com.earth.OsToolkit.Working.BaseClass.Copy;
+import com.earth.OsToolkit.Working.FileWorking;
 
 public class ScriptActivity extends AppCompatActivity {
 	String script;
@@ -53,10 +53,10 @@ public class ScriptActivity extends AppCompatActivity {
 		String path = getCacheDir().getAbsolutePath() + File.separator + fileName;
 
 		textView.append("Copying file.");
-		if (Copy.copyAssets2Cache(ScriptActivity.this, fileName)) {
+		if (FileWorking.copyAssets2Cache(ScriptActivity.this, fileName)) {
 			textView.append("File exists.\nTarget: " + "\"" + path + "\"\n");
 			textView.append("Set permission.\n");
-			if (Copy.setScriptPermission(ScriptActivity.this, fileName)) {
+			if (FileWorking.setScriptPermission(ScriptActivity.this, fileName)) {
 				textView.append("Permission setting succeed.\nNow try running script.\n");
 				runScript(path);
 			}

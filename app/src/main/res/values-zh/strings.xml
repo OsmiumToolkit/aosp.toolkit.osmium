@@ -17,6 +17,7 @@
 	<string name="update_coolapk">酷安</string>
 	<string name="update_github">GitHub</string>
 	<string name="update_cancle">取消</string>
+	<string name="toast_coolapk">酷安已安装, 跳转中&#8230;</string>
 
 	<string name="load_fail">跳转失败!</string>
 	<string name="reflash">刷新中……</string>

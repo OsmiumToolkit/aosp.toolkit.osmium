@@ -64,7 +64,7 @@ public class MainActivity extends AppCompatActivity
 
 		Log.i("PackageVersionCode",PackageVersionCode);
 
-		SharedPreferences sharedPreferences = getSharedPreferences("save",MODE_PRIVATE);
+		SharedPreferences sharedPreferences = getSharedPreferences("UpdateSP",MODE_PRIVATE);
 		if (!sharedPreferences.getString("updateVersion","fail")
 				.equals(PackageVersionCode)) {
 			UpdateDialogFragment updateDialogFragment = new UpdateDialogFragment();

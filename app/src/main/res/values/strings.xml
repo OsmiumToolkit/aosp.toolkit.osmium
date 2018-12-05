@@ -18,6 +18,7 @@
 	<string name="update_coolapk">Coolapk</string>
 	<string name="update_github">GitHub</string>
 	<string name="update_cancle">Cancle</string>
+	<string name="toast_coolapk">Coolapk(com.coolapk.market) installed. Launching&#8230;</string>
 
 	<string name="load_fail">Fail!</string>
 	<string name="reflash">Reloading……</string>
