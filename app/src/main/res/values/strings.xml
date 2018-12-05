@@ -11,6 +11,13 @@
 	<string name="re_soft_click">Soft Reboot</string>
 	<string name="action_soft">Soft Reboot</string>
 
+	<string name="nav_main">Home</string>
+	<string name="nav_charging">Charging</string>
+	<string name="nav_title_app">Application</string>
+	<string name="nav_about">About</string>
+
+	<string name="update_check">Check for update</string>
+	<string name="update_checking">Checking&#8230;</string>
 	<string name="update_found">New Update is released!</string>
 	<string name="update_version">Version: </string>
 	<string name="update_date">Date: </string>
@@ -25,6 +32,10 @@
 
 	<string name="item_card_device">Device</string>
 	<string name="item_card_device_android">Android %s(%s, API %d)</string>
+
+	<string name="about_item_version">Release</string>
+	<string name="about_item_maintainer">Maintainer</string>
+	<string name="about_item_sourcecode">Source Code</string>
 
 	<string name="reboot_option">Reboot option(Operation in Beta)</string>
 	<string name="reboot_click">Click to reboot</string>
@@ -59,9 +70,6 @@
 	<string name="welcome_get_root_success">Successed!</string>
 	<string name="welcome_get_root_fail">Failed!</string>
 	<string name="welcome_get_root_pbm">Failed!Something wrong with the process&#8230;</string>
-
-	<string name="nav_main">Home</string>
-	<string name="nav_charging">Charging</string>
 
 	<string name="sw_dis">Disabled</string>
 	<string name="sw_en">Enabled</string>

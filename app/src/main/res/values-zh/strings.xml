@@ -10,6 +10,11 @@
 	<string name="action_rec">重启Recovery</string>
 	<string name="action_soft">软重启</string>
 
+	<string name="nav_main">主页</string>
+	<string name="nav_charging">充电相关</string>
+	<string name="nav_title_app">应用</string>
+	<string name="nav_about">关于</string>
+
 	<string name="update_found">更新已发布!</string>
 	<string name="update_version">版本: </string>
 	<string name="update_date">日期: </string>
@@ -25,6 +30,12 @@
 	<string name="item_card_device">设备</string>
 	<string name="item_card_device_android">Android %s(%s, API %d)</string>
 
+	<string name="about_item_version">版本</string>
+	<string name="about_item_maintainer">作者</string>
+	<string name="about_item_sourcecode">源代码</string>
+
+	<string name="update_check">检查更新</string>
+	<string name="update_checking">检查中&#8230;</string>
 	<string name="reboot_option">重启选项(测试功能 慎用)</string>
 	<string name="reboot_click">点击重启</string>
 	<string name="re_rec_click">点击重启到Recovery</string>
@@ -60,9 +71,6 @@
 	<string name="welcome_get_root_success">获取成功!</string>
 	<string name="welcome_get_root_fail">获取失败!</string>
 	<string name="welcome_get_root_pbm">失败!某些东西貌似炸了&#8230;</string>
-
-	<string name="nav_main">主页</string>
-	<string name="nav_charging">充电相关</string>
 
 	<string name="sw_dis">已禁用</string>
 	<string name="sw_en">已启用</string>

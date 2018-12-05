@@ -5,7 +5,6 @@ import android.os.*;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -15,17 +14,13 @@ import android.util.Log;
 import android.view.*;
 import android.widget.Toast;
 
-import com.earth.OsToolkit.Fragment.ChargingFragment;
-import com.earth.OsToolkit.Fragment.MainFragment;
-import com.earth.OsToolkit.Fragment.UpdateDialogFragment;
+import com.earth.OsToolkit.Fragment.*;
 import com.earth.OsToolkit.Working.BaseClass.Checking;
 
 import java.lang.Process;
 
 public class MainActivity extends AppCompatActivity
 		implements NavigationView.OnNavigationItemSelectedListener {
-
-	FragmentManager fragmentManager = getSupportFragmentManager();
 
 	Toolbar toolbar;
 
@@ -40,7 +35,7 @@ public class MainActivity extends AppCompatActivity
 	public void initUI() {
 		toolbar = findViewById(R.id.toolbar);
 		setSupportActionBar(toolbar);
-		FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+		FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
 		fragmentTransaction.replace(R.id.main_fragment, new MainFragment()).commit();
 
 		DrawerLayout drawer = findViewById(R.id.drawer_layout);
@@ -68,13 +63,10 @@ public class MainActivity extends AppCompatActivity
 		if (!sharedPreferences.getString("updateVersion","fail")
 				.equals(PackageVersionCode)) {
 			UpdateDialogFragment updateDialogFragment = new UpdateDialogFragment();
-			FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+			FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
 			updateDialogFragment.show(fragmentTransaction, "updateDialogFragment");
 		}
 	}
-
-
-
 
 	@Override
 	public void onBackPressed() {
@@ -147,7 +139,7 @@ public class MainActivity extends AppCompatActivity
 	public boolean onNavigationItemSelected(@NonNull MenuItem item) {
 		// Handle navigation view item clicks here.
 		int id = item.getItemId();
-		FragmentTransaction ft = fragmentManager.beginTransaction();
+		FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
 		ft.setCustomAnimations(R.animator.fade_in, R.animator.fade_out);
 		Fragment fragment = new MainFragment();
 		int title = R.string.app_name;
@@ -159,6 +151,11 @@ public class MainActivity extends AppCompatActivity
 				title = R.string.nav_charging;
 				fragment = new ChargingFragment();
 				break;
+			case R.id.nav_about:
+				title = R.string.nav_about;
+				fragment = new AboutFragment();
+				break;
+
 		}
 
 		toolbar.setTitle(title);

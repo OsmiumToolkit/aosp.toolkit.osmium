@@ -12,4 +12,14 @@
 		android:id="@+id/nav_charging"
 		android:icon="@drawable/ic_charging"
 		android:title="@string/nav_charging" />
+
+	<item android:title="@string/nav_title_app">
+		<menu>
+			<item
+				android:id="@+id/nav_about"
+				android:title="@string/nav_about"
+				android:icon="@drawable/ic_menu_about" />
+		</menu>
+	</item>
+
 </menu>
