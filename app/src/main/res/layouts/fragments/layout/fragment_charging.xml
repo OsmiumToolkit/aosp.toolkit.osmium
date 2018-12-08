@@ -29,81 +29,10 @@
 				android:textSize="15sp" />
 		</android.support.v7.widget.CardView>
 
-		<android.support.v7.widget.CardView
+		<com.earth.OsToolkit.Items.CardSwitchCompactItem
+			android:id="@+id/charging_qc3"
 			android:layout_width="match_parent"
-			android:layout_height="wrap_content"
-			android:layout_margin="5dp"
-			android:padding="5dp"
-			app:cardCornerRadius="6dp">
-
-			<LinearLayout
-				android:id="@+id/qc3_linearlayout"
-				android:layout_width="match_parent"
-				android:layout_height="wrap_content"
-				android:background="?android:attr/selectableItemBackground"
-				android:clickable="true"
-				android:focusable="true"
-				android:orientation="vertical">
-
-				<RelativeLayout
-					android:layout_width="match_parent"
-					android:layout_height="match_parent">
-
-					<LinearLayout
-						android:layout_width="wrap_content"
-						android:layout_height="wrap_content"
-						android:orientation="vertical"
-						android:padding="10dp">
-
-						<TextView
-							android:layout_width="wrap_content"
-							android:layout_height="wrap_content"
-							android:text="@string/charging_qc3_title"
-							android:textColor="@android:color/black"
-							android:textSize="@dimen/frag_title" />
-
-						<TextView
-							android:layout_width="wrap_content"
-							android:layout_height="wrap_content"
-							android:text="@string/charging_qc3_des" />
-					</LinearLayout>
-
-					<ImageView
-						android:id="@+id/qc3.0_img"
-						android:layout_width="wrap_content"
-						android:layout_height="wrap_content"
-						android:layout_alignParentTop="true"
-						android:layout_alignParentEnd="true"
-						android:layout_centerVertical="true"
-						android:layout_margin="10dp"
-						android:padding="15dp"
-						android:src="@drawable/ic_hide" />
-				</RelativeLayout>
-
-				<RelativeLayout
-					android:id="@+id/rl_qc3"
-					android:layout_width="wrap_content"
-					android:layout_height="wrap_content"
-					android:visibility="gone">
-
-					<TextView
-						android:id="@+id/txt_qc3"
-						android:layout_width="wrap_content"
-						android:layout_height="wrap_content"
-						android:padding="10dp" />
-
-					<android.support.v7.widget.SwitchCompat
-						android:id="@+id/switch_qc3"
-						android:layout_width="wrap_content"
-						android:layout_height="wrap_content"
-						android:layout_alignParentEnd="true"
-						android:layout_margin="5dp"
-						android:paddingLeft="15dp"
-						android:paddingRight="15dp" />
-				</RelativeLayout>
-			</LinearLayout>
-		</android.support.v7.widget.CardView>
-
+			android:layout_height="wrap_content"/>
 
 	</LinearLayout>
 </ScrollView>

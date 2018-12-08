@@ -9,7 +9,7 @@ import android.view.*;
 import android.widget.TextView;
 
 import com.earth.OsToolkit.R;
-import com.earth.OsToolkit.Working.BaseClass.UpdateJump;
+import com.earth.OsToolkit.Working.BaseClass.Jumping;
 
 
 public class UpdateDialogFragment extends DialogFragment {
@@ -35,10 +35,10 @@ public class UpdateDialogFragment extends DialogFragment {
 		date.setText(sharedPreferences.getString("updateDate", "fail"));
 		changelog.setText(sharedPreferences.getString("updateChangelog", "fail"));
 
-		builder.setPositiveButton(getText(R.string.update_github), (dialog, which) -> UpdateJump.jumpGithub(getActivity()));
+		builder.setPositiveButton(getText(R.string.update_github), (dialog, which) -> Jumping.jumpGithub(getActivity()));
 
 
-		builder.setNegativeButton(getText(R.string.update_coolapk), (dialog, which) -> UpdateJump.jumpCoolapk(getActivity(),getActivity()));
+		builder.setNegativeButton(getText(R.string.update_coolapk), (dialog, which) -> Jumping.jumpCoolapk(getActivity()));
 
 		builder.setNeutralButton(getString(R.string.update_cancle), (dialog, which) -> {});
 

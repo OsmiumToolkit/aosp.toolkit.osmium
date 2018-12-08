@@ -1,5 +1,6 @@
 package com.earth.OsToolkit.Working;
 
+import android.app.Activity;
 import android.content.Context;
 
 import java.io.*;
@@ -40,6 +41,20 @@ public class FileWorking {
 		file.setWritable(true);
 		file.setExecutable(true);
 		if (file.canExecute()) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+
+	public static boolean removeAllFile(Activity activity) {
+		File[] files = new File(activity.getCacheDir().getAbsolutePath()).listFiles();
+
+		for (int i = 0; i < files.length; i++) {
+			files[i].delete();
+		}
+
+		if (new File(activity.getCacheDir().getAbsolutePath()).listFiles().length == 0) {
 			return true;
 		} else {
 			return false;

@@ -2,19 +2,18 @@ package com.earth.OsToolkit.Fragment;
 
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
+import android.support.annotation.*;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.LinearLayout;
-import android.widget.Toast;
+import android.text.method.LinkMovementMethod;
+import android.view.*;
+import android.widget.*;
 
 import com.earth.OsToolkit.Items.AboutItem;
 import com.earth.OsToolkit.R;
 import com.earth.OsToolkit.Working.BaseClass.Checking;
+import com.earth.OsToolkit.Working.BaseClass.Jumping;
+
 
 import static android.content.Context.MODE_PRIVATE;
 
@@ -22,7 +21,9 @@ public class AboutFragment extends Fragment {
 
 	@Nullable
 	@Override
-	public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+	public View onCreateView(@NonNull LayoutInflater inflater,
+	                         @Nullable ViewGroup container,
+	                         @Nullable Bundle savedInstanceState) {
 		return inflater.inflate(R.layout.fragment_about,container,false);
 	}
 
@@ -64,9 +65,21 @@ public class AboutFragment extends Fragment {
 
 		});
 
+		source.setOnClickListener(v -> Jumping.jumpSource(getActivity()));
+
 		linearLayout.addView(maintainer);
 		linearLayout.addView(version);
 		linearLayout.addView(update);
 		linearLayout.addView(source);
+
+		TextView coolapk = view.findViewById(R.id.about_coolapk);
+		TextView github = view.findViewById(R.id.about_github);
+
+		coolapk.setOnClickListener(v -> Jumping.jumpCoolapk(getActivity()));
+		coolapk.setMovementMethod(LinkMovementMethod.getInstance());
+
+		github.setOnClickListener(v -> Jumping.jumpSource(getActivity()));
+		github.setMovementMethod(LinkMovementMethod.getInstance());
 	}
+
 }

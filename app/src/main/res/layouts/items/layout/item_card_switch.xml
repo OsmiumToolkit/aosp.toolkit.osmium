@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:app="http://schemas.android.com/apk/res-auto"
+	android:layout_width="match_parent"
+	android:layout_height="wrap_content"
+	android:layout_margin="5dp"
+	android:padding="5dp"
+	app:cardCornerRadius="6dp">
+
+	<LinearLayout
+		android:id="@+id/item_sw_linear"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:background="?android:attr/selectableItemBackground"
+		android:clickable="true"
+		android:focusable="true"
+		android:orientation="vertical">
+
+		<RelativeLayout
+			android:layout_width="match_parent"
+			android:layout_height="match_parent">
+
+			<LinearLayout
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:orientation="vertical"
+				android:padding="10dp">
+
+				<TextView
+					android:id="@+id/item_sw_title"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:textColor="@android:color/black"
+					android:textSize="@dimen/frag_title" />
+
+				<TextView
+					android:id="@+id/item_sw_summary"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content" />
+			</LinearLayout>
+
+			<ImageView
+				android:id="@+id/item_sw_img"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_alignParentTop="true"
+				android:layout_alignParentEnd="true"
+				android:layout_centerVertical="true"
+				android:layout_margin="10dp"
+				android:padding="15dp"
+				android:src="@drawable/ic_hide" />
+		</RelativeLayout>
+
+		<RelativeLayout
+			android:id="@+id/item_sw_relative"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:visibility="gone">
+
+			<TextView
+				android:id="@+id/item_sw_txt"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:padding="10dp" />
+
+			<android.support.v7.widget.SwitchCompat
+				android:id="@+id/item_sw_switch"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_alignParentEnd="true"
+				android:layout_margin="5dp"
+				android:paddingLeft="15dp"
+				android:paddingRight="15dp" />
+		</RelativeLayout>
+	</LinearLayout>
+</android.support.v7.widget.CardView>

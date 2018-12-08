@@ -36,6 +36,9 @@
 	<string name="about_item_version">Release</string>
 	<string name="about_item_maintainer">Maintainer</string>
 	<string name="about_item_sourcecode">Source Code</string>
+	<string name="about_coolapk"><a herf="https://www.coolapk.com/apk/com.earth.OsToolkit">Coolapk</a></string>
+	<string name="about_github"><a herf="https://github.com/1552980358/com.earth.OsToolkit">GitHub</a></string>
+	<string name="about_apache">Apache-2.0</string>
 
 	<string name="reboot_option">Reboot option(Operation in Beta)</string>
 	<string name="reboot_click">Click to reboot</string>
@@ -73,10 +76,11 @@
 
 	<string name="sw_dis">Disabled</string>
 	<string name="sw_en">Enabled</string>
+	<string name="sw_none">Unavailable</string>
 	<string name="toast_succeed">Succeed</string>
 	<string name="toast_failed">Failed!</string>
 
-	<string name="charging_not_support">WARNING:\nCharging Options are not supported on your device</string>
+	<string name="charging_not_support">WARNING:\nQC3.0 Charging Options are not supported on your device</string>
 	<string name="charging_qc3_title">QC3.0 Fast Charging</string>
 	<string name="charging_qc3_des">Enable/Disable QC3.0 - It might not work</string>
 

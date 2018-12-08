@@ -17,8 +17,8 @@
 		<menu>
 			<item
 				android:id="@+id/nav_about"
-				android:title="@string/nav_about"
-				android:icon="@drawable/ic_menu_about" />
+				android:icon="@drawable/ic_menu_about"
+				android:title="@string/nav_about" />
 		</menu>
 	</item>
 

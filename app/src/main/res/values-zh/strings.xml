@@ -33,6 +33,9 @@
 	<string name="about_item_version">版本</string>
 	<string name="about_item_maintainer">作者</string>
 	<string name="about_item_sourcecode">源代码</string>
+	<string name="about_coolapk"><a herf="https://www.coolapk.com/apk/com.earth.OsToolkit">酷安</a></string>
+	<string name="about_github"><a herf="https://github.com/1552980358/com.earth.OsToolkit">GitHub</a></string>
+	<string name="about_apache">Apache-2.0</string>
 
 	<string name="update_check">检查更新</string>
 	<string name="update_checking">检查中&#8230;</string>
@@ -74,10 +77,11 @@
 
 	<string name="sw_dis">已禁用</string>
 	<string name="sw_en">已启用</string>
+	<string name="sw_none">不可用</string>
 	<string name="toast_succeed">成功!</string>
 	<string name="toast_failed">失败!</string>
 
-	<string name="charging_not_support">警告：\n你的设备不支持“充电选项”</string>
+	<string name="charging_not_support">警告：\n你的设备不支持“QC3.0充电选项”</string>
 	<string name="charging_qc3_title">QC3.0 快充</string>
 	<string name="charging_qc3_des">启用/禁用 QC3.0 - 他不一定有效</string>
 </resources>

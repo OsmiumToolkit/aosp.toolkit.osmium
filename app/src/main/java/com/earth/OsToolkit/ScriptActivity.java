@@ -43,7 +43,7 @@ public class ScriptActivity extends AppCompatActivity {
 		toolbar.setTitleTextColor(getResources().getColor(android.R.color.white));
 		// 设置返回监听
 		// Set Navigation button listener
-		toolbar.setNavigationOnClickListener(v -> ActivityFinish());
+		toolbar.setNavigationOnClickListener(v -> finish());
 	}
 
 	TextView textView;
@@ -52,26 +52,46 @@ public class ScriptActivity extends AppCompatActivity {
 		textView = findViewById(R.id.script_txt);
 		String path = getCacheDir().getAbsolutePath() + File.separator + fileName;
 
-		textView.append("Copying file.");
+		textView.append("Copying script from assets to Cache...\n");
+		textView.append("从Assets复制脚本到Cache中...\n");
 		if (FileWorking.copyAssets2Cache(ScriptActivity.this, fileName)) {
-			textView.append("File exists.\nTarget: " + "\"" + path + "\"\n");
-			textView.append("Set permission.\n");
+			textView.append("Copied successfully! File exists.\n");
+			textView.append("复制成功!文件存在。\n\n");
+
+			textView.append("Target:\n");
+			textView.append("目标:\n");
+			textView.append(path + "\n\n");
+
+			textView.append("Setting permission...\n");
+			textView.append("设置限权...\n");
+
 			if (FileWorking.setScriptPermission(ScriptActivity.this, fileName)) {
-				textView.append("Permission setting succeed.\nNow try running script.\n");
+				textView.append("Setting permission successfully!\n");
+				textView.append("限权设置成功!\n\n");
 				runScript(path);
+			} else {
+				textView.append("Failed!\n");
+				textView.append("设置失败!\n");
 			}
 		} else {
-			textView.append("Fail when copying file.");
+			textView.append("Failed!\n");
+			textView.append("复制失败!\n");
 		}
 	}
 
 	public void runScript(String filePath) {
-		textView.append("Start a new thread to run script.\n");
+		textView.append("Launching a new thread to run script...\n");
+		textView.append("启动新线程运行脚本中...\n");
+
 		new Thread(() -> {
-			textView.append("New Thread started succeed.\n");
+			textView.append("New Thread launched successfully!\n");
+			textView.append("新线程启动成功!\n\n");
 			try {
-				textView.append("source " + filePath + "\n");
-				Process process = Runtime.getRuntime().exec(new String[]{"/system/bin/sh",filePath});
+				textView.append("Command:\n");
+				textView.append("命令:\n");
+				textView.append("su -c /system/bin/sh " + filePath + "\n\n");
+
+				Process process = Runtime.getRuntime().exec(new String[]{"su","-c","/system/bin/sh",filePath});
 				process.waitFor();
 				InputStream inputStream = process.getInputStream();
 				InputStream inputStreamError = process.getErrorStream();
@@ -82,11 +102,18 @@ public class ScriptActivity extends AppCompatActivity {
 
 				String line;
 				while ((line = bufferedReader.readLine()) != null) {
+
 					textView.append(line + "\n");
 				}
 
-				while ((line = bufferedReaderError.readLine()) != null) {
+				if ((line = bufferedReaderError.readLine()) != null) {
+					textView.append("\n");
+					textView.append("Error Message:\n");
+					textView.append("错误信息:\n");
 					textView.append(line + "\n");
+					while ((line = bufferedReaderError.readLine()) != null) {
+						textView.append(line + "\n");
+					}
 				}
 
 				inputStream.close();
@@ -102,23 +129,9 @@ public class ScriptActivity extends AppCompatActivity {
 		}).start();
 	}
 
-
-	public void ActivityFinish() {
-		ScriptActivity.this.setResult(
-				RESULT_OK,
-				new Intent().putExtra("result", true));
-
-		ScriptActivity.this.finish();
-		Log.e("ScriptActivity", "return true");
-	}
-
-
 	@Override
 	public void onBackPressed() {
-		ScriptActivity.this.setResult(
-				RESULT_OK,
-				new Intent().putExtra("result", true));
+		this.finish();
 		super.onBackPressed();
-		Log.e("Script", "backPress");
 	}
 }

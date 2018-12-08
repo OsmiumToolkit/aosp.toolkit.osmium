@@ -14,19 +14,31 @@ import java.util.List;
 
 import static com.earth.OsToolkit.Working.BaseClass.BaseIndex.*;
 
-public class UpdateJump {
+public class Jumping {
+	public static void jumpSource(Activity activity) {
+		try {
+			activity.startActivity(new Intent()
+					                       .setData(Uri.parse("https://github.com/1552980358/com.earth.OsToolkit"))
+					                       .setAction(Intent.ACTION_VIEW));
+		} catch (Exception e) {
+			e.printStackTrace();
+			Toast.makeText(activity, activity.getText(R.string.load_fail), Toast.LENGTH_SHORT).show();
+		}
+	}
+
 	public static void jumpGithub(Activity activity) {
 		try {
 			activity.startActivity(new Intent()
 					                       .setData(Uri.parse("https://github.com/1552980358/com.earth.OsToolkit/releases"))
 					                       .setAction(Intent.ACTION_VIEW));
 		} catch (Exception e) {
+			e.printStackTrace();
 			Toast.makeText(activity, activity.getText(R.string.load_fail), Toast.LENGTH_SHORT).show();
 		}
 	}
 
-	public static void jumpCoolapk(Activity activity, Context context) {
-		final List<PackageInfo> packageInfoList = context.getPackageManager().getInstalledPackages(0);
+	public static void jumpCoolapk(Activity activity) {
+		final List<PackageInfo> packageInfoList = activity.getPackageManager().getInstalledPackages(0);
 		List<String> packageName = new ArrayList<>();
 		if (!packageInfoList.isEmpty()) {
 			for (int i = 1; i < packageInfoList.size(); i++) {
@@ -48,7 +60,14 @@ public class UpdateJump {
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
-			Toast.makeText(activity, activity.getString(R.string.load_fail), Toast.LENGTH_SHORT).show();
+			try {
+				activity.startActivity(new Intent()
+						                       .setData(Uri.parse("http://www.coolapk.com/apk/" + PackageName))
+						                       .setAction(Intent.ACTION_VIEW));
+			} catch (Exception ex) {
+				ex.printStackTrace();
+				Toast.makeText(activity, activity.getString(R.string.load_fail), Toast.LENGTH_SHORT).show();
+			}
 		}
 
 	}

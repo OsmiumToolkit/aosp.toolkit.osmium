@@ -22,17 +22,14 @@ public class Checking {
 			else
 				return true;
 		} catch (Exception e) {
+			e.printStackTrace();
 			return false;
 		}
 	}
 
 	public static boolean checkSupportQC3() {
 		File file = new File("/sys/class/power_supply/battery/allow_hvdcp3");
-		if (file.exists()) {
-			return true;
-		} else {
-			return false;
-		}
+		return file.exists();
 	}
 
 	public static boolean checkVersion(Context context) {

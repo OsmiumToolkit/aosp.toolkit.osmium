@@ -3,12 +3,10 @@ package com.earth.OsToolkit.Items;
 import android.content.Context;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.TextView;
-
+import android.widget.*;
 import com.earth.OsToolkit.R;
 
+@SuppressWarnings("all")
 public class AboutItem extends LinearLayout {
 	private LinearLayout linearLayout;
 	private ImageView imageView;
