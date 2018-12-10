@@ -2,6 +2,7 @@ package com.earth.OsToolkit.Working;
 
 import android.app.Activity;
 import android.content.Context;
+import android.util.Log;
 
 import java.io.*;
 
@@ -31,6 +32,27 @@ public class FileWorking {
 			return true;
 		} else {
 			return false;
+		}
+	}
+
+	public static String readFile(Context context,String fileName) {
+		try {
+			FileInputStream fileInputStream = new FileInputStream(new File(fileName));
+			InputStreamReader inputStreamReader = new InputStreamReader(fileInputStream,"utf-8");
+			BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
+
+			String line;
+			line = bufferedReader.readLine();
+			Log.i("line_file",line);
+
+			fileInputStream.close();
+			inputStreamReader.close();
+			bufferedReader.close();
+
+			return line;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return "Fail";
 		}
 	}
 

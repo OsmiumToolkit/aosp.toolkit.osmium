@@ -2,18 +2,23 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
 	xmlns:app="http://schemas.android.com/apk/res-auto">
 	<item
-		android:id="@+id/action_reboot"
+		android:id="@+id/menu_exit"
 		android:orderInCategory="100"
-		android:title="@string/action_reboot"
+		android:title="@string/menu_exit"
 		app:showAsAction="never" />
 	<item
-		android:id="@+id/action_recovery"
+		android:id="@+id/menu_shell"
 		android:orderInCategory="100"
-		android:title="@string/action_rec"
+		android:title="@string/menu_shell"
 		app:showAsAction="never" />
 	<item
-		android:id="@+id/action_soft"
+		android:id="@+id/menu_killProcessPID"
 		android:orderInCategory="100"
-		android:title="@string/action_soft"
+		android:title="@string/menu_killProcessPID"
+		app:showAsAction="never" />
+	<item
+		android:id="@+id/menu_null"
+		android:orderInCategory="100"
+		android:title="@string/menu_null"
 		app:showAsAction="never" />
 </menu>

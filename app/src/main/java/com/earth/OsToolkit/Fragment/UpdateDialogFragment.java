@@ -40,7 +40,7 @@ public class UpdateDialogFragment extends DialogFragment {
 
 		builder.setNegativeButton(getText(R.string.update_coolapk), (dialog, which) -> Jumping.jumpCoolapk(getActivity()));
 
-		builder.setNeutralButton(getString(R.string.update_cancle), (dialog, which) -> {});
+		builder.setNeutralButton(getString(R.string.cancle), (dialog, which) -> {});
 
 		return builder.create();
 	}

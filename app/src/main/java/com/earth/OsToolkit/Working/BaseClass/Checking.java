@@ -27,8 +27,8 @@ public class Checking {
 		}
 	}
 
-	public static boolean checkSupportQC3() {
-		File file = new File("/sys/class/power_supply/battery/allow_hvdcp3");
+	public static boolean checkFilePresent(String fileName) {
+		File file = new File(fileName);
 		return file.exists();
 	}
 

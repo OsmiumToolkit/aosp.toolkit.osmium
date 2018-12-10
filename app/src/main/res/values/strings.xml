@@ -11,10 +11,20 @@
 	<string name="re_soft_click">Soft Reboot</string>
 	<string name="action_soft">Soft Reboot</string>
 
+	<string name="contimue">Contimue</string>
+	<string name="cancle">Cancle</string>
+
 	<string name="nav_main">Home</string>
 	<string name="nav_charging">Charging</string>
 	<string name="nav_title_app">Application</string>
 	<string name="nav_about">About</string>
+
+	<string name="menu_exit">Exit</string>
+	<string name="menu_shell">Exit (Shell)</string>
+	<string name="menu_killProcessPID">Exit (Kill PID)</string>
+	<string name="menu_null">Exit (Extremely)</string>
+	<string name="menu_null_title">Forward?</string>
+	<string name="menu_null_msg">Error will be produced manually to force JVM kill all process of this application.\nGo forward?</string>
 
 	<string name="update_check">Check for update</string>
 	<string name="update_checking">Checking&#8230;</string>
@@ -24,11 +34,10 @@
 	<string name="update_changelog">Changelog:</string>
 	<string name="update_coolapk">Coolapk</string>
 	<string name="update_github">GitHub</string>
-	<string name="update_cancle">Cancle</string>
 	<string name="toast_coolapk">Coolapk(com.coolapk.market) installed. Launching&#8230;</string>
 
 	<string name="load_fail">Fail!</string>
-	<string name="reflash">Reloading……</string>
+	<string name="refresh">Refreshing……</string>
 
 	<string name="item_card_device">Device</string>
 	<string name="item_card_device_android">Android %s(%s, API %d)</string>
@@ -80,8 +89,10 @@
 	<string name="toast_succeed">Succeed</string>
 	<string name="toast_failed">Failed!</string>
 
-	<string name="charging_not_support">WARNING:\nQC3.0 Charging Options are not supported on your device</string>
+	<string name="charging_not_support">WARNING:\nOption(s) is/are not supported on your device</string>
 	<string name="charging_qc3_title">QC3.0 Fast Charging</string>
-	<string name="charging_qc3_des">Enable/Disable QC3.0 - It might not work</string>
+	<string name="charging_qc3_sum">Enable/Disable QC3.0 - It might not work</string>
+	<string name="charging_allow_title">Charge Allow</string>
+	<string name="charging_allow_sum">Enable/Disable Charging after connect to power supply</string>
 
 </resources>

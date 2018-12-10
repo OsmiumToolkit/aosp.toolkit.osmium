@@ -10,10 +10,20 @@
 	<string name="action_rec">重启Recovery</string>
 	<string name="action_soft">软重启</string>
 
+	<string name="contimue">继续</string>
+	<string name="cancle">取消</string>
+
 	<string name="nav_main">主页</string>
 	<string name="nav_charging">充电相关</string>
 	<string name="nav_title_app">应用</string>
 	<string name="nav_about">关于</string>
+
+	<string name="menu_exit">退出应用</string>
+	<string name="menu_shell">退出应用 (Shell)</string>
+	<string name="menu_killProcessPID">退出应用 (杀死PID)</string>
+	<string name="menu_null">退出应用 (极端模式)</string>
+	<string name="menu_null_title">继续?</string>
+	<string name="menu_null_msg">这将会抛出异常迫使JVM杀死应用所有进程。\n继续?</string>
 
 	<string name="update_found">更新已发布!</string>
 	<string name="update_version">版本: </string>
@@ -21,11 +31,10 @@
 	<string name="update_changelog">更新内容:</string>
 	<string name="update_coolapk">酷安</string>
 	<string name="update_github">GitHub</string>
-	<string name="update_cancle">取消</string>
 	<string name="toast_coolapk">酷安已安装, 跳转中&#8230;</string>
 
 	<string name="load_fail">跳转失败!</string>
-	<string name="reflash">刷新中……</string>
+	<string name="refresh">刷新中……</string>
 
 	<string name="item_card_device">设备</string>
 	<string name="item_card_device_android">Android %s(%s, API %d)</string>
@@ -81,7 +90,10 @@
 	<string name="toast_succeed">成功!</string>
 	<string name="toast_failed">失败!</string>
 
-	<string name="charging_not_support">警告：\n你的设备不支持“QC3.0充电选项”</string>
+	<string name="charging_not_support">警告：\n设备部分功能不受支持</string>
 	<string name="charging_qc3_title">QC3.0 快充</string>
-	<string name="charging_qc3_des">启用/禁用 QC3.0 - 他不一定有效</string>
+	<string name="charging_qc3_sum">启用/禁用 QC3.0 - 他不一定有效</string>
+	<string name="charging_allow_title">允许充电</string>
+	<string name="charging_allow_sum">启用/禁用 接通电源后的充电功能</string>
+
 </resources>

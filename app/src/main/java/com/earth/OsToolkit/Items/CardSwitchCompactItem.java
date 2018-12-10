@@ -1,20 +1,12 @@
 package com.earth.OsToolkit.Items;
 
-import android.app.Activity;
-import android.content.Context;
-import android.content.Intent;
+import android.content.*;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentActivity;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.SwitchCompat;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
-import android.widget.TextView;
+import android.widget.CompoundButton;
+import android.widget.*;
 
 import com.earth.OsToolkit.R;
 import com.earth.OsToolkit.ScriptActivity;
@@ -34,12 +26,6 @@ public class CardSwitchCompactItem extends LinearLayout {
 	private SwitchCompat switchCompat;
 	private TextView textViewSwitchCompact;
 
-	private FragmentActivity activity;
-
-	private String script;
-
-	private Fragment fragment;
-
 	public CardSwitchCompactItem(Context context, AttributeSet attributeSet) {
 		super(context, attributeSet);
 
@@ -58,11 +44,6 @@ public class CardSwitchCompactItem extends LinearLayout {
 		switchCompat = findViewById(R.id.item_sw_switch);
 		textViewSwitchCompact = findViewById(R.id.item_sw_txt);
 
-	}
-
-	public void setScript(FragmentActivity activity, String script) {
-		this.activity = activity;
-		this.script = script;
 	}
 
 	public void setTitle(int title) {
@@ -96,17 +77,6 @@ public class CardSwitchCompactItem extends LinearLayout {
 
 		this.switchCompat.setChecked(checked);
 
-		this.switchCompat.setOnCheckedChangeListener((buttonView, isChecked) -> {
-			activity.startActivity(new Intent(activity, ScriptActivity.class)
-					                       .putExtra("script", script));
-
-
-				FragmentTransaction fragmentTransaction = activity.getSupportFragmentManager().beginTransaction();
-				fragmentTransaction.replace(R.id.main_fragment,fragment).commit();
-
-
-		});
-
 	}
 
 	public void setLayoutListener() {
@@ -121,7 +91,14 @@ public class CardSwitchCompactItem extends LinearLayout {
 		});
 	}
 
-	public void setCurrentFragment(Fragment fragment) {
-		this.fragment = fragment;
+	public void setSwitchCompatOnChangeListener(CompoundButton.OnCheckedChangeListener onCheckedChangeListener) {
+		this.switchCompat.setOnCheckedChangeListener(onCheckedChangeListener);
+	}
+
+	public void setSwitchCompatOnChangeListener(Fragment fragment, Context context, String fileName) {
+		this.switchCompat.setOnCheckedChangeListener((buttonView, isChecked) -> {
+			fragment.startActivityForResult(new Intent(context, ScriptActivity.class)
+					                                .putExtra("script", fileName), 0);
+		});
 	}
 }

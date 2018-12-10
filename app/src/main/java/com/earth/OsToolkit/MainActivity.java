@@ -1,5 +1,6 @@
 package com.earth.OsToolkit;
 
+import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.os.*;
 import android.support.annotation.NonNull;
@@ -10,12 +11,14 @@ import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.*;
 import android.support.v7.widget.Toolbar;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.*;
-import android.widget.Toast;
+import android.widget.TextView;
 
 import com.earth.OsToolkit.Fragment.*;
 import com.earth.OsToolkit.Working.BaseClass.Checking;
+import com.earth.OsToolkit.Working.BaseClass.ExitApplication;
 
 import java.lang.Process;
 
@@ -96,42 +99,41 @@ public class MainActivity extends AppCompatActivity
 		//noinspection SimplifiableIfStatement
 		Process process;
 		switch (id) {
-			case R.id.action_reboot:
-				try {
-					Toast.makeText(this, getString(R.string.reboot_getRoot),
-							Toast.LENGTH_SHORT).show();
-					process = Runtime.getRuntime().exec("su -c reboot");
-					Log.e("Reboot", "reboot");
-				} catch (Exception e) {
-					Log.e("Reboot", "reboot");
-					Toast.makeText(this, getString(R.string.reboot_fail), Toast.LENGTH_SHORT).show();
-				}
+			case R.id.menu_exit :
+				ExitApplication.exit();
 				return true;
-			case R.id.action_recovery:
-				try {
-					Toast.makeText(this, getString(R.string.reboot_getRoot),
-							Toast.LENGTH_SHORT).show();
-					process = Runtime.getRuntime().exec(new String[]{"su -c ", "reboot recovery"});
-					Log.e("Reboot", "reboot rec");
-				} catch (Exception e) {
-					Log.e("Reboot", "reboot rec");
-					Toast.makeText(this, getString(R.string.reboot_fail), Toast.LENGTH_SHORT).show();
-				}
-				return true;
-			case R.id.action_soft:
-				try {
-					Toast.makeText(this, getString(R.string.reboot_getRoot),
-							Toast.LENGTH_SHORT).show();
-					process = Runtime.getRuntime().exec(new String[]{"su -c", "killall zygote"});
-					Log.e("Reboot", "killall zygote");
-				} catch (Exception e) {
-					Log.e("Reboot", "killall zygote");
-					Toast.makeText(this, getString(R.string.reboot_fail), Toast.LENGTH_SHORT).show();
-				}
-				return true;
-		}
 
-		return super.onOptionsItemSelected(item);
+			case R.id.menu_shell :
+				ExitApplication.shellKill(this);
+				return true;
+
+			case R.id.menu_killProcessPID :
+				ExitApplication.killProcessPID();
+				return true;
+
+			case R.id.menu_null :
+				AlertDialog.Builder builder = new AlertDialog.Builder(this);
+				builder.setTitle(R.string.menu_null_title)
+						.setMessage(R.string.menu_null_msg)
+						.setPositiveButton(R.string.contimue, new DialogInterface.OnClickListener() {
+							@Override
+							public void onClick(DialogInterface dialog, int which) {
+								TextView textView = findViewById(R.id.script_txt);
+								textView.setText("");
+							}
+						})
+						.setNegativeButton(R.string.cancle, new DialogInterface.OnClickListener() {
+					@Override
+					public void onClick(DialogInterface dialog, int which) {
+
+					}
+				}).show();
+				return true;
+
+				default:
+					return super.onOptionsItemSelected(item);
+
+		}
 	}
 
 	@SuppressWarnings("StatementWithEmptyBody")

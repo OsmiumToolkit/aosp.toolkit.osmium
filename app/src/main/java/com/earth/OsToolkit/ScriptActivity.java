@@ -1,12 +1,11 @@
 package com.earth.OsToolkit;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.io.*;
 
@@ -43,7 +42,7 @@ public class ScriptActivity extends AppCompatActivity {
 		toolbar.setTitleTextColor(getResources().getColor(android.R.color.white));
 		// 设置返回监听
 		// Set Navigation button listener
-		toolbar.setNavigationOnClickListener(v -> finish());
+		toolbar.setNavigationOnClickListener(v -> onBackPressed());
 	}
 
 	TextView textView;
@@ -131,7 +130,9 @@ public class ScriptActivity extends AppCompatActivity {
 
 	@Override
 	public void onBackPressed() {
-		this.finish();
+		Toast.makeText(this, getText(R.string.refresh), Toast.LENGTH_SHORT).show();
+		setResult(RESULT_OK);
+		finish();
 		super.onBackPressed();
 	}
 }
