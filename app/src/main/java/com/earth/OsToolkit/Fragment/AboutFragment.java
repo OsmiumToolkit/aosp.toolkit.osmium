@@ -28,6 +28,7 @@ public class AboutFragment extends Fragment {
 	}
 
 	String PackageVersionCode;
+	@SuppressWarnings("all")
 	@Override
 	public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
 		super.onViewCreated(view, savedInstanceState);
@@ -50,6 +51,8 @@ public class AboutFragment extends Fragment {
 
 		AboutItem source = new AboutItem(getActivity(),R.drawable.ic_about_github,
 				R.string.about_item_sourcecode,"https://github.com/1552980358/com.earth.OsToolkit");
+
+		maintainer.setOnClickListener(v -> Jumping.jumpCoolapkAccount(getActivity()));
 
 		update.setOnClickListener(v -> {
 			Toast.makeText(getActivity(), R.string.update_checking, Toast.LENGTH_SHORT).show();
