@@ -11,7 +11,6 @@ import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.*;
 import android.support.v7.widget.Toolbar;
-import android.text.TextUtils;
 import android.util.Log;
 import android.view.*;
 import android.widget.TextView;
@@ -115,14 +114,14 @@ public class MainActivity extends AppCompatActivity
 				AlertDialog.Builder builder = new AlertDialog.Builder(this);
 				builder.setTitle(R.string.menu_null_title)
 						.setMessage(R.string.menu_null_msg)
-						.setPositiveButton(R.string.contimue, new DialogInterface.OnClickListener() {
+						.setPositiveButton(R.string.cont, new DialogInterface.OnClickListener() {
 							@Override
 							public void onClick(DialogInterface dialog, int which) {
 								TextView textView = findViewById(R.id.script_txt);
 								textView.setText("");
 							}
 						})
-						.setNegativeButton(R.string.cancle, new DialogInterface.OnClickListener() {
+						.setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
 					@Override
 					public void onClick(DialogInterface dialog, int which) {
 

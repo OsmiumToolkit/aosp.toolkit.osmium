@@ -11,8 +11,8 @@
 	<string name="re_soft_click">Soft Reboot</string>
 	<string name="action_soft">Soft Reboot</string>
 
-	<string name="contimue">Contimue</string>
-	<string name="cancle">Cancle</string>
+	<string name="cont">Continue</string>
+	<string name="cancel">Cancel</string>
 
 	<string name="nav_main">Home</string>
 	<string name="nav_charging">Charging</string>
@@ -35,6 +35,8 @@
 	<string name="update_coolapk">Coolapk</string>
 	<string name="update_github">GitHub</string>
 	<string name="toast_coolapk">Coolapk(com.coolapk.market) installed. Launching&#8230;</string>
+	<string name="update_changelog_ENG">English(英语)</string>
+	<string name="update_changelog_CN">Simplified Chinese(简体中文)</string>
 
 	<string name="load_fail">Fail!</string>
 	<string name="refresh">Refreshing……</string>

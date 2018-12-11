@@ -44,16 +44,25 @@ public class Checking {
 
 					String version = bufferedReader.readLine();
 					String date = bufferedReader.readLine();
-					StringBuilder stringBuilder = new StringBuilder();
-					String line;
-					while ((line = bufferedReader.readLine()) != null) {
-						stringBuilder.append(line);
-						stringBuilder.append("\n");
+					StringBuilder stringBuilderEng = new StringBuilder();
+					StringBuilder stringBuilderCN = new StringBuilder();
+					if (bufferedReader.readLine().equals("<ENG>")) {
+						String line;
+						while (!(line = bufferedReader.readLine()).equals("<CN>")) {
+							stringBuilderEng.append(line);
+							stringBuilderEng.append("\n");
+						}
+
+						while ((line = bufferedReader.readLine()) != null) {
+							stringBuilderCN.append(line);
+							stringBuilderCN.append("\n");
+						}
 					}
 
 					Log.i("c_version", version);
 					Log.i("c_date", date);
-					Log.i("c_stringBuilder", stringBuilder.toString());
+					Log.i("c_stringBuilderEng",stringBuilderEng.toString());
+					Log.i("c_stringBuilderCN",stringBuilderCN.toString());
 
 					// 共享资源
 					// Save data in SharedPreference
@@ -61,7 +70,8 @@ public class Checking {
 					sharedPreferences.edit()
 							.putString("updateVersion", version)
 							.putString("updateDate", date)
-							.putString("updateChangelog", stringBuilder.toString())
+							.putString("updateChangelogEng", stringBuilderEng.toString())
+							.putString("updateChangelogCN", stringBuilderCN.toString())
 							.apply();
 
 
