@@ -156,7 +156,9 @@ public class MainActivity extends AppCompatActivity
 				title = R.string.nav_about;
 				fragment = new AboutFragment();
 				break;
-
+			case R.id.nav_deviceinfo :
+				fragment = new DeviceInfoFragment();
+				break;
 		}
 
 		toolbar.setTitle(title);

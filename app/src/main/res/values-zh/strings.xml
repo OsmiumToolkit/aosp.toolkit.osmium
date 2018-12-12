@@ -15,7 +15,7 @@
 
 	<string name="nav_main">主页</string>
 	<string name="nav_charging">充电相关</string>
-	<string name="nav_title_app">应用</string>
+	<string name="nav_title_toolkit">工具箱</string>
 	<string name="nav_about">关于</string>
 
 	<string name="menu_exit">退出应用</string>
@@ -98,5 +98,25 @@
 	<string name="charging_qc3_sum">启用/禁用 QC3.0 - 他不一定有效</string>
 	<string name="charging_allow_title">允许充电</string>
 	<string name="charging_allow_sum">启用/禁用 接通电源后的充电功能</string>
+
+	<string name="deviceinfo_general_title">设备</string>
+	<string name="deviceinfo_general_manufacturer">厂商</string>
+	<string name="deviceinfo_general_brand">系列</string>
+	<string name="deviceinfo_general_model">机型</string>
+	<string name="deviceinfo_general_product">代号</string>
+
+	<string name="deviceinfo_soc_title">SoC</string>
+	<string name="deviceinfo_soc_manufacturer">厂商</string>
+	<string name="deviceinfo_soc_model">型号</string>
+	<string name="deviceinfo_soc_abis">支持指令集</string>
+
+
+	<string name="deviceinfo_ram_title">运行内存</string>
+	<string name="deviceinfo_ram_totalMem">总内存</string>
+	<string name="deviceinfo_ram_threshold">临界值</string>
+
+	<string name="deviceinfo_javaruntime_title">Java Runtime</string>
+	<string name="deviceinfo_javaruntime_maxmem">JVM 最高内存</string>
+	<string name="deviceinfo_javaruntime_totalmem">JVM 总内存</string>
 
 </resources>
