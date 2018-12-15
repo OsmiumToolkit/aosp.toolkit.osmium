@@ -36,17 +36,17 @@ public class MainFragment extends Fragment {
         // 获取设备信息
         // Get Device info
         CardItem.Item menufactor = new CardItem.Item(getActivity(),
-                R.drawable.ic_item_card_device_phone, getDevice());
+                R.drawable.ic_phone, getDevice());
         // 获取安卓版本
         // Get Android Version
         CardItem.Item android = new CardItem.Item(getActivity(),
-                R.drawable.ic_item_card_device_android,
+                R.drawable.ic_android,
                 String.format(getString(R.string.item_card_device_android),
                         getAndroidVersion(),
                         getAndroidVersionName(),
                         Build.VERSION.SDK_INT));
 
-        CardItem.Item cpu = new CardItem.Item(getActivity(), R.drawable.ic_item_developer_board, getCpu());
+        CardItem.Item cpu = new CardItem.Item(getActivity(), R.drawable.ic_developer_board, getCpu());
         // 获取CPU架构
         // Get CPU Info
         CardItem.Item cpuinfo = new CardItem.Item(getActivity(), R.drawable.ic_item_memory, getCpuABI());

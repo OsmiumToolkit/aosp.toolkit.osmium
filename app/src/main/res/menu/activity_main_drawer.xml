@@ -5,18 +5,18 @@
 
 	<item
 		android:id="@+id/nav_main"
-		android:icon="@drawable/ic_menu_share"
+		android:icon="@drawable/ic_home"
 		android:title="@string/nav_main" />
+
+	<item
+		android:id="@+id/nav_deviceinfo"
+		android:icon="@drawable/ic_phone"
+		android:title="@string/nav_deviceinfo" />
 
 	<item
 		android:id="@+id/nav_about"
 		android:icon="@drawable/ic_menu_about"
 		android:title="@string/nav_about" />
-
-	<item
-		android:id="@+id/nav_deviceinfo"
-		android:icon="@drawable/ic_menu_about"
-		android:title="@string/nav_title_toolkit" />
 
 	<item android:title="@string/nav_title_toolkit">
 		<menu>
@@ -24,6 +24,10 @@
 				android:id="@+id/nav_charging"
 				android:icon="@drawable/ic_charging"
 				android:title="@string/nav_charging" />
+			<item
+				android:id="@+id/nav_cores"
+				android:icon="@drawable/ic_developer_board"
+				android:title="@string/nav_processor" />
 		</menu>
 	</item>
 

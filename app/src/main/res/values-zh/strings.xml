@@ -14,9 +14,11 @@
 	<string name="cancel">取消</string>
 
 	<string name="nav_main">主页</string>
-	<string name="nav_charging">充电相关</string>
+	<string name="nav_about">关于应用</string>
+	<string name="nav_deviceinfo">设备信息</string>
 	<string name="nav_title_toolkit">工具箱</string>
-	<string name="nav_about">关于</string>
+	<string name="nav_charging">充电相关</string>
+	<string name="nav_processor">处理器相关</string>
 
 	<string name="menu_exit">退出应用</string>
 	<string name="menu_shell">退出应用 (Shell)</string>
@@ -108,7 +110,10 @@
 	<string name="deviceinfo_soc_title">SoC</string>
 	<string name="deviceinfo_soc_manufacturer">厂商</string>
 	<string name="deviceinfo_soc_model">型号</string>
-	<string name="deviceinfo_soc_abis">支持指令集</string>
+	<string name="deviceinfo_soc_abis">支持的ABIs</string>
+	<string name="deviceinfo_soc_cores">核心数</string>
+	<string name="deviceinfo_soc_abis64">支持的64位ABIs</string>
+	<string name="deviceinfo_soc_abis32">支持的32位ABIs</string>
 
 
 	<string name="deviceinfo_ram_title">运行内存</string>
@@ -118,5 +123,11 @@
 	<string name="deviceinfo_javaruntime_title">Java Runtime</string>
 	<string name="deviceinfo_javaruntime_maxmem">JVM 最高内存</string>
 	<string name="deviceinfo_javaruntime_totalmem">JVM 总内存</string>
+
+	<string name="cores_no">核心数量: %d</string>
+	<string name="kiloHertz">kHz</string>
+	<string name="cores_max_freq">最高频率: </string>
+	<string name="cores_min_freq">最低频率: </string>
+	<string name="cores_governor">调整器: </string>
 
 </resources>

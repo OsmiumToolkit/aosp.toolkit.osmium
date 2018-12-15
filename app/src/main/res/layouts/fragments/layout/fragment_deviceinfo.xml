@@ -9,25 +9,26 @@
 		android:layout_height="wrap_content"
 		android:layout_marginStart="8dp"
 		android:layout_marginTop="4dp"
-		android:layout_marginEnd="8dp"
+		android:layout_marginEnd="4dp"
+		android:layout_marginBottom="4dp"
 		android:orientation="vertical">
 
-		<com.earth.OsToolkit.Items.DeviceInfoCardViewItem
+		<com.earth.OsToolkit.Items.DeviceInfoCardView
 			android:id="@+id/deviceinfo_general"
 			android:layout_width="match_parent"
 			android:layout_height="wrap_content" />
 
-		<com.earth.OsToolkit.Items.DeviceInfoCardViewItem
+		<com.earth.OsToolkit.Items.DeviceInfoCardView
 			android:id="@+id/deviceinfo_soc"
 			android:layout_width="match_parent"
-			android:layout_height="wrap_content"/>
+			android:layout_height="wrap_content" />
 
-		<com.earth.OsToolkit.Items.DeviceInfoCardViewItem
+		<com.earth.OsToolkit.Items.DeviceInfoCardView
 			android:id="@+id/deviceinfo_ram"
 			android:layout_width="match_parent"
 			android:layout_height="wrap_content" />
 
-		<com.earth.OsToolkit.Items.DeviceInfoCardViewItem
+		<com.earth.OsToolkit.Items.DeviceInfoCardView
 			android:id="@+id/deviceinfo_runtime"
 			android:layout_width="match_parent"
 			android:layout_height="wrap_content" />

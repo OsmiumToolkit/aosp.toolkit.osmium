@@ -31,7 +31,7 @@ public class CardSwitchCompactItem extends LinearLayout {
 
 		this.context = context;
 
-		LayoutInflater.from(context).inflate(R.layout.item_card_switch, this);
+		LayoutInflater.from(context).inflate(R.layout.cardview_switch, this);
 
 
 		relativeLayout = findViewById(R.id.item_sw_relative);

@@ -8,7 +8,7 @@ import android.widget.TextView;
 
 import com.earth.OsToolkit.R;
 
-public class DeviceInfoCardViewItem extends LinearLayout {
+public class DeviceInfoCardView extends LinearLayout {
 
 	Context context;
 
@@ -17,16 +17,15 @@ public class DeviceInfoCardViewItem extends LinearLayout {
 	LinearLayout linearLayout;
 
 
-	public DeviceInfoCardViewItem(Context context, AttributeSet attributeSet) {
+	public DeviceInfoCardView(Context context, AttributeSet attributeSet) {
 		super(context,attributeSet);
 
 		this.context = context;
 
-		LayoutInflater.from(context).inflate(R.layout.item_card_deviceinfo,this);
+		LayoutInflater.from(context).inflate(R.layout.cardview_deviceinfo,this);
 
 		this.title = findViewById(R.id.item_card_deviceinfo_title);
 		this.linearLayout = findViewById(R.id.item_deviceinfo_layout);
-
 
 	}
 
@@ -40,7 +39,7 @@ public class DeviceInfoCardViewItem extends LinearLayout {
 
 	public void addItems(Item... items) {
 		linearLayout.removeAllViews();
-		for (DeviceInfoCardViewItem.Item item : items) {
+		for (DeviceInfoCardView.Item item : items) {
 			addItem(item);
 		}
 	}
@@ -67,7 +66,7 @@ public class DeviceInfoCardViewItem extends LinearLayout {
 
 			this.context = context;
 
-			LayoutInflater.from(context).inflate(R.layout.item_card_deviceinfo_item,this);
+			LayoutInflater.from(context).inflate(R.layout.cardview_deviceinfo_item,this);
 
 			this.name = findViewById(R.id.item_card_deviceinfo_item_name);
 			this.info = findViewById(R.id.item_card_deviceinfo_item_info);

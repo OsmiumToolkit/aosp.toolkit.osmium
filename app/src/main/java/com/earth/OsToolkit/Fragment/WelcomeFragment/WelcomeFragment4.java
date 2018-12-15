@@ -18,7 +18,8 @@ import static android.support.constraint.Constraints.TAG;
 import static com.earth.OsToolkit.Working.BaseClass.Checking.checkRoot;
 
 public class WelcomeFragment4 extends Fragment {
-    @Override
+
+	@Override
     public View onCreateView(@Nullable LayoutInflater inflater,
                              @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState){

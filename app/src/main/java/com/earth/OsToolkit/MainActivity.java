@@ -37,6 +37,7 @@ public class MainActivity extends AppCompatActivity
 	public void initUI() {
 		toolbar = findViewById(R.id.toolbar);
 		setSupportActionBar(toolbar);
+
 		FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
 		fragmentTransaction.replace(R.id.main_fragment, new MainFragment()).commit();
 
@@ -157,7 +158,12 @@ public class MainActivity extends AppCompatActivity
 				fragment = new AboutFragment();
 				break;
 			case R.id.nav_deviceinfo :
+				title = R.string.nav_deviceinfo;
 				fragment = new DeviceInfoFragment();
+				break;
+			case R.id.nav_cores :
+				title = R.string.nav_processor;
+				fragment = new CoresFragment();
 				break;
 		}
 
