@@ -178,6 +178,7 @@ public class MainActivity extends AppCompatActivity
 				fragment = new CoresFragment();
 				break;
 			case R.id.nav_applyyc:
+				title = R.string.nav_yc;
 				fragment = new ApplyYCFragment();
 				break;
 		}
