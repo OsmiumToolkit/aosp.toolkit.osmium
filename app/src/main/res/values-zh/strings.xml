@@ -51,7 +51,8 @@
 	<string name="about_apache">Apache-2.0</string>
 
 	<string name="update_check">检查更新</string>
-	<string name="update_checking">检查中&#8230;</string>
+	<string name="update_checking">检查更新中&#8230;</string>
+	<string name="update_fail">更新检查失败: 请检查网络连接后尝试</string>
 
 	<string name="reboot_option">重启选项(测试功能 慎用)</string>
 	<string name="reboot_click">点击重启</string>
@@ -72,7 +73,7 @@
 
 	<string name="welcome_3_title">关于</string>
 	<string name="welcome_3_subtitle">作者 \n＠住在地球真累</string>
-	<string name="welcome_3_spcialthank">特别感谢 \n＠xzr467706992</string>
+	<string name="welcome_3_spcialthank">特别感谢 \n＠xzr467706992＠yc9559</string>
 
 
 	<string name="welcome_4_title">准备启程&#8230;</string>
@@ -130,4 +131,11 @@
 	<string name="cores_min_freq">最低频率: </string>
 	<string name="cores_governor">调整器: </string>
 
+	<string name="applyyc_des">YC调度是由酷友＠YC9559的开源处理器频率算法项目，目前于GitHub开源更新。</string>
+	<string name="apply_snap">高通 骁龙</string>
+	<string name="apply_exynos">三星 猎户座</string>
+	<string name="apply_helio">联发科 Helio</string>
+	<string name="apply_kirin">华为海思 麒麟</string>
+	<string name="apply_atom">英特尔 Atom</string>
+	<string name="apply_confirm">将会为机型"%s"下载约6MB的脚本文件,下载完成后会自动执行。\n继续?</string>
 </resources>

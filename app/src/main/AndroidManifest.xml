@@ -3,6 +3,7 @@
 	package="com.earth.OsToolkit">
 
 	<uses-permission android:name="android.permission.INTERNET" />
+	<uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
 
 	<application
 		android:allowBackup="false"
@@ -33,6 +34,9 @@
 
 		<activity
 			android:name=".ScriptActivity"
+			android:theme="@style/AppTheme.NoActionBar" />
+
+		<activity android:name=".ApplyYCActivity"
 			android:theme="@style/AppTheme.NoActionBar" />
 	</application>
 

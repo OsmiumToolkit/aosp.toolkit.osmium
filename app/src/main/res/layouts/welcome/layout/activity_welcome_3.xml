@@ -26,6 +26,7 @@
 			android:layout_gravity="center"
 			android:text="@string/welcome_3_subtitle"
 			android:textColor="@android:color/white"
+			android:gravity="center"
 			android:textSize="@dimen/welcome_subtitle" />
 
 		<TextView
@@ -33,6 +34,7 @@
 			android:layout_height="wrap_content"
 			android:text="@string/welcome_3_spcialthank"
 			android:textColor="@android:color/white"
+			android:layout_gravity="center"
 			android:textSize="@dimen/welcome_subtitle" />
 
 	</LinearLayout>

@@ -29,7 +29,8 @@
 	<string name="menu_null_msg">Error will be produced manually to force JVM kill all process of this application.\nGo forward?</string>
 
 	<string name="update_check">Check for update</string>
-	<string name="update_checking">Checking&#8230;</string>
+	<string name="update_checking">Checking for update&#8230;</string>
+	<string name="update_fail">Fail to check: Please check your Internet connection</string>
 	<string name="update_found">New Update is released!</string>
 	<string name="update_version">Version: </string>
 	<string name="update_date">Date: </string>
@@ -70,8 +71,8 @@
 	<string name="welcone_2_subtitle2">Shell commands are used and being Open-Sourced</string>
 
 	<string name="welcome_3_title">About</string>
-	<string name="welcome_3_subtitle">Author \n＠1552980358(AlphaVulpecula)</string>
-	<string name="welcome_3_spcialthank">Special Thanks \n＠xzr467706992</string>
+	<string name="welcome_3_subtitle">Author \n＠1552980358(Vulpecula)</string>
+	<string name="welcome_3_spcialthank">Special Thanks \n＠xzr467706992\n＠yc9559</string>
 
 	<string name="welcome_4_title">Ready To Start&#8230;</string>
 	<string name="welcome_4_subtitle">But I need Root permission first&#8230;</string>
@@ -127,4 +128,12 @@
 	<string name="cores_max_freq">Max. Frequency: </string>
 	<string name="cores_min_freq">Min. Frequency: </string>
 	<string name="cores_governor">Governor: </string>
+
+	<string name="applyyc_des">YC is a repository adjusting the interactive parameters by personal feeling started by CoolApk member ＠yc9559. It is now open-sourced on GitHub.</string>
+	<string name="apply_snap">Qualcomm Snapdragon</string>
+	<string name="apply_exynos">Samsung Exynos</string>
+	<string name="apply_helio">MediaTek Helio</string>
+	<string name="apply_kirin">HuaWei Hisilicon Kirin</string>
+	<string name="apply_atom">Intel Atom</string>
+	<string name="apply_confirm">You are going to download a script for device "%s" sized around 6MB, which the script will automatically run.\nContinue?</string>
 </resources>

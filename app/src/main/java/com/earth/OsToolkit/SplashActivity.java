@@ -20,8 +20,7 @@ public class SplashActivity extends Activity {
 		SharedPreferences sp = getSharedPreferences("save", MODE_PRIVATE);
 		int welcome = sp.getInt("welcome", 0);
 
-		Checking.checkVersion(this);
-		ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.INTERNET,}, 1);
+		ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.INTERNET,Manifest.permission.ACCESS_NETWORK_STATE}, 1);
 
 		Intent intent = new Intent();
 		if (welcome == 0 || !checkRoot()) {

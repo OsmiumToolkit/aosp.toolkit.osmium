@@ -2,6 +2,8 @@ package com.earth.OsToolkit;
 
 import android.content.DialogInterface;
 import android.content.SharedPreferences;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
 import android.os.*;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
@@ -14,12 +16,17 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.*;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.earth.OsToolkit.Fragment.*;
+import com.earth.OsToolkit.Fragment.Dialog.UpdateDialogFragment;
+import com.earth.OsToolkit.Working.BaseClass.CheckUpdate;
 import com.earth.OsToolkit.Working.BaseClass.Checking;
 import com.earth.OsToolkit.Working.BaseClass.ExitApplication;
 
 import java.lang.Process;
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class MainActivity extends AppCompatActivity
 		implements NavigationView.OnNavigationItemSelectedListener {
@@ -52,21 +59,26 @@ public class MainActivity extends AppCompatActivity
 	}
 
 	public void checkUpdate() {
-		Checking.checkVersion(this);
-		String PackageVersionCode = null;
-		try {
-			PackageVersionCode = getPackageManager().getPackageInfo(getPackageName(),0).versionName;
-		}catch (Exception e) {
-			e.printStackTrace();
+		Toast.makeText(this, getString(R.string.update_checking), Toast.LENGTH_SHORT).show();
+		CheckUpdate checkUpdate = new CheckUpdate();
+		checkUpdate.execute();
+
+		while (!checkUpdate.complete) {
+			Timer timer = new Timer();
+			timer.schedule(new TimerTask() {
+				@Override
+				public void run() {
+				}
+			}, 50);
 		}
 
-		Log.i("PackageVersionCode",PackageVersionCode);
-
-		SharedPreferences sharedPreferences = getSharedPreferences("UpdateSP",MODE_PRIVATE);
-		if (!sharedPreferences.getString("updateVersion","fail")
-				.equals(PackageVersionCode)) {
+		if (checkUpdate.complete && !checkUpdate.getVersion().equals(Checking.getVersionName(this))) {
 			UpdateDialogFragment updateDialogFragment = new UpdateDialogFragment();
 			FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+			updateDialogFragment.setVerision(checkUpdate.getVersion());
+			updateDialogFragment.setDate(checkUpdate.getDate());
+			updateDialogFragment.setChangelogEng(checkUpdate.getChangelog_Eng());
+			updateDialogFragment.setChangelogCn(checkUpdate.getChangelog_Cn());
 			updateDialogFragment.show(fragmentTransaction, "updateDialogFragment");
 		}
 	}
@@ -99,19 +111,19 @@ public class MainActivity extends AppCompatActivity
 		//noinspection SimplifiableIfStatement
 		Process process;
 		switch (id) {
-			case R.id.menu_exit :
+			case R.id.menu_exit:
 				ExitApplication.exit();
 				return true;
 
-			case R.id.menu_shell :
+			case R.id.menu_shell:
 				ExitApplication.shellKill(this);
 				return true;
 
-			case R.id.menu_killProcessPID :
+			case R.id.menu_killProcessPID:
 				ExitApplication.killProcessPID();
 				return true;
 
-			case R.id.menu_null :
+			case R.id.menu_null:
 				AlertDialog.Builder builder = new AlertDialog.Builder(this);
 				builder.setTitle(R.string.menu_null_title)
 						.setMessage(R.string.menu_null_msg)
@@ -123,15 +135,15 @@ public class MainActivity extends AppCompatActivity
 							}
 						})
 						.setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
-					@Override
-					public void onClick(DialogInterface dialog, int which) {
+							@Override
+							public void onClick(DialogInterface dialog, int which) {
 
-					}
-				}).show();
+							}
+						}).show();
 				return true;
 
-				default:
-					return super.onOptionsItemSelected(item);
+			default:
+				return super.onOptionsItemSelected(item);
 
 		}
 	}
@@ -157,13 +169,16 @@ public class MainActivity extends AppCompatActivity
 				title = R.string.nav_about;
 				fragment = new AboutFragment();
 				break;
-			case R.id.nav_deviceinfo :
+			case R.id.nav_deviceinfo:
 				title = R.string.nav_deviceinfo;
 				fragment = new DeviceInfoFragment();
 				break;
-			case R.id.nav_cores :
+			case R.id.nav_cores:
 				title = R.string.nav_processor;
 				fragment = new CoresFragment();
+				break;
+			case R.id.nav_applyyc:
+				fragment = new ApplyYCFragment();
 				break;
 		}
 

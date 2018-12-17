@@ -12,16 +12,18 @@ import java.io.*;
 import com.earth.OsToolkit.Working.FileWorking;
 
 public class ScriptActivity extends AppCompatActivity {
+	TextView textView;
 	String script;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_script);
+		textView = findViewById(R.id.script_txt);
 
-		setToolBar();
 		script = getIntent().getStringExtra("script");
-		ScriptWorking(script);
+		setToolBar();
+		ScriptWorking();
 	}
 
 	public void setToolBar() {
@@ -45,15 +47,14 @@ public class ScriptActivity extends AppCompatActivity {
 		toolbar.setNavigationOnClickListener(v -> onBackPressed());
 	}
 
-	TextView textView;
 
-	public void ScriptWorking(String fileName) {
-		textView = findViewById(R.id.script_txt);
-		String path = getCacheDir().getAbsolutePath() + File.separator + fileName;
+
+	public void ScriptWorking() {
+		String path = getCacheDir().getAbsolutePath() + File.separator + script;
 
 		textView.append("Copying script from assets to Cache...\n");
 		textView.append("从Assets复制脚本到Cache中...\n");
-		if (FileWorking.copyAssets2Cache(ScriptActivity.this, fileName)) {
+		if (FileWorking.copyAssets2Cache(ScriptActivity.this, script)) {
 			textView.append("Copied successfully! File exists.\n");
 			textView.append("复制成功!文件存在。\n\n");
 
@@ -64,7 +65,7 @@ public class ScriptActivity extends AppCompatActivity {
 			textView.append("Setting permission...\n");
 			textView.append("设置限权...\n");
 
-			if (FileWorking.setScriptPermission(ScriptActivity.this, fileName)) {
+			if (FileWorking.setScriptPermission(ScriptActivity.this, script)) {
 				textView.append("Setting permission successfully!\n");
 				textView.append("限权设置成功!\n\n");
 				runScript(path);

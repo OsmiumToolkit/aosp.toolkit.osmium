@@ -1,6 +1,5 @@
 package com.earth.OsToolkit.Fragment;
 
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.*;
 import android.support.v4.app.Fragment;
@@ -9,13 +8,17 @@ import android.text.method.LinkMovementMethod;
 import android.view.*;
 import android.widget.*;
 
+import com.earth.OsToolkit.Fragment.Dialog.UpdateDialogFragment;
 import com.earth.OsToolkit.Items.AboutItem;
 import com.earth.OsToolkit.R;
+import com.earth.OsToolkit.Working.BaseClass.CheckUpdate;
 import com.earth.OsToolkit.Working.BaseClass.Checking;
 import com.earth.OsToolkit.Working.BaseClass.Jumping;
 
 
-import static android.content.Context.MODE_PRIVATE;
+import java.util.Timer;
+import java.util.TimerTask;
+
 
 public class AboutFragment extends Fragment {
 
@@ -56,15 +59,28 @@ public class AboutFragment extends Fragment {
 
 		update.setOnClickListener(v -> {
 			Toast.makeText(getActivity(), R.string.update_checking, Toast.LENGTH_SHORT).show();
-			Checking.checkVersion(getActivity());
 
-			SharedPreferences sharedPreferences = getActivity().getSharedPreferences("UpdateSP",MODE_PRIVATE);
-			if (!sharedPreferences.getString("updateVersion","fail")
-					     .equals(PackageVersionCode)) {
-				UpdateDialogFragment updateDialogFragment = new UpdateDialogFragment();
-				FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
-				updateDialogFragment.show(fragmentTransaction, "updateDialogFragment");
-			}
+				CheckUpdate checkUpdate = new CheckUpdate();
+				checkUpdate.execute();
+
+				while (!checkUpdate.complete) {
+					Timer timer = new Timer();
+					timer.schedule(new TimerTask() {
+						@Override
+						public void run() {}
+					}, 50);
+				}
+
+				if (checkUpdate.complete && !checkUpdate.getVersion().equals(Checking.getVersionName(getActivity()))) {
+					UpdateDialogFragment updateDialogFragment = new UpdateDialogFragment();
+					FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
+					updateDialogFragment.setVerision(checkUpdate.getVersion());
+					updateDialogFragment.setDate(checkUpdate.getDate());
+					updateDialogFragment.setChangelogEng(checkUpdate.getChangelog_Eng());
+					updateDialogFragment.setChangelogCn(checkUpdate.getChangelog_Cn());
+					updateDialogFragment.show(fragmentTransaction, "updateDialogFragment");
+				}
+
 
 		});
 

@@ -105,10 +105,6 @@ public class CoresCardView extends LinearLayout {
 
 	}
 
-
-
-
-
 	public void setGovernor(int core, int mode) {
 		Spinner spinner_Freq = findViewById(R.id.cores_spinner);
 		List<String> list = new ArrayList<>();

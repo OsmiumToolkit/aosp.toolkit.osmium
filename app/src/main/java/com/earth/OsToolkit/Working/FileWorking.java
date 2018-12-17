@@ -6,7 +6,7 @@ import android.util.Log;
 
 import java.io.*;
 
-@SuppressWarnings("all")
+
 public class FileWorking {
 	public static boolean copyAssets2Cache(Context context, String fileName) {
 		File file = new File(context.getCacheDir()
@@ -17,10 +17,9 @@ public class FileWorking {
 			InputStream inputStream = context.getAssets().open(fileName);
 			if (!file.exists() || file.length() == 0) {
 				FileOutputStream fos = new FileOutputStream(file);
-				int len = -1;
 				byte[] buffer = new byte[1024];
-				while ((len = inputStream.read(buffer)) != -1)
-					fos.write(buffer, 0, len);
+				while (inputStream.read(buffer)!= -1)
+					fos.write(buffer, 0, -1);
 				fos.flush();
 				inputStream.close();
 				fos.close();
