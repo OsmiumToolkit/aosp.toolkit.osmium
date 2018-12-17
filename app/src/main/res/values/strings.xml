@@ -3,7 +3,7 @@
 	<string name="app_name">OsmiumToolkit</string>
 	<string name="navigation_drawer_open">Open navigation drawer</string>
 	<string name="navigation_drawer_close">Close navigation drawer</string>
-	<string name="nav_header_title">OsmiumToolkit &lt;v1.0&gt;</string>
+	<string name="nav_header_title">OsmiumToolkit &lt;Release&gt;</string>
 	<string name="nav_header_subtitle">- Vulpecula -</string>
 	<string name="nav_header_desc">Navigation header</string>
 	<string name="action_reboot">Reboot</string>
@@ -20,6 +20,8 @@
 	<string name="nav_title_toolkit">Toolkit</string>
 	<string name="nav_charging">Charging</string>
 	<string name="nav_processor">Processor</string>
+	<string name="nav_title_3rd">3rd Party support</string>
+	<string name="nav_yc">YC cpufreq-interactive-opt</string>
 
 	<string name="menu_exit">Exit</string>
 	<string name="menu_shell">Exit (Shell)</string>
@@ -40,6 +42,7 @@
 	<string name="toast_coolapk">Coolapk(com.coolapk.market) installed. Launching&#8230;</string>
 	<string name="update_changelog_ENG">English(英语)</string>
 	<string name="update_changelog_CN">Simplified Chinese(简体中文)</string>
+	<string name="update_newest">It is the newest version now.</string>
 
 	<string name="load_fail">Fail!</string>
 	<string name="refresh">Refreshing……</string>
@@ -53,6 +56,9 @@
 	<string name="about_coolapk"><a herf="https://www.coolapk.com/apk/com.earth.OsToolkit">Coolapk</a></string>
 	<string name="about_github"><a herf="https://github.com/1552980358/com.earth.OsToolkit">GitHub</a></string>
 	<string name="about_apache">Apache-2.0</string>
+	<string name="aboout_credit">Credit</string>
+	<string name="about_credit_xzr">＠xzr467706992\n - Open-sourced Lanthanum System Toolbox molecules</string>
+	<string name="about_credit_yc9559">＠yc9559\n - yc9559\'s cpufreq-interactive-opt</string>
 
 	<string name="reboot_option">Reboot option(Operation in Beta)</string>
 	<string name="reboot_click">Click to reboot</string>

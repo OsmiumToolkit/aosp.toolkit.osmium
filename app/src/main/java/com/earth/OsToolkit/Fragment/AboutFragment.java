@@ -79,8 +79,9 @@ public class AboutFragment extends Fragment {
 					updateDialogFragment.setChangelogEng(checkUpdate.getChangelog_Eng());
 					updateDialogFragment.setChangelogCn(checkUpdate.getChangelog_Cn());
 					updateDialogFragment.show(fragmentTransaction, "updateDialogFragment");
+				} else {
+					Toast.makeText(getActivity(), getString(R.string.update_newest), Toast.LENGTH_SHORT).show();
 				}
-
 
 		});
 
