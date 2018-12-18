@@ -48,6 +48,7 @@ public class ApplyYCActivity extends AppCompatActivity {
 		// Set Title property
 		toolbar.setTitle(board);
 		toolbar.setTitleTextColor(getResources().getColor(android.R.color.white));
+		toolbar.setNavigationOnClickListener(v -> onBackPressed());
 	}
 
 	public void downloadScript() {
@@ -77,14 +78,14 @@ public class ApplyYCActivity extends AppCompatActivity {
 
 			textView.append("Set permission...\n");
 			textView.append("设置限权...\n");
-			if (FileWorking.setScriptPermission(this,filePath)) {
+			if (FileWorking.setScriptPermission(this,board + ".sh")) {
 
 				textView.append("Permission setting succeed!\n");
 				textView.append("限权设置完成!\n\n");
 
 				textView.append("Command:\n");
 				textView.append("命令:\n");
-				textView.append("su -c /system/bin/sh " + filePath + "\n");
+				textView.append("su -c /system/bin/sh " + filePath + "\n\n");
 
 				Process process = Runtime.getRuntime().exec(new String[]{"su", "-c", "/system/bin/sh", filePath});
 				Log.i("ApplyYC_P_waitfor", process.waitFor() + "");
@@ -125,6 +126,10 @@ public class ApplyYCActivity extends AppCompatActivity {
 		}
 	}
 
+	@Override
+	public void onBackPressed() {
+		super.onBackPressed();
+	}
 
 	public class DownloadYCScript extends AsyncTask<Void, Integer, Integer> {
 		public boolean download = true;
