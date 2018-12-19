@@ -3,7 +3,7 @@
 	<string name="app_name">锇•工具箱</string>
 	<string name="navigation_drawer_open">Open navigation drawer</string>
 	<string name="navigation_drawer_close">Close navigation drawer</string>
-	<string name="nav_header_title">锇•工具箱 &lt;测试版&gt;</string>
+	<string name="nav_header_title">锇•工具箱 &lt;实验版&gt;</string>
 	<string name="nav_header_subtitle">- 住在地球真累 -</string>
 	<string name="nav_header_desc">Navigation header</string>
 	<string name="action_reboot">重启</string>

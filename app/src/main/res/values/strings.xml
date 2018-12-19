@@ -3,7 +3,7 @@
 	<string name="app_name">OsmiumToolkit</string>
 	<string name="navigation_drawer_open">Open navigation drawer</string>
 	<string name="navigation_drawer_close">Close navigation drawer</string>
-	<string name="nav_header_title">OsmiumToolkit &lt;Beta&gt;</string>
+	<string name="nav_header_title">OsmiumToolkit &lt;Experimental&gt;</string>
 	<string name="nav_header_subtitle">- Vulpecula -</string>
 	<string name="nav_header_desc">Navigation header</string>
 	<string name="action_reboot">Reboot</string>
