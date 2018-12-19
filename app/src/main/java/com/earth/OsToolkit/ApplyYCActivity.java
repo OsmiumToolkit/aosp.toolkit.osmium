@@ -1,6 +1,5 @@
 package com.earth.OsToolkit;
 
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
@@ -21,6 +20,10 @@ public class ApplyYCActivity extends AppCompatActivity {
 
 	String filePath;
 
+	File file;
+
+	boolean complete = false;
+
 	@Override
 	protected void onCreate(@Nullable Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -29,6 +32,7 @@ public class ApplyYCActivity extends AppCompatActivity {
 
 		board = getIntent().getStringExtra("board");
 		filePath = getCacheDir().getAbsolutePath() + File.separator + board + ".sh";
+		file = new File(filePath);
 
 		setToolBar();
 		downloadScript();
@@ -54,10 +58,40 @@ public class ApplyYCActivity extends AppCompatActivity {
 	public void downloadScript() {
 		textView.append("Downloading YC script from Github...\n");
 		textView.append("下载YC调度脚本中...\n\n");
-		DownloadYCScript downloadYCScript = new DownloadYCScript();
-		downloadYCScript.execute();
 
-		while (!downloadYCScript.complete) {
+		new Thread(() -> {
+			try {
+				URL url = new URL("https://raw.githubusercontent.com/1552980358/1552980358.github.io/master/yc/20180603/" + board + ".sh");
+
+				if (!file.exists() || file.length() != 1) {
+					InputStream inputStream = url.openStream();
+
+					FileOutputStream fileOutputStream = new FileOutputStream(filePath);
+
+					byte[] buffer = new byte[1024];
+
+					int len;
+					while ((len = inputStream.read(buffer)) != -1) {
+						fileOutputStream.write(buffer, 0, len);
+						textView.append(file.length() + "Byte/字节\n");
+					}
+
+
+					fileOutputStream.flush();
+					inputStream.close();
+					fileOutputStream.close();
+
+					complete = true;
+				}
+
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+
+
+		}).start();
+
+		while (!complete) {
 			Timer timer = new Timer();
 			timer.schedule(new TimerTask() {
 				@Override
@@ -65,10 +99,13 @@ public class ApplyYCActivity extends AppCompatActivity {
 			},20);
 		}
 
-		if (downloadYCScript.download) {
+		if (file.exists() && file.length() > 1) {
+			textView.append("\nDownloading succeed\n");
+			textView.append("下载完成!\n\n");
 			runScript();
 		}
 	}
+
 
 	public void runScript() {
 		try {
@@ -78,7 +115,7 @@ public class ApplyYCActivity extends AppCompatActivity {
 
 			textView.append("Set permission...\n");
 			textView.append("设置限权...\n");
-			if (FileWorking.setScriptPermission(this,board + ".sh")) {
+			if (FileWorking.setScriptPermission(this, board + ".sh")) {
 
 				textView.append("Permission setting succeed!\n");
 				textView.append("限权设置完成!\n\n");
@@ -130,55 +167,5 @@ public class ApplyYCActivity extends AppCompatActivity {
 	public void onBackPressed() {
 		super.onBackPressed();
 	}
-
-	public class DownloadYCScript extends AsyncTask<Void, Integer, Integer> {
-		public boolean download = true;
-		public boolean complete = false;
-
-		@Override
-		protected Integer doInBackground(Void... voids) {
-			File file = new File(filePath);
-			try {
-				URL url = new URL("https://raw.githubusercontent.com/1552980358/1552980358.github.io/master/yc/20180603/" + board + ".sh");
-
-
-				if (!file.exists() || file.length() != 1) {
-					InputStream inputStream = url.openStream();
-
-					FileOutputStream fileOutputStream = new FileOutputStream(filePath);
-
-					byte[] buffer = new byte[1024];
-
-					int len;
-					while ((len = inputStream.read(buffer)) != -1) {
-						fileOutputStream.write(buffer,0, len);
-						textView.append(file.length() + "Byte/字节\n");
-					}
-
-
-					fileOutputStream.flush();
-					inputStream.close();
-					fileOutputStream.close();
-				}
-
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-
-			complete = true;
-			if (file.length() != 1) {
-				textView.append("\nDownload finished!\n");
-				textView.append("下载完成!\n\n");
-				download = true;
-			} else {
-				textView.append("\nDownload failed!\n");
-				textView.append("下载失败!\n");
-			}
-			return null;
-		}
-	}
-
-
-
 
 }

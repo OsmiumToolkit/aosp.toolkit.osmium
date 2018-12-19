@@ -61,7 +61,7 @@ public class AboutFragment extends Fragment {
 			Toast.makeText(getActivity(), R.string.update_checking, Toast.LENGTH_SHORT).show();
 
 				CheckUpdate checkUpdate = new CheckUpdate();
-				checkUpdate.execute();
+				checkUpdate.checkUpdate();
 
 				while (!checkUpdate.complete) {
 					Timer timer = new Timer();
@@ -76,8 +76,8 @@ public class AboutFragment extends Fragment {
 					FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
 					updateDialogFragment.setVerision(checkUpdate.getVersion());
 					updateDialogFragment.setDate(checkUpdate.getDate());
-					updateDialogFragment.setChangelogEng(checkUpdate.getChangelog_Eng());
-					updateDialogFragment.setChangelogCn(checkUpdate.getChangelog_Cn());
+					updateDialogFragment.setChangelogEng(checkUpdate.getChangelogEng());
+					updateDialogFragment.setChangelogCn(checkUpdate.getChangelogCn());
 					updateDialogFragment.show(fragmentTransaction, "updateDialogFragment");
 				} else {
 					Toast.makeText(getActivity(), getString(R.string.update_newest), Toast.LENGTH_SHORT).show();

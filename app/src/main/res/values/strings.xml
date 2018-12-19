@@ -3,7 +3,7 @@
 	<string name="app_name">OsmiumToolkit</string>
 	<string name="navigation_drawer_open">Open navigation drawer</string>
 	<string name="navigation_drawer_close">Close navigation drawer</string>
-	<string name="nav_header_title">OsmiumToolkit &lt;Release&gt;</string>
+	<string name="nav_header_title">OsmiumToolkit &lt;Beta&gt;</string>
 	<string name="nav_header_subtitle">- Vulpecula -</string>
 	<string name="nav_header_desc">Navigation header</string>
 	<string name="action_reboot">Reboot</string>
@@ -141,5 +141,5 @@
 	<string name="apply_helio">MediaTek Helio</string>
 	<string name="apply_kirin">HuaWei Hisilicon Kirin</string>
 	<string name="apply_atom">Intel Atom</string>
-	<string name="apply_confirm">You are going to download a script for device "%s" sized around 6MB, which the script will automatically run.\nContinue?</string>
+	<string name="apply_confirm">You are going to download a script for device "%s" sized around 7kB, which the script will automatically run.\nContinue?</string>
 </resources>

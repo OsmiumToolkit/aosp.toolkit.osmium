@@ -1,9 +1,6 @@
 package com.earth.OsToolkit;
 
 import android.content.DialogInterface;
-import android.content.SharedPreferences;
-import android.content.pm.PackageInfo;
-import android.content.pm.PackageManager;
 import android.os.*;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
@@ -13,20 +10,15 @@ import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.*;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.*;
-import android.widget.TextView;
-import android.widget.Toast;
+import android.widget.*;
 
 import com.earth.OsToolkit.Fragment.*;
 import com.earth.OsToolkit.Fragment.Dialog.UpdateDialogFragment;
-import com.earth.OsToolkit.Working.BaseClass.CheckUpdate;
-import com.earth.OsToolkit.Working.BaseClass.Checking;
-import com.earth.OsToolkit.Working.BaseClass.ExitApplication;
+import com.earth.OsToolkit.Working.BaseClass.*;
 
 import java.lang.Process;
-import java.util.Timer;
-import java.util.TimerTask;
+import java.util.*;
 
 public class MainActivity extends AppCompatActivity
 		implements NavigationView.OnNavigationItemSelectedListener {
@@ -61,7 +53,7 @@ public class MainActivity extends AppCompatActivity
 	public void checkUpdate() {
 		Toast.makeText(this, getString(R.string.update_checking), Toast.LENGTH_SHORT).show();
 		CheckUpdate checkUpdate = new CheckUpdate();
-		checkUpdate.execute();
+		checkUpdate.checkUpdate();
 
 		while (!checkUpdate.complete) {
 			Timer timer = new Timer();
@@ -77,8 +69,8 @@ public class MainActivity extends AppCompatActivity
 			FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
 			updateDialogFragment.setVerision(checkUpdate.getVersion());
 			updateDialogFragment.setDate(checkUpdate.getDate());
-			updateDialogFragment.setChangelogEng(checkUpdate.getChangelog_Eng());
-			updateDialogFragment.setChangelogCn(checkUpdate.getChangelog_Cn());
+			updateDialogFragment.setChangelogEng(checkUpdate.getChangelogEng());
+			updateDialogFragment.setChangelogCn(checkUpdate.getChangelogCn());
 			updateDialogFragment.show(fragmentTransaction, "updateDialogFragment");
 		}
 	}

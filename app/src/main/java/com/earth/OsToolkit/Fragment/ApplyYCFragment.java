@@ -5,6 +5,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -30,6 +31,9 @@ import java.util.TimerTask;
 
 public class ApplyYCFragment extends Fragment {
 	List<String> list = new ArrayList<>();
+
+	Handler handler = new Handler();
+
 	TextView textView_date;
 	ProgressBar progressBar;
 	LinearLayout linearLayout_root;
@@ -38,6 +42,8 @@ public class ApplyYCFragment extends Fragment {
 	LinearLayout linearLayout_mtk;
 	LinearLayout linearLayout_kirin;
 	LinearLayout linearLayout_atom;
+
+	private boolean complete = false;
 
 	@Nullable
 	@Override
@@ -59,27 +65,9 @@ public class ApplyYCFragment extends Fragment {
 
 		textView_date = view.findViewById(R.id.apply_date);
 
-		GetSupportProcessor getSupportProcessor = new GetSupportProcessor();
-		getSupportProcessor.execute();
 
-		// 方法堵塞，等待线程完成
-		// Method stop : wait for the finish of new thread
-		while (!getSupportProcessor.complete) {
-			Timer timer = new Timer();
-			timer.schedule(new TimerTask() {
-				@Override
-				public void run() {}
-			}, 50);
-		}
+		new Thread(() -> {
 
-		progressBar.setVisibility(View.GONE);
-	}
-
-	public class GetSupportProcessor extends AsyncTask<Void, Integer, Integer> {
-		public boolean complete = false;
-
-		@Override
-		protected Integer doInBackground(Void... voids) {
 			try {
 				URL url = new URL("https://raw.githubusercontent.com/1552980358/1552980358.github.io/master/yc_processor_table");
 				InputStream inputStream = url.openStream();
@@ -100,8 +88,29 @@ public class ApplyYCFragment extends Fragment {
 				e.printStackTrace();
 			}
 
+			handler.post(runnable);
+
 			complete = true;
 
+		}).start();
+
+		while (!complete) {
+			Timer timer = new Timer();
+			timer.schedule(new TimerTask() {
+				@Override
+				public void run() {
+				}
+			}, 10);
+		}
+
+		progressBar.setVisibility(View.GONE);
+		linearLayout_root.setVisibility(View.VISIBLE);
+
+	}
+
+	Runnable runnable = new Runnable() {
+		@Override
+		public void run() {
 			for (int i = 0; i < list.size(); i++) {
 				ApplyYCRelativeLayout applyYCRelativeLayout = new ApplyYCRelativeLayout(getActivity(), getParentFragment(), list.get(i));
 				final int no = i;
@@ -110,7 +119,7 @@ public class ApplyYCFragment extends Fragment {
 					builder.setTitle(list.get(no))
 							.setMessage(String.format(getString(R.string.apply_confirm), list.get(no)))
 							.setPositiveButton(getString(R.string.cont), (dialog, which) -> {
-								startActivity(new Intent(getActivity(), ApplyYCActivity.class).putExtra("board",list.get(no)));
+								startActivity(new Intent(getActivity(), ApplyYCActivity.class).putExtra("board", list.get(no)));
 							})
 							.setNegativeButton(getString(R.string.cancel), (dialog, which) -> {
 							}).show();
@@ -127,16 +136,8 @@ public class ApplyYCFragment extends Fragment {
 				} else {
 					linearLayout_atom.addView(applyYCRelativeLayout);
 				}
-
-
 			}
-			return null;
 		}
+	};
 
-		@Override
-		protected void onPostExecute(Integer integer) {
-			super.onPostExecute(integer);
-			linearLayout_root.setVisibility(View.VISIBLE);
-		}
-	}
 }

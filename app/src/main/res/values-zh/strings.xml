@@ -3,7 +3,7 @@
 	<string name="app_name">锇•工具箱</string>
 	<string name="navigation_drawer_open">Open navigation drawer</string>
 	<string name="navigation_drawer_close">Close navigation drawer</string>
-	<string name="nav_header_title">锇•工具箱 &lt;正式版&gt;</string>
+	<string name="nav_header_title">锇•工具箱 &lt;测试版&gt;</string>
 	<string name="nav_header_subtitle">- 住在地球真累 -</string>
 	<string name="nav_header_desc">Navigation header</string>
 	<string name="action_reboot">重启</string>
@@ -142,5 +142,5 @@
 	<string name="apply_helio">联发科 Helio</string>
 	<string name="apply_kirin">华为海思 麒麟</string>
 	<string name="apply_atom">英特尔 Atom</string>
-	<string name="apply_confirm">将会为机型"%s"下载约6MB的脚本文件,下载完成后会自动执行。\n继续?</string>
+	<string name="apply_confirm">将会为机型"%s"下载约7kB的脚本文件,下载完成后会自动执行。\n继续?</string>
 </resources>
