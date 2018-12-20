@@ -56,8 +56,7 @@ public class ApplyYCActivity extends AppCompatActivity {
 	}
 
 	public void downloadScript() {
-		textView.append("Downloading YC script from Github...\n");
-		textView.append("下载YC调度脚本中...\n\n");
+		textView.append("Downloading YC script from Github/下载YC调度脚本中...\n\n");
 
 		new Thread(() -> {
 			try {
@@ -95,13 +94,13 @@ public class ApplyYCActivity extends AppCompatActivity {
 			Timer timer = new Timer();
 			timer.schedule(new TimerTask() {
 				@Override
-				public void run() {}
-			},20);
+				public void run() {
+				}
+			}, 20);
 		}
 
 		if (file.exists() && file.length() > 1) {
-			textView.append("\nDownloading succeed\n");
-			textView.append("下载完成!\n\n");
+			textView.append("\nDownload successfully/下载完成!\n\n");
 			runScript();
 		}
 	}
@@ -109,19 +108,16 @@ public class ApplyYCActivity extends AppCompatActivity {
 
 	public void runScript() {
 		try {
-			textView.append("Target: \n");
-			textView.append("目标: \n");
+			textView.append("Target/目标: \n");
 			textView.append(filePath + "\n\n");
 
-			textView.append("Set permission...\n");
-			textView.append("设置限权...\n");
+			textView.append("Setting permission/设置限权...\n");
 			if (FileWorking.setScriptPermission(this, board + ".sh")) {
 
-				textView.append("Permission setting succeed!\n");
-				textView.append("限权设置完成!\n\n");
+				textView.append("Succeed to set permission/限权设置完成!\n\n");
 
-				textView.append("Command:\n");
-				textView.append("命令:\n");
+				textView.append("Command/命令:\n");
+
 				textView.append("su -c /system/bin/sh " + filePath + "\n\n");
 
 				Process process = Runtime.getRuntime().exec(new String[]{"su", "-c", "/system/bin/sh", filePath});
@@ -136,17 +132,15 @@ public class ApplyYCActivity extends AppCompatActivity {
 				BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
 				BufferedReader bufferedReaderError = new BufferedReader(inputStreamReaderError);
 
-				String line;
+				textView.append("Process/过程: \n");
 
-				textView.append("Process: \n");
-				textView.append("过程: \n");
+				String line;
 				while ((line = bufferedReader.readLine()) != null) {
 					textView.append(line + "\n");
 				}
 
 				if ((line = bufferedReaderError.readLine()) != null) {
-					textView.append("\nError: \n");
-					textView.append("错误: \n");
+					textView.append("\nError Message/错误信息: \n");
 					textView.append(line + "\n");
 					while ((line = bufferedReaderError.readLine()) != null) {
 						textView.append(line + "\n");
@@ -155,8 +149,7 @@ public class ApplyYCActivity extends AppCompatActivity {
 				}
 
 			} else {
-				textView.append("Fail to set permission!\n");
-				textView.append("限权设置失败!\n");
+				textView.append("Fail to set permission/限权设置失败!\n");
 			}
 		} catch (Exception e) {
 			e.printStackTrace();

@@ -63,6 +63,8 @@ public class AboutFragment extends Fragment {
 				CheckUpdate checkUpdate = new CheckUpdate();
 				checkUpdate.checkUpdate();
 
+				// 方法堵塞主线程，等待新线程完成工作
+				// Method blocking Main Thread, wait for finish working of new Thread
 				while (!checkUpdate.complete) {
 					Timer timer = new Timer();
 					timer.schedule(new TimerTask() {
@@ -72,12 +74,47 @@ public class AboutFragment extends Fragment {
 				}
 
 				if (checkUpdate.complete && !checkUpdate.getVersion().equals(Checking.getVersionName(getActivity()))) {
+					// 实例化Dialog
+					// New Dialog
 					UpdateDialogFragment updateDialogFragment = new UpdateDialogFragment();
 					FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
-					updateDialogFragment.setVerision(checkUpdate.getVersion());
-					updateDialogFragment.setDate(checkUpdate.getDate());
-					updateDialogFragment.setChangelogEng(checkUpdate.getChangelogEng());
-					updateDialogFragment.setChangelogCn(checkUpdate.getChangelogCn());
+
+					String ver;
+					String d;
+					String cC;
+					String cE;
+
+					if (checkUpdate.getVersion() != null)
+						ver = checkUpdate.getVersion();
+					else
+						ver = "Fail";
+
+					if (checkUpdate.getDate() != null)
+						d = checkUpdate.getDate();
+					else
+						d = "Fail";
+
+					if (checkUpdate.getChangelogCn() != null)
+						cC = checkUpdate.getChangelogCn();
+					else
+						cC = "Fail";
+
+					if (checkUpdate.getChangelogEng() != null)
+						cE = checkUpdate.getChangelogEng();
+					else
+						cE = "Fail";
+
+
+
+								//发送数据
+					// Transmit data
+					updateDialogFragment.setVerision(ver);
+					updateDialogFragment.setDate(d);
+					updateDialogFragment.setChangelogEng(cC);
+					updateDialogFragment.setChangelogCn(cE);
+
+					// 显示Dialog
+					// Show Dialog
 					updateDialogFragment.show(fragmentTransaction, "updateDialogFragment");
 				} else {
 					Toast.makeText(getActivity(), getString(R.string.update_newest), Toast.LENGTH_SHORT).show();

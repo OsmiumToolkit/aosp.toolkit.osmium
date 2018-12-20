@@ -106,6 +106,8 @@
 	<string name="charging_qc3_sum">启用/禁用 QC3.0 - 他不一定有效</string>
 	<string name="charging_allow_title">允许充电</string>
 	<string name="charging_allow_sum">启用/禁用 接通电源后的充电功能</string>
+	<string name="charging_usbqc_title">USB快充</string>
+	<string name="charging_usbqc_sum">启用/禁用 USB快充(需第三方内核支持)</string>
 
 	<string name="deviceinfo_general_title">设备</string>
 	<string name="deviceinfo_general_manufacturer">厂商</string>

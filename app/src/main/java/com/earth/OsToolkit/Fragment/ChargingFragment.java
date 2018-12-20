@@ -10,12 +10,15 @@ import android.view.*;
 
 import com.earth.OsToolkit.Items.CardSwitchCompactItem;
 import com.earth.OsToolkit.R;
-import com.earth.OsToolkit.Working.FileWorking;
+import static com.earth.OsToolkit.Working.BaseClass.Path.*;
+import static com.earth.OsToolkit.Working.FileWorking.*;
 
 import static com.earth.OsToolkit.Working.BaseClass.BaseIndex.*;
-import static com.earth.OsToolkit.Working.BaseClass.Checking.checkFilePresent;
+import static com.earth.OsToolkit.Working.BaseClass.Checking.*;
 
 public class ChargingFragment extends Fragment {
+
+	View view;
 
 	@Override
 	public View onCreateView(@NonNull LayoutInflater inflater,
@@ -29,13 +32,15 @@ public class ChargingFragment extends Fragment {
 	                          Bundle savedInstanceState) {
 		super.onViewCreated(view, savedInstanceState);
 
-		setWarning(view);
-		setAllow(view);
-		setQC3(view);
+		this.view = view;
 
+		setWarning();
+		setAllow();
+		setQC3();
+		setUSBQC();
 	}
 
-	public void setWarning(View view) {
+	public void setWarning() {
 		CardView cardView = view.findViewById(R.id.charging_cardview);
 		if (!checkFilePresent("/sys/class/power_supply/battery/battery_charging_enabled")
 				|| !checkFilePresent("/sys/class/power_supply/battery/allow_hvdcp3")){
@@ -43,15 +48,14 @@ public class ChargingFragment extends Fragment {
 		}
 	}
 
-	public void setAllow(View view) {
+	public void setAllow() {
 		CardSwitchCompactItem allow = view.findViewById(R.id.charging_allow);
 		allow.setTitle(R.string.charging_allow_title);
 		allow.setSummary(R.string.charging_allow_sum);
 		allow.setLayoutListener();
 
-		if (checkFilePresent("/sys/class/power_supply/battery/battery_charging_enabled")) {
-			if (FileWorking.readFile(getActivity(),"/sys/class/power_supply/battery/battery_charging_enabled")
-					    .equals("1")) {
+		if (checkFilePresent(Charging_Allow)) {
+			if (readFile(getActivity(),Charging_Allow).equals("1")) {
 				allow.setSwitchCompatChecked(true);
 			} else {
 				allow.setSwitchCompatChecked(false);
@@ -62,15 +66,14 @@ public class ChargingFragment extends Fragment {
 		}
 	}
 
-	public void setQC3(View view) {
+	public void setQC3() {
 		CardSwitchCompactItem qc3 = view.findViewById(R.id.charging_qc3);
 		qc3.setTitle(R.string.charging_qc3_title);
 		qc3.setSummary(R.string.charging_qc3_sum);
 		qc3.setLayoutListener();
 
-		if (checkFilePresent("/sys/class/power_supply/battery/allow_hvdcp3")) {
-			if (FileWorking.readFile(getActivity(), "/sys/class/power_supply/battery/allow_hvdcp3")
-					    .equals("1")) {
+		if (checkFilePresent(Charging_QC3)) {
+			if (readFile(getActivity(), Charging_QC3).equals("1")) {
 				qc3.setSwitchCompatChecked(true);
 			} else {
 				qc3.setSwitchCompatChecked(false);
@@ -79,8 +82,26 @@ public class ChargingFragment extends Fragment {
 		} else {
 			qc3.disableSwitchCompact();
 		}
-
 	}
+
+	public void setUSBQC() {
+		CardSwitchCompactItem usbqc = view.findViewById(R.id.charging_usbqc);
+		usbqc.setTitle(R.string.charging_usbqc_title);
+		usbqc.setSummary(R.string.charging_usbqc_sum);
+		usbqc.setLayoutListener();
+
+		if (checkFilePresent(Charging_USBQC)) {
+			if (readFile(getActivity(),Charging_USBQC).equals("1")) {
+				usbqc.setSwitchCompatChecked(true);
+			} else {
+				usbqc.setSwitchCompatChecked(false);
+			}
+			usbqc.setSwitchCompatOnChangeListener(this,getActivity(),CHARGE_USBQC);
+		} else {
+			usbqc.disableSwitchCompact();
+		}
+	}
+
 
 	@SuppressWarnings("all")
 	@Override

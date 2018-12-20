@@ -45,6 +45,11 @@
 				android:layout_width="match_parent"
 				android:layout_height="wrap_content" />
 
+			<com.earth.OsToolkit.Items.CardSwitchCompactItem
+				android:id="@+id/charging_usbqc"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"/>
+
 		</LinearLayout>
 
 	</ScrollView>

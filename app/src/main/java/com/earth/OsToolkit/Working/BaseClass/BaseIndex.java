@@ -7,4 +7,5 @@ public class BaseIndex {
 
 	public static String CHARGE_ALLOW = "charge_allow.sh";
 	public static String CHARGE_QC3 = "charge_qc3.sh";
+	public static String CHARGE_USBQC = "charge_usbqc.sh";
 }

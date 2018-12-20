@@ -105,6 +105,8 @@
 	<string name="charging_qc3_sum">Enable/Disable QC3.0 - It might not work</string>
 	<string name="charging_allow_title">Charge Allow</string>
 	<string name="charging_allow_sum">Enable/Disable Charging after connect to power supply</string>
+	<string name="charging_usbqc_title">USB Quick Charge</string>
+	<string name="charging_usbqc_sum">启用/禁用 USB Quick Charge(need support from 3rd party kernel)</string>
 
 	<string name="deviceinfo_general_title">Device</string>
 	<string name="deviceinfo_general_manufacturer">Manufacturer</string>
