@@ -112,8 +112,11 @@
 	<string name="deviceinfo_general_manufacturer">Manufacturer</string>
 	<string name="deviceinfo_general_brand">Brand</string>
 	<string name="deviceinfo_general_model">Model</string>
-	<string name="deviceinfo_general_product">Product</string>
+	<string name="deviceinfo_general_device">Device</string>
 
+	<string name="deviceinfo_android_title">Android</string>
+	<string name="deviceinfo_android_version">Version</string>
+	<string name="deviceinfo_android_type">Build Type</string>
 
 	<string name="deviceinfo_soc_title">SoC</string>
 	<string name="deviceinfo_soc_manufacturer">Manufacturer</string>

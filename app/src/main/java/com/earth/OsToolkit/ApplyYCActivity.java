@@ -42,6 +42,7 @@ public class ApplyYCActivity extends AppCompatActivity {
 		// 呼出Toolbar
 		// Call Toolbar
 		Toolbar toolbar = findViewById(R.id.toolbar);
+		toolbar.setTitle(board);
 		setSupportActionBar(toolbar);
 		if (getSupportActionBar() != null)
 			getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -50,7 +51,6 @@ public class ApplyYCActivity extends AppCompatActivity {
 
 		// 设置标题属性
 		// Set Title property
-		toolbar.setTitle(board);
 		toolbar.setTitleTextColor(getResources().getColor(android.R.color.white));
 		toolbar.setNavigationOnClickListener(v -> onBackPressed());
 	}
@@ -75,7 +75,6 @@ public class ApplyYCActivity extends AppCompatActivity {
 						textView.append(file.length() + "Byte/字节\n");
 					}
 
-
 					fileOutputStream.flush();
 					inputStream.close();
 					fileOutputStream.close();
@@ -96,7 +95,7 @@ public class ApplyYCActivity extends AppCompatActivity {
 				@Override
 				public void run() {
 				}
-			}, 20);
+			}, 10);
 		}
 
 		if (file.exists() && file.length() > 1) {
@@ -132,11 +131,13 @@ public class ApplyYCActivity extends AppCompatActivity {
 				BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
 				BufferedReader bufferedReaderError = new BufferedReader(inputStreamReaderError);
 
-				textView.append("Process/过程: \n");
-
 				String line;
-				while ((line = bufferedReader.readLine()) != null) {
+				if ((line = bufferedReader.readLine())!= null) {
+					textView.append("Process/过程: \n");
 					textView.append(line + "\n");
+					while ((line = bufferedReader.readLine()) != null) {
+						textView.append(line + "\n");
+					}
 				}
 
 				if ((line = bufferedReaderError.readLine()) != null) {

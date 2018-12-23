@@ -8,6 +8,7 @@ import android.util.Log;
 import com.earth.OsToolkit.Working.FileWorking;
 
 import java.io.*;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.regex.Pattern;
@@ -42,6 +43,52 @@ public class Checking {
 		}
 	}
 
+
+	public static String getAndroidVersion() {
+		switch (Build.VERSION.SDK_INT) {
+			case 21:
+				return "5.0";
+			case 22:
+				return "5.1";
+			case 23:
+				return "6.0";
+			case 24:
+				return "7.0";
+			case 25:
+				return "7.1";
+			case 26:
+				return "8.0";
+			case 27:
+				return "8.1";
+			case 28:
+				return "9";
+			default:
+				return Build.VERSION.RELEASE.toString();
+		}
+	}
+
+	public static String getAndroidVersionName() {
+		// 获取Android版本
+		// Get Android Version
+		switch (Build.VERSION.SDK_INT) {
+			case 21:
+			case 22:
+				return "Lolipop";
+			case 23:
+				return "Marshmallow";
+			case 24:
+			case 25:
+				return "Nougat";
+			case 26:
+			case 27:
+				return "Oreo";
+			case 28:
+				return "Pie";
+			default:
+				return "unknown";
+		}
+	}
+
 	public static boolean checkFilePresent(String fileName) {
 		File file = new File(fileName);
 		return file.exists();
@@ -64,6 +111,23 @@ public class Checking {
 		} catch (Exception e) {
 			e.printStackTrace();
 			return 0;
+		}
+	}
+
+	public static boolean checkFreqPresent(String freq, List<String> list) {
+		int i = 0;
+		while (i < list.size()) {
+			if (list.get(i).equals(freq)) {
+				break;
+			} else {
+				i++;
+			}
+		}
+
+		if (i != list.size()) {
+			return true;
+		} else {
+			return false;
 		}
 	}
 
@@ -118,7 +182,8 @@ public class Checking {
 		String available_freq = FileWorking.readFile(context,
 				"/sys/devices/system/cpu/cpu" + core + "/cpufreq/scaling_available_frequencies");
 
-		List<String> list = Arrays.asList(available_freq.split(" "));
+		List<String> list = new ArrayList<>();
+		list.addAll(Arrays.asList(available_freq.split(" ")));
 
 		return list;
 	}

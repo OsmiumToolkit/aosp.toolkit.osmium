@@ -16,13 +16,17 @@ public class FileWorking {
 		try {
 			InputStream inputStream = context.getAssets().open(fileName);
 			if (!file.exists() || file.length() == 0) {
-				FileOutputStream fos = new FileOutputStream(file);
+				FileOutputStream fileOutputStream = new FileOutputStream(file);
 				byte[] buffer = new byte[1024];
-				while (inputStream.read(buffer)!= -1)
-					fos.write(buffer, 0, -1);
-				fos.flush();
+
+				int len;
+				while ((len = inputStream.read(buffer)) != -1) {
+					fileOutputStream.write(buffer, 0, len);
+				}
+
+				fileOutputStream.flush();
 				inputStream.close();
-				fos.close();
+				fileOutputStream.close();
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -58,14 +62,12 @@ public class FileWorking {
 	public static boolean setScriptPermission(Context context, String fileName) {
 		String path = context.getCacheDir().getAbsolutePath() + File.separator + fileName;
 		File file = new File(path);
+
 		file.setReadable(true);
 		file.setWritable(true);
 		file.setExecutable(true);
-		if (file.canExecute()) {
-			return true;
-		} else {
-			return false;
-		}
+
+		return file.canExecute();
 	}
 
 	public static boolean removeAllFile(Activity activity) {

@@ -12,6 +12,8 @@ import com.earth.OsToolkit.R;
 
 import java.io.File;
 
+import static com.earth.OsToolkit.Working.BaseClass.Checking.*;
+
 @SuppressWarnings("all")
 public class MainFragment extends Fragment {
     @Override
@@ -36,7 +38,7 @@ public class MainFragment extends Fragment {
         // 获取设备信息
         // Get Device info
         CardItem.Item menufactor = new CardItem.Item(getActivity(),
-                R.drawable.ic_phone, getDevice());
+                R.drawable.ic_device, getDevice());
         // 获取安卓版本
         // Get Android Version
         CardItem.Item android = new CardItem.Item(getActivity(),
@@ -103,51 +105,6 @@ public class MainFragment extends Fragment {
         }
     }
 
-    private String getAndroidVersion() {
-        switch (Build.VERSION.SDK_INT) {
-            case 21:
-                return "5.0";
-            case 22:
-                return "5.1";
-            case 23:
-                return "6.0";
-            case 24:
-                return "7.0";
-            case 25:
-                return "7.1";
-            case 26:
-                return "8.0";
-            case 27:
-                return "8.1";
-            case 28:
-                return "9.0";
-            default:
-                return Build.VERSION.RELEASE.toString();
-        }
-    }
-
-    private String getAndroidVersionName() {
-        // 获取Android版本
-        // Get Android Version
-        switch (Build.VERSION.SDK_INT) {
-            case 21:
-            case 22:
-                return "Lolipop";
-            case 23:
-                return "Marshmallow";
-            case 24:
-            case 25:
-                return "Nougat";
-            case 26:
-            case 27:
-                return "Oreo";
-            case 28:
-                return "Pie";
-            default:
-                return "unknown";
-        }
-    }
-
     private static String getCpu() {
         // 获取处理器制造商
         // Fetch SoC manufactor
@@ -183,26 +140,6 @@ public class MainFragment extends Fragment {
     }
 
     private static String getCpuABI() {
-        //获取CPU架构
-        // Get CPU ABIs
-        /*
-        if (Build.CPU_ABI.equals("arm64-v8a")) {
-            return "arm64";
-        } else if (Build.CPU_ABI.equals("x86_64")) {
-            return "x86_64";
-        } else if (Build.CPU_ABI.equals("mips64")) {
-            return "mips64";
-        } else if (Build.CPU_ABI.startsWith("x86") || Build.CPU_ABI2.startsWith("x86")) {
-            return "x86";
-        } else if (Build.CPU_ABI.startsWith("mips")) {
-            return "mips";
-        } else if (Build.CPU_ABI.startsWith("armeabi-v5") || Build.CPU_ABI.startsWith("armeabi-v6")) {
-            return "armv5";
-        } else {
-            return Build.CPU_ABI;
-        }
-        */
-
         switch (Build.CPU_ABI) {
             case "arm64-v8a":
                 return "arm64";

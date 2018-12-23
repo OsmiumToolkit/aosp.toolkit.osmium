@@ -113,7 +113,11 @@
 	<string name="deviceinfo_general_manufacturer">厂商</string>
 	<string name="deviceinfo_general_brand">系列</string>
 	<string name="deviceinfo_general_model">机型</string>
-	<string name="deviceinfo_general_product">代号</string>
+	<string name="deviceinfo_general_device">代号</string>
+
+	<string name="deviceinfo_android_title">Android</string>
+	<string name="deviceinfo_android_version">版本</string>
+	<string name="deviceinfo_android_type">编译类型</string>
 
 	<string name="deviceinfo_soc_title">SoC</string>
 	<string name="deviceinfo_soc_manufacturer">厂商</string>
@@ -122,7 +126,6 @@
 	<string name="deviceinfo_soc_cores">核心数</string>
 	<string name="deviceinfo_soc_abis64">支持的64位ABIs</string>
 	<string name="deviceinfo_soc_abis32">支持的32位ABIs</string>
-
 
 	<string name="deviceinfo_ram_title">运行内存</string>
 	<string name="deviceinfo_ram_totalMem">总内存</string>

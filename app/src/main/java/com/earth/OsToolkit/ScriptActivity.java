@@ -4,12 +4,11 @@ import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.widget.TextView;
-import android.widget.Toast;
+import android.widget.*;
 
 import java.io.*;
 
-import com.earth.OsToolkit.Working.FileWorking;
+import static com.earth.OsToolkit.Working.FileWorking.*;
 
 public class ScriptActivity extends AppCompatActivity {
 	TextView textView;
@@ -32,6 +31,7 @@ public class ScriptActivity extends AppCompatActivity {
 		// 呼出Toolbar
 		// Call Toolbar
 		Toolbar toolbar = findViewById(R.id.toolbar);
+		toolbar.setTitle(title);
 		setSupportActionBar(toolbar);
 		if (getSupportActionBar() != null)
 			getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -40,7 +40,6 @@ public class ScriptActivity extends AppCompatActivity {
 
 		// 设置标题属性
 		// Set Title property
-		toolbar.setTitle(title);
 		toolbar.setTitleTextColor(getResources().getColor(android.R.color.white));
 		// 设置返回监听
 		// Set Navigation button listener
@@ -53,7 +52,7 @@ public class ScriptActivity extends AppCompatActivity {
 
 		textView.append("Copying script from assets to Cache/从Assets复制脚本到Cache中...\n");
 
-		if (FileWorking.copyAssets2Cache(ScriptActivity.this, script)) {
+		if (copyAssets2Cache(ScriptActivity.this, script)) {
 			textView.append("Copied successfully, File exists/复制成功, 文件存在。\n\n");
 
 			textView.append("Target/目标:\n");
@@ -61,7 +60,7 @@ public class ScriptActivity extends AppCompatActivity {
 
 			textView.append("Setting permission/设置限权...\n");
 
-			if (FileWorking.setScriptPermission(ScriptActivity.this, script)) {
+			if (setScriptPermission(ScriptActivity.this, script)) {
 				textView.append("Succeed to set permission/限权设置完成!\n\n");
 				runScript(path);
 			} else {

@@ -80,6 +80,10 @@ public class CoresCardView extends LinearLayout {
 
 		spinner_min_Freq.setAdapter(arrayAdapter);
 
+		for (int i = 0; i < list.size(); i++) {
+
+		}
+
 		spinner_min_Freq.setSelection(freq);
 
 		spinner_min_Freq.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -102,7 +106,6 @@ public class CoresCardView extends LinearLayout {
 
 			}
 		});
-
 	}
 
 	public void setGovernor(int core, int mode) {
@@ -149,7 +152,6 @@ public class CoresCardView extends LinearLayout {
 
 			@Override
 			public void onNothingSelected(AdapterView<?> arg0) {
-
 			}
 		});
 	}

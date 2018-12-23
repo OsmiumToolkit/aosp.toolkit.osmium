@@ -42,7 +42,8 @@ public class WelcomeFragment4 extends Fragment {
             Intent intent = new Intent(getActivity(),MainActivity.class);
             startActivity(intent);
         } else {
-            Toast.makeText(getActivity(), getString(R.string.welcome_get_root_fail), Toast.LENGTH_SHORT).show();
+            Toast.makeText(getActivity(), getString(R.string.welcome_get_root_fail),
+		            Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -63,7 +64,7 @@ public class WelcomeFragment4 extends Fragment {
         } catch (Exception e) {
             Toast.makeText(getActivity(), getString(R.string.welcome_get_root_pbm),
                     Toast.LENGTH_SHORT).show();
-            Log.e(TAG, "getSu");
+            e.printStackTrace();
             return false;
         }
     }

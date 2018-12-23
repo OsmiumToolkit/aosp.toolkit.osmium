@@ -1,70 +1,54 @@
 package com.earth.OsToolkit.Fragment;
 
 import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
-import android.os.AsyncTask;
-import android.os.Bundle;
-import android.os.Handler;
+import android.os.*;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.LinearLayout;
-import android.widget.ProgressBar;
-import android.widget.TextView;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
+import android.view.*;
+import android.widget.*;
 
 import com.earth.OsToolkit.ApplyYCActivity;
 import com.earth.OsToolkit.Items.ApplyYCRelativeLayout;
 import com.earth.OsToolkit.R;
 
-import java.io.BufferedReader;
-import java.io.InputStream;
-import java.io.InputStreamReader;
+import java.io.*;
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Timer;
-import java.util.TimerTask;
+import java.util.*;
 
 public class ApplyYCFragment extends Fragment {
 	List<String> list = new ArrayList<>();
+	FragmentManager fragmentManager;
+	Fragment fragment_loading = new LoadingFragment();
 
-	Handler handler = new Handler();
-
-	TextView textView_date;
-	ProgressBar progressBar;
-	LinearLayout linearLayout_root;
-	LinearLayout linearLayout_snap;
-	LinearLayout linearLayout_exynos;
-	LinearLayout linearLayout_mtk;
-	LinearLayout linearLayout_kirin;
-	LinearLayout linearLayout_atom;
 
 	private boolean complete = false;
+
+	@Override
+	public void onCreate(@Nullable Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		fragmentManager = getFragmentManager();
+
+		FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+		fragmentTransaction.hide(this).add(R.id.main_fragment,fragment_loading).show(fragment_loading).commit();
+
+	}
 
 	@Nullable
 	@Override
 	public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-		return inflater.inflate(R.layout.fragment_applyyc, container, false);
-	}
+		View view = LayoutInflater.from(getActivity()).inflate(R.layout.fragment_applyyc,null);
 
-	@Override
-	public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-		super.onViewCreated(view, savedInstanceState);
+		TextView textView_date = view.findViewById(R.id.apply_date);
 
-		linearLayout_root = view.findViewById(R.id.apply_linear_root);
-		progressBar = view.findViewById(R.id.applyyc_loading);
-		linearLayout_snap = view.findViewById(R.id.applyyc_snap);
-		linearLayout_exynos = view.findViewById(R.id.applyyc_exynos);
-		linearLayout_mtk = view.findViewById(R.id.applyyc_mtk);
-		linearLayout_kirin = view.findViewById(R.id.applyyc_kirin);
-		linearLayout_atom = view.findViewById(R.id.applyyc_atom);
-
-		textView_date = view.findViewById(R.id.apply_date);
-
+		LinearLayout linearLayout_snap = view.findViewById(R.id.applyyc_snap);
+		LinearLayout linearLayout_exynos = view.findViewById(R.id.applyyc_exynos);
+		LinearLayout linearLayout_mtk = view.findViewById(R.id.applyyc_mtk);
+		LinearLayout linearLayout_kirin = view.findViewById(R.id.applyyc_kirin);
+		LinearLayout linearLayout_atom = view.findViewById(R.id.applyyc_atom);
 
 		new Thread(() -> {
 
@@ -88,8 +72,6 @@ public class ApplyYCFragment extends Fragment {
 				e.printStackTrace();
 			}
 
-			handler.post(runnable);
-
 			complete = true;
 
 		}).start();
@@ -103,41 +85,52 @@ public class ApplyYCFragment extends Fragment {
 			}, 10);
 		}
 
-		progressBar.setVisibility(View.GONE);
-		linearLayout_root.setVisibility(View.VISIBLE);
+		for (int i = 0; i < list.size(); i++) {
+			ApplyYCRelativeLayout applyYCRelativeLayout = new ApplyYCRelativeLayout(getActivity(), getParentFragment(), list.get(i));
+			final int no = i;
+			applyYCRelativeLayout.setClickListener(v -> {
+				AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+				builder.setTitle(list.get(no))
+						.setMessage(String.format(getString(R.string.apply_confirm), list.get(no)))
+						.setPositiveButton(getString(R.string.cont), (dialog, which) -> {
+							startActivity(new Intent(getActivity(), ApplyYCActivity.class).putExtra("board", list.get(no)));
+						})
+						.setNegativeButton(getString(R.string.cancel), (dialog, which) -> {
+						}).show();
+			});
 
-	}
-
-	Runnable runnable = new Runnable() {
-		@Override
-		public void run() {
-			for (int i = 0; i < list.size(); i++) {
-				ApplyYCRelativeLayout applyYCRelativeLayout = new ApplyYCRelativeLayout(getActivity(), getParentFragment(), list.get(i));
-				final int no = i;
-				applyYCRelativeLayout.setClickListener(v -> {
-					AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-					builder.setTitle(list.get(no))
-							.setMessage(String.format(getString(R.string.apply_confirm), list.get(no)))
-							.setPositiveButton(getString(R.string.cont), (dialog, which) -> {
-								startActivity(new Intent(getActivity(), ApplyYCActivity.class).putExtra("board", list.get(no)));
-							})
-							.setNegativeButton(getString(R.string.cancel), (dialog, which) -> {
-							}).show();
-				});
-
-				if (list.get(i).startsWith("sd")) {
-					linearLayout_snap.addView(applyYCRelativeLayout);
-				} else if (list.get(i).startsWith("exynos")) {
-					linearLayout_exynos.addView(applyYCRelativeLayout);
-				} else if (list.get(i).startsWith("kirin")) {
-					linearLayout_kirin.addView(applyYCRelativeLayout);
-				} else if (list.get(i).startsWith("helio")) {
-					linearLayout_mtk.addView(applyYCRelativeLayout);
-				} else {
-					linearLayout_atom.addView(applyYCRelativeLayout);
-				}
+			if (list.get(i).startsWith("sd")) {
+				linearLayout_snap.addView(applyYCRelativeLayout);
+			} else if (list.get(i).startsWith("exynos")) {
+				linearLayout_exynos.addView(applyYCRelativeLayout);
+			} else if (list.get(i).startsWith("kirin")) {
+				linearLayout_kirin.addView(applyYCRelativeLayout);
+			} else if (list.get(i).startsWith("helio")) {
+				linearLayout_mtk.addView(applyYCRelativeLayout);
+			} else {
+				linearLayout_atom.addView(applyYCRelativeLayout);
 			}
 		}
-	};
+
+
+		return view;
+	}
+
+	@Override
+	public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+		super.onViewCreated(view, savedInstanceState);
+
+		Fragment fragment = this;
+
+		Timer timer = new Timer();
+		timer.schedule(new TimerTask() {
+			@Override
+			public void run() {
+				FragmentTransaction fragmentTransactionEnd = fragmentManager.beginTransaction();
+				fragmentTransactionEnd.show(fragment).remove(fragment_loading).commit();
+			}
+		},100);
+
+	}
 
 }

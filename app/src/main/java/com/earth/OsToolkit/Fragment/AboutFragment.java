@@ -11,14 +11,7 @@ import android.widget.*;
 import com.earth.OsToolkit.Fragment.Dialog.UpdateDialogFragment;
 import com.earth.OsToolkit.Items.AboutItem;
 import com.earth.OsToolkit.R;
-import com.earth.OsToolkit.Working.BaseClass.CheckUpdate;
-import com.earth.OsToolkit.Working.BaseClass.Checking;
-import com.earth.OsToolkit.Working.BaseClass.Jumping;
-
-
-import java.util.Timer;
-import java.util.TimerTask;
-
+import com.earth.OsToolkit.Working.BaseClass.*;
 
 public class AboutFragment extends Fragment {
 
@@ -27,10 +20,11 @@ public class AboutFragment extends Fragment {
 	public View onCreateView(@NonNull LayoutInflater inflater,
 	                         @Nullable ViewGroup container,
 	                         @Nullable Bundle savedInstanceState) {
-		return inflater.inflate(R.layout.fragment_about,container,false);
+		return inflater.inflate(R.layout.fragment_about, container, false);
 	}
 
 	String PackageVersionCode;
+
 	@SuppressWarnings("all")
 	@Override
 	public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
@@ -39,74 +33,49 @@ public class AboutFragment extends Fragment {
 		LinearLayout linearLayout = view.findViewById(R.id.about_linear);
 
 		try {
-			PackageVersionCode = getActivity().getPackageManager().getPackageInfo(getActivity().getPackageName(),0).versionName;
-		}catch (Exception e) {
+			PackageVersionCode = getActivity().getPackageManager().getPackageInfo(getActivity().getPackageName(), 0).versionName;
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		AboutItem maintainer = new AboutItem(getActivity(),R.drawable.ic_about_maintainer,
-				R.string.about_item_maintainer,getString(R.string.nav_header_subtitle));
+		AboutItem maintainer = new AboutItem(getActivity(), R.drawable.ic_about_maintainer,
+				R.string.about_item_maintainer, getString(R.string.nav_header_subtitle));
 
 		AboutItem version = new AboutItem(getActivity(), R.drawable.ic_about_version,
 				R.string.about_item_version, PackageVersionCode + "");
 
-		AboutItem update = new AboutItem(getActivity(),R.drawable.ic_about_update,
+		AboutItem update = new AboutItem(getActivity(), R.drawable.ic_about_update,
 				R.string.update_check);
 
-		AboutItem source = new AboutItem(getActivity(),R.drawable.ic_about_github,
-				R.string.about_item_sourcecode,"https://github.com/1552980358/com.earth.OsToolkit");
+		AboutItem source = new AboutItem(getActivity(), R.drawable.ic_about_github,
+				R.string.about_item_sourcecode, "https://github.com/1552980358/com.earth.OsToolkit");
 
 		maintainer.setOnClickListener(v -> Jumping.jumpCoolapkAccount(getActivity()));
 
 		update.setOnClickListener(v -> {
 			Toast.makeText(getActivity(), R.string.update_checking, Toast.LENGTH_SHORT).show();
 
-				CheckUpdate checkUpdate = new CheckUpdate();
-				checkUpdate.checkUpdate();
+			CheckUpdate checkUpdate = new CheckUpdate();
+			checkUpdate.checkUpdate();
 
-				// 方法堵塞主线程，等待新线程完成工作
-				// Method blocking Main Thread, wait for finish working of new Thread
-				while (!checkUpdate.complete) {
-					Timer timer = new Timer();
-					timer.schedule(new TimerTask() {
-						@Override
-						public void run() {}
-					}, 50);
-				}
+			// 方法堵塞主线程，等待新线程完成工作
+			// Method blocking Main Thread, wait for finish working of new Thread
+			checkUpdate.waitFor();
 
-				if (checkUpdate.complete && !checkUpdate.getVersion().equals(Checking.getVersionName(getActivity()))) {
+			if (checkUpdate.complete && !checkUpdate.getVersion().equals(Checking.getVersionName(getActivity()))) {
+				if (!checkUpdate.getVersion().equals("Fail")) {
+
 					// 实例化Dialog
 					// New Dialog
 					UpdateDialogFragment updateDialogFragment = new UpdateDialogFragment();
 					FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
 
-					String ver;
-					String d;
-					String cC;
-					String cE;
-
-					if (checkUpdate.getVersion() != null)
-						ver = checkUpdate.getVersion();
-					else
-						ver = "Fail";
-
-					if (checkUpdate.getDate() != null)
-						d = checkUpdate.getDate();
-					else
-						d = "Fail";
-
-					if (checkUpdate.getChangelogCn() != null)
-						cC = checkUpdate.getChangelogCn();
-					else
-						cC = "Fail";
-
-					if (checkUpdate.getChangelogEng() != null)
-						cE = checkUpdate.getChangelogEng();
-					else
-						cE = "Fail";
+					String ver = checkUpdate.getVersion();
+					String d = checkUpdate.getDate();
+					String cC = checkUpdate.getChangelogCn();
+					String cE = checkUpdate.getChangelogEng();
 
 
-
-								//发送数据
+					//发送数据
 					// Transmit data
 					updateDialogFragment.setVerision(ver);
 					updateDialogFragment.setDate(d);
@@ -117,8 +86,11 @@ public class AboutFragment extends Fragment {
 					// Show Dialog
 					updateDialogFragment.show(fragmentTransaction, "updateDialogFragment");
 				} else {
-					Toast.makeText(getActivity(), getString(R.string.update_newest), Toast.LENGTH_SHORT).show();
+					Toast.makeText(getActivity(), getString(R.string.update_fail), Toast.LENGTH_SHORT).show();
 				}
+			} else {
+				Toast.makeText(getActivity(), getString(R.string.update_newest), Toast.LENGTH_SHORT).show();
+			}
 
 		});
 

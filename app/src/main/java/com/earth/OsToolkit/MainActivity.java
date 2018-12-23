@@ -1,5 +1,6 @@
 package com.earth.OsToolkit;
 
+import android.app.ActivityManager;
 import android.content.DialogInterface;
 import android.os.*;
 import android.support.annotation.NonNull;
@@ -18,17 +19,18 @@ import com.earth.OsToolkit.Fragment.Dialog.UpdateDialogFragment;
 import com.earth.OsToolkit.Working.BaseClass.*;
 
 import java.lang.Process;
-import java.util.*;
 
 public class MainActivity extends AppCompatActivity
 		implements NavigationView.OnNavigationItemSelectedListener {
 
 	Toolbar toolbar;
+	DrawerLayout drawer;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
+		
 		initUI();
 		checkUpdate();
 	}
@@ -36,6 +38,9 @@ public class MainActivity extends AppCompatActivity
 	public void initUI() {
 		toolbar = findViewById(R.id.toolbar);
 		setSupportActionBar(toolbar);
+
+		drawer = findViewById(R.id.drawer_layout);
+
 
 		FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
 		fragmentTransaction.replace(R.id.main_fragment, new MainFragment()).commit();
@@ -47,37 +52,76 @@ public class MainActivity extends AppCompatActivity
 		toggle.syncState();
 
 		NavigationView navigationView = findViewById(R.id.nav_view);
+		View view = navigationView.getHeaderView(0);
+
+		LinearLayout linearLayout_about = view.findViewById(R.id.nav_about);
+		linearLayout_about.setOnClickListener(v -> {
+			drawer.closeDrawer(GravityCompat.START);
+
+			int j =  getSupportFragmentManager().getFragments().size();
+			for (int i = 0; i < j; i++) {
+				FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+				ft.remove(getSupportFragmentManager().getFragments().get(0)).commit();
+			}
+
+			FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+			ft.replace(R.id.main_fragment,new AboutFragment()).commit();
+
+			toolbar.setTitle(R.string.nav_about);
+		});
+
+		LinearLayout linearLayout_device = view.findViewById(R.id.nav_deviceinfo);
+		linearLayout_device.setOnClickListener(v -> {
+			drawer.closeDrawer(GravityCompat.START);
+			int j =  getSupportFragmentManager().getFragments().size();
+			for (int i = 0; i < j; i++) {
+				FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+				ft.remove(getSupportFragmentManager().getFragments().get(0)).commit();
+			}
+
+			FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+			ft.replace(R.id.main_fragment,new DeviceInfoFragment()).commit();
+
+			toolbar.setTitle(R.string.nav_deviceinfo);
+		});
+
+
+
+
 		navigationView.setNavigationItemSelectedListener(this);
 	}
 
 	public void checkUpdate() {
 		Toast.makeText(this, getString(R.string.update_checking), Toast.LENGTH_SHORT).show();
+
+		// 实例化更新类
+		// Call checkUpdate class
 		CheckUpdate checkUpdate = new CheckUpdate();
 		checkUpdate.checkUpdate();
 
-		while (!checkUpdate.complete) {
-			Timer timer = new Timer();
-			timer.schedule(new TimerTask() {
-				@Override
-				public void run() {
-				}
-			}, 50);
-		}
+		// 方法堵塞，等待线程完成
+		// Method blocking, wait for the finished oi new thread
+		checkUpdate.waitFor();
 
+		// 检查获取的数据
+		// Check fetched data
 		if (checkUpdate.complete && !checkUpdate.getVersion().equals(Checking.getVersionName(this))) {
-			UpdateDialogFragment updateDialogFragment = new UpdateDialogFragment();
-			FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-			updateDialogFragment.setVerision(checkUpdate.getVersion());
-			updateDialogFragment.setDate(checkUpdate.getDate());
-			updateDialogFragment.setChangelogEng(checkUpdate.getChangelogEng());
-			updateDialogFragment.setChangelogCn(checkUpdate.getChangelogCn());
-			updateDialogFragment.show(fragmentTransaction, "updateDialogFragment");
+			if (!checkUpdate.getVersion().equals("Fail")) {
+				UpdateDialogFragment updateDialogFragment = new UpdateDialogFragment();
+				FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+				updateDialogFragment.setVerision(checkUpdate.getVersion());
+				updateDialogFragment.setDate(checkUpdate.getDate());
+				updateDialogFragment.setChangelogEng(checkUpdate.getChangelogEng());
+				updateDialogFragment.setChangelogCn(checkUpdate.getChangelogCn());
+				updateDialogFragment.show(fragmentTransaction, "updateDialogFragment");
+			} else {
+				Toast.makeText(this, getString(R.string.update_fail), Toast.LENGTH_SHORT).show();
+			}
 		}
 	}
 
 	@Override
 	public void onBackPressed() {
-		DrawerLayout drawer = findViewById(R.id.drawer_layout);
 		if (drawer.isDrawerOpen(GravityCompat.START)) {
 			drawer.closeDrawer(GravityCompat.START);
 		} else {
@@ -145,8 +189,6 @@ public class MainActivity extends AppCompatActivity
 	public boolean onNavigationItemSelected(@NonNull MenuItem item) {
 		// Handle navigation view item clicks here.
 		int id = item.getItemId();
-		FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-		ft.setCustomAnimations(R.animator.fade_in, R.animator.fade_out);
 		Fragment fragment = new MainFragment();
 		int title = R.string.app_name;
 		switch (id) {
@@ -156,14 +198,6 @@ public class MainActivity extends AppCompatActivity
 			case R.id.nav_charging:
 				title = R.string.nav_charging;
 				fragment = new ChargingFragment();
-				break;
-			case R.id.nav_about:
-				title = R.string.nav_about;
-				fragment = new AboutFragment();
-				break;
-			case R.id.nav_deviceinfo:
-				title = R.string.nav_deviceinfo;
-				fragment = new DeviceInfoFragment();
 				break;
 			case R.id.nav_cores:
 				title = R.string.nav_processor;
@@ -176,7 +210,16 @@ public class MainActivity extends AppCompatActivity
 		}
 
 		toolbar.setTitle(title);
-		ft.replace(R.id.main_fragment, fragment).commit();
+
+		int j =  getSupportFragmentManager().getFragments().size();
+		for (int i = 0; i < j; i++) {
+			FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+			fragmentTransaction.remove(getSupportFragmentManager().getFragments().get(0)).commit();
+		}
+
+		FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+		fragmentTransaction.setCustomAnimations(R.animator.fade_in, R.animator.fade_out);
+		fragmentTransaction.replace(R.id.main_fragment, fragment).commit();
 
 		DrawerLayout drawer = findViewById(R.id.drawer_layout);
 		drawer.closeDrawer(GravityCompat.START);

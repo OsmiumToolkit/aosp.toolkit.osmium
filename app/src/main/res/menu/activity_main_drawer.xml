@@ -8,16 +8,6 @@
 		android:icon="@drawable/ic_home"
 		android:title="@string/nav_main" />
 
-	<item
-		android:id="@+id/nav_deviceinfo"
-		android:icon="@drawable/ic_phone"
-		android:title="@string/nav_deviceinfo" />
-
-	<item
-		android:id="@+id/nav_about"
-		android:icon="@drawable/ic_menu_about"
-		android:title="@string/nav_about" />
-
 
 
 	<item android:title="@string/nav_title_toolkit">
@@ -36,7 +26,7 @@
 		<menu>
 			<item
 				android:id="@+id/nav_applyyc"
-				android:icon="@drawable/ic_snapdragon"
+				android:icon="@drawable/ic_yc"
 				android:title="@string/nav_yc" />
 		</menu>
 	</item>
