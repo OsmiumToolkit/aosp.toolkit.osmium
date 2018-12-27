@@ -1,4 +1,4 @@
-package com.earth.OsToolkit.Working.BaseClass;
+package com.earth.OsToolkit.Base;
 
 public class Path {
 

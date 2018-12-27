@@ -1,6 +1,5 @@
 package com.earth.OsToolkit;
 
-import android.app.ActivityManager;
 import android.content.DialogInterface;
 import android.os.*;
 import android.support.annotation.NonNull;
@@ -16,12 +15,22 @@ import android.widget.*;
 
 import com.earth.OsToolkit.Fragment.*;
 import com.earth.OsToolkit.Fragment.Dialog.UpdateDialogFragment;
-import com.earth.OsToolkit.Working.BaseClass.*;
+import com.earth.OsToolkit.Base.CheckUpdate;
+import com.earth.OsToolkit.Base.Checking;
+import com.earth.OsToolkit.Base.ExitApplication;
+import com.earth.OsToolkit.Base.KillActivity;
 
 import java.lang.Process;
 
 public class MainActivity extends AppCompatActivity
 		implements NavigationView.OnNavigationItemSelectedListener {
+
+	/*
+	 * 27 Dec 2018
+	 *
+	 * By @1552980358
+	 *
+	 */
 
 	Toolbar toolbar;
 	DrawerLayout drawer;
@@ -30,6 +39,8 @@ public class MainActivity extends AppCompatActivity
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
+
+		KillActivity.getInstance().killActivity();
 		
 		initUI();
 		checkUpdate();
@@ -39,8 +50,9 @@ public class MainActivity extends AppCompatActivity
 		toolbar = findViewById(R.id.toolbar);
 		setSupportActionBar(toolbar);
 
-		drawer = findViewById(R.id.drawer_layout);
+		getWindow().setNavigationBarColor(getResources().getColor(R.color.colorPrimary));
 
+		drawer = findViewById(R.id.drawer_layout);
 
 		FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
 		fragmentTransaction.replace(R.id.main_fragment, new MainFragment()).commit();
@@ -65,7 +77,9 @@ public class MainActivity extends AppCompatActivity
 			}
 
 			FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-			ft.replace(R.id.main_fragment,new AboutFragment()).commit();
+			ft.setCustomAnimations(R.animator.fade_in, R.animator.fade_out)
+					.replace(R.id.main_fragment,new AboutFragment())
+					.commit();
 
 			toolbar.setTitle(R.string.nav_about);
 		});
@@ -80,13 +94,12 @@ public class MainActivity extends AppCompatActivity
 			}
 
 			FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-			ft.replace(R.id.main_fragment,new DeviceInfoFragment()).commit();
+			ft.setCustomAnimations(R.animator.fade_in, R.animator.fade_out)
+					.replace(R.id.main_fragment,new DeviceInfoFragment())
+					.commit();
 
 			toolbar.setTitle(R.string.nav_deviceinfo);
 		});
-
-
-
 
 		navigationView.setNavigationItemSelectedListener(this);
 	}
@@ -109,7 +122,7 @@ public class MainActivity extends AppCompatActivity
 			if (!checkUpdate.getVersion().equals("Fail")) {
 				UpdateDialogFragment updateDialogFragment = new UpdateDialogFragment();
 				FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-				updateDialogFragment.setVerision(checkUpdate.getVersion());
+				updateDialogFragment.setVersion(checkUpdate.getVersion());
 				updateDialogFragment.setDate(checkUpdate.getDate());
 				updateDialogFragment.setChangelogEng(checkUpdate.getChangelogEng());
 				updateDialogFragment.setChangelogCn(checkUpdate.getChangelogCn());
@@ -189,6 +202,9 @@ public class MainActivity extends AppCompatActivity
 	public boolean onNavigationItemSelected(@NonNull MenuItem item) {
 		// Handle navigation view item clicks here.
 		int id = item.getItemId();
+
+		drawer.closeDrawer(GravityCompat.START);
+
 		Fragment fragment = new MainFragment();
 		int title = R.string.app_name;
 		switch (id) {
@@ -218,11 +234,9 @@ public class MainActivity extends AppCompatActivity
 		}
 
 		FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-		fragmentTransaction.setCustomAnimations(R.animator.fade_in, R.animator.fade_out);
-		fragmentTransaction.replace(R.id.main_fragment, fragment).commit();
-
-		DrawerLayout drawer = findViewById(R.id.drawer_layout);
-		drawer.closeDrawer(GravityCompat.START);
+		fragmentTransaction.setCustomAnimations(R.animator.fade_in, R.animator.fade_out)
+				.replace(R.id.main_fragment, fragment)
+				.commit();
 		return true;
 	}
 

@@ -10,13 +10,20 @@ import android.view.*;
 
 import com.earth.OsToolkit.Items.CardSwitchCompactItem;
 import com.earth.OsToolkit.R;
-import static com.earth.OsToolkit.Working.BaseClass.Path.*;
-import static com.earth.OsToolkit.Working.FileWorking.*;
+import static com.earth.OsToolkit.Base.Path.*;
+import static com.earth.OsToolkit.Base.FileWorking.*;
 
-import static com.earth.OsToolkit.Working.BaseClass.BaseIndex.*;
-import static com.earth.OsToolkit.Working.BaseClass.Checking.*;
+import static com.earth.OsToolkit.Base.BaseIndex.*;
+import static com.earth.OsToolkit.Base.Checking.*;
 
 public class ChargingFragment extends Fragment {
+
+	/*
+	 * 27 Dec 2018
+	 *
+	 * By 1552980358
+	 *
+	 */
 
 	View view;
 

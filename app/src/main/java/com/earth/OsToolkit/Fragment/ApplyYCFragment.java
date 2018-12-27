@@ -20,10 +20,17 @@ import java.net.URL;
 import java.util.*;
 
 public class ApplyYCFragment extends Fragment {
+
+	/*
+	 * 27 Dec 2018
+	 *
+	 * By 1552980358
+	 *
+	 */
+
 	List<String> list = new ArrayList<>();
 	FragmentManager fragmentManager;
 	Fragment fragment_loading = new LoadingFragment();
-
 
 	private boolean complete = false;
 
@@ -33,14 +40,14 @@ public class ApplyYCFragment extends Fragment {
 		fragmentManager = getFragmentManager();
 
 		FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-		fragmentTransaction.hide(this).add(R.id.main_fragment,fragment_loading).show(fragment_loading).commit();
+		fragmentTransaction.hide(this).add(R.id.main_fragment, fragment_loading).show(fragment_loading).commit();
 
 	}
 
 	@Nullable
 	@Override
 	public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-		View view = LayoutInflater.from(getActivity()).inflate(R.layout.fragment_applyyc,null);
+		View view = LayoutInflater.from(getActivity()).inflate(R.layout.fragment_applyyc, null);
 
 		TextView textView_date = view.findViewById(R.id.apply_date);
 
@@ -129,7 +136,7 @@ public class ApplyYCFragment extends Fragment {
 				FragmentTransaction fragmentTransactionEnd = fragmentManager.beginTransaction();
 				fragmentTransactionEnd.show(fragment).remove(fragment_loading).commit();
 			}
-		},100);
+		}, 1000);
 
 	}
 

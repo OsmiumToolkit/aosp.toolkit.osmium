@@ -1,20 +1,24 @@
-package com.earth.OsToolkit.Working.BaseClass;
+package com.earth.OsToolkit.Base;
 
 import android.content.*;
 
 import android.os.Build;
 import android.util.Log;
 
-import com.earth.OsToolkit.Working.FileWorking;
-
 import java.io.*;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 import java.util.regex.Pattern;
 
 @SuppressWarnings("all")
 public class Checking {
+
+	/*
+	 * 27 Dec 2018
+	 *
+	 * By @1552980358
+	 *
+	 */
+
 	public static boolean checkRoot() {
 		Process process;
 		DataOutputStream os;
@@ -33,7 +37,6 @@ public class Checking {
 			return false;
 		}
 	}
-
 	public static String getVersionName(Context context) {
 		try {
 			return context.getPackageManager().getPackageInfo(context.getPackageName(),0).versionName;
@@ -42,7 +45,6 @@ public class Checking {
 			return null;
 		}
 	}
-
 
 	public static String getAndroidVersion() {
 		switch (Build.VERSION.SDK_INT) {

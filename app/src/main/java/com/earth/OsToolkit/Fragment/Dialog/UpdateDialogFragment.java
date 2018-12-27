@@ -1,7 +1,6 @@
 package com.earth.OsToolkit.Fragment.Dialog;
 
 import android.app.*;
-import android.content.*;
 import android.os.Bundle;
 import android.support.annotation.*;
 import android.support.v4.app.DialogFragment;
@@ -9,16 +8,22 @@ import android.view.*;
 import android.widget.TextView;
 
 import com.earth.OsToolkit.R;
-import com.earth.OsToolkit.Working.BaseClass.Jumping;
+import com.earth.OsToolkit.Base.Jumping;
 
 
 public class UpdateDialogFragment extends DialogFragment {
+
+	/*
+	 * 27 Dec 2018
+	 *
+	 * By 1552980358
+	 *
+	 */
 
 	private String version;
 	private String date;
 	private String changelogEng;
 	private String changelogCn;
-
 
 	@SuppressWarnings("all")
 	@NonNull
@@ -72,7 +77,7 @@ public class UpdateDialogFragment extends DialogFragment {
 		return builder.create();
 	}
 
-	public void setVerision(String version) {
+	public void setVersion(String version) {
 		this.version = version;
 	}
 
@@ -86,4 +91,13 @@ public class UpdateDialogFragment extends DialogFragment {
 	public void setChangelogCn(String changelog) {
 		this.changelogCn = changelog;
 	}
+
+
+
+
+
+
+
+
+
 }

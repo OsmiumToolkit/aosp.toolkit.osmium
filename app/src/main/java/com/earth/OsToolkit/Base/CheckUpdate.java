@@ -1,4 +1,4 @@
-package com.earth.OsToolkit.Working.BaseClass;
+package com.earth.OsToolkit.Base;
 
 import android.util.Log;
 
@@ -8,6 +8,13 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 public class CheckUpdate {
+
+	/*
+	 * 27 Dec 2018
+	 *
+	 * By 1552980358
+	 *
+	 */
 
 	// 数据
 	// Data

@@ -12,13 +12,21 @@ import android.widget.*;
 
 import com.earth.OsToolkit.Items.CoresCardView;
 import com.earth.OsToolkit.R;
-import com.earth.OsToolkit.Working.BaseClass.Checking;
-import com.earth.OsToolkit.Working.FileWorking;
-import static com.earth.OsToolkit.Working.BaseClass.Checking.*;
+import com.earth.OsToolkit.Base.Checking;
+import com.earth.OsToolkit.Base.FileWorking;
+import static com.earth.OsToolkit.Base.Checking.*;
 
 import java.util.*;
 
 public class CoresFragment extends Fragment {
+
+	/*
+	 * 27 Dec 2018
+	 *
+	 * By 1552980358
+	 *
+	 */
+
 	FragmentManager fragmentManager;
 	Fragment fragment = new LoadingFragment();
 
@@ -138,7 +146,7 @@ public class CoresFragment extends Fragment {
 				FragmentTransaction fragmentTransactionEnd = fragmentManager.beginTransaction();
 				fragmentTransactionEnd.remove(fragment).show(current).commit();
 			}
-		},100);
+		},1000);
 
 	}
 }

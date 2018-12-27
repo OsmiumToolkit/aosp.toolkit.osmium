@@ -5,7 +5,6 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.*;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.*;
 import android.widget.*;
@@ -14,16 +13,22 @@ import com.earth.OsToolkit.MainActivity;
 import com.earth.OsToolkit.R;
 
 import static android.content.Context.MODE_PRIVATE;
-import static android.support.constraint.Constraints.TAG;
-import static com.earth.OsToolkit.Working.BaseClass.Checking.checkRoot;
+import static com.earth.OsToolkit.Base.Checking.checkRoot;
 
 public class WelcomeFragment4 extends Fragment {
+
+    /*
+     * 27 Dec 2018
+     *
+     * By 1552980358
+     *
+     */
 
 	@Override
     public View onCreateView(@Nullable LayoutInflater inflater,
                              @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState){
-        return inflater.inflate(R.layout.activity_welcome_4,container,false);
+        return inflater.inflate(R.layout.fragment_welcome_4,container,false);
     }
 
     @Override
@@ -41,6 +46,7 @@ public class WelcomeFragment4 extends Fragment {
         if (getSu()) {
             Intent intent = new Intent(getActivity(),MainActivity.class);
             startActivity(intent);
+            getActivity().finish();
         } else {
             Toast.makeText(getActivity(), getString(R.string.welcome_get_root_fail),
 		            Toast.LENGTH_SHORT).show();
@@ -49,7 +55,7 @@ public class WelcomeFragment4 extends Fragment {
 
     public boolean getSu(){
         try {
-            Process process = Runtime.getRuntime().exec("su");
+            Runtime.getRuntime().exec("su");
             if (checkRoot()) {
                 SharedPreferences sp = getActivity().getSharedPreferences("save",MODE_PRIVATE);
                 sp.edit().putInt("welcome",1).apply();

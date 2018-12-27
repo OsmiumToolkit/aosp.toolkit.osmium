@@ -3,16 +3,16 @@
 	package="com.earth.OsToolkit">
 
 	<uses-permission android:name="android.permission.INTERNET" />
-	<uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+	<uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
 	<application
+		android:name=".Base.KillActivity"
 		android:allowBackup="false"
 		android:icon="@drawable/ic_launcher"
 		android:label="@string/app_name"
 		android:roundIcon="@drawable/ic_launcher"
 		android:supportsRtl="true"
 		android:theme="@style/AppTheme">
-
 		<activity
 			android:name=".SplashActivity"
 			android:theme="@android:style/Theme.NoDisplay">
@@ -22,23 +22,19 @@
 				<category android:name="android.intent.category.LAUNCHER" />
 			</intent-filter>
 		</activity>
-
 		<activity
 			android:name=".MainActivity"
 			android:label="@string/app_name"
 			android:theme="@style/AppTheme.NoActionBar" />
-
 		<activity
 			android:name=".WelcomeActivity"
 			android:theme="@style/AppTheme.NoActionBar" />
-
 		<activity
 			android:name=".ScriptActivity"
 			android:theme="@style/AppTheme.NoActionBar" />
-
-		<activity android:name=".ApplyYCActivity"
+		<activity
+			android:name=".ApplyYCActivity"
 			android:theme="@style/AppTheme.NoActionBar" />
 	</application>
-
 
 </manifest>

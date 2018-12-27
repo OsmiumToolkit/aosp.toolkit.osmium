@@ -8,6 +8,14 @@ import android.view.*;
 import com.earth.OsToolkit.R;
 
 public class LoadingFragment extends Fragment{
+
+	/*
+	 * 27 Dec 2018
+	 *
+	 * By 1552980358
+	 *
+	 */
+
 	@Nullable
 	@Override
 	public View onCreateView(@NonNull LayoutInflater inflater,

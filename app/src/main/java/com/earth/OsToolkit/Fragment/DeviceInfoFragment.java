@@ -8,7 +8,6 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
-import android.text.method.NumberKeyListener;
 import android.util.Log;
 import android.view.*;
 
@@ -21,9 +20,16 @@ import com.earth.OsToolkit.R;
 import java.util.Timer;
 import java.util.TimerTask;
 
-import static com.earth.OsToolkit.Working.BaseClass.Checking.*;
+import static com.earth.OsToolkit.Base.Checking.*;
 
 public class DeviceInfoFragment extends Fragment {
+
+	/*
+	 * 27 Dec 2018
+	 *
+	 * By 1552980358
+	 *
+	 */
 
 	 FragmentManager fragmentManager;
 	 Fragment fragment_loading = new LoadingFragment();
@@ -68,7 +74,7 @@ public class DeviceInfoFragment extends Fragment {
 				FragmentTransaction fragmentTransactionEnd = fragmentManager.beginTransaction();
 				fragmentTransactionEnd.show(current).remove(fragment_loading).commit();
 			}
-		},100);
+		},1000);
 	}
 
 	public void setGeneral(View view) {

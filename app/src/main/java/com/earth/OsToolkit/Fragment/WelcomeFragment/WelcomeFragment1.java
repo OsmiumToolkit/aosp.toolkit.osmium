@@ -10,10 +10,18 @@ import android.view.ViewGroup;
 import com.earth.OsToolkit.R;
 
 public class WelcomeFragment1 extends Fragment {
+
+    /*
+     * 27 Dec 2018
+     *
+     * By 1552980358
+     *
+     */
+
     @Override
     public View onCreateView(@Nullable LayoutInflater inflater,
                              @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState){
-        return inflater.inflate(R.layout.activity_welcome_1,container,false);
+        return inflater.inflate(R.layout.fragment_welcome_1,container,false);
     }
 }

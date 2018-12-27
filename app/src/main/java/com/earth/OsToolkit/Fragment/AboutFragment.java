@@ -11,9 +11,18 @@ import android.widget.*;
 import com.earth.OsToolkit.Fragment.Dialog.UpdateDialogFragment;
 import com.earth.OsToolkit.Items.AboutItem;
 import com.earth.OsToolkit.R;
-import com.earth.OsToolkit.Working.BaseClass.*;
+import com.earth.OsToolkit.Base.CheckUpdate;
+import com.earth.OsToolkit.Base.Checking;
+import com.earth.OsToolkit.Base.Jumping;
 
 public class AboutFragment extends Fragment {
+
+	/*
+	 * 27 Dec 2018
+	 *
+	 * By 1552980358
+	 *
+	 */
 
 	@Nullable
 	@Override
@@ -77,7 +86,7 @@ public class AboutFragment extends Fragment {
 
 					//发送数据
 					// Transmit data
-					updateDialogFragment.setVerision(ver);
+					updateDialogFragment.setVersion(ver);
 					updateDialogFragment.setDate(d);
 					updateDialogFragment.setChangelogEng(cC);
 					updateDialogFragment.setChangelogCn(cE);

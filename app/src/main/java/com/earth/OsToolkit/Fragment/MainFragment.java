@@ -12,10 +12,18 @@ import com.earth.OsToolkit.R;
 
 import java.io.File;
 
-import static com.earth.OsToolkit.Working.BaseClass.Checking.*;
+import static com.earth.OsToolkit.Base.Checking.*;
 
 @SuppressWarnings("all")
 public class MainFragment extends Fragment {
+
+    /*
+     * 27 Dec 2018
+     *
+     * By 1552980358
+     *
+     */
+
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container,
@@ -191,7 +199,7 @@ public class MainFragment extends Fragment {
         try {                       // 使用android的killall zygote杀死所有进程
             Toast.makeText(getActivity(), getString(R.string.reboot_getRoot),
                     Toast.LENGTH_SHORT).show();
-            process = Runtime.getRuntime().exec(new String[]{"su -c ", "killall zygote"});
+            process = Runtime.getRuntime().exec(new String[]{"su -c ", "killall","zygote"});
         } catch (Exception e) {
             Toast.makeText(getActivity(), getString(R.string.reboot_fail),
                     Toast.LENGTH_SHORT).show();
@@ -202,7 +210,7 @@ public class MainFragment extends Fragment {
         try {                       // 使用linux shell的reboot重启
             Toast.makeText(getActivity(), getString(R.string.reboot_getRoot),
                     Toast.LENGTH_SHORT).show();
-            process = Runtime.getRuntime().exec(new String[]{"su -c", "reboot recovery"});
+            process = Runtime.getRuntime().exec(new String[]{"su -c", "reboot","recovery"});
         } catch (Exception e) {
             Toast.makeText(getActivity(), getString(R.string.reboot_fail),
                     Toast.LENGTH_SHORT).show();

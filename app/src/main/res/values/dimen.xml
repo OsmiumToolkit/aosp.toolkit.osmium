@@ -8,6 +8,7 @@
 
 	<dimen name="welcome_title">50sp</dimen>
 	<dimen name="welcome_subtitle">25sp</dimen>
+	<dimen name="welcome_name">20sp</dimen>
 
 	<dimen name="welcome_icons">100dp</dimen>
 

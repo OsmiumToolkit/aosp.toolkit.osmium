@@ -74,21 +74,21 @@
 
 	<string name="welcome_2_title">#BeUnstable</string>
 	<string name="welcome_2_subtitle">开源项目，让你为所欲为！</string>
-	<string name="welcome_2_title2">!#/bin/bash</string>
+	<string name="welcome_2_title2">#!/system/bin</string>
 	<string name="welcone_2_subtitle2">本应由采用的Linux Shell脚本并开放脚本源码</string>
 
 	<string name="welcome_3_title">关于</string>
-	<string name="welcome_3_subtitle">作者 \n＠住在地球真累</string>
-	<string name="welcome_3_spcialthank">特别感谢 \n＠xzr467706992\n＠yc9559</string>
+	<string name="welcome_3_subtitle">作者</string>
+	<string name="welcome_3_auth">\0040住在地球真累</string>
+	<string name="welcome_3_spcialthank">特别感谢</string>
+	<string name="welcome_3_xzr">\0040xzr467706992</string>
+	<string name="welcome_3_yc">\u0040yc9559</string>
+	<string name="welcome_3_test">协助测试</string>
+	<string name="welcome_3_yuge">\u0040鱼鸽</string>
 
 	<string name="welcome_4_title">准备启程&#8230;</string>
 	<string name="welcome_4_subtitle">但是启程前我需要ROOT限权&#8230;</string>
 	<string name="welcome_4_btn">→ 大爷点这快活哦~ ←</string>
-
-	<string name="welcome_swipe_1">滑动继续→ (25 %)</string>
-	<string name="welcome_swipe_2">滑动继续→ (50 %)</string>
-	<string name="welcome_swipe_3">滑动继续→ (75 %)</string>
-	<string name="welcome_swipe_4">(100 %)</string>
 
 	<string name="welcome_get_root">尝试获取ROOT限权(命令\"su\")</string>
 	<string name="welcome_get_root_success">获取成功!</string>

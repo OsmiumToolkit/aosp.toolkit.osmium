@@ -73,21 +73,21 @@
 
 	<string name="welcome_2_title">#BeUnstable</string>
 	<string name="welcome_2_subtitle">An Open-Sourced project! Do what you want!</string>
-	<string name="welcome_2_title2">#!/bin/sh</string>
+	<string name="welcome_2_title2">#!/system/bin</string>
 	<string name="welcone_2_subtitle2">Shell commands are used and being Open-Sourced</string>
 
 	<string name="welcome_3_title">About</string>
-	<string name="welcome_3_subtitle">Author \n＠1552980358(Vulpecula)</string>
-	<string name="welcome_3_spcialthank">Special Thanks \n＠xzr467706992\n＠yc9559</string>
+	<string name="welcome_3_subtitle">Author</string>
+	<string name="welcome_3_auth">\u00401552980358</string>
+	<string name="welcome_3_spcialthank">Special Thanks</string>
+	<string name="welcome_3_xzr">\u0040xzr467706992</string>
+	<string name="welcome_3_yc">\u0040yc9559</string>
+	<string name="welcome_3_test">Cooperation Tester</string>
+	<string name="welcome_3_yuge">\u0040鱼鸽</string>
 
 	<string name="welcome_4_title">Ready To Start&#8230;</string>
 	<string name="welcome_4_subtitle">But I need Root permission first&#8230;</string>
 	<string name="welcome_4_btn">→ Click here continue ←</string>
-
-	<string name="welcome_swipe_1">Swipe to continue→ (25 %)</string>
-	<string name="welcome_swipe_2">Swipe to continue→ (50 %)</string>
-	<string name="welcome_swipe_3">Swipe to continue→ (75 %)</string>
-	<string name="welcome_swipe_4">(100 %)</string>
 
 	<string name="welcome_get_root">Try getting Root permission(Command\"su\")</string>
 	<string name="welcome_get_root_success">Succeed!</string>

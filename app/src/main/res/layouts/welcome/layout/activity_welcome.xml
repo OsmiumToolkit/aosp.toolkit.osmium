@@ -1,13 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
 	android:layout_width="match_parent"
 	android:layout_height="match_parent"
-	android:background="@color/navy_blue">
+	xmlns:tools="http://schemas.android.com/tools"
+	android:background="@color/colorPrimary"
+	android:orientation="vertical"
+	tools:context=".WelcomeActivity">
 
 	<android.support.v4.view.ViewPager
-		android:id="@+id/viewpager"
 		android:layout_width="match_parent"
-		android:layout_height="match_parent">
+		android:layout_height="match_parent"
+		android:id="@+id/viewPager"/>
 
-	</android.support.v4.view.ViewPager>
-</android.support.constraint.ConstraintLayout>
+	<ProgressBar
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:id="@+id/progressBar"
+		android:layout_alignParentBottom="true"
+		style="?android:attr/progressBarStyleHorizontal"
+		android:max="100"
+		android:progress="0"/>
+
+</RelativeLayout>

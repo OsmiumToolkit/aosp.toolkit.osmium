@@ -1,4 +1,4 @@
-package com.earth.OsToolkit.Working.BaseClass;
+package com.earth.OsToolkit.Base;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -8,12 +8,19 @@ import android.widget.Toast;
 
 import com.earth.OsToolkit.R;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
-import static com.earth.OsToolkit.Working.BaseClass.BaseIndex.*;
+import static com.earth.OsToolkit.Base.BaseIndex.*;
 
 public class Jumping {
+
+	/*
+	 * 27 Dec 2018
+	 *
+	 * By 1552980358
+	 *
+	 */
+
 	public static void jumpSource(Activity activity) {
 		try {
 			activity.startActivity(new Intent()
