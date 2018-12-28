@@ -3,9 +3,9 @@
 	android:layout_width="match_parent"
 	android:layout_height="match_parent"
 	xmlns:tools="http://schemas.android.com/tools"
-	android:background="@color/colorPrimary"
+	android:background="@mipmap/welcome_background"
 	android:orientation="vertical"
-	tools:context=".WelcomeActivity">
+	tools:context=".WelcomeActivity" >
 
 	<android.support.v4.view.ViewPager
 		android:layout_width="match_parent"

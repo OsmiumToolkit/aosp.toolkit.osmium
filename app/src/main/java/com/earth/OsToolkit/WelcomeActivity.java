@@ -6,6 +6,7 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.*;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
 import android.widget.ProgressBar;
 
 import com.earth.OsToolkit.Fragment.WelcomeFragment.*;
@@ -22,16 +23,23 @@ public class WelcomeActivity extends AppCompatActivity {
 	 *
 	 */
 
-	int i = 0;
-
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 
+		// 放入应用变量
+		// Save in Application Variable
 		KillActivity.getInstance().setAppCompatActivity(this);
 
+		// Source / 来源
+		// https://blog.csdn.net/hmmhhmmhmhhm/article/details/77840604
+		getWindow().getDecorView().setSystemUiVisibility(
+				View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN|
+						View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
+
 		setContentView(R.layout.activity_welcome);
-		getWindow().setStatusBarColor(ContextCompat.getColor(this, R.color.colorPrimaryDark));
+
+
 
 		initialize();
 	}

@@ -1,6 +1,7 @@
 package com.earth.OsToolkit.Fragment.Dialog;
 
 import android.app.*;
+import android.content.pm.PackageInfo;
 import android.os.Bundle;
 import android.support.annotation.*;
 import android.support.v4.app.DialogFragment;
@@ -9,6 +10,8 @@ import android.widget.TextView;
 
 import com.earth.OsToolkit.R;
 import com.earth.OsToolkit.Base.Jumping;
+
+import static com.earth.OsToolkit.Base.BaseIndex.*;
 
 
 public class UpdateDialogFragment extends DialogFragment {
@@ -70,7 +73,7 @@ public class UpdateDialogFragment extends DialogFragment {
 
 		builder.setPositiveButton(getText(R.string.update_github), (dialog, which) -> Jumping.jumpGithub(getActivity()));
 
-		builder.setNegativeButton(getText(R.string.update_coolapk), (dialog, which) -> Jumping.jumpCoolapk(getActivity()));
+		builder.setNegativeButton(getText(R.string.update_coolapk), (dialog, which) -> Jumping.jumpCoolapk(getActivity(), PackageName));
 
 		builder.setNeutralButton(getString(R.string.cancel), (dialog, which) -> {});
 

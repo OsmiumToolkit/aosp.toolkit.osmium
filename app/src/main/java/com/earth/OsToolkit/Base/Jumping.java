@@ -10,7 +10,7 @@ import com.earth.OsToolkit.R;
 
 import java.util.*;
 
-import static com.earth.OsToolkit.Base.BaseIndex.*;
+import static com.earth.OsToolkit.Base.BaseIndex.CoolapkPackageName;
 
 public class Jumping {
 
@@ -43,7 +43,7 @@ public class Jumping {
 		}
 	}
 
-	public static void jumpCoolapk(Activity activity) {
+	public static void jumpCoolapk(Activity activity, String Name) {
 		final List<PackageInfo> packageInfoList = activity.getPackageManager().getInstalledPackages(0);
 		List<String> packageName = new ArrayList<>();
 		if (!packageInfoList.isEmpty()) {
@@ -56,19 +56,19 @@ public class Jumping {
 			if (packageName.contains(CoolapkPackageName)) {
 				Toast.makeText(activity, activity.getString(R.string.toast_coolapk), Toast.LENGTH_SHORT).show();
 				activity.startActivity(new Intent("android.intent.action.VIEW")
-						                       .setData(Uri.parse("market://details?id=" + PackageName))
+						                       .setData(Uri.parse("market://details?id=" + Name))
 						                       .setPackage(CoolapkPackageName)
 						                       .setFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
 			} else {
 				activity.startActivity(new Intent()
-						                       .setData(Uri.parse("http://www.coolapk.com/apk/" + PackageName))
+						                       .setData(Uri.parse("http://www.coolapk.com/apk/" + Name))
 						                       .setAction(Intent.ACTION_VIEW));
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
 			try {
 				activity.startActivity(new Intent()
-						                       .setData(Uri.parse("http://www.coolapk.com/apk/" + PackageName))
+						                       .setData(Uri.parse("http://www.coolapk.com/apk/" + Name))
 						                       .setAction(Intent.ACTION_VIEW));
 			} catch (Exception ex) {
 				ex.printStackTrace();
@@ -78,7 +78,7 @@ public class Jumping {
 
 	}
 
-	public static void jumpCoolapkAccount(Activity activity) {
+	public static void jumpCoolapkAccount(Activity activity, String ac) {
 		final List<PackageInfo> packageInfoList = activity.getPackageManager().getInstalledPackages(0);
 		List<String> packageName = new ArrayList<>();
 		if (!packageInfoList.isEmpty()) {
@@ -91,12 +91,12 @@ public class Jumping {
 			if (packageName.contains(CoolapkPackageName)) {
 				Toast.makeText(activity, activity.getString(R.string.toast_coolapk), Toast.LENGTH_SHORT).show();
 				activity.startActivity(new Intent("android.intent.action.VIEW")
-						                       .setData(Uri.parse("http://www.coolapk.com/u/724354"))
+						                       .setData(Uri.parse("http://www.coolapk.com/u/" + ac))
 						                       .setPackage(CoolapkPackageName)
 						                       .setFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
 			} else {
 				activity.startActivity(new Intent()
-						                       .setData(Uri.parse("http://www.coolapk.com/u/724354" + PackageName))
+						                       .setData(Uri.parse("http://www.coolapk.com/u/724354"))
 						                       .setAction(Intent.ACTION_VIEW));
 			}
 		} catch (Exception e) {

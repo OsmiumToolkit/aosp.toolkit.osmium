@@ -1,11 +1,13 @@
 package com.earth.OsToolkit;
 
 import android.content.DialogInterface;
+import android.content.IntentFilter;
 import android.os.*;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.*;
@@ -40,7 +42,13 @@ public class MainActivity extends AppCompatActivity
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
 
+		// 杀死前方WelcomeActivity
+		// Kill WelcomeActivity
 		KillActivity.getInstance().killActivity();
+
+		// 放入应用变量
+		// Save in Application Variable
+		KillActivity.getInstance().setAppCompatActivity(this);
 		
 		initUI();
 		checkUpdate();
@@ -50,7 +58,16 @@ public class MainActivity extends AppCompatActivity
 		toolbar = findViewById(R.id.toolbar);
 		setSupportActionBar(toolbar);
 
-		getWindow().setNavigationBarColor(getResources().getColor(R.color.colorPrimary));
+		if (getSharedPreferences("ui",MODE_PRIVATE).getBoolean("navBar",true)) {
+			// ContextCompat通用包 5.0+通用
+			getWindow().setNavigationBarColor(ContextCompat.getColor(this, R.color.colorPrimary));
+
+			// 5.0+可过编译 6.0+弃用 无法更改颜色
+			// getWindow().setNavigationBarColor(getResources().getColor(R.color.colorPrimary));
+
+			// 无法适配 5.0 / 5.1
+			// getWindow().setNavigationBarColor(getResources().getColor(R.color.colorPrimary,null));
+		}
 
 		drawer = findViewById(R.id.drawer_layout);
 
@@ -58,8 +75,12 @@ public class MainActivity extends AppCompatActivity
 		fragmentTransaction.replace(R.id.main_fragment, new MainFragment()).commit();
 
 		DrawerLayout drawer = findViewById(R.id.drawer_layout);
+
 		ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
-				this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+				this, drawer, toolbar,
+				R.string.navigation_drawer_open,
+				R.string.navigation_drawer_close);
+
 		drawer.addDrawerListener(toggle);
 		toggle.syncState();
 

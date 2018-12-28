@@ -46,7 +46,6 @@ public class WelcomeFragment4 extends Fragment {
         if (getSu()) {
             Intent intent = new Intent(getActivity(),MainActivity.class);
             startActivity(intent);
-            getActivity().finish();
         } else {
             Toast.makeText(getActivity(), getString(R.string.welcome_get_root_fail),
 		            Toast.LENGTH_SHORT).show();

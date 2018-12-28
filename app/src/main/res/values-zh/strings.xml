@@ -49,12 +49,18 @@
 	<string name="about_item_version">版本</string>
 	<string name="about_item_maintainer">作者</string>
 	<string name="about_item_sourcecode">源代码</string>
-	<string name="about_coolapk"><a herf="https://www.coolapk.com/apk/com.earth.OsToolkit">酷安</a></string>
-	<string name="about_github"><a herf="https://github.com/1552980358/com.earth.OsToolkit">GitHub</a></string>
+	<string name="about_coolapk">酷安</string>
+	<string name="about_github">GitHub</string>
 	<string name="about_apache">Apache-2.0</string>
 	<string name="aboout_credit">鸣谢</string>
-	<string name="about_credit_xzr">＠xzr467706992\n - 镧系统工具箱开源模块</string>
-	<string name="about_credit_yc9559">＠yc9559\n - yc9559调度</string>
+	<string name="about_item_xzr">\u0040xzr467706992</string>
+	<string name="about_item_xzr_sum">镧系统工具箱开源模块</string>
+	<string name="about_item_yc9559">\u0040yc9559</string>
+	<string name="about_item_yc9559_sum">yc9559调度</string>
+	<string name="about_set_navBar">导航栏颜色跟随主题</string>
+	<string name="about_set_theme">自定义主题</string>
+	<string name="about_toast_sub_not_installed">Substratum主题管理器未安装</string>
+	<string name="about_toast_theme_not_installed">自定义主题未安装</string>
 
 	<string name="update_check">检查更新</string>
 	<string name="update_checking">检查更新中&#8230;</string>
@@ -79,9 +85,9 @@
 
 	<string name="welcome_3_title">关于</string>
 	<string name="welcome_3_subtitle">作者</string>
-	<string name="welcome_3_auth">\0040住在地球真累</string>
+	<string name="welcome_3_auth">\u0040住在地球真累</string>
 	<string name="welcome_3_spcialthank">特别感谢</string>
-	<string name="welcome_3_xzr">\0040xzr467706992</string>
+	<string name="welcome_3_xzr">\u0040xzr467706992</string>
 	<string name="welcome_3_yc">\u0040yc9559</string>
 	<string name="welcome_3_test">协助测试</string>
 	<string name="welcome_3_yuge">\u0040鱼鸽</string>

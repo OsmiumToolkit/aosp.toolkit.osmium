@@ -7,6 +7,8 @@ public class BaseIndex {
 	// Package Information
 	public static String PackageName = "com.earth.OsToolkit";
 	public static String CoolapkPackageName = "com.coolapk.market";
+	public static String OsToolkitSubstratumName = "substratum.earth.OsToolkit";
+	public static String SubstratumName = "projekt.substratum";
 
 
 	// Shell

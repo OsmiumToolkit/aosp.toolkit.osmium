@@ -17,6 +17,10 @@ public class AboutItem extends LinearLayout {
 		this(context, resId, title, "");
 	}
 
+	public AboutItem(Context context, int resId, int title, int summary) {
+		this(context, resId, title, context.getString(summary));
+	}
+
 	public AboutItem(Context context, int resId, int title, String summary) {
 		super(context);
 		LayoutInflater.from(context)
