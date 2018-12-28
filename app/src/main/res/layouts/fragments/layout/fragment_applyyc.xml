@@ -62,7 +62,7 @@
 						<ImageView
 							android:layout_width="45dp"
 							android:layout_height="45dp"
-							android:src="@drawable/ic_snapdragon" />
+							android:src="@mipmap/ic_snapdragon" />
 
 						<TextView
 							android:layout_width="wrap_content"
@@ -97,7 +97,7 @@
 						<ImageView
 							android:layout_width="45dp"
 							android:layout_height="45dp"
-							android:src="@drawable/ic_exynos" />
+							android:src="@mipmap/ic_exynos" />
 
 						<TextView
 							android:layout_width="wrap_content"
@@ -132,7 +132,7 @@
 						<ImageView
 							android:layout_width="45dp"
 							android:layout_height="45dp"
-							android:src="@drawable/ic_mediatek" />
+							android:src="@mipmap/ic_mediatek" />
 
 						<TextView
 							android:layout_width="wrap_content"
@@ -167,7 +167,7 @@
 						<ImageView
 							android:layout_width="45dp"
 							android:layout_height="45dp"
-							android:src="@drawable/ic_huawei" />
+							android:src="@mipmap/ic_huawei" />
 
 						<TextView
 							android:layout_width="wrap_content"
@@ -201,7 +201,7 @@
 						<ImageView
 							android:layout_width="45dp"
 							android:layout_height="45dp"
-							android:src="@drawable/ic_intel" />
+							android:src="@mipmap/ic_intel" />
 
 						<TextView
 							android:layout_width="wrap_content"

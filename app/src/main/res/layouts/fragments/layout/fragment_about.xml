@@ -30,7 +30,7 @@
 					android:layout_width="80dp"
 					android:layout_height="80dp"
 					android:padding="10dp"
-					android:src="@drawable/ic_launcher" />
+					android:src="@mipmap/ic_launcher" />
 
 				<TextView
 					android:layout_width="wrap_content"
@@ -91,7 +91,7 @@
 		<ImageView
 			android:layout_width="25dp"
 			android:layout_height="25dp"
-			android:src="@drawable/ic_apache" />
+			android:src="@mipmap/ic_apache" />
 
 		<TextView
 			android:layout_width="wrap_content"

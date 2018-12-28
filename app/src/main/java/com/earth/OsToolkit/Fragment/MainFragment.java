@@ -86,29 +86,29 @@ public class MainFragment extends Fragment {
     public void setTitleImage(View view) {
         ImageView imageView = view.findViewById(R.id.cpu_manu);
         if (getCpu().contains("Qualcomm")) {
-            imageView.setImageDrawable(view.getResources().getDrawable(R.drawable.ic_snapdragon));
+            imageView.setImageDrawable(view.getResources().getDrawable(R.mipmap.ic_snapdragon));
         } else if (getCpu().contains("Exynos")) {
-            imageView.setImageDrawable(view.getResources().getDrawable(R.drawable.ic_exynos));
+            imageView.setImageDrawable(view.getResources().getDrawable(R.mipmap.ic_exynos));
         } else if (getCpu().contains("MediaTel")) {
-            imageView.setImageDrawable(view.getResources().getDrawable(R.drawable.ic_mediatek));
+            imageView.setImageDrawable(view.getResources().getDrawable(R.mipmap.ic_mediatek));
         }
 
         ImageView imageView1 = view.findViewById(R.id.android_ver);
         switch (getAndroidVersionName()) {
             case "Lolipop":
-                imageView1.setImageDrawable(getResources().getDrawable(R.drawable.ic_android_lollipop, null));
+                imageView1.setImageDrawable(getResources().getDrawable(R.mipmap.ic_android_lollipop, null));
                 break;
             case "Marshmallow":
-                imageView1.setImageDrawable(getResources().getDrawable(R.drawable.ic_android_marshmallow, null));
+                imageView1.setImageDrawable(getResources().getDrawable(R.mipmap.ic_android_marshmallow, null));
                 break;
             case "Nougat":
-                imageView1.setImageDrawable(getResources().getDrawable(R.drawable.ic_android_nougat, null));
+                imageView1.setImageDrawable(getResources().getDrawable(R.mipmap.ic_android_nougat, null));
                 break;
             case "Oreo":
-                imageView1.setImageDrawable(getResources().getDrawable(R.drawable.ic_android_oreo, null));
+                imageView1.setImageDrawable(getResources().getDrawable(R.mipmap.ic_android_oreo, null));
                 break;
             case "Pie":
-                imageView1.setImageDrawable(getResources().getDrawable(R.drawable.ic_android_pie, null));
+                imageView1.setImageDrawable(getResources().getDrawable(R.mipmap.ic_android_pie, null));
                 break;
         }
     }

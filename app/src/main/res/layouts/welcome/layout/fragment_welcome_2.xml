@@ -54,7 +54,7 @@
 			android:layout_width="@dimen/welcome_icons"
 			android:layout_height="@dimen/welcome_icons"
 			android:layout_gravity="center"
-			android:src="@drawable/ic_terminal" />
+			android:src="@mipmap/ic_terminal" />
 
 		<TextView
 			android:layout_width="wrap_content"
