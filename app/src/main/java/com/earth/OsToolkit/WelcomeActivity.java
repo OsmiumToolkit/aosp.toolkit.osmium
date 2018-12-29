@@ -1,13 +1,12 @@
 package com.earth.OsToolkit;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentPagerAdapter;
-import android.support.v4.content.ContextCompat;
 import android.support.v4.view.*;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
-import android.widget.ProgressBar;
 
 import com.earth.OsToolkit.Fragment.WelcomeFragment.*;
 import com.earth.OsToolkit.Base.KillActivity;
@@ -33,13 +32,26 @@ public class WelcomeActivity extends AppCompatActivity {
 
 		// Source / 来源
 		// https://blog.csdn.net/hmmhhmmhmhhm/article/details/77840604
+
+		setContentView(R.layout.activity_welcome);
+
+		/*
 		getWindow().getDecorView().setSystemUiVisibility(
 				View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN|
 						View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
 
-		setContentView(R.layout.activity_welcome);
+		***'org.zackratos:ultimatebar:1.0.3'***
+        UltimateBar ultimateBar = new UltimateBar(this);
+        ultimateBar.setImmersionBar();
+        */
 
+        View decorView = getWindow().getDecorView();
+        int option = View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
+                             | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+                             | View.SYSTEM_UI_FLAG_LAYOUT_STABLE;
+        decorView.setSystemUiVisibility(option);
 
+        getWindow().setNavigationBarColor(Color.TRANSPARENT);
 
 		initialize();
 	}

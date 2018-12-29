@@ -10,7 +10,6 @@ import android.view.*;
 
 import com.earth.OsToolkit.Items.CardSwitchCompactItem;
 import com.earth.OsToolkit.R;
-import static com.earth.OsToolkit.Base.Path.*;
 import static com.earth.OsToolkit.Base.FileWorking.*;
 
 import static com.earth.OsToolkit.Base.BaseIndex.*;

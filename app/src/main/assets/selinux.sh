@@ -1,5 +1,3 @@
-#!/usr/bin/env bash
-
 # 检测SELinux状态
 # Check SELinux status
 if [[ `getenforce` == Enforcing ]]

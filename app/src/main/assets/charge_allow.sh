@@ -2,7 +2,7 @@ if [ -e "/sys/class/power_supply/battery/battery_charging_enabled" ]
 then
 	echo -e "'/sys/class/power_supply/battery/battery_charging_enabled' found/已找到"
 	
-    if [ `su -c cat /sys/class/power_supply/battery/battery_charging_enabled` == 1 ]
+    if [ `su -c cat /sys/class/power_supply/battery/battery_charging_enabled` == "1" ]
     then
 		echo -e "Disable battery charging/禁用充电"
         X="0"

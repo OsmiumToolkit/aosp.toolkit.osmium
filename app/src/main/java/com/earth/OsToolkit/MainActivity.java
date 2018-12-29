@@ -1,11 +1,11 @@
 package com.earth.OsToolkit;
 
 import android.content.DialogInterface;
-import android.content.IntentFilter;
 import android.os.*;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.GravityCompat;
@@ -36,6 +36,7 @@ public class MainActivity extends AppCompatActivity
 
 	Toolbar toolbar;
 	DrawerLayout drawer;
+	FragmentManager fragmentManager;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -49,6 +50,8 @@ public class MainActivity extends AppCompatActivity
 		// 放入应用变量
 		// Save in Application Variable
 		KillActivity.getInstance().setAppCompatActivity(this);
+
+		fragmentManager = getSupportFragmentManager();
 		
 		initUI();
 		checkUpdate();
@@ -71,7 +74,7 @@ public class MainActivity extends AppCompatActivity
 
 		drawer = findViewById(R.id.drawer_layout);
 
-		FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+		FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
 		fragmentTransaction.replace(R.id.main_fragment, new MainFragment()).commit();
 
 		DrawerLayout drawer = findViewById(R.id.drawer_layout);
@@ -91,13 +94,13 @@ public class MainActivity extends AppCompatActivity
 		linearLayout_about.setOnClickListener(v -> {
 			drawer.closeDrawer(GravityCompat.START);
 
-			int j =  getSupportFragmentManager().getFragments().size();
+			int j =  fragmentManager.getFragments().size();
 			for (int i = 0; i < j; i++) {
-				FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-				ft.remove(getSupportFragmentManager().getFragments().get(0)).commit();
+				FragmentTransaction ft = fragmentManager.beginTransaction();
+				ft.remove(fragmentManager.getFragments().get(0)).commit();
 			}
 
-			FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+			FragmentTransaction ft = fragmentManager.beginTransaction();
 			ft.setCustomAnimations(R.animator.fade_in, R.animator.fade_out)
 					.replace(R.id.main_fragment,new AboutFragment())
 					.commit();
@@ -108,18 +111,19 @@ public class MainActivity extends AppCompatActivity
 		LinearLayout linearLayout_device = view.findViewById(R.id.nav_deviceinfo);
 		linearLayout_device.setOnClickListener(v -> {
 			drawer.closeDrawer(GravityCompat.START);
-			int j =  getSupportFragmentManager().getFragments().size();
+
+			int j =  fragmentManager.getFragments().size();
 			for (int i = 0; i < j; i++) {
-				FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-				ft.remove(getSupportFragmentManager().getFragments().get(0)).commit();
+				FragmentTransaction ft = fragmentManager.beginTransaction();
+				ft.remove(fragmentManager.getFragments().get(0)).commit();
 			}
 
-			FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+			FragmentTransaction ft = fragmentManager.beginTransaction();
 			ft.setCustomAnimations(R.animator.fade_in, R.animator.fade_out)
 					.replace(R.id.main_fragment,new DeviceInfoFragment())
 					.commit();
 
-			toolbar.setTitle(R.string.nav_deviceinfo);
+            toolbar.setTitle(R.string.nav_deviceinfo);
 		});
 
 		navigationView.setNavigationItemSelectedListener(this);
@@ -142,7 +146,7 @@ public class MainActivity extends AppCompatActivity
 		if (checkUpdate.complete && !checkUpdate.getVersion().equals(Checking.getVersionName(this))) {
 			if (!checkUpdate.getVersion().equals("Fail")) {
 				UpdateDialogFragment updateDialogFragment = new UpdateDialogFragment();
-				FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+				FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
 				updateDialogFragment.setVersion(checkUpdate.getVersion());
 				updateDialogFragment.setDate(checkUpdate.getDate());
 				updateDialogFragment.setChangelogEng(checkUpdate.getChangelogEng());
@@ -248,16 +252,18 @@ public class MainActivity extends AppCompatActivity
 
 		toolbar.setTitle(title);
 
-		int j =  getSupportFragmentManager().getFragments().size();
+		int j =  fragmentManager.getFragments().size();
+        FragmentTransaction ft = fragmentManager.beginTransaction();
 		for (int i = 0; i < j; i++) {
-			FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-			fragmentTransaction.remove(getSupportFragmentManager().getFragments().get(0)).commit();
+			ft.remove(fragmentManager.getFragments().get(i));
 		}
+		ft.commit();
 
-		FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+		FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
 		fragmentTransaction.setCustomAnimations(R.animator.fade_in, R.animator.fade_out)
 				.replace(R.id.main_fragment, fragment)
 				.commit();
+
 		return true;
 	}
 

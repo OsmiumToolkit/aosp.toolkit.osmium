@@ -1,15 +1,13 @@
 package com.earth.OsToolkit.Fragment;
 
-import android.content.Context;
-import android.content.Intent;
-import android.content.SharedPreferences;
+import android.content.*;
 import android.content.pm.PackageInfo;
-import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.support.annotation.*;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.SwitchCompat;
+import android.util.Log;
 import android.view.*;
 import android.widget.*;
 
@@ -27,6 +25,7 @@ import static com.earth.OsToolkit.Base.Jumping.*;
 import static com.earth.OsToolkit.Base.Checking.*;
 import static com.earth.OsToolkit.Base.BaseIndex.*;
 
+@SuppressWarnings("all")
 public class AboutFragment extends Fragment {
 
 	/*
@@ -78,15 +77,14 @@ public class AboutFragment extends Fragment {
 			CheckUpdate checkUpdate = new CheckUpdate();
 			checkUpdate.checkUpdate();
 
-			// 方法堵塞主线程，等待新线程完成工作
 			// Method blocking Main Thread, wait for finish working of new Thread
+			// 方法堵塞主线程，等待新线程完成工作
 			checkUpdate.waitFor();
 
 			if (checkUpdate.complete && !checkUpdate.getVersion().equals(Checking.getVersionName(getActivity()))) {
 				if (!checkUpdate.getVersion().equals("Fail")) {
 
-					// 实例化Dialog
-					// New Dialog
+					// New Dialog/实例化Dialog
 					UpdateDialogFragment updateDialogFragment = new UpdateDialogFragment();
 					FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
 
@@ -96,15 +94,13 @@ public class AboutFragment extends Fragment {
 					String cE = checkUpdate.getChangelogEng();
 
 
-					//发送数据
-					// Transmit data
+					// Transmit data/发送数据
 					updateDialogFragment.setVersion(ver);
 					updateDialogFragment.setDate(d);
 					updateDialogFragment.setChangelogEng(cC);
 					updateDialogFragment.setChangelogCn(cE);
 
-					// 显示Dialog
-					// Show Dialog
+					// Show Dialog/显示Dialog
 					updateDialogFragment.show(fragmentTransaction, "updateDialogFragment");
 				} else {
 					Toast.makeText(getActivity(), getString(R.string.update_fail), Toast.LENGTH_SHORT).show();
@@ -183,8 +179,14 @@ public class AboutFragment extends Fragment {
 				}
 			}
 
+			for (int i = 0; i < packageName.size(); i++)
+			    Log.i("packageName",packageName.get(i));
+
+            Log.i("containSubTheme",packageName.contains(OsToolkitSubstratumName) + "");
+			Log.i("containSubMan",packageName.contains(SubstratumName) + "");
+
 			if (packageName.contains(OsToolkitSubstratumName)) {
-				if (packageInfoList.contains(SubstratumName)) {
+				if (packageName.contains(SubstratumName)) {
 					startActivity(getActivity().getPackageManager().getLaunchIntentForPackage(SubstratumName));
 				} else {
 					Toast.makeText(getActivity(), getString(R.string.about_toast_sub_not_installed), Toast.LENGTH_SHORT).show();
