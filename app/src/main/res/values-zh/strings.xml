@@ -1,157 +1,164 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources>
-	<string name="app_name">锇•工具箱</string>
-	<string name="navigation_drawer_open">Open navigation drawer</string>
-	<string name="navigation_drawer_close">Close navigation drawer</string>
-	<string name="nav_header_title">锇•工具箱 &lt;实验版&gt;</string>
-	<string name="nav_header_subtitle">- 住在地球真累 -</string>
-	<string name="nav_header_desc">Navigation header</string>
-	<string name="action_reboot">重启</string>
-	<string name="action_rec">重启Recovery</string>
-	<string name="action_soft">软重启</string>
+<resources >
+    <string name="app_name" >锇•工具箱</string >
+    <string name="navigation_drawer_open" >Open navigation drawer</string >
+    <string name="navigation_drawer_close" >Close navigation drawer</string >
+    <string name="nav_header_title" >锇•工具箱 &lt;实验版&gt;</string >
+    <string name="nav_header_subtitle" >- 住在地球真累 -</string >
+    <string name="nav_header_desc" >Navigation header</string >
+    <string name="reboot" >重启选项</string >
+    <string name="reboot_system">重启系统</string>
+    <string name="reboot_rec" >重启Recovery</string >
+    <string name="reboot_soft" >软重启</string >
 
-	<string name="cont">继续</string>
-	<string name="cancel">取消</string>
+    <string name="cont" >继续</string >
+    <string name="cancel" >取消</string >
 
-	<string name="nav_main">主页</string>
-	<string name="nav_about">关于应用</string>
-	<string name="nav_deviceinfo">设备信息</string>
-	<string name="nav_title_toolkit">工具箱</string>
-	<string name="nav_charging">充电相关</string>
-	<string name="nav_processor">处理器相关</string>
-	<string name="nav_title_3rd">第三方提供</string>
-	<string name="nav_yc">YC调度</string>
+    <string name="nav_main" >主页</string >
+    <string name="nav_about" >关于应用</string >
+    <string name="nav_deviceinfo" >设备信息</string >
+    <string name="nav_title_toolkit" >工具箱</string >
+    <string name="nav_charging" >充电相关</string >
+    <string name="nav_processor" >处理器相关</string >
+    <string name="nav_title_3rd" >第三方提供</string >
+    <string name="nav_yc" >YC调度</string >
 
-	<string name="menu_exit">退出应用</string>
-	<string name="menu_shell">退出应用 (Shell)</string>
-	<string name="menu_killProcessPID">退出应用 (杀死PID)</string>
-	<string name="menu_null">退出应用 (极端模式)</string>
-	<string name="menu_null_title">继续?</string>
-	<string name="menu_null_msg">这将会抛出异常迫使JVM杀死应用所有进程。\n继续?</string>
+    <string name="name_yc9559" >\u0040yc9559</string >
+    <string name="name_xzr" >\u0040xzr467706992</string >
 
-	<string name="update_found">更新已发布!</string>
-	<string name="update_version">版本: </string>
-	<string name="update_date">日期: </string>
-	<string name="update_changelog">更新内容:</string>
-	<string name="update_coolapk">酷安</string>
-	<string name="update_github">GitHub</string>
-	<string name="toast_coolapk">酷安已安装, 跳转中&#8230;</string>
-	<string name="update_changelog_ENG">英语(English)</string>
-	<string name="update_changelog_CN">简体中文(Simplified Chinese)</string>
-	<string name="update_newest">已是最新版本。</string>
+    <string name="warning">Copyright &#169;1552980358 &#8211; 2019</string>
 
-	<string name="load_fail">跳转失败!</string>
-	<string name="refresh">刷新中……</string>
+    <string name="update_check" >检查更新</string >
+    <string name="update_fail" >更新检查失败: 请检查网络连接后尝试</string >
+    <string name="update_found" >更新已发布!</string >
+    <string name="update_version" >版本: </string >
+    <string name="update_date" >日期: </string >
+    <string name="update_changelog" >更新内容:</string >
+    <string name="update_coolapk" >酷安</string >
+    <string name="update_github" >GitHub</string >
+    <string name="toast_coolapk" >酷安已安装, 跳转中&#8230;</string >
+    <string name="update_changelogEn" >英语(English)</string >
+    <string name="update_changelogZh" >简体中文(Simplified Chinese)</string >
+    <string name="update_newest" >已是最新版本。</string >
 
-	<string name="item_card_device">设备</string>
-	<string name="item_card_device_android">Android %s(%s, API %d)</string>
+    <string name="item_card_device" >设备</string >
+    <string name="item_card_device_android" >Android %s(%s, API %d)</string >
 
-	<string name="about_item_version">版本</string>
-	<string name="about_item_maintainer">作者</string>
-	<string name="about_item_sourcecode">源代码</string>
-	<string name="about_coolapk">酷安</string>
-	<string name="about_github">GitHub</string>
-	<string name="about_apache">Apache-2.0</string>
-	<string name="aboout_credit">鸣谢</string>
-	<string name="about_item_xzr">\u0040xzr467706992</string>
-	<string name="about_item_xzr_sum">镧系统工具箱开源模块</string>
-	<string name="about_item_yc9559">\u0040yc9559</string>
-	<string name="about_item_yc9559_sum">yc9559调度</string>
-	<string name="about_set_navBar">导航栏颜色跟随主题</string>
-	<string name="about_set_theme">自定义主题</string>
-	<string name="about_toast_sub_not_installed">Substratum主题管理器未安装</string>
-	<string name="about_toast_theme_not_installed">自定义主题未安装</string>
+    <string name="about_version" >版本</string >
+    <string name="about_maintainer" >作者</string >
+    <string name="about_sourcecode" >源代码</string >
+    <string name="about_coolapk" >酷安</string >
+    <string name="about_github" >GitHub</string >
+    <string name="aboout_credit" >鸣谢</string >
+    <string name="about_xzr_sum" >镧系统工具箱开源模块</string >
+    <string name="about_yc9559_sum" >yc9559调度</string >
+    <string name="about_set_navBar" >导航栏颜色跟随主题</string >
+    <string name="about_set_theme" >自定义主题</string >
 
-	<string name="update_check">检查更新</string>
-	<string name="update_checking">检查更新中&#8230;</string>
-	<string name="update_fail">更新检查失败: 请检查网络连接后尝试</string>
+    <string name="script_title_head" >运行脚本 \"%s\"</string >
+    <string name="script_head" >================\n-锇·工具箱\n-By住在地球真累\n================</string >
+    <string name="script_download"> - 下载脚本中&#8230;</string>
+    <string name="script_download_done">下载完成!</string>
+    <string name="script_download_fail">下载失败!</string>
+    <string name="script_target">- 目标 :</string>
+    <string name="script_permission"> - 设置限权中&#8230;</string>
+    <string name="script_permission_done">限权设置成功!</string>
+    <string name="script_permission_fail">限权设置失败!</string>
+    <string name="script_command"> - 命令 :</string>
+    <string name="script_process"> - 过程 :</string>
+    <string name="script_error"> - 错误 :</string>
 
-	<string name="reboot_option">重启选项(测试功能 慎用)</string>
-	<string name="reboot_click">点击重启</string>
-	<string name="re_rec_click">点击重启到Recovery</string>
-	<string name="re_soft_click">点击软重启</string>
-	<string name="reboot_getRoot">要求ROOT限权后会尝试自动重启哦~</string>
-	<string name="reboot_fail">重启失败！</string>
+    <string name="welcome_tab_1">欢迎</string>
+    <string name="welcome_tab_2">介绍</string>
+    <string name="welcome_tab_3">关于</string>
+    <string name="welcome_tab_4">开始</string>
 
-	<string name="script_title_head">运行脚本 \"%s\"</string>
+    <string name="welcome_1_title" >欢迎</string >
+    <string name="welcome_1_subtitle" >这里是 锇•工具箱</string >
 
-	<string name="welcome_1_title">欢迎</string>
-	<string name="welcome_1_subtitle">这里是 锇•工具箱</string>
+    <string name="welcome_2_title" >#BeUnstable</string >
+    <string name="welcome_2_subtitle" >开源项目，让你为所欲为！</string >
+    <string name="welcome_2_title2" >#!/system/bin</string >
+    <string name="welcone_2_subtitle2" >本应由采用的Linux Shell脚本并开放脚本源码</string >
 
-	<string name="welcome_2_title">#BeUnstable</string>
-	<string name="welcome_2_subtitle">开源项目，让你为所欲为！</string>
-	<string name="welcome_2_title2">#!/system/bin</string>
-	<string name="welcone_2_subtitle2">本应由采用的Linux Shell脚本并开放脚本源码</string>
+    <string name="welcome_3_title" >关于</string >
+    <string name="welcome_3_subtitle" >作者</string >
+    <string name="welcome_3_auth" >\u0040住在地球真累</string >
+    <string name="welcome_3_spcialthank" >特别感谢</string >
+    <string name="welcome_3_test" >协助测试</string >
+    <string name="welcome_3_yuge" >\u0040鱼鸽</string >
 
-	<string name="welcome_3_title">关于</string>
-	<string name="welcome_3_subtitle">作者</string>
-	<string name="welcome_3_auth">\u0040住在地球真累</string>
-	<string name="welcome_3_spcialthank">特别感谢</string>
-	<string name="welcome_3_xzr">\u0040xzr467706992</string>
-	<string name="welcome_3_yc">\u0040yc9559</string>
-	<string name="welcome_3_test">协助测试</string>
-	<string name="welcome_3_yuge">\u0040鱼鸽</string>
+    <string name="welcome_4_title" >准备启程&#8230;</string >
+    <string name="welcome_4_subtitle" >但是启程前我需要ROOT限权&#8230;</string >
+    <string name="welcome_4_btn" >→ 大爷点这快活哦~ ←</string >
 
-	<string name="welcome_4_title">准备启程&#8230;</string>
-	<string name="welcome_4_subtitle">但是启程前我需要ROOT限权&#8230;</string>
-	<string name="welcome_4_btn">→ 大爷点这快活哦~ ←</string>
+    <string name="welcome_get_root" >尝试获取ROOT限权(命令\"su\")</string >
+    <string name="welcome_get_root_success" >获取成功!</string >
+    <string name="welcome_get_root_fail" >获取失败!</string >
+    <string name="welcome_get_root_pbm" >失败!某些东西貌似炸了&#8230;</string >
 
-	<string name="welcome_get_root">尝试获取ROOT限权(命令\"su\")</string>
-	<string name="welcome_get_root_success">获取成功!</string>
-	<string name="welcome_get_root_fail">获取失败!</string>
-	<string name="welcome_get_root_pbm">失败!某些东西貌似炸了&#8230;</string>
+    <string name="sw_dis" >已禁用</string >
+    <string name="sw_en" >已启用</string >
+    <string name="sw_none" >不可用</string >
+    <string name="toast_succeed" >成功!</string >
+    <string name="toast_failed" >失败!</string >
 
-	<string name="sw_dis">已禁用</string>
-	<string name="sw_en">已启用</string>
-	<string name="sw_none">不可用</string>
-	<string name="toast_succeed">成功!</string>
-	<string name="toast_failed">失败!</string>
+    <string name="charging_not_support" >警告：\n设备部分功能不受支持</string >
+    <string name="charging_qc3_title" >QC3.0 快充</string >
+    <string name="charging_qc3_sum" >启用/禁用 QC3.0 - 他不一定有效</string >
+    <string name="charging_allow_title" >允许充电</string >
+    <string name="charging_allow_sum" >启用/禁用 接通电源后的充电功能</string >
+    <string name="charging_usbqc_title" >USB快充</string >
+    <string name="charging_usbqc_sum" >启用/禁用 USB快充(需第三方内核支持)</string >
 
-	<string name="charging_not_support">警告：\n设备部分功能不受支持</string>
-	<string name="charging_qc3_title">QC3.0 快充</string>
-	<string name="charging_qc3_sum">启用/禁用 QC3.0 - 他不一定有效</string>
-	<string name="charging_allow_title">允许充电</string>
-	<string name="charging_allow_sum">启用/禁用 接通电源后的充电功能</string>
-	<string name="charging_usbqc_title">USB快充</string>
-	<string name="charging_usbqc_sum">启用/禁用 USB快充(需第三方内核支持)</string>
+    <string name="romio_addrandom_title">增加随机性</string>
+    <string name="romio_addrandom_sum">从旋转设备获取熵</string>
+    <string name="romio_nomerges_title">调试帮助</string>
+    <string name="romio_nomerges_sum">禁用可提高性能</string>
+    <string name="romio_iostats_title">统计</string>
+    <string name="romio_iostats_sum">关闭可提高性能 但是部分依赖此项的应用可能不能正常运行</string>
 
-	<string name="deviceinfo_general_title">设备</string>
-	<string name="deviceinfo_general_manufacturer">厂商</string>
-	<string name="deviceinfo_general_brand">系列</string>
-	<string name="deviceinfo_general_model">机型</string>
-	<string name="deviceinfo_general_device">代号</string>
+    <string name="deviceinfo_general_title" >设备</string >
+    <string name="deviceinfo_general_manufacturer" >厂商</string >
+    <string name="deviceinfo_general_brand" >系列</string >
+    <string name="deviceinfo_general_model" >机型</string >
+    <string name="deviceinfo_general_device" >代号</string >
+    <string name="deviceinfo_general_product">产品</string>
+    <string name="deviceinfo_general_hardware" >硬件</string >
 
-	<string name="deviceinfo_android_title">Android</string>
-	<string name="deviceinfo_android_version">版本</string>
-	<string name="deviceinfo_android_type">编译类型</string>
+    <string name="deviceinfo_android_title" >Android</string >
+    <string name="deviceinfo_android_version" >版本</string >
+    <string name="deviceinfo_android_versionName">版本名</string>
+    <string name="deviceinfo_android_sdk">SDK</string>
+    <string name="deviceinfo_android_type" >编译类型</string >
 
-	<string name="deviceinfo_soc_title">SoC</string>
-	<string name="deviceinfo_soc_manufacturer">厂商</string>
-	<string name="deviceinfo_soc_model">型号</string>
-	<string name="deviceinfo_soc_abis">支持的ABIs</string>
-	<string name="deviceinfo_soc_cores">核心数</string>
-	<string name="deviceinfo_soc_abis64">支持的64位ABIs</string>
-	<string name="deviceinfo_soc_abis32">支持的32位ABIs</string>
+    <string name="deviceinfo_soc_title" >SoC</string >
+    <string name="deviceinfo_soc_manufacturer" >厂商</string >
+    <string name="deviceinfo_soc_board">主板</string>
+    <string name="deviceinfo_soc_abis" >支持的ABIs</string >
+    <string name="deviceinfo_soc_cores" >核心数</string >
+    <string name="deviceinfo_soc_abis64" >支持的64位ABIs</string >
+    <string name="deviceinfo_soc_abis32" >支持的32位ABIs</string >
 
-	<string name="deviceinfo_ram_title">运行内存</string>
-	<string name="deviceinfo_ram_totalMem">总内存</string>
-	<string name="deviceinfo_ram_threshold">临界值</string>
+    <string name="deviceinfo_ram_title" >运行内存</string >
+    <string name="deviceinfo_ram_totalMem" >总内存</string >
+    <string name="deviceinfo_ram_threshold" >临界值</string >
 
-	<string name="deviceinfo_javaruntime_title">Java Runtime</string>
-	<string name="deviceinfo_javaruntime_maxmem">JVM 最高内存</string>
-	<string name="deviceinfo_javaruntime_totalmem">JVM 总内存</string>
+    <string name="deviceinfo_jvm_title" >Java Runtime</string >
+    <string name="deviceinfo_jvm_maxmem" >JVM 最高内存</string >
+    <string name="deviceinfo_jvm_totalmem" >JVM 总内存</string >
 
-	<string name="cores_no">核心数量: %d</string>
-	<string name="kiloHertz">kHz</string>
-	<string name="cores_max_freq">最高频率: </string>
-	<string name="cores_min_freq">最低频率: </string>
-	<string name="cores_governor">调整器: </string>
+    <string name="cores_no" >核心数量: %d</string >
+    <string name="kiloHertz" >kHz</string >
+    <string name="cores_max_freq" >最高频率: </string >
+    <string name="cores_min_freq" >最低频率: </string >
+    <string name="cores_governor" >调整器: </string >
 
-	<string name="applyyc_des">YC调度是由酷友＠YC9559的开源处理器频率算法项目，目前于GitHub开源更新。</string>
-	<string name="apply_snap">高通 骁龙</string>
-	<string name="apply_exynos">三星 猎户座</string>
-	<string name="apply_helio">联发科 Helio</string>
-	<string name="apply_kirin">华为海思 麒麟</string>
-	<string name="apply_atom">英特尔 Atom</string>
-	<string name="apply_confirm">将会为机型"%s"下载约7kB的脚本文件,下载完成后会自动执行。\n继续?</string>
-</resources>
+    <string name="applyyc_des" >YC调度是由酷友＠YC9559的开源处理器频率算法项目，目前于GitHub开源更新。</string >
+    <string name="apply_snap" >高通 骁龙</string >
+    <string name="apply_exynos" >三星 猎户座</string >
+    <string name="apply_mtk" >联发科 Helio</string >
+    <string name="apply_kirin" >华为海思 麒麟</string >
+    <string name="apply_atom" >英特尔 Atom</string >
+    <string name="apply_confirm" >将会为处理器"%s"下载约7kB的脚本文件,下载完成后会自动执行。\n继续?</string >
+</resources >

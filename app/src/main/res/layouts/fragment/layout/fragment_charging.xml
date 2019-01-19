@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical">
+
+    <android.support.v7.widget.CardView
+        android:id="@+id/charging_cardview"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_margin="@dimen/cardView_margin"
+        android:padding="@dimen/cardView_padding"
+        app:cardCornerRadius="@dimen/cardView_cardCornerRadius">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:drawableStart="@drawable/ic_warning"
+            android:drawablePadding="10dp"
+            android:padding="10dp"
+            android:text="@string/charging_not_support"
+            android:textColor="@android:color/holo_red_light"
+            android:textSize="15sp" />
+    </android.support.v7.widget.CardView>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <com.earth.OsToolkit.view.SwitchCompactCardView
+                android:id="@+id/charging_allow"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:title="@string/charging_allow_title"
+                app:summary="@string/charging_allow_sum"/>
+
+            <com.earth.OsToolkit.view.SwitchCompactCardView
+                android:id="@+id/charging_qc3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:title="@string/charging_qc3_title"
+                app:summary="@string/charging_qc3_sum"/>
+
+            <com.earth.OsToolkit.view.SwitchCompactCardView
+                android:id="@+id/charging_usbqc"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:title="@string/charging_usbqc_title"
+                app:summary="@string/charging_usbqc_sum"/>
+        </LinearLayout >
+    </ScrollView >
+
+
+</LinearLayout >

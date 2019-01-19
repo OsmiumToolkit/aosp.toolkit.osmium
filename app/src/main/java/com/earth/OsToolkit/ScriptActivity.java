@@ -1,132 +1,214 @@
 package com.earth.OsToolkit;
+/*
+ * OsToolkit - Kotlin
+ *
+ * Date : 31/12/2018
+ *
+ * By   : 1552980358
+ *
+ */
+
+/*
+ * Modify
+ *
+ * 9/1/2019
+ *
+ */
 
 import android.os.Bundle;
+import android.os.Handler;
+import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.widget.*;
+import android.util.Log;
+import android.view.View;
+import android.widget.TextView;
+import com.earth.OsToolkit.base.BaseKotlinOperation;
 
 import java.io.*;
-
-import static com.earth.OsToolkit.Base.FileWorking.*;
+import java.net.URL;
 
 public class ScriptActivity extends AppCompatActivity {
 
-	/*
-	 * 27 Dec 2018
-	 *
-	 * By 1552980358
-	 *
-	 */
+    private String filePath;
 
-	TextView textView;
-	String script;
+    @Override
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_script);
 
-	@Override
-	public void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_script);
-		textView = findViewById(R.id.script_txt);
+        String type = getIntent().getStringExtra("type");
+        String index = getIntent().getStringExtra("index");
+        StringBuilder name = new StringBuilder(getIntent().getStringExtra("name"));
 
-		script = getIntent().getStringExtra("script");
-		setToolBar();
-		ScriptWorking();
-	}
+        if (!name.toString().endsWith(".sh")) {
+            name.append(".sh");
+        }
 
-	public void setToolBar() {
-		String title = String.format(getString(R.string.script_title_head), script);
+        filePath = getCacheDir().getAbsolutePath() + File.separator + name.toString();
 
-		// 呼出Toolbar
-		// Call Toolbar
-		Toolbar toolbar = findViewById(R.id.toolbar);
-		toolbar.setTitle(title);
-		setSupportActionBar(toolbar);
-		if (getSupportActionBar() != null)
-			getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        initialize();
+        download(type, index, name.toString());
 
-		getWindow().setStatusBarColor(ContextCompat.getColor(this, android.R.color.black));
+    }
 
-		// 设置标题属性
-		// Set Title property
-		toolbar.setTitleTextColor(getResources().getColor(android.R.color.white));
-		// 设置返回监听
-		// Set Navigation button listener
-		toolbar.setNavigationOnClickListener(v -> onBackPressed());
-	}
+    public void initialize() {
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
 
+        if (getSupportActionBar() != null)
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-	public void ScriptWorking() {
-		String path = getCacheDir().getAbsolutePath() + File.separator + script;
+        getWindow().setStatusBarColor(ContextCompat.getColor(this, android.R.color.black));
 
-		textView.append("Copying script from assets to Cache/从Assets复制脚本到Cache中...\n");
+        toolbar.setNavigationOnClickListener(v -> onBackPressed());
+    }
 
-		if (copyAssets2Cache(ScriptActivity.this, script)) {
-			textView.append("Copied successfully, File exists/复制成功, 文件存在。\n\n");
+    public void download(String type, String index, String name) {
+        DownloadScript downloadScript = new DownloadScript();
+        downloadScript.setInfo(type, index, name);
+        downloadScript.start();
+    }
 
-			textView.append("Target/目标:\n");
-			textView.append(path + "\n\n");
+    public void permission() {
+        TextView textView_download = findViewById(R.id.script_download);
+        if (new File(filePath).length() > 0) {
+            textView_download.append(new File(filePath).length()+"Bytes\n");
+            textView_download.append(getString(R.string.script_download_done));
+            TextView textView_target_title = findViewById(R.id.script_target_title);
+            textView_target_title.setVisibility(View.VISIBLE);
+            TextView textView_target = findViewById(R.id.script_target);
+            textView_target.setText(filePath);
 
-			textView.append("Setting permission/设置限权...\n");
+            TextView textView_permission_title = findViewById(R.id.script_permission_title);
+            textView_permission_title.setVisibility(View.VISIBLE);
 
-			if (setScriptPermission(ScriptActivity.this, script)) {
-				textView.append("Succeed to set permission/限权设置完成!\n\n");
-				runScript(path);
-			} else {
-				textView.append("Fail to set permission/限权设置失败!\n");
-			}
-		} else {
-			textView.append("Failed to copy file/文件复制失败\n");
-		}
-	}
+            TextView textView_permission = findViewById(R.id.script_permission);
+            if (BaseKotlinOperation.Companion.setPermission(filePath)) {
+                textView_permission.setText(R.string.script_permission_done);
+                command();
+                runScript();
+            } else {
+                textView_permission.setText(R.string.script_permission_fail);
+            }
+        } else {
+            textView_download.setText(R.string.script_download_fail);
+        }
+    }
 
-	public void runScript(String filePath) {
-		try {
-			textView.append("Command/命令:\n");
-			textView.append("su -c /system/bin/sh " + filePath + "\n\n");
+    public void command() {
+        TextView textView_command_title = findViewById(R.id.script_command_title);
+        textView_command_title.setVisibility(View.VISIBLE);
+        TextView textView_command = findViewById(R.id.script_command);
+        String command = "su -c /system/bin/sh " + filePath;
+        textView_command.setText(command);
+    }
 
-			Process process = Runtime.getRuntime().exec(new String[]{"su", "-c", "/system/bin/sh", filePath});
-			process.waitFor();
-			InputStream inputStream = process.getInputStream();
-			InputStream inputStreamError = process.getErrorStream();
+    public void runScript() {
+        try {
+            Process process = Runtime.getRuntime().exec(new String[]{"su", "-c", "/system/bin/sh", filePath});
+            Log.i("script_run", process.waitFor() + "");
+            InputStream inputStream = process.getInputStream();
+            InputStream inputStreamError = process.getErrorStream();
 
-			InputStreamReader inputStreamReader = new InputStreamReader(inputStream, "UTF-8");
-			InputStreamReader inputStreamReaderError = new InputStreamReader(inputStreamError, "UTF-8");
+            InputStreamReader inputStreamReader = new InputStreamReader(inputStream, "utf-8");
+            InputStreamReader inputStreamReaderError = new InputStreamReader(inputStreamError, "utf-8");
 
-			BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
-			BufferedReader bufferedReaderError = new BufferedReader(inputStreamReaderError);
+            BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
+            BufferedReader bufferedReaderError = new BufferedReader(inputStreamReaderError);
 
-			textView.append("Process/过程: \n");
+            String line;
+            if ((line = bufferedReader.readLine()) != null) {
+                TextView textView_process_title = findViewById(R.id.script_process_title);
+                textView_process_title.setVisibility(View.VISIBLE);
+                TextView textView_process = findViewById(R.id.script_process);
+                textView_process.append(line);
+                while ((line = bufferedReader.readLine()) != null) {
+                    textView_process.append(line + "\n");
+                }
+            }
 
-			String line;
-			while ((line = bufferedReader.readLine()) != null) {
-				textView.append(line + "\n");
-			}
+            if ((line = bufferedReaderError.readLine()) != null) {
+                TextView textView_error_title = findViewById(R.id.script_error_title);
+                textView_error_title.setVisibility(View.VISIBLE);
+                TextView textView_error = findViewById(R.id.script_error);
+                textView_error.append(line);
+                while ((line = bufferedReaderError.readLine()) != null) {
+                    textView_error.append(line + "\n");
+                }
+            }
 
-			if ((line = bufferedReaderError.readLine()) != null) {
-				textView.append("\nError Message/错误信息: \n");
-				textView.append(line + "\n");
-				while ((line = bufferedReaderError.readLine()) != null) {
-					textView.append(line + "\n");
-				}
-			}
+            inputStream.close();
+            inputStreamError.close();
 
-			inputStream.close();
-			inputStreamError.close();
-			inputStreamReader.close();
-			inputStreamReaderError.close();
-			bufferedReader.close();
-			bufferedReaderError.close();
-		} catch (Exception e) {
-			e.printStackTrace();
-			textView.append("Error when trying running script.");
-		}
-	}
+            inputStreamReader.close();
+            inputStreamReaderError.close();
 
-	@Override
-	public void onBackPressed() {
-		Toast.makeText(this, getText(R.string.refresh), Toast.LENGTH_SHORT).show();
-		setResult(RESULT_OK);
-		finish();
-		super.onBackPressed();
-	}
+            bufferedReader.close();
+            bufferedReaderError.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    Handler handler = new Handler();
+    Runnable runnable = this::permission;
+
+    @Override
+    public void onBackPressed() {
+        setResult(RESULT_OK);
+        this.finish();
+        super.onBackPressed();
+    }
+
+    public class DownloadScript extends Thread {
+        private String type;
+        private String index;
+        private String name;
+
+        @Override
+        public void run() {
+            super.run();
+
+            try {
+                URL url = new URL("https://raw.githubusercontent.com/1552980358/1552980358.github.io/master/" +
+                        type + File.separator +
+                        index + File.separator +
+                        name);
+                Log.i("URL", url.toString());
+
+                File file = new File(filePath);
+                Log.i("filePath", file.toString());
+                InputStream inputStream = url.openStream();
+
+                if (!file.exists() || file.length() != -1) {
+
+                    FileOutputStream fileOutputStream = new FileOutputStream(filePath);
+
+                    byte[] buffer = new byte[10240];
+
+                    int len;
+                    while ((len = inputStream.read(buffer)) != -1) {
+                        fileOutputStream.write(buffer, 0, len);
+                    }
+
+                    Log.i("fileLength", file.exists() + " / " + file.length());
+
+                    fileOutputStream.flush();
+                    inputStream.close();
+                    fileOutputStream.close();
+                }
+                handler.post(runnable);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+
+        private void setInfo(String type, String index, String name) {
+            this.type = type;
+            this.index = index;
+            this.name = name;
+        }
+    }
 }

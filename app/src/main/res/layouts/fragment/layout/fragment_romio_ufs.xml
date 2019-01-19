@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <com.earth.OsToolkit.view.SwitchCompactCardView
+        android:id="@+id/ufs_addrandom"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:summary="@string/romio_addrandom_sum"
+        app:title="@string/romio_addrandom_title" />
+
+    <com.earth.OsToolkit.view.SwitchCompactCardView
+        android:id="@+id/ufs_iostats"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:summary="@string/romio_iostats_sum"
+        app:title="@string/romio_iostats_title" />
+
+    <com.earth.OsToolkit.view.SwitchCompactCardView
+        android:id="@+id/ufs_nomerges"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:summary="@string/romio_nomerges_sum"
+        app:title="@string/romio_nomerges_title" />
+
+</LinearLayout >
