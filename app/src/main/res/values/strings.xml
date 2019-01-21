@@ -20,6 +20,8 @@
     <string name="nav_title_toolkit" >Toolkit</string >
     <string name="nav_charging" >Charging</string >
     <string name="nav_processor" >Processor</string >
+    <string name="nav_romio">ROM I/O</string>
+    <string name="nav_other">Other</string>
     <string name="nav_title_3rd" >3rd Party support</string >
     <string name="nav_yc" >YC cpufreq-interactive-opt</string >
 
@@ -117,8 +119,13 @@
     <string name="romio_nomerges_title">Help debugging</string>
     <string name="romio_nomerges_sum">Disable to boost performance</string>
     <string name="romio_iostats_title">Iostat</string>
-    <string name="romio_iostats_sum">Disable to boost performance.\nBut some application depends on it may not work properly </string>
-
+    <string name="romio_iostats_sum">Disable to boost performance.\nBut some application depends on it \nmay not work properly </string>
+    <string name="romio_rq_title">RQ affinity</string>
+    <string name="romio_rq_sum">Control level of reaction of CPU when facing I/O exception</string>
+    <string name="romio_rq_extreme">Extreme</string>
+    <string name="romio_rq_default">Default</string>
+    <string name="romio_rq_conservative">Conservative</string>
+    
     <string name="deviceinfo_general_title" >Device</string >
     <string name="deviceinfo_general_manufacturer" >Manufacturer</string >
     <string name="deviceinfo_general_brand" >Brand</string >
@@ -162,4 +169,7 @@
     <string name="apply_kirin" >HuaWei Hisilicon Kirin</string >
     <string name="apply_atom" >Intel Atom</string >
     <string name="apply_confirm" >You are going to download a script for CPU "%s" sized around 7kB, which the script will automatically run.\nContinue?</string >
+    
+    <string name="extends_mac_title">Customize MAC address</string>
+    <string name="extends_mac_sum">Customize network device\'s MAC address\n(Reboot and never use this if network can\'t be connected)</string>
 </resources >

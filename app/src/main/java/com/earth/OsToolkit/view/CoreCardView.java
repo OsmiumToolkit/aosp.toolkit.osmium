@@ -85,7 +85,6 @@ public class CoreCardView extends LinearLayout {
                                     "sys/devices/system/cpu/cpu" + core + "/cpufreq/scaling_max_freq"});
 
                     Log.i("cores_change_freq_max", process.waitFor() + "");
-                    //BaseManager.getInstance().restartCoreFragment();
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -133,7 +132,6 @@ public class CoreCardView extends LinearLayout {
                                     "sys/devices/system/cpu/cpu" + core + "/cpufreq/scaling_min_freq"});
 
                     Log.i("cores_change_freq_min", process.waitFor() + "");
-                    //BaseManager.getInstance().restartCoreFragment();
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -170,8 +168,6 @@ public class CoreCardView extends LinearLayout {
                 list);
         arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(arrayAdapter);
-
-
         spinner.setSelection(i);
         spinner.setOnItemSelectedListener(new Spinner.OnItemSelectedListener() {
             @Override
@@ -187,7 +183,6 @@ public class CoreCardView extends LinearLayout {
                                     "sys/devices/system/cpu/cpu" + core + "/cpufreq/scaling_governor"});
 
                     Log.i("core_change_governor", process.waitFor() + "");
-                    //BaseManager.getInstance().restartCoreFragment();
                 } catch (Exception e) {
                     e.printStackTrace();
                 }

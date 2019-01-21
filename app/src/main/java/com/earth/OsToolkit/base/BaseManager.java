@@ -73,10 +73,11 @@ public class BaseManager extends Application {
         mainActivity.onRecreateChargingFragment(tmp);
     }
 
-    private RomIOFragment romIOFragment;
+    //private RomIOFragment romIOFragment;
     public void setRomIOFragment(RomIOFragment romIOFragment) {
-        this.romIOFragment = romIOFragment;
+        //this.romIOFragment = romIOFragment;
     }
+    /*
     public void restartRomIOFragment() {
         RomIOFragment tmp = new RomIOFragment();
         FragmentTransaction fragmentTransaction = mainActivity.getSupportFragmentManager().beginTransaction();
@@ -84,5 +85,5 @@ public class BaseManager extends Application {
         this.romIOFragment = tmp;
         mainActivity.onRecreateRomIOFragment(tmp);
     }
-
+    */
 }

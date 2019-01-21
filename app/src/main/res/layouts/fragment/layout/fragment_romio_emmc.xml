@@ -5,26 +5,92 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical" >
-
+    
     <com.earth.OsToolkit.view.SwitchCompactCardView
         android:id="@+id/emmc_addrandom"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:summary="@string/romio_addrandom_sum"
         app:title="@string/romio_addrandom_title" />
-
+    
     <com.earth.OsToolkit.view.SwitchCompactCardView
         android:id="@+id/emmc_iostats"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:summary="@string/romio_iostats_sum"
         app:title="@string/romio_iostats_title" />
-
+    
     <com.earth.OsToolkit.view.SwitchCompactCardView
         android:id="@+id/emmc_nomerges"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:summary="@string/romio_nomerges_sum"
         app:title="@string/romio_nomerges_title" />
+    
+    <android.support.v7.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/cardView_margin"
+        android:padding="@dimen/cardView_padding"
+        app:cardCornerRadius="@dimen/cardView_cardCornerRadius" >
+        
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="@dimen/cardView_linear_padding" >
+    
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@android:color/black"
+                android:textSize="@dimen/frag_title"
+                android:text="@string/romio_rq_title"/>
+    
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/romio_rq_sum"/>
+            
+            <android.support.v7.widget.AppCompatSeekBar
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:max="2"
+                android:layout_gravity="center"
+                android:id="@+id/seekBar" />
+            
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal" >
+                
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_weight="1"
+                    android:text="@string/romio_rq_conservative" />
+                
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_weight="1"
+                    android:text="@string/romio_rq_default"
+                    android:gravity="center" />
+                
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_weight="1"
+                    android:text="@string/romio_rq_extreme"
+                    android:gravity="end" />
+            
+            </LinearLayout >
+        
+        </LinearLayout >
+    
+    </android.support.v7.widget.CardView >
 
 </LinearLayout >

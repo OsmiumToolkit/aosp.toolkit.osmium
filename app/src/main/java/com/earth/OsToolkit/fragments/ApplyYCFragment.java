@@ -28,6 +28,7 @@ import com.earth.OsToolkit.view.YcDeviceView;
 
 import java.io.*;
 import java.net.URL;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 
 public class ApplyYCFragment extends Fragment {
@@ -41,7 +42,6 @@ public class ApplyYCFragment extends Fragment {
     LinearLayout linearLayout_kirin;
     LinearLayout linearLayout_atom;
     ProgressBar progressBar;
-    //boolean created = false;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -52,7 +52,6 @@ public class ApplyYCFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_applyyc, container, false);
-        //this.view = view;
         fragment = this;
         linearLayout_snap = view.findViewById(R.id.yc_snap);
         linearLayout_exynos = view.findViewById(R.id.yc_exynos);
@@ -68,30 +67,30 @@ public class ApplyYCFragment extends Fragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        //created = true;
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
     }
 
     Runnable setBoard = () -> {
-        for (int i = 0; i < list.size(); i++) {
-            String board = list.get(i);
-            Log.i("board", board);
-            YcDeviceView ycDeviceView = new YcDeviceView(getActivity(), fragment, date, list.get(i));
-            if (board.startsWith("sd")) {
-                linearLayout_snap.addView(ycDeviceView);
-            } else if (board.startsWith("exynos")) {
-                linearLayout_exynos.addView(ycDeviceView);
-            } else if (board.startsWith("kirin")) {
-                linearLayout_kirin.addView(ycDeviceView);
-            } else if (board.startsWith("helio")) {
-                linearLayout_mtk.addView(ycDeviceView);
-            } else {
-                linearLayout_atom.addView(ycDeviceView);
+        if (date != null) {
+            for (int i = 0; i < list.size(); i++) {
+                String board = list.get(i);
+                Log.i("board", board);
+                YcDeviceView ycDeviceView = new YcDeviceView(getActivity(), fragment, date, list.get(i));
+                if (board.startsWith("sd")) {
+                    linearLayout_snap.addView(ycDeviceView);
+                } else if (board.startsWith("exynos")) {
+                    linearLayout_exynos.addView(ycDeviceView);
+                } else if (board.startsWith("kirin")) {
+                    linearLayout_kirin.addView(ycDeviceView);
+                } else if (board.startsWith("helio")) {
+                    linearLayout_mtk.addView(ycDeviceView);
+                } else {
+                    linearLayout_atom.addView(ycDeviceView);
+                }
             }
         }
 
@@ -117,7 +116,7 @@ public class ApplyYCFragment extends Fragment {
             try {
                 URL url = new URL("https://raw.githubusercontent.com/1552980358/1552980358.github.io/master/yc_processor_table");
                 InputStream inputStream = url.openStream();
-                InputStreamReader inputStreamReader = new InputStreamReader(inputStream, "utf-8");
+                InputStreamReader inputStreamReader = new InputStreamReader(inputStream, StandardCharsets.UTF_8);
                 BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
 
                 date = bufferedReader.readLine();
@@ -130,11 +129,7 @@ public class ApplyYCFragment extends Fragment {
                 inputStream.close();
                 inputStreamReader.close();
                 bufferedReader.close();
-                /*
-                while (!created) {
-                    sleep(10);
-                }
-                */
+
                 handler.post(setBoard);
             } catch (Exception e) {
                 e.printStackTrace();

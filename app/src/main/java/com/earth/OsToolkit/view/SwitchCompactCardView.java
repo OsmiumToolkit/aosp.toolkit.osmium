@@ -40,6 +40,7 @@ public class SwitchCompactCardView extends LinearLayout {
 
         TextView title = findViewById(R.id.title);
         TextView summary = findViewById(R.id.summary);
+
         title.setText(typedArray.getString(R.styleable.SwitchCompactCardView_title));
         summary.setText(typedArray.getString(R.styleable.SwitchCompactCardView_summary));
 
@@ -86,97 +87,4 @@ public class SwitchCompactCardView extends LinearLayout {
             });
         }
     }
-
-
-
-
-    /*
-    private Context context;
-
-    TextView textView_Title;
-    TextView textView_Summary;
-    TextView textView_SC_Des;
-
-    ImageView imageView;
-
-    LinearLayout linearLayout;
-    RelativeLayout relativeLayout;
-
-    SwitchCompat switchCompat;
-
-
-    public SwitchCompactCardView(Context context, AttributeSet attributeSet) {
-        super(context, attributeSet);
-        this.context = context;
-
-        LayoutInflater.from(context).inflate(R.layout.cardview_switchcompact, this);
-        textView_Title = findViewById(R.id.swcv_title);
-        textView_Summary = findViewById(R.id.swcv_summary);
-        textView_SC_Des = findViewById(R.id.swcv_switchCompact_des);
-
-        imageView = findViewById(R.id.swcv_img);
-
-        linearLayout = findViewById(R.id.swcv_linear);
-        relativeLayout = findViewById(R.id.swcv_relative);
-
-        switchCompat = findViewById(R.id.swcv_switchCompact);
-
-
-
-
-        setLinearLayoutOnClickListener();
-    }
-
-    public void setHeader(int title , int summary) {
-        setHeader(context.getString(title), context.getString(summary));
-    }
-
-    public void setHeader(String title , int summary) {
-        setHeader(title, context.getString(summary));
-    }
-
-    public void setHeader(int title , String summary) {
-        setHeader(context.getString(title), summary);
-    }
-
-    public void setHeader(String title, String summary) {
-        this.textView_Title.setText(title);
-        this.textView_Summary.setText(summary);
-    }
-
-    public void disableSwitchCompact() {
-        this.switchCompat.setClickable(false);
-        this.textView_SC_Des.setText(R.string.sw_none);
-    }
-
-    public void setSwitchCompatChecked(boolean checked) {
-        if (checked)
-            textView_SC_Des.setText(R.string.sw_en);
-        else
-            textView_SC_Des.setText(R.string.sw_dis);
-
-        this.switchCompat.setChecked(checked);
-    }
-
-    public void setLinearLayoutOnClickListener() {
-        this.linearLayout.setOnClickListener(v -> {
-            if (relativeLayout.getVisibility() == GONE) {
-                imageView.setImageResource(R.drawable.ic_open);
-                relativeLayout.setVisibility(VISIBLE);
-            } else {
-                imageView.setImageResource(R.drawable.ic_hide);
-                relativeLayout.setVisibility(GONE);
-            }
-        });
-    }
-
-    public void setSwitchCompatOnChangeListener(Fragment fragment, String type, String index,String name) {
-        this.switchCompat.setOnCheckedChangeListener((buttonView, isChecked) ->
-                fragment.startActivityForResult(new Intent(context, ScriptActivity.class)
-                .putExtra("type", type)
-                .putExtra("index", index)
-                .putExtra("name", name),
-                0));
-    }
-    */
 }

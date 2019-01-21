@@ -11,6 +11,7 @@ package com.earth.OsToolkit
 
 import android.content.Context
 import android.os.Bundle
+import android.os.Handler
 import android.support.design.widget.NavigationView
 import android.support.v4.app.Fragment
 import android.support.v4.content.ContextCompat
@@ -26,6 +27,7 @@ import com.earth.OsToolkit.fragments.*
 
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.app_bar_main.*
+import java.util.*
 
 class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
 
@@ -36,6 +38,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     private var coreFragment : Fragment = CoreFragment()
     private var applyYCFragment : Fragment = ApplyYCFragment()
     private var romIOFragment : Fragment = RomIOFragment()
+    private var extendsFragment : Fragment = ExtendsFragment()
 
     private var currentFragment : Fragment = mainFragment
 
@@ -88,6 +91,17 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         }
 
         nav_view.setNavigationItemSelectedListener(this)
+
+        val handler = Handler()
+        val timer = Timer()
+        timer.schedule(object : TimerTask(){
+            override fun run() {
+                handler.post(runnable)
+            }
+        }, 3000)
+    }
+
+    val runnable = Runnable {
         drawer_layout.openDrawer(GravityCompat.START)
     }
 
@@ -99,6 +113,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             .add(R.id.frameLayout_main, coreFragment).hide(coreFragment)
             .add(R.id.frameLayout_main, applyYCFragment).hide(applyYCFragment)
             .add(R.id.frameLayout_main, romIOFragment).hide(romIOFragment)
+            .add(R.id.frameLayout_main, extendsFragment).hide(extendsFragment)
             .add(R.id.frameLayout_main, mainFragment)
             .commit()
 
@@ -111,10 +126,12 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         this.currentFragment = this.chargingFragment
     }
 
+    /*
     fun onRecreateRomIOFragment(romIOFragment : RomIOFragment) {
         this.romIOFragment = romIOFragment
         this.currentFragment = this.romIOFragment
     }
+    */
 
     override fun onBackPressed() {
         if (drawer_layout.isDrawerOpen(GravityCompat.START)) {
@@ -160,7 +177,12 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 frag = applyYCFragment
             }
             R.id.nav_romio -> {
+                title = R.string.nav_romio
                 frag = romIOFragment
+            }
+            R.id.nav_others -> {
+                title = R.id.nav_others
+                frag = extendsFragment
             }
         }
 

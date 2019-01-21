@@ -19,11 +19,13 @@ package com.earth.OsToolkit
 
 import android.content.Context
 import android.content.Intent
+import android.os.Build
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentManager
 import android.support.v4.app.FragmentPagerAdapter
 import android.support.v7.app.AppCompatActivity
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import com.earth.OsToolkit.base.BaseManager
@@ -31,8 +33,13 @@ import com.earth.OsToolkit.base.BaseManager
 import kotlinx.android.synthetic.main.activity_welcome.*
 import android.view.View.*
 import android.view.ViewGroup
+import android.widget.AdapterView
+import android.widget.ArrayAdapter
+import android.widget.Spinner
 import com.earth.OsToolkit.base.BaseFetching
+import kotlinx.android.synthetic.main.fragment_welcome_1.*
 import kotlinx.android.synthetic.main.fragment_welcome_4.*
+import java.util.*
 
 class WelcomeActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -78,6 +85,31 @@ class WelcomeActivity : AppCompatActivity() {
         override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
             return inflater.inflate(R.layout.fragment_welcome_1, container, false)
         }
+
+        /*
+        override fun onActivityCreated(savedInstanceState: Bundle?) {
+            super.onActivityCreated(savedInstanceState)
+            val language = listOf("中文", "English")
+            val arrayAdapter : ArrayAdapter<String> = ArrayAdapter(context!!, android.R.layout.simple_spinner_dropdown_item, language)
+            arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+            spinner.adapter = arrayAdapter
+
+            val lang : String? = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {resources.configuration.locales.get(0).language} else {resources.configuration.locale.language}
+            Log.i("lang", lang!!)
+            if (lang == Locale.CHINESE.toString()) {
+                spinner.setSelection(0)
+                activity?.getSharedPreferences("ui", Context.MODE_PRIVATE)?.edit()?.putInt("language", 0)?.apply()
+            } else {
+                spinner.setSelection(1)
+                activity?.getSharedPreferences("ui", Context.MODE_PRIVATE)?.edit()?.putInt("language", 1)?.apply()
+            }
+
+            spinner.setOnItemClickListener { _, _, position, _ ->
+                activity?.getSharedPreferences("ui", Context.MODE_PRIVATE)?.edit()?.putInt("language", position)?.apply()
+            }
+
+        }
+        */
     }
 
     class Welcome2Fragment : Fragment() {

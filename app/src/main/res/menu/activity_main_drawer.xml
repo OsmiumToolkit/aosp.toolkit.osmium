@@ -21,8 +21,12 @@
                 android:title="@string/nav_processor" />
             <item
                 android:id="@+id/nav_romio"
-                android:icon="@drawable/ic_developer_board"
-                android:title="io" />
+                android:icon="@drawable/ic_memory"
+                android:title="@string/nav_romio" />
+            <item
+                android:id="@+id/nav_others"
+                android:icon="@drawable/ic_adb"
+                android:title="@string/nav_other" />
         </menu>
     </item>
     <item android:title="@string/nav_title_3rd">

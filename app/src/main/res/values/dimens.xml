@@ -19,6 +19,7 @@
     <dimen name="cardView_margin">5dp</dimen>
     <dimen name="cardView_padding">5dp</dimen>
     <dimen name="cardView_cardCornerRadius">5dp</dimen>
+    <dimen name="cardView_linear_padding">10dp</dimen>
 
     <dimen name="about_pad">4dp</dimen>
     <dimen name="view_height">1dp</dimen>

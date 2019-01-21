@@ -27,7 +27,7 @@ public class BaseIndex {
     public final static String Charging_QC3 = "/sys/class/power_supply/battery/allow_hvdcp3";
     public final static String Charging_USBQC = "/sys/kernel/fast_charge/force_fast_charge";
 
-    public final static String io_random_emmc = "/sys/block/sda/queue/add_random";
+    public final static String io_random_emmc = "/sys/block/mmcblk0/queue/add_random";
     public final static String io_iostats_emmc = "/sys/block/mmcblk0/queue/iostats";
     public final static String io_nomerges_emmc = "/sys/block/mmcblk0/queue/nomerges";
     public final static String io_random_ufs = "/sys/block/sda/queue/add_random";

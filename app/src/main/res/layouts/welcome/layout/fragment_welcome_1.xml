@@ -34,8 +34,8 @@
             android:textSize="@dimen/welcome_subtitle" />
 
         <ImageView
-            android:layout_width="250dp"
-            android:layout_height="250dp"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
             android:layout_gravity="center"
             android:src="@mipmap/ic_launcher" />
     </LinearLayout>

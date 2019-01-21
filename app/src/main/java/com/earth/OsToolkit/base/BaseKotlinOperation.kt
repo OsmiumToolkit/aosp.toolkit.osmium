@@ -26,29 +26,26 @@ class BaseKotlinOperation {
         }
 
         fun readFile(filePath: String): String {
-            if (checkFilePresent(filePath)) {
-                try {
-                    val fileInputStream = FileInputStream(File(filePath))
+            Log.i("readFile_in_$filePath", filePath)
+            try {
+                val process = Runtime.getRuntime().exec(arrayOf("su", "-c", "cat", filePath))
+                process.waitFor()
+                val inputStream : InputStream = process.inputStream
+                val inputStreamReader = InputStreamReader(inputStream, "utf-8")
+                val bufferedReader = BufferedReader(inputStreamReader)
 
-                    val inputStreamReader = InputStreamReader(fileInputStream)
+                val string = bufferedReader.readLine()
+                Log.i("readFile_$filePath", string)
 
-                    val bufferedReader = BufferedReader(inputStreamReader)
+                inputStream.close()
+                inputStreamReader.close()
+                bufferedReader.close()
 
-                    val string = bufferedReader.readLine()
-                    Log.i("readFile_$filePath", string)
-
-                    fileInputStream.close()
-                    inputStreamReader.close()
-                    bufferedReader.close()
-
-                    return string
-
-                } catch (e: Exception) {
-                    e.printStackTrace()
-                }
+                return string
+            } catch (e: Exception) {
+                e.printStackTrace()
+                return "Fail"
             }
-
-            return "Fail"
         }
 
         fun checkFilePresent(filePath: String): Boolean {
@@ -56,7 +53,7 @@ class BaseKotlinOperation {
             return file.exists()
         }
 
-        fun getAndroidVersion() : String {
+        fun getAndroidVersion(): String {
             when (Build.VERSION.SDK_INT) {
                 21 -> return "5.0"
                 22 -> return "5.1"
@@ -70,20 +67,20 @@ class BaseKotlinOperation {
             return "Fail"
         }
 
-        fun getAndroidVersionName() : String {
+        fun getAndroidVersionName(): String {
             when (Build.VERSION.SDK_INT) {
-                21, 22  -> return "Lollipop"
-                23      -> return "Marshmallow"
-                24, 25  -> return "Nougat"
-                26, 27  -> return "Oreo"
-                28      -> return "Pie"
+                21, 22 -> return "Lollipop"
+                23 -> return "Marshmallow"
+                24, 25 -> return "Nougat"
+                26, 27 -> return "Oreo"
+                28 -> return "Pie"
             }
             return "Fail"
         }
 
-        fun getABIs() : String {
+        fun getABIs(): String {
             val stringBuilder = StringBuilder()
-            for (i : Int in 0 until Build.SUPPORTED_ABIS.size) {
+            for (i: Int in 0 until Build.SUPPORTED_ABIS.size) {
                 stringBuilder.append(Build.SUPPORTED_ABIS[i])
                 if (i < Build.SUPPORTED_ABIS.size - 1) {
                     stringBuilder.append("\n")
@@ -91,9 +88,10 @@ class BaseKotlinOperation {
             }
             return stringBuilder.toString()
         }
-        fun getABI64() : String {
+
+        fun getABI64(): String {
             val stringBuilder = StringBuilder()
-            for (i : Int in 0 until Build.SUPPORTED_64_BIT_ABIS.size) {
+            for (i: Int in 0 until Build.SUPPORTED_64_BIT_ABIS.size) {
                 stringBuilder.append(Build.SUPPORTED_64_BIT_ABIS[i])
                 if (i < Build.SUPPORTED_64_BIT_ABIS.size - 1) {
                     stringBuilder.append("\n")
@@ -101,9 +99,10 @@ class BaseKotlinOperation {
             }
             return stringBuilder.toString()
         }
-        fun getABI32() : String {
+
+        fun getABI32(): String {
             val stringBuilder = StringBuilder()
-            for (i : Int in 0 until Build.SUPPORTED_32_BIT_ABIS.size) {
+            for (i: Int in 0 until Build.SUPPORTED_32_BIT_ABIS.size) {
                 stringBuilder.append(Build.SUPPORTED_32_BIT_ABIS[i])
                 if (i < Build.SUPPORTED_32_BIT_ABIS.size - 1) {
                     stringBuilder.append("\n")
@@ -112,14 +111,14 @@ class BaseKotlinOperation {
             return stringBuilder.toString()
         }
 
-        fun unitConvert(long : Long) : String {
-            val tmp : String?
+        fun unitConvert(long: Long): String {
+            val tmp: String?
             if (long > 1024 * 1024) {
                 tmp = (long / 1024 / 1024).toString() + " MB"
             } else if (long > 1024) {
                 tmp = (long / 1024).toString() + "KB"
             } else {
-                tmp =  long.toString() + "B"
+                tmp = long.toString() + "B"
             }
             return tmp
         }
