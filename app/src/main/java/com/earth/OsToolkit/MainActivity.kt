@@ -181,7 +181,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 frag = romIOFragment
             }
             R.id.nav_others -> {
-                title = R.id.nav_others
+                title = R.string.nav_other
                 frag = extendsFragment
             }
         }

@@ -5,6 +5,7 @@ import android.content.Intent
 import android.content.pm.PackageInfo
 import android.os.Bundle
 import android.support.v4.app.Fragment
+import android.util.Log
 import android.view.*
 
 import kotlinx.android.synthetic.main.fragment_about.*
@@ -59,6 +60,7 @@ class AboutFragment : Fragment() {
                 val updateDialogFragment = UpdateDialogFragment()
                 updateDialogFragment.setData(version, CheckUpdate.GetDate().returnData(),
                     getChangelog.changelogZh, getChangelog.changelogEn)
+                updateDialogFragment.show(fragmentManager, "updateChecking")
             }
         }
 

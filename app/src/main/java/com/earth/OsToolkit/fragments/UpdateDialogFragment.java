@@ -41,6 +41,8 @@ public class UpdateDialogFragment extends DialogFragment {
 
         TextView v = view.findViewById(R.id.update_version);
         TextView d = view.findViewById(R.id.update_date);
+        TextView Zh = view.findViewById(R.id.update_changelogZh_title);
+        TextView En = view.findViewById(R.id.update_changelogEn_title);
         TextView cEn = view.findViewById(R.id.update_changelogEn);
         TextView cZh = view.findViewById(R.id.update_changelogZh);
 
@@ -48,6 +50,8 @@ public class UpdateDialogFragment extends DialogFragment {
         d.setText(date);
         cEn.setText(changelogEn);
         cZh.setText(changelogZh);
+        Zh.setOnClickListener(v1 -> cZh.setVisibility(cZh.getVisibility() == View.GONE ? View.VISIBLE : View.GONE));
+        En.setOnClickListener(v1 -> cEn.setVisibility(cEn.getVisibility() == View.GONE ? View.VISIBLE : View.GONE));
 
         builder.setTitle(R.string.update_found);
         builder.setPositiveButton(R.string.update_github, (dialog, which) -> {

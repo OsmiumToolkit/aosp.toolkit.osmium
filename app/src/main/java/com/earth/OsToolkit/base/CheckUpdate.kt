@@ -41,6 +41,7 @@ class CheckUpdate {
             while (isAlive) {
                 sleep(1)
             }
+            Log.i("version", version)
             return version
         }
     }
@@ -87,7 +88,6 @@ class CheckUpdate {
                         data.append("\n")
                     }
                 }
-
 
                 // 释放资源
                 inputStream.close()
