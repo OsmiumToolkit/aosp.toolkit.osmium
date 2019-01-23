@@ -1,11 +1,11 @@
 package com.earth.OsToolkit.fragments
 
-import android.os.Build
-import android.os.Bundle
-import android.os.Handler
+import android.app.Dialog
+import android.content.Context
+import android.os.*
 import android.support.v4.app.Fragment
 import android.view.*
-import android.view.View.GONE
+
 import com.earth.OsToolkit.R
 import com.earth.OsToolkit.base.BaseFetching
 import com.earth.OsToolkit.base.BaseKotlinOperation.Companion.getABI32
@@ -16,7 +16,10 @@ import com.earth.OsToolkit.base.BaseKotlinOperation.Companion.getAndroidVersionN
 import com.earth.OsToolkit.base.BaseKotlinOperation.Companion.unitConvert
 import com.earth.OsToolkit.base.BaseJavaOperation
 import com.earth.OsToolkit.view.DeviceInfoView.ChildView
+
 import kotlinx.android.synthetic.main.fragment_deviceinfo.*
+
+import java.util.*
 
 /*
  * OsToolkit - Kotlin
@@ -31,35 +34,12 @@ import kotlinx.android.synthetic.main.fragment_deviceinfo.*
  * Modify
  *
  * 9/1/2019
+ * 23/1/2019
  *
  */
- 
+
+@SuppressWarnings("all")
 class DeviceInfoFragment : Fragment() {
-    private val handler = Handler()
-
-    private var manufacturer : String? = null
-    private var brand : String? = null
-    private var model : String? = null
-    private var device : String? = null
-    private var product : String? = null
-
-    private var version : String? = null
-    private var versionName : String? = null
-    private var sdk : String? = null
-    private var type : String? = null
-
-    private var hardware : String? = null
-    private var board : String? = null
-    private var cores : String? = null
-    private var abis : String? = null
-    private var abi64 : String? = null
-    private var abi32 : String? = null
-
-    private var totalMem : String? = null
-    private var thresholdMem : String? = null
-
-    private var maxMemory : String? = null
-    private var totalMemory : String? = null
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.fragment_deviceinfo, container, false)
@@ -67,93 +47,73 @@ class DeviceInfoFragment : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        Thread {
-            manufacturer = Build.MANUFACTURER[0].toUpperCase() + Build.MANUFACTURER.substring(1)
-            brand = Build.BRAND[0].toUpperCase() + Build.BOARD.substring(1)
-            model = Build.MODEL
-            device = Build.DEVICE
-            product = Build.PRODUCT
-            hardware = Build.HARDWARE
-            handler.post(general)
-        }.start()
-        Thread{
-            version = getAndroidVersion()
-            versionName = getAndroidVersionName()
-            sdk = Build.VERSION.SDK_INT.toString()
-            type = Build.TYPE
-            handler.post(android)
-        }.start()
-        Thread {
-            board = Build.BOARD
-            cores = BaseFetching.getAvaliableCore().toString()
-            abis = getABIs()
-            abi64 = getABI64()
-            abi32 = getABI32()
-            handler.post(soc)
-        }.start()
-        Thread {
+        val dialog = Dialog(activity as Context)
+        dialog.setCancelable(false)
+        dialog.setContentView(LayoutInflater.from(activity).inflate(R.layout.dialog_loading, null))
+        dialog.show()
+
+        val t1 = Thread {
+            val m = ChildView(activity, R.string.deviceinfo_general_manufacturer, Build.MANUFACTURER[0].toUpperCase() + Build.MANUFACTURER.substring(1))
+            val b = ChildView(activity, R.string.deviceinfo_general_brand, Build.BRAND[0].toUpperCase() + Build.BOARD.substring(1))
+            val mo = ChildView(activity, R.string.deviceinfo_general_model, Build.MODEL)
+            val d = ChildView(activity, R.string.deviceinfo_general_device, Build.DEVICE)
+            val p = ChildView(activity, R.string.deviceinfo_general_product, Build.PRODUCT)
+            val h = ChildView(activity, R.string.deviceinfo_general_hardware, Build.HARDWARE)
+
+            activity!!.runOnUiThread { generalRoot.addViews(m, b, mo, d, p, h) }
+        }
+        t1.start()
+
+        val t2 = Thread {
+            val v = ChildView(activity, R.string.deviceinfo_android_version, getAndroidVersion())
+            val vN = ChildView(activity, R.string.deviceinfo_android_versionName, getAndroidVersionName())
+            val s = ChildView(activity, R.string.deviceinfo_android_sdk, Build.VERSION.SDK_INT.toString())
+            val t = ChildView(activity, R.string.deviceinfo_android_type, Build.TYPE)
+
+            activity!!.runOnUiThread { androidRoot.addViews(v, vN, s, t) }
+        }
+        t2.start()
+
+        val t3 = Thread {
+            val b = ChildView(activity, R.string.deviceinfo_soc_board, Build.BOARD)
+            val c = ChildView(activity, R.string.deviceinfo_soc_cores, BaseFetching.getAvaliableCore().toString())
+            val aa = ChildView(activity, R.string.deviceinfo_soc_abis, getABIs())
+            val a64 = ChildView(activity, R.string.deviceinfo_soc_abis64, getABI64())
+            val a32 = ChildView(activity, R.string.deviceinfo_soc_abis32, getABI32())
+
+            activity!!.runOnUiThread { socRoot.addViews(b, c, aa, a64, a32) }
+        }
+
+        t3.start()
+
+        val t4 = Thread {
             val memoryInfo = BaseJavaOperation.getMemory(activity)
-            totalMem = unitConvert(memoryInfo.totalMem)
-            thresholdMem = unitConvert(memoryInfo.threshold)
+            val to = ChildView(activity, R.string.deviceinfo_ram_totalMem, unitConvert(memoryInfo.totalMem))
+            val th = ChildView(activity, R.string.deviceinfo_ram_threshold, unitConvert(memoryInfo.threshold))
 
-            handler.post(mem)
-        }.start()
-        Thread {
+            activity!!.runOnUiThread { ramRoot.addViews(to, th) }
+        }
+        t4.start()
+
+        val t5 = Thread {
             val runtime = Runtime.getRuntime()
-            maxMemory = unitConvert(runtime.maxMemory())
-            totalMemory = unitConvert(runtime.totalMemory())
 
-            handler.post(jvm)
+            val m = ChildView(activity, R.string.deviceinfo_jvm_maxmem, unitConvert(runtime.maxMemory()))
+            val t = ChildView(activity, R.string.deviceinfo_jvm_totalmem, unitConvert(runtime.totalMemory()))
+
+            activity!!.runOnUiThread { jvmRoot.addViews(m, t) }
+        }
+        t5.start()
+
+        Thread {
+            while (t1.isAlive && t2.isAlive && t3.isAlive && t4.isAlive && t5.isAlive) {
+                Thread.sleep(1)
+            }
+            Timer().schedule(object : TimerTask() {
+                override fun run() {
+                    activity!!.runOnUiThread { dialog.cancel() }
+                }
+            }, 1000)
         }.start()
     }
-
-    override fun onStart() {
-        super.onStart()
-        progressBar.visibility = GONE
-    }
-
-    private val general = Runnable {
-        val m = ChildView(activity, R.string.deviceinfo_general_manufacturer, manufacturer)
-        val b = ChildView(activity, R.string.deviceinfo_general_brand, brand)
-        val mo = ChildView(activity, R.string.deviceinfo_general_model, model)
-        val d = ChildView(activity, R.string.deviceinfo_general_device, device)
-        val p = ChildView(activity, R.string.deviceinfo_general_product, product)
-        val h = ChildView(activity, R.string.deviceinfo_general_hardware, hardware)
-
-        generalRoot.addViews(m, b, mo, d, p, h)
-    }
-
-    private val android = Runnable {
-        val v = ChildView(activity, R.string.deviceinfo_android_version, version)
-        val vN = ChildView(activity, R.string.deviceinfo_android_versionName, versionName)
-        val s = ChildView(activity, R.string.deviceinfo_android_sdk, sdk)
-        val t = ChildView(activity, R.string.deviceinfo_android_type, type)
-
-        androidRoot.addViews(v, vN, s, t)
-    }
-
-    private val soc = Runnable {
-        val b = ChildView(activity, R.string.deviceinfo_soc_board, board)
-        val c = ChildView(activity, R.string.deviceinfo_soc_cores, cores)
-        val aa = ChildView(activity, R.string.deviceinfo_soc_abis, abis)
-        val a64 = ChildView(activity, R.string.deviceinfo_soc_abis64, abi64)
-        val a32 = ChildView(activity, R.string.deviceinfo_soc_abis32, abi32)
-
-        socRoot.addViews(b, c, aa, a64, a32)
-    }
-
-    private val mem = Runnable {
-        val to = ChildView(activity, R.string.deviceinfo_ram_totalMem, totalMem)
-        val th = ChildView(activity, R.string.deviceinfo_ram_threshold, thresholdMem)
-
-        ramRoot.addViews(to, th)
-    }
-
-    private val jvm = Runnable {
-        val m = ChildView(activity, R.string.deviceinfo_jvm_maxmem, maxMemory)
-        val t = ChildView(activity, R.string.deviceinfo_jvm_totalmem, totalMemory)
-
-        jvmRoot.addViews(m, t)
-    }
-
 }

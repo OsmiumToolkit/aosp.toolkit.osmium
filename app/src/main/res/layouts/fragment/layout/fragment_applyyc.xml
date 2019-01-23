@@ -1,213 +1,201 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<ScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical" >
-
-    <ProgressBar
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:id="@+id/progressBar"/>
-
-    <ScrollView
+    android:layout_height="match_parent" >
+    
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" >
-
-        <LinearLayout
+        android:layout_height="wrap_content"
+        android:orientation="vertical" >
+        
+        <android.support.v7.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical" >
-
-            <android.support.v7.widget.CardView
+            android:layout_margin="@dimen/cardView_margin"
+            android:padding="@dimen/cardView_padding"
+            app:cardCornerRadius="@dimen/cardView_cardCornerRadius" >
+            
+            <LinearLayout
+                android:id="@+id/yc_snap"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="@dimen/cardView_margin"
-                android:padding="@dimen/cardView_padding"
-                app:cardCornerRadius="@dimen/cardView_cardCornerRadius" >
-
+                android:orientation="vertical" >
+                
                 <LinearLayout
-                    android:id="@+id/yc_snap"
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical" >
-
-                    <LinearLayout
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginStart="@dimen/cardView_margin"
+                    android:orientation="horizontal"
+                    android:padding="@dimen/cardView_padding" >
+                    
+                    <ImageView
+                        android:layout_width="@dimen/applyyc_img"
+                        android:layout_height="@dimen/applyyc_img"
+                        android:layout_gravity="center_vertical"
+                        android:src="@mipmap/ic_snapdragon" />
+                    
+                    <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
-                        android:layout_marginStart="@dimen/cardView_margin"
-                        android:orientation="horizontal"
-                        android:padding="@dimen/cardView_padding" >
-
-                        <ImageView
-                            android:layout_width="@dimen/applyyc_img"
-                            android:layout_height="@dimen/applyyc_img"
-                            android:layout_gravity="center_vertical"
-                            android:src="@mipmap/ic_snapdragon" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center_vertical"
-                            android:text="@string/apply_snap"
-                            android:textAppearance="@style/TextAppearance.AppCompat.Headline" />
-                    </LinearLayout >
-
+                        android:text="@string/apply_snap"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Headline" />
                 </LinearLayout >
-            </android.support.v7.widget.CardView >
-
-            <android.support.v7.widget.CardView
+            
+            </LinearLayout >
+        </android.support.v7.widget.CardView >
+        
+        <android.support.v7.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/cardView_margin"
+            android:padding="@dimen/cardView_padding"
+            app:cardCornerRadius="@dimen/cardView_cardCornerRadius" >
+            
+            <LinearLayout
+                android:id="@+id/yc_mtk"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="@dimen/cardView_margin"
-                android:padding="@dimen/cardView_padding"
-                app:cardCornerRadius="@dimen/cardView_cardCornerRadius" >
-
+                android:orientation="vertical" >
+                
                 <LinearLayout
-                    android:id="@+id/yc_mtk"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical" >
-
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="@dimen/cardView_margin"
-                        android:orientation="horizontal"
-                        android:padding="@dimen/cardView_padding" >
-
-                        <ImageView
-                            android:layout_width="@dimen/applyyc_img"
-                            android:layout_height="@dimen/applyyc_img"
-                            android:layout_gravity="center_vertical"
-                            android:src="@mipmap/ic_mediatek" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center_vertical"
-                            android:text="@string/apply_mtk"
-                            android:textAppearance="@style/TextAppearance.AppCompat.Headline" />
-                    </LinearLayout >
-
-                </LinearLayout >
-            </android.support.v7.widget.CardView >
-
-            <android.support.v7.widget.CardView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="@dimen/cardView_margin"
-                android:padding="@dimen/cardView_padding"
-                app:cardCornerRadius="@dimen/cardView_cardCornerRadius" >
-
-                <LinearLayout
-                    android:id="@+id/yc_exynos"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical" >
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="@dimen/cardView_margin"
-                        android:orientation="horizontal"
-                        android:padding="@dimen/cardView_padding" >
-
-                        <ImageView
-                            android:layout_width="@dimen/applyyc_img"
-                            android:layout_height="@dimen/applyyc_img"
-                            android:layout_gravity="center_vertical"
-                            android:src="@mipmap/ic_exynos" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center_vertical"
-                            android:text="@string/apply_exynos"
-                            android:textAppearance="@style/TextAppearance.AppCompat.Headline" />
-                    </LinearLayout >
-
-                </LinearLayout >
-            </android.support.v7.widget.CardView >
-
-            <android.support.v7.widget.CardView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="@dimen/cardView_margin"
-                android:padding="@dimen/cardView_padding"
-                app:cardCornerRadius="@dimen/cardView_cardCornerRadius" >
-
-                <LinearLayout
-                    android:id="@+id/yc_kirin"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical" >
-
-                    <LinearLayout
+                    android:layout_marginStart="@dimen/cardView_margin"
+                    android:orientation="horizontal"
+                    android:padding="@dimen/cardView_padding" >
+                    
+                    <ImageView
+                        android:layout_width="@dimen/applyyc_img"
+                        android:layout_height="@dimen/applyyc_img"
+                        android:layout_gravity="center_vertical"
+                        android:src="@mipmap/ic_mediatek" />
+                    
+                    <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="@dimen/cardView_margin"
-                        android:orientation="horizontal"
-                        android:padding="@dimen/cardView_padding" >
-
-                        <ImageView
-                            android:layout_width="@dimen/applyyc_img"
-                            android:layout_height="@dimen/applyyc_img"
-                            android:layout_gravity="center_vertical"
-                            android:src="@mipmap/ic_huawei" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center_vertical"
-                            android:text="@string/apply_kirin"
-                            android:textAppearance="@style/TextAppearance.AppCompat.Headline" />
-                    </LinearLayout >
-
+                        android:layout_gravity="center_vertical"
+                        android:text="@string/apply_mtk"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Headline" />
                 </LinearLayout >
-            </android.support.v7.widget.CardView >
-
-            <android.support.v7.widget.CardView
-                android:layout_width="match_parent"
+            
+            </LinearLayout >
+        </android.support.v7.widget.CardView >
+        
+        <android.support.v7.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/cardView_margin"
+            android:padding="@dimen/cardView_padding"
+            app:cardCornerRadius="@dimen/cardView_cardCornerRadius" >
+            
+            <LinearLayout
+                android:id="@+id/yc_exynos"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_margin="@dimen/cardView_margin"
-                android:padding="@dimen/cardView_padding"
-                app:cardCornerRadius="@dimen/cardView_cardCornerRadius" >
-
+                android:orientation="vertical" >
+                
                 <LinearLayout
-                    android:id="@+id/yc_atom"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical" >
-
-                    <LinearLayout
+                    android:layout_marginStart="@dimen/cardView_margin"
+                    android:orientation="horizontal"
+                    android:padding="@dimen/cardView_padding" >
+                    
+                    <ImageView
+                        android:layout_width="@dimen/applyyc_img"
+                        android:layout_height="@dimen/applyyc_img"
+                        android:layout_gravity="center_vertical"
+                        android:src="@mipmap/ic_exynos" />
+                    
+                    <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="@dimen/cardView_margin"
-                        android:orientation="horizontal"
-                        android:padding="@dimen/cardView_padding" >
-
-                        <ImageView
-                            android:layout_width="@dimen/applyyc_img"
-                            android:layout_height="@dimen/applyyc_img"
-                            android:layout_gravity="center_vertical"
-                            android:src="@mipmap/ic_intel" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center_vertical"
-                            android:text="@string/apply_atom"
-                            android:textAppearance="@style/TextAppearance.AppCompat.Headline" />
-                    </LinearLayout >
-
+                        android:layout_gravity="center_vertical"
+                        android:text="@string/apply_exynos"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Headline" />
                 </LinearLayout >
-            </android.support.v7.widget.CardView >
+            
+            </LinearLayout >
+        </android.support.v7.widget.CardView >
+        
+        <android.support.v7.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/cardView_margin"
+            android:padding="@dimen/cardView_padding"
+            app:cardCornerRadius="@dimen/cardView_cardCornerRadius" >
+            
+            <LinearLayout
+                android:id="@+id/yc_kirin"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical" >
+                
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/cardView_margin"
+                    android:orientation="horizontal"
+                    android:padding="@dimen/cardView_padding" >
+                    
+                    <ImageView
+                        android:layout_width="@dimen/applyyc_img"
+                        android:layout_height="@dimen/applyyc_img"
+                        android:layout_gravity="center_vertical"
+                        android:src="@mipmap/ic_huawei" />
+                    
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:text="@string/apply_kirin"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Headline" />
+                </LinearLayout >
+            
+            </LinearLayout >
+        </android.support.v7.widget.CardView >
+        
+        <android.support.v7.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/cardView_margin"
+            android:padding="@dimen/cardView_padding"
+            app:cardCornerRadius="@dimen/cardView_cardCornerRadius" >
+            
+            <LinearLayout
+                android:id="@+id/yc_atom"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical" >
+                
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/cardView_margin"
+                    android:orientation="horizontal"
+                    android:padding="@dimen/cardView_padding" >
+                    
+                    <ImageView
+                        android:layout_width="@dimen/applyyc_img"
+                        android:layout_height="@dimen/applyyc_img"
+                        android:layout_gravity="center_vertical"
+                        android:src="@mipmap/ic_intel" />
+                    
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:text="@string/apply_atom"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Headline" />
+                </LinearLayout >
+            
+            </LinearLayout >
+        </android.support.v7.widget.CardView >
+    
+    </LinearLayout >
 
-        </LinearLayout >
-
-    </ScrollView >
-</LinearLayout >
+</ScrollView >

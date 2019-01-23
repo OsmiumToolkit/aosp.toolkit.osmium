@@ -42,4 +42,7 @@
 
     <dimen name="reboot_head_margin">5dp</dimen>
     <dimen name="reboot_margin">8dp</dimen>
+    
+    <dimen name="loading_padding">24dp</dimen>
+    <dimen name="loading_widget_padding">6sp</dimen>
 </resources>

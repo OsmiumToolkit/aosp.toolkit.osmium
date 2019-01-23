@@ -11,6 +11,8 @@
     <string name="reboot_rec" >重启Recovery</string >
     <string name="reboot_soft" >软重启</string >
     
+    <string name="loading">加载中&#8230;</string>
+    
     <string name="cont" >继续</string >
     <string name="cancel" >取消</string >
     

@@ -9,7 +9,9 @@ package com.earth.OsToolkit.base;
  */
 
 import android.app.Application;
+import android.app.Dialog;
 import android.support.v4.app.FragmentTransaction;
+import android.view.LayoutInflater;
 import com.earth.OsToolkit.MainActivity;
 import com.earth.OsToolkit.R;
 import com.earth.OsToolkit.WelcomeActivity;

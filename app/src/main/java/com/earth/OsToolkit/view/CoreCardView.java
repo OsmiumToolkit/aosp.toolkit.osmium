@@ -12,14 +12,16 @@ package com.earth.OsToolkit.view;
  * Modify
  *
  * 9/1/2019
+ * 23/1/2019
  *
  */
 
 
-import android.content.Context;
+import android.app.Activity;
 import android.util.Log;
 import android.view.*;
 import android.widget.*;
+
 import com.earth.OsToolkit.R;
 import com.earth.OsToolkit.base.*;
 
@@ -27,36 +29,40 @@ import java.util.*;
 
 @SuppressWarnings("ViewConstructor")
 public class CoreCardView extends LinearLayout {
-    private Context context;
     private int core;
-    private ArrayList<String> list = new ArrayList<>();
+    private Activity activity;
 
-    public CoreCardView(Context context, int core) {
-        super(context);
-        this.context = context;
+    public CoreCardView(Activity activity, int core) {
+        super(activity);
         this.core = core;
+        this.activity = activity;
 
-        LayoutInflater.from(context).inflate(R.layout.cardview_core, this);
+        LayoutInflater.from(activity).inflate(R.layout.cardview_core, this);
 
         TextView textView = findViewById(R.id.ccv_title);
         textView.append("CPU" + core);
 
-        list.addAll(Arrays.asList(
-                BaseKotlinOperation.Companion.readFile("/sys/devices/system/cpu/cpu"
-                        + core + "/cpufreq/scaling_available_frequencies")
-                        .split(" ")));
+        new Thread(this::setMaxCurrentFreq).start();
+        new Thread(this::setMinCurrentFreq).start();
+    }
 
-        setMaxCurrentFreq();
-        setMinCurrentFreq();
+    public int i = 0;
+    public int getI() {
+        return this.i;
     }
 
     private void setMaxCurrentFreq() {
         Spinner spinner = findViewById(R.id.ccv_max_freq);
 
-        String freq = BaseKotlinOperation.Companion.readFile("/sys/devices/system/cpu/cpu" + core + "/cpufreq/" + "scaling_max_freq");
+        ArrayList<String> list = new ArrayList<>(Arrays.asList(
+                BaseKotlinOperation.Companion.readFile("/sys/devices/system/cpu/cpu"
+                        + core + "/cpufreq/scaling_available_frequencies")
+                        .split(" ")));
 
-        int i = 0;
-        if (!list.contains(freq)) {
+        String freq = BaseKotlinOperation.Companion.readFile("/sys/devices/system/cpu/cpu"
+                + core + "/cpufreq/" + "scaling_max_freq");
+
+        if (list.contains(freq)) {
             list.add(freq);
             i = list.size() - 1;
         } else {
@@ -69,79 +75,93 @@ public class CoreCardView extends LinearLayout {
             }
         }
 
-        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(context,
-                android.R.layout.simple_spinner_dropdown_item,
-                list);
-        arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinner.setAdapter(arrayAdapter);
-        spinner.setSelection(i);
-        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                try {
-                    Process process = Runtime.getRuntime().exec(
-                            new String[]{"su", "-c",
-                                    "echo", "\"" + list.get(position) + "\"", ">",
-                                    "sys/devices/system/cpu/cpu" + core + "/cpufreq/scaling_max_freq"});
+        activity.runOnUiThread(() -> {
+            ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(activity,
+                    android.R.layout.simple_spinner_dropdown_item,
+                    list);
+            arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+            spinner.setAdapter(arrayAdapter);
+            spinner.setSelection(i);
+            spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                @Override
+                public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                    try {
+                        Process process = Runtime.getRuntime().exec(
+                                new String[]{"su", "-c",
+                                        "echo", "\"" + list.get(position) + "\"", ">",
+                                        "sys/devices/system/cpu/cpu" + core + "/cpufreq/scaling_max_freq"});
 
-                    Log.i("cores_change_freq_max", process.waitFor() + "");
-                } catch (Exception e) {
-                    e.printStackTrace();
+                        Log.i("cores_change_freq_max", process.waitFor() + "");
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
                 }
-            }
 
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
+                @Override
+                public void onNothingSelected(AdapterView<?> parent) {
 
-            }
+                }
+            });
         });
+
     }
 
+    private int j = 0;
+    public int getJ() {
+        return this.j;
+    }
     private void setMinCurrentFreq() {
         Spinner spinner = findViewById(R.id.ccv_min_freq);
 
+        ArrayList<String> list = new ArrayList<>(Arrays.asList(
+                BaseKotlinOperation.Companion.readFile("/sys/devices/system/cpu/cpu"
+                        + core + "/cpufreq/scaling_available_frequencies")
+                        .split(" ")));
+
         String freq = BaseKotlinOperation.Companion.readFile("/sys/devices/system/cpu/cpu" + core + "/cpufreq/" + "scaling_min_freq");
 
-        int i = 0;
         if (!list.contains(freq)) {
             list.add(freq);
-            i = list.size() - 1;
+            j = list.size() - 1;
         } else {
-            while (i < list.size()) {
-                if (list.get(i).equals(freq)) {
+            while (j < list.size()) {
+                if (list.get(j).equals(freq)) {
                     break;
                 } else {
-                    i++;
+                    j++;
                 }
             }
         }
 
-        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(context,
-                android.R.layout.simple_spinner_dropdown_item,
-                list);
-        arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinner.setAdapter(arrayAdapter);
-        spinner.setSelection(i);
-        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                try {
-                    Process process = Runtime.getRuntime().exec(
-                            new String[]{"su", "-c",
-                                    "echo", "\"" + list.get(position) + "\"", ">",
-                                    "sys/devices/system/cpu/cpu" + core + "/cpufreq/scaling_min_freq"});
+        activity.runOnUiThread(() -> {
+            ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(activity,
+                    android.R.layout.simple_spinner_dropdown_item,
+                    list);
+            arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+            spinner.setAdapter(arrayAdapter);
+            spinner.setSelection(getJ());
+            spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                @Override
+                public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                    try {
+                        Process process = Runtime.getRuntime().exec(
+                                new String[]{"su", "-c",
+                                        "echo", "\"" + list.get(position) + "\"", ">",
+                                        "sys/devices/system/cpu/cpu" + core + "/cpufreq/scaling_min_freq"});
 
-                    Log.i("cores_change_freq_min", process.waitFor() + "");
-                } catch (Exception e) {
-                    e.printStackTrace();
+                        Log.i("cores_change_freq_min", process.waitFor() + "");
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
                 }
-            }
 
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
+                @Override
+                public void onNothingSelected(AdapterView<?> parent) {
 
-            }
+                }
+            });
         });
+
     }
 
     public void setGovernor(List<String> list) {
@@ -163,7 +183,7 @@ public class CoreCardView extends LinearLayout {
             i = 4;
         }
 
-        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(context,
+        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(activity,
                 android.R.layout.simple_spinner_dropdown_item,
                 list);
         arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);

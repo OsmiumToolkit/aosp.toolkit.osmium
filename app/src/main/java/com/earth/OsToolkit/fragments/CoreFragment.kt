@@ -1,5 +1,8 @@
 package com.earth.OsToolkit.fragments
 
+import android.app.AlertDialog
+import android.app.Dialog
+import android.content.Context
 import android.os.Bundle
 import android.os.Handler
 import android.support.v4.app.Fragment
@@ -24,6 +27,7 @@ import java.util.*
  * Modify
  *
  * 9/1/2019
+ * 23/1/2019
  *
  */
 
@@ -38,19 +42,8 @@ class CoreFragment : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-    }
-
-    var handler = Handler()
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-
-    }
-
-    override fun onStart() {
-        super.onStart()
-
-        val list: List<String> = listOf("impulse",
+        val list: List<String> = listOf(
+            "impulse",
             "zzmoove",
             "cafactive",
             "elementalx",
@@ -60,24 +53,31 @@ class CoreFragment : Fragment() {
             "userspace",
             "powersave",
             "bioshock",
-            "performance")
+            "performance"
+        )
 
-        for (i: Int in 0 until BaseFetching.getAvaliableCore()) {
-            val coreCardView = CoreCardView(activity, i)
-            coreCardView.setGovernor(list)
-            core_rootView.addView(coreCardView)
-        }
+        val dialog = Dialog(activity as Context)
 
-        val timer1 = Timer()
-        timer1.schedule(object : TimerTask() {
-            override fun run() {
-                handler.post(hideProgress)
+        dialog.setContentView(LayoutInflater.from(activity).inflate(R.layout.dialog_loading, null))
+        dialog.setCancelable(false)
+        dialog.show()
+
+
+        Thread {
+            for (i: Int in 0 until BaseFetching.getAvaliableCore()) {
+                val coreCardView = CoreCardView(activity, i)
+                coreCardView.setGovernor(list)
+                activity!!.runOnUiThread {
+                    core_rootView.addView(coreCardView)
+                }
             }
-        }, 3000)
+            Timer().schedule(object : TimerTask(){
+                override fun run() {
+                    activity!!.runOnUiThread {
+                        dialog.cancel()
+                    }
+                }
+            }, 1000)
+        }.start()
     }
-
-    val hideProgress = Runnable {
-        progressBar.visibility = View.GONE
-    }
-
 }

@@ -10,6 +10,8 @@
     <string name="reboot_system">Reboot System</string>
     <string name="reboot_rec" >Reboot Recovery</string >
     <string name="reboot_soft" >Soft Reboot</string >
+    
+    <string name="loading">Loading&#8230;</string>
 
     <string name="cont" >Continue</string >
     <string name="cancel" >Cancel</string >
