@@ -1,11 +1,13 @@
 package com.earth.OsToolkit.fragments
 
+import android.content.Intent
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v4.content.ContextCompat
 import android.view.*
 
 import com.earth.OsToolkit.R
+import com.earth.OsToolkit.UsageActivity
 import com.earth.OsToolkit.base.Accessing
 import com.earth.OsToolkit.base.Accessing.Companion.accessCoolapkRelease
 import com.earth.OsToolkit.base.BaseIndex.PackageName
@@ -22,9 +24,6 @@ import kotlinx.android.synthetic.main.fragment_main.*
  */
 
 class MainFragment : Fragment() {
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-    }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
@@ -64,10 +63,8 @@ class MainFragment : Fragment() {
         github.setOnClickListener {
             Accessing.accessGibHubRelease(activity)
         }
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-
+        jump.setOnClickListener {
+            startActivity(Intent(activity, UsageActivity::class.java))
+        }
     }
 }

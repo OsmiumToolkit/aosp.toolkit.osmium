@@ -235,6 +235,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             }
             else -> {
                 frag = mainFragment
+                fragmentTransaction.show(mainFragment)
                 title = R.string.nav_main
             }
         }

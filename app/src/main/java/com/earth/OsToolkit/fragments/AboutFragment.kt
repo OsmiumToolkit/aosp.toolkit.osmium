@@ -5,19 +5,18 @@ import android.content.Intent
 import android.content.pm.PackageInfo
 import android.os.Bundle
 import android.support.v4.app.Fragment
-import android.util.Log
 import android.view.*
 
 import kotlinx.android.synthetic.main.fragment_about.*
 
 import com.earth.OsToolkit.MainActivity
 import com.earth.OsToolkit.R
-import com.earth.OsToolkit.base.BaseFetching.Companion.getPackageVersion
 import com.earth.OsToolkit.base.Accessing.Companion.accessCoolapkAccount
 import com.earth.OsToolkit.base.Accessing.Companion.accessCoolapkRelease
 import com.earth.OsToolkit.base.Accessing.Companion.accessGitHubSource
 import com.earth.OsToolkit.base.CheckUpdate
 import com.earth.OsToolkit.base.BaseIndex.*
+import com.earth.OsToolkit.base.BaseKotlinOperation.Companion.getPackageVersion
 
 /*
  * OsToolkit - Kotlin
@@ -63,23 +62,6 @@ class AboutFragment : Fragment() {
                 updateDialogFragment.show(fragmentManager, "updateChecking")
             }
         }
-
-
-        /*
-        update.setOnClickListener {
-            val checkUpdate = CheckUpdate()
-            checkUpdate.waitFor()
-
-            val v = checkUpdate.getVersion()
-            if (v != getPackageVersion(activity)) {
-                val updateDialogFragment = UpdateDialogFragment()
-                updateDialogFragment.setData(checkUpdate.getVersion(),
-                    checkUpdate.getDate(), checkUpdate.getChangelogZh(),
-                    checkUpdate.getChangelogEn())
-                updateDialogFragment.show(fragmentManager, "updateDialogFragment")
-            }
-        }
-        */
 
         source.setOnClickListener {
             accessGitHubSource(activity)

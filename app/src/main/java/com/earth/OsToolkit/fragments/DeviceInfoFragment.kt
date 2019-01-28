@@ -7,7 +7,7 @@ import android.support.v4.app.Fragment
 import android.view.*
 
 import com.earth.OsToolkit.R
-import com.earth.OsToolkit.base.BaseFetching
+import com.earth.OsToolkit.base.BaseKotlinOperation.Companion.getAvailableCore
 import com.earth.OsToolkit.base.BaseKotlinOperation.Companion.getABI32
 import com.earth.OsToolkit.base.BaseKotlinOperation.Companion.getABI64
 import com.earth.OsToolkit.base.BaseKotlinOperation.Companion.getABIs
@@ -76,7 +76,7 @@ class DeviceInfoFragment : Fragment() {
 
         val t3 = Thread {
             val b = ChildView(activity, R.string.deviceinfo_soc_board, Build.BOARD)
-            val c = ChildView(activity, R.string.deviceinfo_soc_cores, BaseFetching.getAvaliableCore().toString())
+            val c = ChildView(activity, R.string.deviceinfo_soc_cores, getAvailableCore().toString())
             val aa = ChildView(activity, R.string.deviceinfo_soc_abis, getABIs())
             val a64 = ChildView(activity, R.string.deviceinfo_soc_abis64, getABI64())
             val a32 = ChildView(activity, R.string.deviceinfo_soc_abis32, getABI32())

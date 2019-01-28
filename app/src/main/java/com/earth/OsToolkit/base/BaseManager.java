@@ -8,19 +8,26 @@ package com.earth.OsToolkit.base;
  *
  */
 
-import android.app.Application;
-import android.app.Dialog;
 import android.support.v4.app.FragmentTransaction;
-import android.view.LayoutInflater;
+import com.earth.OsToolkit.BuildConfig;
 import com.earth.OsToolkit.MainActivity;
 import com.earth.OsToolkit.R;
 import com.earth.OsToolkit.WelcomeActivity;
 import com.earth.OsToolkit.fragments.*;
+import com.topjohnwu.superuser.ContainerApp;
+import com.topjohnwu.superuser.Shell;
 
-public class BaseManager extends Application {
+public class BaseManager extends ContainerApp {
 
     public BaseManager(){
 
+    }
+
+    static {
+        // Set configurations in a static block
+        Shell.Config.setFlags(Shell.FLAG_REDIRECT_STDERR);
+        Shell.Config.verboseLogging(BuildConfig.DEBUG);
+        Shell.Config.setTimeout(60);
     }
 
     public static BaseManager instance;

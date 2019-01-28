@@ -158,7 +158,7 @@
     <string name="deviceinfo_jvm_totalmem" >JVM 总内存</string >
     
     <string name="cores_no" >核心数量: %d</string >
-    <string name="kiloHertz" >kHz</string >
+    <string name="kiloHertz" >\u0020kHz</string >
     <string name="cores_max_freq" >最高频率: </string >
     <string name="cores_min_freq" >最低频率: </string >
     <string name="cores_governor" >调整器: </string >
@@ -173,5 +173,8 @@
     
     <string name="extends_mac_title">修改Mac地址</string>
     <string name="extends_mac_sum">修改本机网络的mac地址\n（假如在修改后无法连接wifi，请重启解决手机，并且不再使用本功能）</string>
-
+    
+    <string name="battery">电池</string>
+    <string name="processor">处理器频率</string>
+    
 </resources >

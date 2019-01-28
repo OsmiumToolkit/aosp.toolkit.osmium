@@ -17,15 +17,12 @@ package com.earth.OsToolkit
  */
 
 
-import android.content.Context
-import android.content.Intent
-import android.os.Build
+import android.content.*
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentManager
 import android.support.v4.app.FragmentPagerAdapter
 import android.support.v7.app.AppCompatActivity
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import com.earth.OsToolkit.base.BaseManager
@@ -33,13 +30,8 @@ import com.earth.OsToolkit.base.BaseManager
 import kotlinx.android.synthetic.main.activity_welcome.*
 import android.view.View.*
 import android.view.ViewGroup
-import android.widget.AdapterView
-import android.widget.ArrayAdapter
-import android.widget.Spinner
-import com.earth.OsToolkit.base.BaseFetching
-import kotlinx.android.synthetic.main.fragment_welcome_1.*
+import com.earth.OsToolkit.base.BaseKotlinOperation.Companion.checkRoot
 import kotlinx.android.synthetic.main.fragment_welcome_4.*
-import java.util.*
 
 class WelcomeActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -136,7 +128,7 @@ class WelcomeActivity : AppCompatActivity() {
         }
 
         private fun check() {
-            if (BaseFetching.checkRoot()) {
+            if (checkRoot()) {
                 val sharedPreference = activity!!.getSharedPreferences("splash", Context.MODE_PRIVATE)
                 sharedPreference.edit().putBoolean("welcome", true).apply()
                 startActivity(Intent(activity, MainActivity::class.java))

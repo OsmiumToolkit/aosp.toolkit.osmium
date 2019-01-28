@@ -1,8 +1,10 @@
 package com.earth.OsToolkit.base
 
+import android.content.Context
 import android.os.Build
-import android.util.Log
+import com.topjohnwu.superuser.Shell
 import java.io.*
+import java.util.regex.Pattern
 
 /*
  * OsToolkit - Kotlin
@@ -15,6 +17,45 @@ import java.io.*
 
 class BaseKotlinOperation {
     companion object {
+        fun checkRoot(): Boolean {
+            try {
+                val process: Process = Runtime.getRuntime().exec("su")
+                val dataOutPutStream = DataOutputStream(process.outputStream)
+                dataOutPutStream.writeBytes("exit\n")
+                dataOutPutStream.flush()
+                dataOutPutStream.close()
+                val i = process.waitFor()
+                if (i == 1)
+                    return false
+                return true
+            } catch (e: Exception) {
+                e.printStackTrace()
+            }
+            return false
+        }
+
+        fun getPackageVersion(context: Context?): String {
+            try {
+                return context?.packageManager!!.getPackageInfo(BaseIndex.PackageName, 0).versionName
+            } catch (e: java.lang.Exception) {
+                e.printStackTrace()
+            }
+            return ""
+        }
+
+        fun getAvailableCore(): Int {
+            try {
+                val dir = File("/sys/devices/system/cpu/")
+                val file: Array<File> = dir.listFiles(FileFilter {
+                    Pattern.matches("cpu[0-9]", it.name)
+                })
+                return file.size
+            } catch (e: java.lang.Exception) {
+                e.printStackTrace()
+            }
+            return 0
+        }
+
         fun setPermission(filePath: String): Boolean {
             val file = File(filePath)
 
@@ -26,25 +67,19 @@ class BaseKotlinOperation {
         }
 
         fun readFile(filePath: String): String {
-            Log.i("readFile_in_$filePath", filePath)
-            try {
-                val process = Runtime.getRuntime().exec(arrayOf("su", "-c", "cat", filePath))
-                process.waitFor()
-                val inputStream : InputStream = process.inputStream
-                val inputStreamReader = InputStreamReader(inputStream, "utf-8")
-                val bufferedReader = BufferedReader(inputStreamReader)
+            val su: List<String> = Shell.su("cat $filePath").exec().out
+            val stringBuilder = java.lang.StringBuilder()
+            for (i: Int in 0 until su.size) {
+                stringBuilder.append(su[i])
+                if (i != su.size - 1) {
+                    stringBuilder.append("\n")
+                }
+            }
 
-                val string = bufferedReader.readLine()
-                Log.i("readFile_$filePath", string)
-
-                inputStream.close()
-                inputStreamReader.close()
-                bufferedReader.close()
-
-                return string
-            } catch (e: Exception) {
-                e.printStackTrace()
-                return "Fail"
+            return if (!stringBuilder.toString().isEmpty()) {
+                stringBuilder.toString()
+            } else {
+                "Fail"
             }
         }
 
@@ -112,16 +147,11 @@ class BaseKotlinOperation {
         }
 
         fun unitConvert(long: Long): String {
-            val tmp: String?
-            if (long > 1024 * 1024) {
-                tmp = (long / 1024 / 1024).toString() + " MB"
-            } else if (long > 1024) {
-                tmp = (long / 1024).toString() + "KB"
-            } else {
-                tmp = long.toString() + "B"
+            return when {
+                long > 1024 * 1024 -> (long / 1024 / 1024).toString() + "MB"
+                long > 1024 -> (long / 1024).toString() + "KB"
+                else -> long.toString() + "B"
             }
-            return tmp
         }
-
     }
 }

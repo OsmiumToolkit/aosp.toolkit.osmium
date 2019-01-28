@@ -44,5 +44,9 @@
     <dimen name="reboot_margin">8dp</dimen>
     
     <dimen name="loading_padding">24dp</dimen>
-    <dimen name="loading_widget_padding">6sp</dimen>
+    <dimen name="loading_widget_padding">6dp</dimen>
+    
+    <dimen name="cardview_title">24sp</dimen>
+    
+    <dimen name="cardview_core_freq">20sp</dimen>
 </resources>

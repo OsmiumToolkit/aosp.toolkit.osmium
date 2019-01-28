@@ -159,7 +159,7 @@
     <string name="deviceinfo_jvm_totalmem" >JVM Total Memory</string >
 
     <string name="cores_no" >Number of core(s): %d</string >
-    <string name="kiloHertz" >kHz</string >
+    <string name="kiloHertz" >\u0020kHz</string >
     <string name="cores_max_freq" >Max. Frequency: </string >
     <string name="cores_min_freq" >Min. Frequency: </string >
     <string name="cores_governor" >Governor: </string >
@@ -174,4 +174,7 @@
     
     <string name="extends_mac_title">Customize MAC address</string>
     <string name="extends_mac_sum">Customize network device\'s MAC address\n(Reboot and never use this if network can\'t be connected)</string>
+    
+    <string name="battery">Battery</string>
+    <string name="processor">Processor Frequency</string>
 </resources >
