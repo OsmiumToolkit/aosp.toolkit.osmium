@@ -2,6 +2,7 @@ package com.earth.OsToolkit.fragments
 
 import android.app.Dialog
 import android.content.Context
+import android.graphics.Point
 import android.os.*
 import android.support.v4.app.Fragment
 import android.view.*
@@ -53,8 +54,16 @@ class DeviceInfoFragment : Fragment() {
         dialog.show()
 
         val t1 = Thread {
-            val m = ChildView(activity, R.string.deviceinfo_general_manufacturer, Build.MANUFACTURER[0].toUpperCase() + Build.MANUFACTURER.substring(1))
-            val b = ChildView(activity, R.string.deviceinfo_general_brand, Build.BRAND[0].toUpperCase() + Build.BOARD.substring(1))
+            val m = ChildView(
+                activity,
+                R.string.deviceinfo_general_manufacturer,
+                Build.MANUFACTURER[0].toUpperCase() + Build.MANUFACTURER.substring(1)
+            )
+            val b = ChildView(
+                activity,
+                R.string.deviceinfo_general_brand,
+                Build.BRAND[0].toUpperCase() + Build.BOARD.substring(1)
+            )
             val mo = ChildView(activity, R.string.deviceinfo_general_model, Build.MODEL)
             val d = ChildView(activity, R.string.deviceinfo_general_device, Build.DEVICE)
             val p = ChildView(activity, R.string.deviceinfo_general_product, Build.PRODUCT)
@@ -105,8 +114,37 @@ class DeviceInfoFragment : Fragment() {
         }
         t5.start()
 
+        val t6 = Thread {
+            /*
+            val display = activity!!.windowManager.defaultDisplay
+            val point = Point()
+            display.getSize(point)
+            val x = point.x
+            val y = point.y
+            val r = ChildView(activity, R.string.deviceinfo_display_resolution, x.toString() + "x" + y.toShort())
+            */
+
+            val displayMatrix = activity!!.resources.displayMetrics
+            val x = displayMatrix.widthPixels
+            val y = displayMatrix.heightPixels
+
+            val r = ChildView(activity, R.string.deviceinfo_display_resolution, y.toString() + "x" + x.toString())
+
+            val density = displayMatrix.density
+            val densityDpi = displayMatrix.densityDpi
+
+            val d = ChildView(activity, R.string.deviceinfo_display_density, density.toString())
+            val dd = ChildView(activity, R.string.deviceinfo_display_densityDpi, densityDpi.toString())
+
+            val scaledDensity = displayMatrix.scaledDensity
+            val s = ChildView(activity, R.string.deviceinfo_display_scaledDensity, scaledDensity.toString())
+
+            activity!!.runOnUiThread { displayRoot.addViews(r, d, dd, s) }
+        }
+        t6.start()
+
         Thread {
-            while (t1.isAlive && t2.isAlive && t3.isAlive && t4.isAlive && t5.isAlive) {
+            while (t1.isAlive && t2.isAlive && t3.isAlive && t4.isAlive && t5.isAlive && t6.isAlive) {
                 Thread.sleep(1)
             }
             Timer().schedule(object : TimerTask() {

@@ -15,7 +15,6 @@ import kotlinx.android.synthetic.main.view_corefreq_text.view.*
 
 import java.util.*
 
-
 /*
  * OsToolkit - Kotlin
  *
@@ -26,7 +25,8 @@ import java.util.*
  */
 
 class UsageActivity : AppCompatActivity() {
-    var batteryReceiver : BatteryReceiver? = null
+    var batteryReceiver: BatteryReceiver? = null
+    val coreFreqViewTextList = mutableListOf<CoreFreqViewText>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -41,11 +41,12 @@ class UsageActivity : AppCompatActivity() {
         Thread {
             for (i: Int in 0 until getAvailableCore()) {
                 val coreFreqViewText = CoreFreqViewText(this, i)
+                coreFreqViewTextList.add(coreFreqViewText)
                 runOnUiThread {
                     root.addView(coreFreqViewText)
                 }
             }
-            Timer().schedule(object : TimerTask(){
+            Timer().schedule(object : TimerTask() {
                 override fun run() {
                     dialog.cancel()
                 }
@@ -53,20 +54,9 @@ class UsageActivity : AppCompatActivity() {
         }.start()
 
         Thread {
-            /*
-            val batteryManager = getSystemService(Context.BATTERY_SERVICE) as BatteryManager
-            val int = batteryManager.getIntProperty(BatteryManager.BATTERY_PROPERTY_CAPACITY)
-            Log.i("battery",int.toString())
-            runOnUiThread {
-                textView.text = int.toString()
-                progressBar.progress = int
-            }
-            */
-
             val intentFilter = IntentFilter(Intent.ACTION_BATTERY_CHANGED)
             batteryReceiver = BatteryReceiver(this, progressBar, textView)
             registerReceiver(batteryReceiver, intentFilter)
-
         }.start()
     }
 
@@ -95,14 +85,16 @@ class UsageActivity : AppCompatActivity() {
     }
 
     class BatteryReceiver(activity: UsageActivity, progressBar: ProgressBar, textView: TextView) : BroadcastReceiver() {
-        private var activity : UsageActivity? = null
-        private var progressBar : ProgressBar? = null
-        private var textView : TextView? = null
+        private var activity: UsageActivity? = null
+        private var progressBar: ProgressBar? = null
+        private var textView: TextView? = null
+
         init {
             this.activity = activity
             this.progressBar = progressBar
             this.textView = textView
         }
+
         override fun onReceive(context: Context?, intent: Intent?) {
             val level = intent!!.getIntExtra("level", 0)
             val total = intent.getIntExtra("scale", 100)
@@ -114,6 +106,20 @@ class UsageActivity : AppCompatActivity() {
         }
     }
 
+    override fun onPause() {
+        super.onPause()
+        for (i: Int in 0 until coreFreqViewTextList.size) {
+            coreFreqViewTextList[i].interruptThread()
+        }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        for (i: Int in 0 until coreFreqViewTextList.size) {
+            coreFreqViewTextList[i].startThread()
+        }
+    }
+
     override fun onDestroy() {
         super.onDestroy()
         unregisterReceiver(batteryReceiver)
@@ -121,6 +127,8 @@ class UsageActivity : AppCompatActivity() {
 
     @Suppress("all")
     class CoreFreqViewText(activity: UsageActivity, core: Int) : LinearLayout(activity) {
+        private var thread: Thread? = null
+
         init {
             LayoutInflater.from(activity).inflate(R.layout.view_corefreq_text, this)
             val array = ArrayList(
@@ -135,10 +143,12 @@ class UsageActivity : AppCompatActivity() {
 
             cpu.text = "CPU$core"
 
-            Thread {
+            thread = Thread {
                 while (true) {
-                    val freq = readFile("/sys/devices/system/cpu/cpu"
-                            + core + "/cpufreq/scaling_cur_freq")
+                    val freq = readFile(
+                        "/sys/devices/system/cpu/cpu"
+                                + core + "/cpufreq/scaling_cur_freq"
+                    )
                     val u = (freq.toFloat() / maxFreq * 100).toInt()
 
                     activity.runOnUiThread {
@@ -147,10 +157,18 @@ class UsageActivity : AppCompatActivity() {
                     }
                     Thread.sleep(1000)
                 }
-            }.start()
+            }
+            thread!!.start()
+        }
+
+        fun interruptThread() {
+            thread!!.interrupt()
+        }
+
+        fun startThread() {
+            thread!!.start()
         }
     }
-
 
 
 /*

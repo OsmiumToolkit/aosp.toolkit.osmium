@@ -15,6 +15,11 @@
             android:layout_height="wrap_content"
             android:id="@+id/generalRoot"
             app:title="@string/deviceinfo_general_title" />
+        <com.earth.OsToolkit.view.DeviceInfoView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/displayRoot"
+            app:title="@string/deviceinfo_display_title"/>
         
         <com.earth.OsToolkit.view.DeviceInfoView
             android:layout_width="match_parent"
