@@ -52,7 +52,7 @@
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:id="@+id/root"
+                        android:id="@+id/rootFreq"
                         android:orientation="vertical"
                         android:layout_margin="@dimen/cardView_linear_padding" >
                         
@@ -117,6 +117,22 @@
                         </LinearLayout >
                     
                     </LinearLayout >
+                </android.support.v7.widget.CardView >
+                
+                <android.support.v7.widget.CardView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="@dimen/cardView_padding"
+                    android:layout_margin="@dimen/cardView_margin"
+                    app:cardCornerRadius="@dimen/cardView_cardCornerRadius" >
+                    
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:padding="@dimen/cardView_linear_padding"
+                        android:id="@+id/rootThermal"/>
+                
                 </android.support.v7.widget.CardView >
             
             </LinearLayout >

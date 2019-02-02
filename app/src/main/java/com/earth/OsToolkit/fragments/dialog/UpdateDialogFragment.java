@@ -1,4 +1,4 @@
-package com.earth.OsToolkit.fragments;
+package com.earth.OsToolkit.fragments.dialog;
 /*
  * OsToolkit - Kotlin
  *
@@ -66,10 +66,11 @@ public class UpdateDialogFragment extends DialogFragment {
         return builder.create();
     }
 
-    public void setData(String version, String date, String changelogZh, String changelogEn) {
+    public UpdateDialogFragment setData(String version, String date, String changelogZh, String changelogEn) {
         this.version = version;
         this.date = date;
         this.changelogZh = changelogZh;
         this.changelogEn = changelogEn;
+        return this;
     }
 }

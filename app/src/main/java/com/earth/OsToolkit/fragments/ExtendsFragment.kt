@@ -10,6 +10,7 @@ import android.view.ViewGroup
 import com.earth.OsToolkit.R
 import com.earth.OsToolkit.base.BaseKotlinOperation.Companion.checkFilePresent
 import com.earth.OsToolkit.base.BaseKotlinOperation.Companion.readFile
+import com.topjohnwu.superuser.Shell
 import kotlinx.android.synthetic.main.fragment_extends.*
 import java.lang.Exception
 
@@ -21,7 +22,7 @@ import java.lang.Exception
  * By   : 1552980358
  *
  */
- 
+
 class ExtendsFragment : Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.fragment_extends, container, false)
@@ -35,9 +36,10 @@ class ExtendsFragment : Fragment() {
     private fun setMac() {
         if (checkFilePresent("/sys/class/net/wlan0/address")) {
             editText.setText(readFile("/sys/class/net/wlan0/address"))
-            editText.addTextChangedListener(object : TextWatcher{
+            editText.addTextChangedListener(object : TextWatcher {
                 override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
                 }
+
                 override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
                     editText.removeTextChangedListener(this)
 
@@ -47,19 +49,20 @@ class ExtendsFragment : Fragment() {
                                 editText.setText(s.toString().plus(":").toLowerCase())
                             }
                             17 -> {
-                                editText.setText(s.toString().toUpperCase())
+                                editText.setText(s.toString().toLowerCase())
                             }
                         }
                     }
                     editText.addTextChangedListener(this)
                 }
+
                 override fun afterTextChanged(s: Editable?) {
                     try {
                         editText.setSelection(s.toString().length.plus(1))
                     } catch (e: Exception) {
                         try {
                             editText.setSelection(s.toString().length)
-                        } catch (e : Exception) {
+                        } catch (e: Exception) {
                             //
                         }
                     }
@@ -70,6 +73,16 @@ class ExtendsFragment : Fragment() {
             done.setOnClickListener {
                 val mac = editText.text.toString()
                 if (mac.length == 17 && pattern.matches(mac)) {
+                    Shell.su(
+                        "chmod 644 /sys/class/net/wlan0/address",
+                        "svc wifi disable", "ifconfig wlan0 down",
+                        "echo $mac > /sys/class/net/wlan0/address",
+                        "ifconfig wlan0 hw ether $mac",
+                        "ifconfig wlan0 up",
+                        "svc wifi enable"
+                    ).exec()
+
+                    /*
                     Runtime.getRuntime().exec(arrayOf("su", "-c", "chmod", "644", "/sys/class/net/wlan0/address"))
                     Runtime.getRuntime().exec(arrayOf("su", "-c", "svc", "wifi", "disable"))
                     Runtime.getRuntime().exec(arrayOf("su", "-c", "ifconfig", "wlan0", "down"))
@@ -77,8 +90,10 @@ class ExtendsFragment : Fragment() {
                     Runtime.getRuntime().exec(arrayOf("su", "-c", "ifconfig", "wlan0", "hw", "ether", mac))
                     Runtime.getRuntime().exec(arrayOf("su", "-c", "ifconfig", "wlan0", "up"))
                     Runtime.getRuntime().exec(arrayOf("su", "-c", "svc", "wifi", "enable"))
+                    */
                 }
             }
+
         }
     }
 }

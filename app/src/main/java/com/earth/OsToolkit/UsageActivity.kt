@@ -1,5 +1,6 @@
 package com.earth.OsToolkit
 
+import android.app.Activity
 import android.app.Dialog
 import android.content.*
 import android.os.Bundle
@@ -12,6 +13,8 @@ import com.earth.OsToolkit.base.BaseKotlinOperation.Companion.readFile
 
 import kotlinx.android.synthetic.main.activity_usage.*
 import kotlinx.android.synthetic.main.view_corefreq_text.view.*
+import kotlinx.android.synthetic.main.view_sensordata.view.*
+import java.io.File
 
 import java.util.*
 
@@ -24,9 +27,11 @@ import java.util.*
  *
  */
 
+@Suppress("all")
 class UsageActivity : AppCompatActivity() {
-    var batteryReceiver: BatteryReceiver? = null
-    val coreFreqViewTextList = mutableListOf<CoreFreqViewText>()
+    private var batteryReceiver: BatteryReceiver? = null
+    private val coreFreqViewTextList = mutableListOf<CoreFreqViewText>()
+    private val sensorDataChildViewList = mutableListOf<SensorDataChildView>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -38,12 +43,12 @@ class UsageActivity : AppCompatActivity() {
         dialog.setCancelable(false)
         dialog.show()
 
-        Thread {
+        val t1 = Thread {
             for (i: Int in 0 until getAvailableCore()) {
                 val coreFreqViewText = CoreFreqViewText(this, i)
                 coreFreqViewTextList.add(coreFreqViewText)
                 runOnUiThread {
-                    root.addView(coreFreqViewText)
+                    rootFreq.addView(coreFreqViewText)
                 }
             }
             Timer().schedule(object : TimerTask() {
@@ -51,13 +56,35 @@ class UsageActivity : AppCompatActivity() {
                     dialog.cancel()
                 }
             }, 1000)
-        }.start()
+        }
+        t1.start()
 
-        Thread {
+        val t2 = Thread {
             val intentFilter = IntentFilter(Intent.ACTION_BATTERY_CHANGED)
             batteryReceiver = BatteryReceiver(this, progressBar, textView)
             registerReceiver(batteryReceiver, intentFilter)
-        }.start()
+        }
+        t2.start()
+        val t3 = Thread {
+            val dir = File("/sys/class/thermal")
+            val file  = dir.listFiles().size
+            for (i: Int in 0 until file) {
+                val sensorDataChildView = SensorDataChildView(this, i)
+                runOnUiThread { rootThermal.addView(sensorDataChildView) }
+                sensorDataChildViewList.add(sensorDataChildView)
+            }
+        }
+        t3.start()
+        Thread {
+            while (t1.isAlive || t2.isAlive || t3.isAlive ) {
+                try {
+                    Thread.sleep(1)
+                } catch (e: java.lang.Exception) {
+                    //
+                }
+                dialog.cancel()
+            }
+        }
     }
 
     private fun initialize() {
@@ -106,23 +133,15 @@ class UsageActivity : AppCompatActivity() {
         }
     }
 
-    override fun onPause() {
-        super.onPause()
+    override fun onDestroy() {
+        unregisterReceiver(batteryReceiver)
         for (i: Int in 0 until coreFreqViewTextList.size) {
             coreFreqViewTextList[i].interruptThread()
         }
-    }
-
-    override fun onResume() {
-        super.onResume()
-        for (i: Int in 0 until coreFreqViewTextList.size) {
-            coreFreqViewTextList[i].startThread()
+        for (i: Int in 0 until sensorDataChildViewList.size) {
+            sensorDataChildViewList[i].interruptThread()
         }
-    }
-
-    override fun onDestroy() {
         super.onDestroy()
-        unregisterReceiver(batteryReceiver)
     }
 
     @Suppress("all")
@@ -145,17 +164,26 @@ class UsageActivity : AppCompatActivity() {
 
             thread = Thread {
                 while (true) {
-                    val freq = readFile(
+                    val tmp = readFile(
                         "/sys/devices/system/cpu/cpu"
                                 + core + "/cpufreq/scaling_cur_freq"
                     )
+                    val freq = when (tmp) {
+                        "Fail" -> "0"
+                        else -> tmp
+                    }
+
                     val u = (freq.toFloat() / maxFreq * 100).toInt()
 
                     activity.runOnUiThread {
                         cur_freq.text = freq
                         usage.text = "$u%"
                     }
-                    Thread.sleep(1000)
+                    try {
+                        Thread.sleep(1000)
+                    } catch (e: Exception) {
+                        //
+                    }
                 }
             }
             thread!!.start()
@@ -164,9 +192,32 @@ class UsageActivity : AppCompatActivity() {
         fun interruptThread() {
             thread!!.interrupt()
         }
+    }
 
-        fun startThread() {
+    class SensorDataChildView(activity: Activity, no: Int) : LinearLayout(activity) {
+        var thread: Thread? = null
+
+        init {
+            LayoutInflater.from(activity).inflate(R.layout.view_sensordata, this)
+            val t = readFile("/sys/class/thermal/thermal_zone" + no + "/type")
+            title.text = t
+
+            thread = Thread {
+                while (true) {
+                    val d = readFile("/sys/class/thermal/thermal_zone" + no + "/temp")
+                    activity.runOnUiThread { content.text = d }
+                    try {
+                        Thread.sleep(1000)
+                    } catch (e: Exception) {
+                        //
+                    }
+                }
+            }
             thread!!.start()
+        }
+
+        fun interruptThread() {
+            thread!!.interrupt()
         }
     }
 

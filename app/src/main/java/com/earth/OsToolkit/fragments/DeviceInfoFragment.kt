@@ -144,7 +144,7 @@ class DeviceInfoFragment : Fragment() {
         t6.start()
 
         Thread {
-            while (t1.isAlive && t2.isAlive && t3.isAlive && t4.isAlive && t5.isAlive && t6.isAlive) {
+            while (t1.isAlive || t2.isAlive || t3.isAlive || t4.isAlive || t5.isAlive || t6.isAlive) {
                 Thread.sleep(1)
             }
             Timer().schedule(object : TimerTask() {

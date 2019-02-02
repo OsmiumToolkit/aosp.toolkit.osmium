@@ -17,6 +17,7 @@ import com.earth.OsToolkit.base.Accessing.Companion.accessGitHubSource
 import com.earth.OsToolkit.base.CheckUpdate
 import com.earth.OsToolkit.base.BaseIndex.*
 import com.earth.OsToolkit.base.BaseKotlinOperation.Companion.getPackageVersion
+import com.earth.OsToolkit.fragments.dialog.UpdateDialogFragment
 
 /*
  * OsToolkit - Kotlin
@@ -56,8 +57,7 @@ class AboutFragment : Fragment() {
             if (version != (getPackageVersion(activity)) && version != null) {
                 val getChangelog = CheckUpdate.GetChangelog()
                 getChangelog.onFetching()
-                val updateDialogFragment = UpdateDialogFragment()
-                updateDialogFragment.setData(version, CheckUpdate.GetDate().returnData(),
+                val updateDialogFragment = UpdateDialogFragment().setData(version, CheckUpdate.GetDate().returnData(),
                     getChangelog.changelogZh, getChangelog.changelogEn)
                 updateDialogFragment.show(fragmentManager, "updateChecking")
             }
