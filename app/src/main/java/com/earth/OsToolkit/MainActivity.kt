@@ -38,23 +38,25 @@ import java.util.*
 
 class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
 
-    private var mainFragment : Fragment = MainFragment()
-    private var aboutFragment : Fragment? = null
-    private var deviceInfoFragment : Fragment? = null
-    private var chargingFragment : Fragment? = null
-    private var coreFragment : Fragment? = null
-    private var applyYCFragment : Fragment? = null
-    private var romIOFragment : Fragment? = null
-    private var extendsFragment : Fragment? = null
+    // 定义fragments
+    private var mainFragment: Fragment = MainFragment()
+    private var aboutFragment: Fragment? = null
+    private var deviceInfoFragment: Fragment? = null
+    private var chargingFragment: Fragment? = null
+    private var coreFragment: Fragment? = null
+    private var applyYCFragment: Fragment? = null
+    private var romIOFragment: Fragment? = null
+    private var extendsFragment: Fragment? = null
 
-    private var currentFragment : Fragment = mainFragment
+    // 显示的fragment
+    private var currentFragment: Fragment = mainFragment
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        // 移除上一个activity
         BaseManager.getInstance().finishActivities()
-
         BaseManager.instance.setMainActivity(this)
 
         val dialog = Dialog(this)
@@ -75,7 +77,6 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 runOnUiThread {
                     drawer_layout.openDrawer(GravityCompat.START)
                 }
-
             }
         }, 1000)
 
@@ -84,17 +85,20 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     private fun initUI() {
         setSupportActionBar(toolbar)
 
-        val toggle = ActionBarDrawerToggle(this,
+        val toggle = ActionBarDrawerToggle(
+            this,
             drawer_layout,
             toolbar,
             R.string.navigation_drawer_open,
-            R.string.navigation_drawer_close)
+            R.string.navigation_drawer_close
+        )
 
         drawer_layout.addDrawerListener(toggle)
-        val view : View = nav_view.getHeaderView(0)
+        val view: View = nav_view.getHeaderView(0)
         toggle.syncState()
 
-        val navAbout : LinearLayout = view.findViewById(R.id.nav_about)
+        val navAbout: LinearLayout = view.findViewById(R.id.nav_about)
+        // 监听 listeners
         navAbout.setOnClickListener {
             drawer_layout.closeDrawer(GravityCompat.START)
             val fragmentTransaction = supportFragmentManager.beginTransaction()
@@ -107,7 +111,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             fragmentTransaction.hide(currentFragment).commit()
             currentFragment = aboutFragment!!
         }
-        val navDeviceInfo : LinearLayout = view.findViewById(R.id.nav_deviceinfo)
+        val navDeviceInfo: LinearLayout = view.findViewById(R.id.nav_deviceinfo)
         navDeviceInfo.setOnClickListener {
             drawer_layout.closeDrawer(GravityCompat.START)
             val fragmentTransaction = supportFragmentManager.beginTransaction()
@@ -144,13 +148,6 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         this.currentFragment = this.chargingFragment!!
     }
 
-    /*
-    fun onRecreateRomIOFragment(romIOFragment : RomIOFragment) {
-        this.romIOFragment = romIOFragment
-        this.currentFragment = this.romIOFragment
-    }
-    */
-
     override fun onBackPressed() {
         if (drawer_layout.isDrawerOpen(GravityCompat.START)) {
             drawer_layout.closeDrawer(GravityCompat.START)
@@ -179,9 +176,9 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         // Handle navigation view item clicks here.
         drawer_layout.closeDrawer(GravityCompat.START)
-        val frag : Fragment
+        val frag: Fragment
         val fragmentTransaction = supportFragmentManager.beginTransaction()
-        val title : Int
+        val title: Int
         when (item.itemId) {
             R.id.nav_charging -> {
                 title = R.string.nav_charging
@@ -245,7 +242,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             fragmentTransaction.hide(currentFragment).commit()
         }
         currentFragment = frag
-        Log.i("currentFragment", currentFragment.toString())
+        //Log.i("currentFragment", currentFragment.toString())
         return true
     }
 }

@@ -46,20 +46,26 @@ class WelcomeActivity : AppCompatActivity() {
 
         window.decorView.systemUiVisibility = option
 
-        val fragments = listOf(Welcome1Fragment(), Welcome2Fragment(),
-            Welcome3Fragment(), Welcome4Fragment())
+        val fragments = listOf(
+            Welcome1Fragment(), Welcome2Fragment(),
+            Welcome3Fragment(), Welcome4Fragment()
+        )
 
-        val tabList = listOf(getString(R.string.welcome_tab_1), getString(R.string.welcome_tab_2),
-            getString(R.string.welcome_tab_3), getString(R.string.welcome_tab_4))
+        val tabList = listOf(
+            getString(R.string.welcome_tab_1), getString(R.string.welcome_tab_2),
+            getString(R.string.welcome_tab_3), getString(R.string.welcome_tab_4)
+        )
 
         viewPager.adapter = ViewPagerAdapter(supportFragmentManager, fragments, tabList)
         tabLayout.setupWithViewPager(viewPager)
 
     }
 
-    class ViewPagerAdapter(fragmentManager: FragmentManager?,
-                           var fragmentList: List<Fragment>,
-                           var tabList: List<String>) : FragmentPagerAdapter(fragmentManager) {
+    class ViewPagerAdapter(
+        fragmentManager: FragmentManager?,
+        var fragmentList: List<Fragment>,
+        var tabList: List<String>
+    ) : FragmentPagerAdapter(fragmentManager) {
         override fun getItem(p0: Int): Fragment {
             return fragmentList[p0]
         }

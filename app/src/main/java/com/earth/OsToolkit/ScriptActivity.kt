@@ -8,6 +8,8 @@ import android.support.v7.widget.Toolbar
 import android.util.Log
 import android.view.View
 import com.earth.OsToolkit.base.BaseKotlinOperation
+import com.earth.OsToolkit.base.BaseKotlinOperation.Companion.ShortToast
+import com.topjohnwu.superuser.Shell
 import kotlinx.android.synthetic.main.activity_script.*
 import java.io.*
 import java.lang.Exception
@@ -39,7 +41,7 @@ class ScriptActivity : AppCompatActivity() {
             intent.getStringExtra("name").plus(".sh")
         }
 
-        Log.i("script", "$type + $index + $name")
+        //Log.i("script", "$type + $index + $name")
 
         file = File(cacheDir.absolutePath + File.separator + name)
 
@@ -76,18 +78,20 @@ class ScriptActivity : AppCompatActivity() {
 
                     val buffer = ByteArray(10240)
 
+                    // 输出到文件 Output to file
                     var len: Int = inputStream.read(buffer)
                     while (len != -1) {
                         fileOutputStream.write(buffer, 0, len)
                         len = inputStream.read(buffer)
                     }
 
+                    // 释放资源 release resources
                     fileOutputStream.flush()
                     inputStream.close()
                     fileOutputStream.close()
                 }
             } catch (e: Exception) {
-                e.printStackTrace()
+                ShortToast(this, e.toString())
             }
 
             setPermission()
@@ -106,7 +110,7 @@ class ScriptActivity : AppCompatActivity() {
 
             if (BaseKotlinOperation.setPermission(file!!.toString())) {
                 runOnUiThread {
-                    script_permission.setText(R.string.script_download_fail)
+                    script_permission.setText(R.string.script_permission_done)
                     script_command_title.visibility = View.VISIBLE
                     val string = "su -c /system/bin/sh $file"
                     script_command.text = string
@@ -123,47 +127,29 @@ class ScriptActivity : AppCompatActivity() {
     }
 
     private fun runScript() {
-        val process = Runtime.getRuntime().exec(arrayOf("su", "-c", "/system/bin/sh", file.toString()))
-        val inputStream = process.inputStream
-        val inputStreamError = process.errorStream
+        val command = Shell.su("/system/bin/sh ${file.toString()}").exec()
+        val outputList = command.out
 
-        val inputStreamReader = InputStreamReader(inputStream, StandardCharsets.UTF_8)
-        val inputStreamReaderError = InputStreamReader(inputStreamError, StandardCharsets.UTF_8)
-
-        val bufferedReader = BufferedReader(inputStreamReader)
-        val bufferedReaderError = BufferedReader(inputStreamReaderError)
-
-        Thread {
-            val output = StringBuilder()
-            var string = bufferedReader.readLine()
-            while (string != null) {
-                output.append(string)
-                string = bufferedReader.readLine()
-                if (string != null) {
-                    output.append("\n")
+        // 内容输出 output process
+        if (outputList.size > 0) {
+            runOnUiThread { script_process_title.visibility = View.VISIBLE }
+            Thread {
+                for (i in outputList) {
+                    runOnUiThread { script_process.append(i + "\n") }
                 }
-            }
-            runOnUiThread {
-                script_process_title.visibility = View.VISIBLE
-                script_process.text = output.toString()
-            }
-        }.start()
+            }.start()
+        }
 
-        Thread {
-            val output = StringBuilder()
-            var string = bufferedReaderError.readLine()
-            while (string != null) {
-                output.append(string)
-                string = bufferedReader.readLine()
-                if (string != null) {
-                    output.append("\n")
+        // 错误输出 output error
+        val errorList = command.err
+        if (errorList.size > 0) {
+            runOnUiThread { script_error_title.visibility = View.VISIBLE }
+            Thread {
+                for (i in outputList) {
+                    runOnUiThread { script_error.append(i + "\n") }
                 }
-            }
-            runOnUiThread {
-                script_error_title.visibility = View.VISIBLE
-                script_error.text = output.toString()
-            }
-        }.start()
+            }.start()
+        }
     }
 
     override fun onBackPressed() {

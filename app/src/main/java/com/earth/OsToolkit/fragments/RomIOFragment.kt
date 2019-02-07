@@ -1,5 +1,6 @@
 package com.earth.OsToolkit.fragments
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.support.v4.app.Fragment
@@ -12,6 +13,8 @@ import android.widget.SeekBar
 
 import com.earth.OsToolkit.R
 import com.earth.OsToolkit.base.BaseIndex.*
+import com.earth.OsToolkit.base.BaseKotlinOperation
+import com.earth.OsToolkit.base.BaseKotlinOperation.Companion.ShortToast
 import com.earth.OsToolkit.base.BaseManager
 import com.earth.OsToolkit.base.BaseKotlinOperation.Companion.checkFilePresent
 import com.earth.OsToolkit.base.BaseKotlinOperation.Companion.readFile
@@ -102,7 +105,7 @@ class RomIOFragment : Fragment() {
                                 "echo", "\"" + progress + "\"", ">", "/sys/block/mmcblk0/queue/rq_affinity"))
                             Log.i("rq_affinity", process.waitFor().toString())
                         } catch (e : Exception) {
-                            e.printStackTrace()
+                            ShortToast(activity as Context, e.toString())
                         }
                     }
                     override fun onStartTrackingTouch(seekBar: SeekBar?) {

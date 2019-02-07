@@ -19,8 +19,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="@dimen/cardview_title"
-            android:textStyle="bold"
-            android:text="@string/processor"/>
+            android:textStyle="bold"/>
         
         <LinearLayout
             android:layout_width="match_parent"

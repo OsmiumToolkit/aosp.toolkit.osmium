@@ -34,6 +34,7 @@ android {
                             'src/main/res/layouts/welcome',
                             'src/main/res/layouts/fragment',
                             'src/main/res/layouts/script',
+                            'src/main/res/layouts/disableapp',
                             'src/main/res/layouts/view',
                             'src/main/res'
                     ]

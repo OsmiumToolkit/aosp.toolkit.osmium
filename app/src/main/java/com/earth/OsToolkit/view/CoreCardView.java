@@ -44,13 +44,10 @@ public class CoreCardView extends LinearLayout {
 
         new Thread(this::setMaxCurrentFreq).start();
         new Thread(this::setMinCurrentFreq).start();
+        new Thread(this::setGovernor).start();
     }
 
     public int i = 0;
-    public int getI() {
-        return this.i;
-    }
-
     private void setMaxCurrentFreq() {
         Spinner spinner = findViewById(R.id.ccv_max_freq);
 
@@ -107,9 +104,6 @@ public class CoreCardView extends LinearLayout {
     }
 
     private int j = 0;
-    public int getJ() {
-        return this.j;
-    }
     private void setMinCurrentFreq() {
         Spinner spinner = findViewById(R.id.ccv_min_freq);
 
@@ -139,7 +133,7 @@ public class CoreCardView extends LinearLayout {
                     list);
             arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
             spinner.setAdapter(arrayAdapter);
-            spinner.setSelection(getJ());
+            spinner.setSelection(j);
             spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                 @Override
                 public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -164,54 +158,59 @@ public class CoreCardView extends LinearLayout {
 
     }
 
-    public void setGovernor(List<String> list) {
+    private int k = 0;
+    public void setGovernor() {
+
         Spinner spinner = findViewById(R.id.ccv_governor);
+
+        ArrayList<String> list = new ArrayList<>(Arrays.asList(
+                BaseKotlinOperation.Companion.readFile("/sys/devices/system/cpu/cpu"
+                        + core + "/cpufreq/scaling_available_governors")
+                        .split(" ")));
 
         String governor = BaseKotlinOperation.Companion.readFile("sys/devices/system/cpu/cpu"
                 + core + "/cpufreq/scaling_governor");
 
-        int i = 0;
-        while (i < list.size()) {
-            if (list.get(i).equals(governor)) {
+        while (k < list.size()) {
+            if (list.get(k).equals(governor)) {
                 break;
             } else {
-                i++;
+                k++;
             }
         }
 
-        if (i == list.size()) {
-            i = 4;
-        }
+        activity.runOnUiThread(() -> {
+            ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(activity,
+                    android.R.layout.simple_spinner_dropdown_item,
+                    list);
+            arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+            spinner.setAdapter(arrayAdapter);
+            spinner.setSelection(k);
+            spinner.setOnItemSelectedListener(new Spinner.OnItemSelectedListener() {
+                @Override
+                public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
 
-        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(activity,
-                android.R.layout.simple_spinner_dropdown_item,
-                list);
-        arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinner.setAdapter(arrayAdapter);
-        spinner.setSelection(i);
-        spinner.setOnItemSelectedListener(new Spinner.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                    Log.i("cores_core", core + "");
+                    Log.i("cores_position", position + " " + list.get(position));
 
-                Log.i("cores_core", core + "");
-                Log.i("cores_position", position + " " + list.get(position));
+                    try {
+                        Process process = Runtime.getRuntime().exec(
+                                new String[]{"su", "-c",
+                                        "echo", "\"" + list.get(position) + "\"", ">",
+                                        "sys/devices/system/cpu/cpu" + core + "/cpufreq/scaling_governor"});
 
-                try {
-                    Process process = Runtime.getRuntime().exec(
-                            new String[]{"su", "-c",
-                                    "echo", "\"" + list.get(position) + "\"", ">",
-                                    "sys/devices/system/cpu/cpu" + core + "/cpufreq/scaling_governor"});
-
-                    Log.i("core_change_governor", process.waitFor() + "");
-                } catch (Exception e) {
-                    e.printStackTrace();
+                        Log.i("core_change_governor", process.waitFor() + "");
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
                 }
-            }
 
-            @Override
-            public void onNothingSelected(AdapterView<?> arg0) {
-            }
+                @Override
+                public void onNothingSelected(AdapterView<?> arg0) {
+                }
+            });
         });
+
 
     }
 

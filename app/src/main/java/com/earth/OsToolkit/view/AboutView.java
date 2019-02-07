@@ -28,7 +28,6 @@ import com.earth.OsToolkit.R;
 
 public class AboutView extends LinearLayout {
 
-
     public AboutView(Context context, AttributeSet attributeSet) {
         super(context, attributeSet);
 
@@ -60,37 +59,5 @@ public class AboutView extends LinearLayout {
         LinearLayout linearLayout = findViewById(R.id.root);
         linearLayout.setOnClickListener(l);
     }
-
-    /*
-    public AboutView(Context context, int img, int title) {
-        this(context, img, context.getString(title), "");
-    }
-
-    public AboutView(Context context, int img, int title, int summary) {
-        this(context, img, context.getString(title), context.getString(summary));
-    }
-
-    public AboutView(Context context, int img, int title, String summary) {
-        this(context, img, context.getString(title), summary);
-    }
-
-    public AboutView(Context context, int img, String title, String summary) {
-        super(context);
-
-        LayoutInflater.from(context).inflate(R.layout.view_about, this);
-
-        TextView textView_title = findViewById(R.id.about_title);
-        TextView textView_summary = findViewById(R.id.about_summary);
-        ImageView imageView = findViewById(R.id.about_img);
-
-        textView_title.setText(title);
-        if (summary.isEmpty()) {
-            textView_summary.setVisibility(View.GONE);
-        } else {
-            textView_summary.setText(summary);
-        }
-        imageView.setImageResource(img);
-    }
-    */
 
 }

@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v4.content.ContextCompat
 import android.view.*
+import com.earth.OsToolkit.DisableAppActivity
 
 import com.earth.OsToolkit.R
 import com.earth.OsToolkit.UsageActivity
@@ -65,6 +66,9 @@ class MainFragment : Fragment() {
         }
         jump.setOnClickListener {
             startActivity(Intent(activity, UsageActivity::class.java))
+        }
+        jump2.setOnClickListener {
+            startActivity(Intent(activity, DisableAppActivity::class.java))
         }
     }
 }

@@ -8,6 +8,7 @@ import android.support.v4.content.ContextCompat
 import android.support.v7.app.AppCompatActivity
 import android.view.LayoutInflater
 import android.widget.*
+import com.earth.OsToolkit.base.BaseKotlinOperation.Companion.ShortToast
 import com.earth.OsToolkit.base.BaseKotlinOperation.Companion.getAvailableCore
 import com.earth.OsToolkit.base.BaseKotlinOperation.Companion.readFile
 
@@ -67,7 +68,7 @@ class UsageActivity : AppCompatActivity() {
         t2.start()
         val t3 = Thread {
             val dir = File("/sys/class/thermal")
-            val file  = dir.listFiles().size
+            val file = dir.listFiles().size
             for (i: Int in 0 until file) {
                 val sensorDataChildView = SensorDataChildView(this, i)
                 runOnUiThread { rootThermal.addView(sensorDataChildView) }
@@ -76,7 +77,7 @@ class UsageActivity : AppCompatActivity() {
         }
         t3.start()
         Thread {
-            while (t1.isAlive || t2.isAlive || t3.isAlive ) {
+            while (t1.isAlive || t2.isAlive || t3.isAlive) {
                 try {
                     Thread.sleep(1)
                 } catch (e: java.lang.Exception) {
@@ -94,13 +95,7 @@ class UsageActivity : AppCompatActivity() {
             supportActionBar!!.setDisplayHomeAsUpEnabled(true)
 
         if (getSharedPreferences("ui", Context.MODE_PRIVATE).getBoolean("navBar", true)) {
-            // ContextCompact通用包
             window.navigationBarColor = ContextCompat.getColor(this, R.color.colorPrimary)
-
-            // 5.0+可过编译 6.0+弃用 无法更改颜色
-            // window.navigationBarColor = resources.getColor(R.color.colorPrimaryDark)
-            // 6.0加入的API 无法适配 5.0 / 5.1
-            // window.navigationBarColor = resources.getColor(R.color.colorPrimary, null)
         }
 
         toolbar.setNavigationOnClickListener { onBackPressed() }
@@ -182,7 +177,7 @@ class UsageActivity : AppCompatActivity() {
                     try {
                         Thread.sleep(1000)
                     } catch (e: Exception) {
-                        //
+                        ShortToast(activity, e.toString())
                     }
                 }
             }
@@ -199,17 +194,20 @@ class UsageActivity : AppCompatActivity() {
 
         init {
             LayoutInflater.from(activity).inflate(R.layout.view_sensordata, this)
-            val t = readFile("/sys/class/thermal/thermal_zone" + no + "/type")
+            val t = readFile("/sys/class/thermal/thermal_zone$no/type")
             title.text = t
 
             thread = Thread {
                 while (true) {
-                    val d = readFile("/sys/class/thermal/thermal_zone" + no + "/temp")
+                    var d = readFile("/sys/class/thermal/thermal_zone$no/temp")
+                    if (d.length == 5) {
+                        d = """${d[0]}${d[1]}.${d[2]}${d[3]}${d[4]}"""
+                    }
                     activity.runOnUiThread { content.text = d }
                     try {
                         Thread.sleep(1000)
                     } catch (e: Exception) {
-                        //
+                        ShortToast(activity as Context, e.toString())
                     }
                 }
             }

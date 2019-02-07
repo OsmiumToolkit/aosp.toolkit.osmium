@@ -182,5 +182,10 @@
     
     <string name="battery">电池</string>
     <string name="processor">处理器频率</string>
+    <string name="thermal_sensor">温度传感器</string>
     
+    <string name="disable_des">禁用不常用的应用，防止其后台运行服务而增加电池寿命\n单击右下"+"添加/移除\n单击图标启用并启动\n长按图标禁用\n***系统应用慎用***\n(长按此处移除此信息)</string>
+    <string name="disable_title">- 镇魂碑 -</string>
+    <string name="disable_toolbar">- 镇魂塔 -</string>
+    <string name="disable_select">选择&#8320;</string>
 </resources >

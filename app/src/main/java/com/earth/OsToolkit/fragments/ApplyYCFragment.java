@@ -18,6 +18,7 @@ package com.earth.OsToolkit.fragments;
 
 
 import android.app.Dialog;
+import android.content.SharedPreferences;
 import android.os.*;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;

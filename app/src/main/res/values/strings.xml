@@ -183,4 +183,10 @@
     
     <string name="battery">Battery</string>
     <string name="processor">Processor Frequency</string>
-</resources >
+    <string name="thermal_sensor">Thermal Sensor</string>
+    
+    <string name="disable_des">Disable app to stop background services for increasing battery life.\nClick"+"to add application.\nClick icon to enable and start.\nLong click icon to disable.\n***Be awareness to disable system app***\n(Long click here to hide this notice)</string>
+    <string name="disable_title">Added Applications</string>
+    <string name="disable_toolbar">Disable Apps</string>
+    <string name="disable_select">Select Apps&#8320;</string>
+</resources>

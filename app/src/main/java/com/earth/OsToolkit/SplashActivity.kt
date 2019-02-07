@@ -30,7 +30,8 @@ class SplashActivity : AppCompatActivity() {
         ActivityCompat.requestPermissions(this, permission, 1)
 
         if (getSharedPreferences("splash", Context.MODE_PRIVATE)
-                .getBoolean("welcome", false)) {
+                .getBoolean("welcome", false)
+        ) {
             startActivity(Intent(this, MainActivity::class.java))
         } else {
             startActivity(Intent(this, WelcomeActivity::class.java))

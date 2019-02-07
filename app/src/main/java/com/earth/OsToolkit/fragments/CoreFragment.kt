@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.view.*
 import com.earth.OsToolkit.R
+import com.earth.OsToolkit.base.BaseKotlinOperation
 import com.earth.OsToolkit.base.BaseKotlinOperation.Companion.getAvailableCore
 import com.earth.OsToolkit.view.CoreCardView
 import kotlinx.android.synthetic.main.fragment_core.*
@@ -35,19 +36,6 @@ class CoreFragment : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        val list: List<String> = listOf(
-            "impulse",
-            "zzmoove",
-            "cafactive",
-            "elementalx",
-            "interactive",
-            "conservative",
-            "dndemand",
-            "userspace",
-            "powersave",
-            "bioshock",
-            "performance"
-        )
 
         val dialog = Dialog(activity as Context)
         dialog.setContentView(LayoutInflater.from(activity).inflate(R.layout.dialog_loading, null))
@@ -58,12 +46,11 @@ class CoreFragment : Fragment() {
         Thread {
             for (i: Int in 0 until getAvailableCore()) {
                 val coreCardView = CoreCardView(activity, i)
-                coreCardView.setGovernor(list)
                 activity!!.runOnUiThread {
                     core_rootView.addView(coreCardView)
                 }
             }
-            Timer().schedule(object : TimerTask(){
+            Timer().schedule(object : TimerTask() {
                 override fun run() {
                     activity!!.runOnUiThread {
                         dialog.cancel()

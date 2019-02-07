@@ -1,5 +1,6 @@
 package com.earth.OsToolkit.fragments
 
+import android.content.Context
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.text.Editable
@@ -8,6 +9,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.earth.OsToolkit.R
+import com.earth.OsToolkit.base.BaseKotlinOperation.Companion.ShortToast
 import com.earth.OsToolkit.base.BaseKotlinOperation.Companion.checkFilePresent
 import com.earth.OsToolkit.base.BaseKotlinOperation.Companion.readFile
 import com.topjohnwu.superuser.Shell
@@ -60,10 +62,11 @@ class ExtendsFragment : Fragment() {
                     try {
                         editText.setSelection(s.toString().length.plus(1))
                     } catch (e: Exception) {
+                        ShortToast(activity as Context, e.toString())
                         try {
                             editText.setSelection(s.toString().length)
                         } catch (e: Exception) {
-                            //
+                            ShortToast(activity as Context, e.toString())
                         }
                     }
 

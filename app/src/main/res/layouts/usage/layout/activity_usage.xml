@@ -131,7 +131,15 @@
                         android:layout_height="wrap_content"
                         android:orientation="vertical"
                         android:padding="@dimen/cardView_linear_padding"
-                        android:id="@+id/rootThermal"/>
+                        android:id="@+id/rootThermal" >
+                        
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/thermal_sensor"
+                            android:textSize="@dimen/cardview_title"
+                            android:textColor="@android:color/black"/>
+                    </LinearLayout >
                 
                 </android.support.v7.widget.CardView >
             
