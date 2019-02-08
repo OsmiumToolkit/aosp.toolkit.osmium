@@ -9,6 +9,7 @@ import android.content.pm.PackageManager
 import android.os.Bundle
 import android.support.v4.content.ContextCompat
 import android.support.v7.app.AppCompatActivity
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.GridLayout
@@ -33,7 +34,7 @@ import java.lang.Exception
  */
 /*
  * Modify
- * 
+ *
  * 7-Feb-2019
  *
  */
@@ -49,7 +50,6 @@ class DisableAppActivity : AppCompatActivity() {
         dialog.show()
 
         initialize()
-        //val handler = Handler()
         Thread {
             // 已加入列表 added list
             val savedList = getSharedPreferences("disabledApp", Context.MODE_PRIVATE)
@@ -61,7 +61,7 @@ class DisableAppActivity : AppCompatActivity() {
                 val packageManager = packageManager
                 // 创建图标 Create Icon
                 for ((j, i) in savedList.withIndex()) {
-                    val appIconView = AppIconView(this,/* handler,*/ i, hidedList, packageManager)
+                    val appIconView = AppIconView(this, i, hidedList, packageManager)
 
                     // 定义图标位置
                     val layoutParams = GridLayout.LayoutParams()
@@ -70,6 +70,8 @@ class DisableAppActivity : AppCompatActivity() {
 
                     runOnUiThread { gridLayout.addView(appIconView, layoutParams) }
                 }
+            } else {
+                runOnUiThread { song.visibility = View.VISIBLE }
             }
 
             runOnUiThread { dialog.cancel() }
@@ -77,6 +79,7 @@ class DisableAppActivity : AppCompatActivity() {
     }
 
     private fun initialize() {
+        toolbar.setTitle(R.string.disable_toolbar)
         setSupportActionBar(toolbar)
 
         if (supportActionBar != null)
@@ -89,6 +92,14 @@ class DisableAppActivity : AppCompatActivity() {
             startActivityForResult(Intent(this, DisableSelectActivity::class.java), 0)
         }
         toolbar.setTitle(R.string.disable_toolbar)
+        if (!getSharedPreferences("ui", Context.MODE_PRIVATE).getBoolean("disableNotice", true)) {
+            notice.visibility = View.GONE
+        }
+        notice.setOnLongClickListener {
+            getSharedPreferences("ui", Context.MODE_PRIVATE).edit().putBoolean("disableNotice", false).apply()
+            notice.visibility = View.GONE
+            true
+        }
     }
 
     @Suppress("all")
@@ -102,6 +113,7 @@ class DisableAppActivity : AppCompatActivity() {
         dialog.show()
 
         Thread {
+            runOnUiThread { song.visibility = View.GONE }
             val savedList = getSharedPreferences("disabledApp", Context.MODE_PRIVATE)
                 .getStringSet("added", setOf<String>())
             val hidedList = Shell.su("pm list package -d").exec().out
@@ -109,7 +121,7 @@ class DisableAppActivity : AppCompatActivity() {
             if (savedList!!.size > 0) {
                 val packageManager = packageManager
                 for ((j, i) in savedList.withIndex()) {
-                    val appIconView = AppIconView(this,/* handler,*/ i, hidedList, packageManager)
+                    val appIconView = AppIconView(this, i, hidedList, packageManager)
 
                     val layoutParams = GridLayout.LayoutParams()
                     layoutParams.rowSpec = GridLayout.spec(j / 4, 1f)
@@ -117,6 +129,8 @@ class DisableAppActivity : AppCompatActivity() {
 
                     runOnUiThread { gridLayout.addView(appIconView, layoutParams) }
                 }
+            } else {
+                runOnUiThread { song.visibility = View.VISIBLE }
             }
 
             runOnUiThread { dialog.cancel() }
@@ -150,12 +164,17 @@ class DisableAppActivity : AppCompatActivity() {
                 isDisabled.visibility = View.GONE
             }
 
-            // 点击/长安监听 listener to click and long click
+            // 点击/长按监听 listener to click and long click
             root.setOnClickListener {
                 Thread {
                     activity.runOnUiThread { isDisabled.visibility = View.GONE }
                     Shell.su("pm enable $packageName").exec()
-                    openPackage(activity, packageManager, packageName)
+                    try {
+                        openPackage(activity, packageManager, packageName)
+                    } catch (e: Exception) {
+                        activity.runOnUiThread { ShortToast(activity, e.toString()) }
+                    }
+
                 }.start()
 
             }
@@ -164,6 +183,14 @@ class DisableAppActivity : AppCompatActivity() {
                     activity.runOnUiThread { isDisabled.visibility = View.VISIBLE }
                     Shell.su("pm disable $packageName").exec()
                 }.start()
+
+                ShortToast(
+                    activity as Context,
+                    String.format(
+                        activity.getString(R.string.t_disable),
+                        packageManager.getApplicationLabel(packageManager.getApplicationInfo(packageName, 0))
+                    )
+                )
                 true
             }
 
@@ -198,6 +225,7 @@ class DisableAppActivity : AppCompatActivity() {
         }
 
         private fun initialize() {
+            toolbar_sub.setTitle(R.string.disable_select)
             setSupportActionBar(toolbar_sub)
 
             if (supportActionBar != null)
@@ -207,7 +235,6 @@ class DisableAppActivity : AppCompatActivity() {
                 window.navigationBarColor = ContextCompat.getColor(this, R.color.colorPrimary)
             }
 
-            toolbar_sub.setTitle(R.string.disable_select)
             toolbar_sub.setNavigationOnClickListener { onBackPressed() }
         }
 
@@ -247,18 +274,35 @@ class DisableAppActivity : AppCompatActivity() {
 
                 // 设置监听 listeners
                 checkBox.setOnCheckedChangeListener { _, isChecked ->
+                    val dialog = Dialog(activity)
+                    dialog.setCancelable(false)
+                    dialog.setContentView(LayoutInflater.from(activity).inflate(R.layout.dialog_loading, null))
+                    dialog.show()
                     if (isChecked) {
-                        addedSet.add(packageInfo.packageName)
-                        activity.getSharedPreferences("disabledApp", Context.MODE_PRIVATE).edit()
-                            .putStringSet("added", addedSet).apply()
-                        Shell.su("pm disable ${packageInfo.packageName}").exec()
+                        Thread {
+                            addedSet.add(packageInfo.packageName)
+                            activity.getSharedPreferences("disabledApp", Context.MODE_PRIVATE).edit()
+                                .remove("added").putStringSet("added", addedSet).commit()
+                            Shell.su("pm disable ${packageInfo.packageName}").exec()
+                            dialog.cancel()
+                        }.start()
                     } else {
-                        addedSet.remove(packageInfo.packageName)
-                        try {
-                            Shell.su("pm enable ${packageInfo.packageName}").exec()
-                        } catch (e: Exception) {
-                            ShortToast(activity, e.toString())
-                        }
+                        Thread {
+                            addedSet.remove(packageInfo.packageName)
+                            Log.i("addedSet", addedSet.toString())
+                            activity.getSharedPreferences("disabledApp", Context.MODE_PRIVATE).edit()
+                                .remove("added").commit()
+                            if (addedSet.size > 0) {
+                                activity.getSharedPreferences("disabledApp", Context.MODE_PRIVATE).edit()
+                                    .putStringSet("added", addedSet).commit()
+                            }
+                            try {
+                                Shell.su("pm enable ${packageInfo.packageName}").exec()
+                            } catch (e: Exception) {
+                                ShortToast(activity, e.toString())
+                            }
+                            dialog.cancel()
+                        }.start()
                     }
                 }
                 rootRelative.setOnClickListener {

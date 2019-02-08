@@ -18,6 +18,7 @@ package com.earth.OsToolkit.fragments;
 
 
 import android.app.Dialog;
+import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.*;
 import android.support.annotation.NonNull;
@@ -52,6 +53,8 @@ public class ApplyYCFragment extends Fragment {
         dialog.setContentView(LayoutInflater.from(getActivity()).inflate(R.layout.dialog_loading, null));
         dialog.setCancelable(false);
         dialog.show();
+
+        getActivity().getSharedPreferences("1", Context.MODE_PRIVATE).edit().commit();
 
         LinearLayout linearLayout_snap = view.findViewById(R.id.yc_snap);
         LinearLayout linearLayout_exynos = view.findViewById(R.id.yc_exynos);

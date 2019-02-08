@@ -26,8 +26,10 @@ import kotlinx.android.synthetic.main.fragment_main.*
 
 class MainFragment : Fragment() {
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                              savedInstanceState: Bundle?): View? {
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
         return inflater.inflate(R.layout.fragment_main, container, false)
     }
 
@@ -44,30 +46,25 @@ class MainFragment : Fragment() {
         }
 
         re_system.setOnClickListener {
-            val process : Process = Runtime.getRuntime().exec(arrayOf("su", "-c", "reboot"))
+            val process: Process = Runtime.getRuntime().exec(arrayOf("su", "-c", "reboot"))
             process.waitFor()
         }
 
         re_rec.setOnClickListener {
-            val process : Process = Runtime.getRuntime().exec(arrayOf("su", "-c", "reboot", "recovery"))
+            val process: Process = Runtime.getRuntime().exec(arrayOf("su", "-c", "reboot", "recovery"))
             process.waitFor()
         }
 
         re_soft.setOnClickListener {
-            val process : Process = Runtime.getRuntime().exec(arrayOf("su","-c","killall","zygote"))
+            val process: Process = Runtime.getRuntime().exec(arrayOf("su", "-c", "killall", "zygote"))
             process.waitFor()
         }
 
-        coolapk.setOnClickListener {
-            accessCoolapkRelease(activity, PackageName)
-        }
-        github.setOnClickListener {
-            Accessing.accessGibHubRelease(activity)
-        }
-        jump.setOnClickListener {
+        fetching.setOnClickListener {
             startActivity(Intent(activity, UsageActivity::class.java))
         }
-        jump2.setOnClickListener {
+
+        disabletower.setOnClickListener {
             startActivity(Intent(activity, DisableAppActivity::class.java))
         }
     }
