@@ -50,7 +50,7 @@
                 android:layout_margin="@dimen/cardView_margin"
                 android:padding="@dimen/cardView_padding"
                 android:id="@+id/notice"
-                android:background="?android:attr/selectableItemBackground" >
+                android:background="@drawable/ripple_effect" >
                 
                 <TextView
                     android:layout_width="wrap_content"
@@ -81,6 +81,14 @@
                         android:textColor="@android:color/black"
                         android:textSize="@dimen/cardview_title"
                         android:layout_gravity="center" />
+                    
+                    
+                    <ProgressBar
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="90dp"
+                        android:id="@+id/progressBar"
+                        android:layout_gravity="center"/>
                     
                     <TextView
                         android:layout_width="wrap_content"

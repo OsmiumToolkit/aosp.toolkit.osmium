@@ -84,16 +84,6 @@ class ExtendsFragment : Fragment() {
                         "ifconfig wlan0 up",
                         "svc wifi enable"
                     ).exec()
-
-                    /*
-                    Runtime.getRuntime().exec(arrayOf("su", "-c", "chmod", "644", "/sys/class/net/wlan0/address"))
-                    Runtime.getRuntime().exec(arrayOf("su", "-c", "svc", "wifi", "disable"))
-                    Runtime.getRuntime().exec(arrayOf("su", "-c", "ifconfig", "wlan0", "down"))
-                    Runtime.getRuntime().exec(arrayOf("su", "-c", "echo", mac,">", "/sys/class/net/wlan0/address"))
-                    Runtime.getRuntime().exec(arrayOf("su", "-c", "ifconfig", "wlan0", "hw", "ether", mac))
-                    Runtime.getRuntime().exec(arrayOf("su", "-c", "ifconfig", "wlan0", "up"))
-                    Runtime.getRuntime().exec(arrayOf("su", "-c", "svc", "wifi", "enable"))
-                    */
                 }
             }
 

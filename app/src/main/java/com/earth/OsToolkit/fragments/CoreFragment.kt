@@ -6,8 +6,9 @@ import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.view.*
 import com.earth.OsToolkit.R
-import com.earth.OsToolkit.base.BaseKotlinOperation
+import com.earth.OsToolkit.base.BaseKotlinOperation.Companion.ShortToast
 import com.earth.OsToolkit.base.BaseKotlinOperation.Companion.getAvailableCore
+import com.earth.OsToolkit.base.BaseManager
 import com.earth.OsToolkit.view.CoreCardView
 import kotlinx.android.synthetic.main.fragment_core.*
 import java.util.*
@@ -42,21 +43,28 @@ class CoreFragment : Fragment() {
         dialog.setCancelable(false)
         dialog.show()
 
-
         Thread {
-            for (i: Int in 0 until getAvailableCore()) {
-                val coreCardView = CoreCardView(activity, i)
-                activity!!.runOnUiThread {
-                    core_rootView.addView(coreCardView)
-                }
-            }
-            Timer().schedule(object : TimerTask() {
-                override fun run() {
+            try {
+                for (i: Int in 0 until getAvailableCore()) {
+                    val coreCardView = CoreCardView(activity, i)
                     activity!!.runOnUiThread {
-                        dialog.cancel()
+                        core_rootView.addView(coreCardView)
                     }
                 }
-            }, 1000)
+            } catch (e: Exception) {
+                activity?.runOnUiThread {
+                    ShortToast(activity as Context, e.toString())
+                    BaseManager.getInstance().exceptionBreaker(this)
+                }
+            } finally {
+                Timer().schedule(object : TimerTask() {
+                    override fun run() {
+                        activity!!.runOnUiThread {
+                            dialog.cancel()
+                        }
+                    }
+                }, 1000)
+            }
         }.start()
     }
 }

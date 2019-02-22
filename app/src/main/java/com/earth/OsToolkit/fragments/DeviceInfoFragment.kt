@@ -115,14 +115,6 @@ class DeviceInfoFragment : Fragment() {
         t5.start()
 
         val t6 = Thread {
-            /*
-            val display = activity!!.windowManager.defaultDisplay
-            val point = Point()
-            display.getSize(point)
-            val x = point.x
-            val y = point.y
-            val r = ChildView(activity, R.string.deviceinfo_display_resolution, x.toString() + "x" + y.toShort())
-            */
 
             val displayMatrix = activity!!.resources.displayMetrics
             val x = displayMatrix.widthPixels

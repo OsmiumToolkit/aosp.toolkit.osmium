@@ -23,7 +23,7 @@
                 android:id="@+id/header"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="?android:attr/selectableItemBackground"
+                android:background="@drawable/ripple_effect"
                 android:clickable="true"
                 android:focusable="true" >
                 
@@ -34,7 +34,7 @@
                     android:text="@string/reboot"
                     android:textColor="@android:color/black"
                     android:textSize="@dimen/cardview_title"
-                    android:padding="@dimen/cardView_padding"/>
+                    android:padding="@dimen/cardView_padding" />
                 
                 <ImageView
                     android:id="@+id/indicator"
@@ -57,7 +57,7 @@
                     android:id="@+id/re_system"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="?android:attr/selectableItemBackground"
+                    android:background="@drawable/ripple_effect"
                     android:clickable="true"
                     android:focusable="true"
                     android:padding="@dimen/about_pad" >
@@ -80,7 +80,7 @@
                     android:id="@+id/re_rec"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="?android:attr/selectableItemBackground"
+                    android:background="@drawable/ripple_effect"
                     android:clickable="true"
                     android:focusable="true"
                     android:padding="@dimen/cardView_padding" >
@@ -103,7 +103,7 @@
                     android:id="@+id/re_soft"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="?android:attr/selectableItemBackground"
+                    android:background="@drawable/ripple_effect"
                     android:clickable="true"
                     android:focusable="true"
                     android:padding="@dimen/cardView_padding" >
@@ -133,7 +133,7 @@
         android:padding="@dimen/cardView_padding"
         android:layout_margin="@dimen/cardView_margin"
         app:cardCornerRadius="@dimen/cardView_cardCornerRadius"
-        android:background="?android:attr/selectableItemBackground"
+        android:background="@drawable/ripple_effect"
         android:id="@+id/fetching"
         android:clickable="true"
         android:focusable="true" >

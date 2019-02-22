@@ -26,125 +26,181 @@
                 app:popupTheme="@style/AppTheme.PopupOverlay" />
         </android.support.design.widget.AppBarLayout >
         
-        <ScrollView
+        
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             app:layout_behavior="@string/appbar_scrolling_view_behavior" >
             
-            <LinearLayout
-                android:layout_width="match_parent"
+            <ProgressBar
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="vertical" >
+                android:layout_centerVertical="true"
+                android:layout_centerHorizontal="true"
+                style="appCompat.OPp" />
+            
+            <ScrollView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:id="@+id/scrollView"
+                android:visibility="gone"
+                android:background="@color/gray_fafafa" >
                 
-                <lecho.lib.hellocharts.view.LineChartView
-                    android:layout_width="match_parent"
-                    android:layout_height="100dp"
-                    android:id="@+id/lineChartView"
-                    android:visibility="gone" />
-                
-                <android.support.v7.widget.CardView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:padding="@dimen/cardView_padding"
-                    android:layout_margin="@dimen/cardView_margin"
-                    app:cardCornerRadius="@dimen/cardView_cardCornerRadius" >
-                    
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:id="@+id/rootFreq"
-                        android:orientation="vertical"
-                        android:layout_margin="@dimen/cardView_linear_padding" >
-                        
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:textSize="@dimen/cardview_title"
-                            android:textColor="@android:color/black"
-                            android:text="@string/processor" />
-                    </LinearLayout >
-                
-                </android.support.v7.widget.CardView >
-                
-                <android.support.v7.widget.CardView
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:padding="@dimen/cardView_padding"
-                    android:layout_margin="@dimen/cardView_margin"
-                    app:cardCornerRadius="@dimen/cardView_cardCornerRadius" >
+                    android:orientation="vertical" >
                     
-                    <LinearLayout
+                    <android.support.v7.widget.CardView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:orientation="vertical"
-                        android:padding="@dimen/cardView_linear_padding" >
-                        
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@string/battery"
-                            android:textSize="@dimen/cardview_title"
-                            android:textColor="@android:color/black" />
+                        android:padding="@dimen/cardView_padding"
+                        android:layout_margin="@dimen/cardView_margin"
+                        app:cardCornerRadius="@dimen/cardView_cardCornerRadius" >
                         
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:orientation="horizontal" >
+                            android:id="@+id/rootFreq"
+                            android:orientation="vertical"
+                            android:layout_margin="@dimen/cardView_linear_padding" >
+                            
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textSize="@dimen/cardview_title"
+                                android:textColor="@android:color/black"
+                                android:text="@string/processor" />
+                            
+                            <GridLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="horizontal"
+                                android:columnCount="2"
+                                android:id="@+id/grid" />
+                        
+                        </LinearLayout >
+                    
+                    </android.support.v7.widget.CardView >
+                    
+                    <android.support.v7.widget.CardView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:padding="@dimen/cardView_padding"
+                        android:layout_margin="@dimen/cardView_margin"
+                        app:cardCornerRadius="@dimen/cardView_cardCornerRadius" >
+                        
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            android:padding="@dimen/cardView_linear_padding" >
+                            
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/battery"
+                                android:textSize="@dimen/cardview_title"
+                                android:textColor="@android:color/black" />
                             
                             <ProgressBar
-                                android:layout_width="0dp"
+                                android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:layout_weight="25"
                                 android:id="@+id/progressBar"
                                 android:max="100"
                                 android:layout_gravity="center"
                                 android:progress="100"
                                 style="@style/Widget.AppCompat.ProgressBar.Horizontal" />
                             
-                            <TextView
-                                android:layout_width="0dp"
+                            <LinearLayout
+                                android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_weight="2"
-                                android:gravity="end"
-                                android:id="@+id/textView" />
+                                android:orientation="horizontal" >
+                                
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="@string/battery_level" />
+                                
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:gravity="end"
+                                    android:id="@+id/battery_level" />
+                                
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="%" />
+                            </LinearLayout >
                             
-                            <TextView
-                                android:layout_width="0dp"
+                            <LinearLayout
+                                android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_weight="1"
-                                android:text="%" />
+                                android:orientation="horizontal" >
+                                
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="@string/battery_voltage" />
+                                
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:id="@+id/battery_voltage" />
+                            </LinearLayout >
+    
+                            <LinearLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:orientation="horizontal" >
+        
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="@string/battery_current" />
+        
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:id="@+id/battery_current" />
+                            </LinearLayout >
                         
                         </LinearLayout >
+                    </android.support.v7.widget.CardView >
                     
-                    </LinearLayout >
-                </android.support.v7.widget.CardView >
-                
-                <android.support.v7.widget.CardView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:padding="@dimen/cardView_padding"
-                    android:layout_margin="@dimen/cardView_margin"
-                    app:cardCornerRadius="@dimen/cardView_cardCornerRadius" >
-                    
-                    <LinearLayout
+                    <android.support.v7.widget.CardView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:orientation="vertical"
-                        android:padding="@dimen/cardView_linear_padding"
-                        android:id="@+id/rootThermal" >
+                        android:padding="@dimen/cardView_padding"
+                        android:layout_margin="@dimen/cardView_margin"
+                        app:cardCornerRadius="@dimen/cardView_cardCornerRadius" >
                         
-                        <TextView
-                            android:layout_width="wrap_content"
+                        <LinearLayout
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="@string/thermal_sensor"
-                            android:textSize="@dimen/cardview_title"
-                            android:textColor="@android:color/black"/>
-                    </LinearLayout >
+                            android:orientation="vertical"
+                            android:padding="@dimen/cardView_linear_padding" >
+                            
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/thermal_sensor"
+                                android:textSize="@dimen/cardview_title"
+                                android:textColor="@android:color/black" />
+                            
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:orientation="vertical"
+                                android:id="@+id/rootThermal" />
+                        </LinearLayout >
+                    
+                    </android.support.v7.widget.CardView >
                 
-                </android.support.v7.widget.CardView >
+                </LinearLayout >
             
-            </LinearLayout >
-        
-        </ScrollView >
+            </ScrollView >
+        </RelativeLayout >
     </android.support.design.widget.CoordinatorLayout >
 </android.support.v4.widget.DrawerLayout >

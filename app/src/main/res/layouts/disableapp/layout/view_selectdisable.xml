@@ -13,7 +13,7 @@
         android:id="@+id/rootRelative"
         android:clickable="true"
         android:focusable="true"
-        >
+        android:background="@drawable/ripple_effect" >
         
         <ImageView
             android:layout_width="70dp"

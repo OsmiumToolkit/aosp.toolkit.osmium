@@ -18,6 +18,7 @@ package com.earth.OsToolkit
 
 import android.app.Dialog
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.support.design.widget.NavigationView
 import android.support.v4.app.Fragment
@@ -38,7 +39,7 @@ import java.util.*
 class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
 
     // 定义fragments
-    private var mainFragment: Fragment = MainFragment()
+    private var mainFragment: MainFragment = MainFragment()
     private var aboutFragment: Fragment? = null
     private var deviceInfoFragment: Fragment? = null
     private var chargingFragment: Fragment? = null
@@ -56,7 +57,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
         // 移除上一个activity
         BaseManager.getInstance().finishActivities()
-        BaseManager.instance.setMainActivity(this)
+        BaseManager.instance.setMainActivity(this, mainFragment)
 
         val dialog = Dialog(this)
         dialog.setContentView(LayoutInflater.from(this).inflate(R.layout.dialog_loading, null))
@@ -92,40 +93,45 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         )
 
         drawer_layout.addDrawerListener(toggle)
-        val view: View = nav_view.getHeaderView(0)
         toggle.syncState()
 
-        val navAbout: LinearLayout = view.findViewById(R.id.nav_about)
         // 监听 listeners
-        navAbout.setOnClickListener {
+        nav_about.setOnClickListener {
             drawer_layout.closeDrawer(GravityCompat.START)
             val fragmentTransaction = supportFragmentManager.beginTransaction()
             if (aboutFragment == null) {
                 aboutFragment = AboutFragment()
-                fragmentTransaction.add(R.id.frameLayout_main, aboutFragment!!)
+                fragmentTransaction.add(R.id.frameLayout_main, aboutFragment!!).hide(currentFragment)
             } else {
-                fragmentTransaction.show(aboutFragment!!)
+                if (currentFragment != aboutFragment)
+                    fragmentTransaction.show(aboutFragment!!).hide(currentFragment)
             }
-            fragmentTransaction.hide(currentFragment).commit()
+            fragmentTransaction.commit()
             currentFragment = aboutFragment!!
         }
-        val navDeviceInfo: LinearLayout = view.findViewById(R.id.nav_deviceinfo)
-        navDeviceInfo.setOnClickListener {
+
+        nav_deviceinfo.setOnClickListener {
             drawer_layout.closeDrawer(GravityCompat.START)
             val fragmentTransaction = supportFragmentManager.beginTransaction()
             if (deviceInfoFragment == null) {
                 deviceInfoFragment = DeviceInfoFragment()
-                fragmentTransaction.add(R.id.frameLayout_main, deviceInfoFragment!!)
+                fragmentTransaction.add(R.id.frameLayout_main, deviceInfoFragment!!).hide(currentFragment)
             } else {
-                fragmentTransaction.show(deviceInfoFragment!!)
+                if (currentFragment != deviceInfoFragment)
+                    fragmentTransaction.show(deviceInfoFragment!!).hide(currentFragment)
             }
-            fragmentTransaction.hide(currentFragment).commit()
+            fragmentTransaction.commit()
             currentFragment = deviceInfoFragment!!
+        }
+
+        nav_tower.setOnClickListener {
+            drawer_layout.closeDrawer(GravityCompat.START)
+            startActivity(Intent(this, DisableAppActivity::class.java))
         }
 
         if (getSharedPreferences("ui", Context.MODE_PRIVATE).getBoolean("navBar", true)) {
             // ContextCompact通用包
-            window.navigationBarColor = ContextCompat.getColor(this, R.color.colorPrimary)
+            window.navigationBarColor = ContextCompat.getColor(this, R.color.colorPrimaryDark)
 
             // 5.0+可过编译 6.0+弃用 无法更改颜色
             // window.navigationBarColor = resources.getColor(R.color.colorPrimaryDark)
@@ -134,6 +140,10 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         }
 
         nav_view.setNavigationItemSelectedListener(this)
+    }
+
+    fun exceptionBeaker() {
+        this.currentFragment = mainFragment
     }
 
     private fun addFragment() {
@@ -150,6 +160,12 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         if (drawer_layout.isDrawerOpen(GravityCompat.START)) {
             drawer_layout.closeDrawer(GravityCompat.START)
         } else {
+            val fragmentManager = supportFragmentManager.beginTransaction()
+            for (i in supportFragmentManager.fragments) {
+                fragmentManager.remove(i)
+            }
+            fragmentManager.commit()
+
             super.onBackPressed()
         }
     }

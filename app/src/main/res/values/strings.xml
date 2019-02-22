@@ -26,6 +26,7 @@
     <string name="nav_other">Other</string>
     <string name="nav_title_3rd" >3rd Party support</string >
     <string name="nav_yc" >YC cpufreq-interactive-opt</string >
+    <string name="nav_tower">- Tower -</string>
 
     <string name="name_yc9559" >\u0040yc9559</string >
     <string name="name_xzr" >\u0040xzr467706992</string >
@@ -183,6 +184,9 @@
     
     <string name="realtimefetching">Real-time data fetching</string>
     <string name="battery">Battery</string>
+    <string name="battery_level">Battery Level:\u0020</string>
+    <string name="battery_voltage">Battery Voltage:\u0020</string>
+    <string name="battery_current">Battery Current:\u0020</string >
     <string name="processor">Processor Frequency</string>
     <string name="thermal_sensor">Thermal Sensor</string>
     

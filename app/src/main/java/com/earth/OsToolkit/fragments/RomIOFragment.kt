@@ -57,14 +57,11 @@ class RomIOFragment : Fragment() {
         tabLayout.setupWithViewPager(viewPager)
     }
 
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-        //BaseManager.getInstance().restartRomIOFragment()
-    }
-
-    class ViewPagerAdapter(fragmentManager: FragmentManager?,
-                           private var fragmentList: List<Fragment>,
-                           private var tabList: List<String>) : FragmentPagerAdapter(fragmentManager) {
+    class ViewPagerAdapter(
+        fragmentManager: FragmentManager?,
+        private var fragmentList: List<Fragment>,
+        private var tabList: List<String>
+    ) : FragmentPagerAdapter(fragmentManager) {
         override fun getItem(p0: Int): Fragment {
             return fragmentList[p0]
         }
@@ -95,32 +92,54 @@ class RomIOFragment : Fragment() {
 
         override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
             super.onViewCreated(view, savedInstanceState)
-            val seekBar : AppCompatSeekBar = view.findViewById(R.id.seekBar)
-            if (checkFilePresent("/sys/block/mmcblk0/queue/rq_affinity")) {
-                seekBar.progress = if (readFile("/sys/block/mmcblk0/queue/rq_affinity") == "Fail") {1} else {readFile("/sys/block/mmcblk0/queue/rq_affinity").toInt()}
-                seekBar.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
-                    override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
-                        try {
-                            val process = Runtime.getRuntime().exec(arrayOf("su", "-c",
-                                "echo", "\"" + progress + "\"", ">", "/sys/block/mmcblk0/queue/rq_affinity"))
-                            Log.i("rq_affinity", process.waitFor().toString())
-                        } catch (e : Exception) {
-                            ShortToast(activity as Context, e.toString())
+            val seekBar: AppCompatSeekBar = view.findViewById(R.id.seekBar)
+            Thread {
+                if (checkFilePresent("/sys/block/mmcblk0/queue/rq_affinity")) {
+                    val status = readFile("/sys/block/mmcblk0/queue/rq_affinity")
+                    activity!!.runOnUiThread {
+                        seekBar.progress = if (status == "Fail") {
+                            1
+                        } else {
+                            status.toInt()
                         }
-                    }
-                    override fun onStartTrackingTouch(seekBar: SeekBar?) {
+                        seekBar.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
+                            override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
+                                try {
+                                    Thread {
+                                        Runtime.getRuntime().exec(
+                                            arrayOf(
+                                                "su",
+                                                "-c",
+                                                "echo",
+                                                "\"" + progress + "\"",
+                                                ">",
+                                                "/sys/block/mmcblk0/queue/rq_affinity"
+                                            )
+                                        )
+                                    }.start()
+                                } catch (e: Exception) {
+                                    ShortToast(activity as Context, e.toString())
+                                }
+                            }
 
-                    }
-                    override fun onStopTrackingTouch(seekBar: SeekBar?) {
+                            override fun onStartTrackingTouch(seekBar: SeekBar?) {
 
+                            }
+
+                            override fun onStopTrackingTouch(seekBar: SeekBar?) {
+
+                            }
+                        })
                     }
-                })
-            } else {
-                seekBar.isEnabled = false
-            }
+
+                } else {
+                    activity!!.runOnUiThread { seekBar.isEnabled = false }
+                }
+            }.start()
+
         }
 
-        fun getParent(parent: RomIOFragment){
+        fun getParent(parent: RomIOFragment) {
             this.parent = parent
         }
     }
@@ -141,27 +160,45 @@ class RomIOFragment : Fragment() {
 
         override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
             super.onViewCreated(view, savedInstanceState)
-            val seekBar : AppCompatSeekBar = view.findViewById(R.id.seekBar)
-            if (checkFilePresent("/sys/block/sda/queue/rq_affinity")) {
-                seekBar.progress = readFile("/sys/block/sda/queue/rq_affinity").toInt()
-                seekBar.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
-                    override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
-                        try {
-                            val process = Runtime.getRuntime().exec(arrayOf("su", "-c",
-                                "echo", "\"" + progress + "\"", ">", "/sys/block/sda/queue/rq_affinity"))
-                            Log.i("rq_affinity", process.waitFor().toString())
-                        } catch (e : Exception) {
-                            e.printStackTrace()
+            val seekBar: AppCompatSeekBar = view.findViewById(R.id.seekBar)
+            Thread {
+                if (checkFilePresent("/sys/block/sda/queue/rq_affinity")) {
+                    val status = readFile("/sys/block/sda/queue/rq_affinity")
+                    activity!!.runOnUiThread {
+                        seekBar.progress = if (status == "Fail") {
+                            1
+                        } else {
+                            status.toInt()
                         }
+                        seekBar.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
+                            override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
+                                try {
+                                    Thread {
+                                        Runtime.getRuntime().exec(
+                                            arrayOf(
+                                                "su", "-c",
+                                                "echo", "\"" + progress + "\"", ">", "/sys/block/sda/queue/rq_affinity"
+                                            )
+                                        )
+                                    }.start()
+                                } catch (e: Exception) {
+                                    ShortToast(activity as Context, e.toString())
+                                }
+                            }
+
+                            override fun onStartTrackingTouch(seekBar: SeekBar?) {
+                            }
+
+                            override fun onStopTrackingTouch(seekBar: SeekBar?) {
+                            }
+                        })
                     }
-                    override fun onStartTrackingTouch(seekBar: SeekBar?) {
-                    }
-                    override fun onStopTrackingTouch(seekBar: SeekBar?) {
-                    }
-                })
-            } else {
-                seekBar.isEnabled = false
-            }
+
+                } else {
+                    activity!!.runOnUiThread { seekBar.isEnabled = false }
+                }
+            }.start()
+
         }
 
         fun getParent(parent: RomIOFragment) {

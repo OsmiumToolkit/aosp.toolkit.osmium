@@ -130,14 +130,14 @@ class WelcomeActivity : AppCompatActivity() {
         override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
             super.onViewCreated(view, savedInstanceState)
 
-            start_su.setOnClickListener { check() }
-        }
-
-        private fun check() {
-            if (checkRoot()) {
-                val sharedPreference = activity!!.getSharedPreferences("splash", Context.MODE_PRIVATE)
-                sharedPreference.edit().putBoolean("welcome", true).apply()
-                startActivity(Intent(activity, MainActivity::class.java))
+            start_su.setOnClickListener {
+                Thread {
+                    if (checkRoot()) {
+                        activity!!.getSharedPreferences("splash", Context.MODE_PRIVATE).edit()
+                            .putBoolean("welcome", true).apply()
+                        startActivity(Intent(activity, MainActivity::class.java))
+                    }
+                }.start()
             }
         }
     }

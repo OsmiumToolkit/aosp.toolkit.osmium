@@ -50,7 +50,7 @@
                     android:layout_weight="1"
                     android:src="@drawable/ic_arrow_forward"
                     android:padding="@dimen/frag_pad"
-                    android:background="?android:attr/selectableItemBackground"/>
+                    android:background="@drawable/ripple_effect"/>
             </LinearLayout >
             
         </LinearLayout >

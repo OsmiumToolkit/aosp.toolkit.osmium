@@ -4,18 +4,17 @@ import android.app.Activity
 import android.os.Bundle
 import android.support.v4.content.ContextCompat
 import android.support.v7.app.AppCompatActivity
-import android.support.v7.widget.Toolbar
-import android.util.Log
 import android.view.View
-import com.earth.OsToolkit.base.BaseKotlinOperation
+
+import com.earth.OsToolkit.base.BaseKotlinOperation.Companion.setPermission
 import com.earth.OsToolkit.base.BaseKotlinOperation.Companion.ShortToast
+
 import com.topjohnwu.superuser.Shell
 import kotlinx.android.synthetic.main.activity_script.*
+
 import java.io.*
 import java.lang.Exception
-import java.lang.StringBuilder
 import java.net.URL
-import java.nio.charset.StandardCharsets
 
 /*
  * OsToolkit - Kotlin
@@ -108,7 +107,7 @@ class ScriptActivity : AppCompatActivity() {
                 script_permission_title.visibility = View.VISIBLE
             }
 
-            if (BaseKotlinOperation.setPermission(file!!.toString())) {
+            if (setPermission(file!!.toString())) {
                 runOnUiThread {
                     script_permission.setText(R.string.script_permission_done)
                     script_command_title.visibility = View.VISIBLE

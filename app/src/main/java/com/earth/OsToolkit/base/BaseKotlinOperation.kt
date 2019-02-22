@@ -2,14 +2,9 @@ package com.earth.OsToolkit.base
 
 import android.content.Context
 import android.os.Build
-import android.os.Handler
-import android.view.MotionEvent
-import android.view.View
 import com.topjohnwu.superuser.Shell
 import java.io.*
 import java.util.regex.Pattern
-import android.view.View.OnTouchListener
-import android.view.View.OnLongClickListener
 import android.widget.Toast
 
 
@@ -75,7 +70,7 @@ class BaseKotlinOperation {
 
         fun readFile(filePath: String): String {
             val su: List<String> = Shell.su("cat $filePath").exec().out
-            val stringBuilder = java.lang.StringBuilder()
+            val stringBuilder = StringBuilder()
             for (i: Int in 0 until su.size) {
                 stringBuilder.append(su[i])
                 if (i != su.size - 1) {

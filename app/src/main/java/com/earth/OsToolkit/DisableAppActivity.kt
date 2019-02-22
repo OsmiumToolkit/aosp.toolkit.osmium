@@ -32,6 +32,7 @@ import java.lang.Exception
  * By   : 1552980358
  *
  */
+
 /*
  * Modify
  *
@@ -44,10 +45,6 @@ class DisableAppActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_disableapp)
-        val dialog = Dialog(this)
-        dialog.setCancelable(false)
-        dialog.setContentView(LayoutInflater.from(this).inflate(R.layout.dialog_loading, null))
-        dialog.show()
 
         initialize()
         Thread {
@@ -74,7 +71,9 @@ class DisableAppActivity : AppCompatActivity() {
                 runOnUiThread { song.visibility = View.VISIBLE }
             }
 
-            runOnUiThread { dialog.cancel() }
+            runOnUiThread {
+                progressBar.visibility = View.GONE
+            }
         }.start()
     }
 
@@ -174,10 +173,9 @@ class DisableAppActivity : AppCompatActivity() {
                     } catch (e: Exception) {
                         activity.runOnUiThread { ShortToast(activity, e.toString()) }
                     }
-
                 }.start()
-
             }
+
             root.setOnLongClickListener {
                 Thread {
                     activity.runOnUiThread { isDisabled.visibility = View.VISIBLE }
@@ -191,7 +189,7 @@ class DisableAppActivity : AppCompatActivity() {
                         packageManager.getApplicationLabel(packageManager.getApplicationInfo(packageName, 0))
                     )
                 )
-                true
+                return@setOnLongClickListener true
             }
 
         }
@@ -282,7 +280,9 @@ class DisableAppActivity : AppCompatActivity() {
                         Thread {
                             addedSet.add(packageInfo.packageName)
                             activity.getSharedPreferences("disabledApp", Context.MODE_PRIVATE).edit()
-                                .remove("added").putStringSet("added", addedSet).commit()
+                                .remove("added").commit()
+                            activity.getSharedPreferences("disabledApp", Context.MODE_PRIVATE).edit()
+                                .putStringSet("added", addedSet).commit()
                             Shell.su("pm disable ${packageInfo.packageName}").exec()
                             dialog.cancel()
                         }.start()

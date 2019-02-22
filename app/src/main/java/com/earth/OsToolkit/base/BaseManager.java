@@ -8,6 +8,7 @@ package com.earth.OsToolkit.base;
  *
  */
 
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import com.earth.OsToolkit.BuildConfig;
 import com.earth.OsToolkit.MainActivity;
@@ -19,7 +20,7 @@ import com.topjohnwu.superuser.Shell;
 
 public class BaseManager extends ContainerApp {
 
-    public BaseManager(){
+    public BaseManager() {
 
     }
 
@@ -66,14 +67,24 @@ public class BaseManager extends ContainerApp {
     }
 
     private MainActivity mainActivity;
-    public void setMainActivity(MainActivity mainActivity) {
+    private MainFragment mainFragment;
+
+    public void setMainActivity(MainActivity mainActivity, MainFragment mainFragment) {
         this.mainActivity = mainActivity;
+        this.mainFragment = mainFragment;
+    }
+
+    public void exceptionBreaker(Fragment fragment) {
+        mainActivity.getSupportFragmentManager().beginTransaction().remove(fragment).show(mainFragment).commit();
+        mainActivity.exceptionBeaker();
     }
 
     private ChargingFragment chargingFragment;
+
     public void setChargingFragment(ChargingFragment chargingFragment) {
         this.chargingFragment = chargingFragment;
     }
+
     public void restartChargingFragment() {
         ChargingFragment tmp = new ChargingFragment();
         FragmentTransaction fragmentTransaction = mainActivity.getSupportFragmentManager().beginTransaction();

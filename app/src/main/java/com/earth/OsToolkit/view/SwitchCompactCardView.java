@@ -79,11 +79,12 @@ public class SwitchCompactCardView extends LinearLayout {
             switchCompat.setChecked(status);
             indicator.setText(status ? R.string.sw_en : R.string.sw_dis);
             switchCompat.setOnCheckedChangeListener((buttonView, isChecked) -> {
-                fragment.startActivityForResult(new Intent(getContext(), ScriptActivity.class)
+                new Thread(() -> fragment.startActivityForResult(new Intent(getContext(), ScriptActivity.class)
                                 .putExtra("type", type)
                                 .putExtra("index", index)
                                 .putExtra("name", name),
-                        0);
+                        0)).start();
+
             });
         }
     }

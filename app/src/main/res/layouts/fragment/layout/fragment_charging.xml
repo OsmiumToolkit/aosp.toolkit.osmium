@@ -13,7 +13,10 @@
         android:layout_gravity="center"
         android:layout_margin="@dimen/cardView_margin"
         android:padding="@dimen/cardView_padding"
-        app:cardCornerRadius="@dimen/cardView_cardCornerRadius">
+        app:cardCornerRadius="@dimen/cardView_cardCornerRadius"
+        android:clickable="true"
+        android:focusable="true"
+        android:background="@drawable/ripple_effect">
 
         <TextView
             android:layout_width="wrap_content"

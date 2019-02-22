@@ -11,7 +11,7 @@
     <string name="reboot_rec" >重启Recovery</string >
     <string name="reboot_soft" >软重启</string >
     
-    <string name="loading">加载中&#8230;</string>
+    <string name="loading" >加载中&#8230;</string >
     
     <string name="cont" >继续</string >
     <string name="cancel" >取消</string >
@@ -23,9 +23,10 @@
     <string name="nav_charging" >充电相关</string >
     <string name="nav_processor" >处理器相关</string >
     <string name="nav_romio" >存储I/O</string >
-    <string name="nav_other">其他杂项</string>
+    <string name="nav_other" >其他杂项</string >
     <string name="nav_title_3rd" >第三方提供</string >
     <string name="nav_yc" >YC调度</string >
+    <string name="nav_tower" >- 镇魂塔 -</string >
     
     <string name="name_yc9559" >\u0040yc9559</string >
     <string name="name_xzr" >\u0040xzr467706992</string >
@@ -122,7 +123,7 @@
     <string name="romio_iostats_title" >统计</string >
     <string name="romio_iostats_sum" >关闭可提高性能 但是部分依赖此项的应用可能不能正常运行</string >
     <string name="romio_rq_title" >RQ归属</string >
-    <string name="romio_rq_sum">控制CPU在遭遇I/O事件时的调度激进程度</string>
+    <string name="romio_rq_sum" >控制CPU在遭遇I/O事件时的调度激进程度</string >
     <string name="romio_rq_extreme" >极端</string >
     <string name="romio_rq_default" >默认</string >
     <string name="romio_rq_conservative" >保守</string >
@@ -135,11 +136,11 @@
     <string name="deviceinfo_general_product" >产品</string >
     <string name="deviceinfo_general_hardware" >硬件</string >
     
-    <string name="deviceinfo_display_title">屏幕</string>
-    <string name="deviceinfo_display_resolution">分辨率</string>
-    <string name="deviceinfo_display_density">密度</string>
-    <string name="deviceinfo_display_densityDpi">像素密度DPI</string>
-    <string name="deviceinfo_display_scaledDensity">字体缩放比例</string>
+    <string name="deviceinfo_display_title" >屏幕</string >
+    <string name="deviceinfo_display_resolution" >分辨率</string >
+    <string name="deviceinfo_display_density" >密度</string >
+    <string name="deviceinfo_display_densityDpi" >像素密度DPI</string >
+    <string name="deviceinfo_display_scaledDensity" >字体缩放比例</string >
     
     <string name="deviceinfo_android_title" >Android</string >
     <string name="deviceinfo_android_version" >版本</string >
@@ -177,18 +178,21 @@
     <string name="apply_atom" >英特尔 Atom</string >
     <string name="apply_confirm" >将会为处理器"%s"下载约7kB的脚本文件,下载完成后会自动执行。\n继续?</string >
     
-    <string name="extends_mac_title">修改Mac地址</string>
-    <string name="extends_mac_sum">修改本机网络的mac地址\n（假如在修改后无法连接wifi，请重启解决手机，并且不再使用本功能）</string>
+    <string name="extends_mac_title" >修改Mac地址</string >
+    <string name="extends_mac_sum" >修改本机网络的mac地址\n（假如在修改后无法连接wifi，请重启解决手机，并且不再使用本功能）</string >
     
-    <string name="realtimefetching">实时检测</string>
-    <string name="battery">电池</string>
-    <string name="processor">处理器频率</string>
-    <string name="thermal_sensor">温度传感器</string>
+    <string name="realtimefetching" >实时检测</string >
+    <string name="battery" >电池</string >
+    <string name="battery_level" >电池电量:\u0020</string >
+    <string name="battery_voltage" >电池电压:\u0020</string >
+    <string name="battery_current" >电池电流:\u0020</string >
+    <string name="processor" >处理器频率</string >
+    <string name="thermal_sensor" >温度传感器</string >
     
-    <string name="disable_des">禁用不常用的应用，防止其后台运行服务而增加电池寿命\n单击右下"+"添加/移除\n单击图标启用并启动\n长按图标禁用\n***系统应用慎用***\n(长按此处移除此信息)</string>
-    <string name="disable_title">- 镇魂碑 -</string>
-    <string name="disable_toolbar">- 镇魂塔 -</string>
-    <string name="disable_select">选择&#8230;</string>
-    <string name="click">- 点击紫色区域进入『镇魂塔』 -</string>
-    <string name="t_disable">禁用 %s</string>
+    <string name="disable_des" >禁用不常用的应用，防止其后台运行服务而增加电池寿命\n单击右下"+"添加/移除\n单击图标启用并启动\n长按图标禁用\n***系统应用慎用***\n(长按此处移除此信息)</string >
+    <string name="disable_title" >- 镇魂碑 -</string >
+    <string name="disable_toolbar" >- 镇魂塔 -</string >
+    <string name="disable_select" >选择&#8230;</string >
+    <string name="click" >- 点击紫色区域进入『镇魂塔』 -</string >
+    <string name="t_disable" >镇压 %s</string >
 </resources >
