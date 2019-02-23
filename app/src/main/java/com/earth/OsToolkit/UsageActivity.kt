@@ -1,7 +1,6 @@
 package com.earth.OsToolkit
 
 import android.app.Activity
-import android.app.Dialog
 import android.content.*
 import android.os.BatteryManager
 import android.os.Bundle
@@ -43,6 +42,7 @@ class UsageActivity : AppCompatActivity() {
             for (i: Int in 0 until getAvailableCore()) {
                 val coreFreqView = CoreFreqView(this, i)
                 coreFreqViewList.add(coreFreqView)
+                // 设置控件位置 Position of view in grid
                 val layoutParams = GridLayout.LayoutParams()
                 layoutParams.rowSpec = GridLayout.spec(i / 2, 1f)
                 layoutParams.columnSpec = GridLayout.spec(i % 2, 1f)
@@ -61,13 +61,13 @@ class UsageActivity : AppCompatActivity() {
 
             val currentThread = Thread {
                 val batteryManager = getSystemService(Context.BATTERY_SERVICE) as BatteryManager
-                var c: String
-                var lastC = ""
+                var c: Int
+                var lastC = 0
                 while (true) {
-                    c =  batteryManager.getIntProperty(BatteryManager.BATTERY_PROPERTY_CURRENT_NOW).toString()
+                    c =  batteryManager.getIntProperty(BatteryManager.BATTERY_PROPERTY_CURRENT_NOW) / 1000
                     if (lastC != c) {
                         runOnUiThread {
-                            battery_current.text = "0.$c A"
+                            battery_current.text = "$c mA"
                         }
                         lastC = c
                     }
@@ -173,14 +173,18 @@ class UsageActivity : AppCompatActivity() {
                 var lastFreq = ""
                 while (true) {
                     f = readFile("/sys/devices/system/cpu/cpu$core/cpufreq/scaling_cur_freq")
+                    // 减低UI线程使用,对比上一秒频率
+                    // For reduce usage of UI Thread, compare freq of last second
                     if (lastFreq != f) {
                         activity.runOnUiThread { freq.text = "$f KHz" }
+                        // 改变后更新 Update after change
                         lastFreq = f
                     }
                     try {
                         Thread.sleep(1000)
                     } catch (e: Exception) {
-                        //
+                        // 防止线程停止后继续执行Sleep而导致应用崩溃
+                        // Prevent exception occur after interrupt
                     }
                 }
             }
@@ -201,16 +205,14 @@ class UsageActivity : AppCompatActivity() {
             title.text = t
 
             thread = Thread {
-                var d: String
+                var d: StringBuilder
                 var lastData = ""
                 while (true) {
-                    d = readFile("/sys/class/thermal/thermal_zone$no/temp")
-                    if (d.length == 5) {
-                        d = """${d[0]}${d[1]}.${d[2]}${d[3]}${d[4]}"""
-                    }
-                    if (lastData != d) {
-                        lastData = d
+                    d = StringBuilder(readFile("/sys/class/thermal/thermal_zone$no/temp"))
+                    d.insert(2, ".")
+                    if (lastData != d.toString()) {
                         activity.runOnUiThread { content.text = d }
+                        lastData = d.toString()
                     }
 
                     try {

@@ -17,6 +17,7 @@
     <string name="cancel" >Cancel</string >
 
     <string name="nav_main" >Home</string >
+    <string name="nav_monitor">Device monitor</string>
     <string name="nav_about" >AboutToolkit</string >
     <string name="nav_deviceinfo" >DeviceInfo</string >
     <string name="nav_title_toolkit" >Toolkit</string >
@@ -182,7 +183,7 @@
     <string name="extends_mac_title">Customize MAC address</string>
     <string name="extends_mac_sum">Customize network device\'s MAC address\n(Reboot and never use this if network can\'t be connected)</string>
     
-    <string name="realtimefetching">Real-time data fetching</string>
+   
     <string name="battery">Battery</string>
     <string name="battery_level">Battery Level:\u0020</string>
     <string name="battery_voltage">Battery Voltage:\u0020</string>

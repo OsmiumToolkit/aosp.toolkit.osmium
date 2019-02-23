@@ -17,9 +17,10 @@ package com.earth.OsToolkit.fragments;
  */
 
 
+import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
-import android.content.SharedPreferences;
+import android.content.Intent;
 import android.os.*;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -28,13 +29,15 @@ import android.util.Log;
 import android.view.*;
 import android.widget.*;
 import com.earth.OsToolkit.R;
-import com.earth.OsToolkit.view.YcDeviceView;
+import com.earth.OsToolkit.ScriptActivity;
 
 import java.io.*;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
 import java.util.Timer;
 import java.util.TimerTask;
+
+import static com.earth.OsToolkit.base.BaseIndex.type_yc;
 
 public class ApplyYCFragment extends Fragment {
     @Nullable
@@ -108,5 +111,29 @@ public class ApplyYCFragment extends Fragment {
             }, 1000);
 
         }).start();
+    }
+
+    public class YcDeviceView extends LinearLayout {
+        public YcDeviceView(Context context, Fragment fragment, String index, String board) {
+            super(context);
+            LayoutInflater.from(context).inflate(R.layout.view_ycdevice, this);
+
+            TextView textView = findViewById(R.id.title);
+            textView.setText(board);
+            RelativeLayout relativeLayout = findViewById(R.id.root);
+            relativeLayout.setOnClickListener(v -> {
+                AlertDialog.Builder builder = new AlertDialog.Builder(context);
+                builder.setTitle(board).setMessage(String.format(fragment.getString(R.string.apply_confirm), board))
+                        .setPositiveButton(R.string.cont, (dialog, which) -> {
+                            fragment.startActivity(new Intent(context, ScriptActivity.class)
+                                    .putExtra("type", type_yc)
+                                    .putExtra("index", index)
+                                    .putExtra("name", board));
+                        })
+                        .setNegativeButton(R.string.cancel, (dialog, which) -> {
+
+                        }).show();
+            });
+        }
     }
 }

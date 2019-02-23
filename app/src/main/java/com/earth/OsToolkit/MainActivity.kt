@@ -190,73 +190,80 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         // Handle navigation view item clicks here.
         drawer_layout.closeDrawer(GravityCompat.START)
-        val frag: Fragment
-        val fragmentTransaction = supportFragmentManager.beginTransaction()
-        val title: Int
-        when (item.itemId) {
-            R.id.nav_charging -> {
-                title = R.string.nav_charging
-                if (chargingFragment != null) {
-                    fragmentTransaction.show(chargingFragment!!)
-                } else {
-                    chargingFragment = ChargingFragment()
-                    fragmentTransaction.add(R.id.frameLayout_main, chargingFragment!!)
+
+        val id = item.itemId
+
+        if (id != R.id.nav_monitor) {
+            val frag: Fragment
+            val fragmentTransaction = supportFragmentManager.beginTransaction()
+            val title: Int
+            when (id) {
+                R.id.nav_charging -> {
+                    title = R.string.nav_charging
+                    if (chargingFragment != null) {
+                        fragmentTransaction.show(chargingFragment!!)
+                    } else {
+                        chargingFragment = ChargingFragment()
+                        fragmentTransaction.add(R.id.frameLayout_main, chargingFragment!!)
+                    }
+                    frag = chargingFragment!!
                 }
-                frag = chargingFragment!!
-            }
-            R.id.nav_cores -> {
-                title = R.string.nav_processor
-                if (coreFragment != null) {
-                    fragmentTransaction.show(coreFragment!!)
-                } else {
-                    coreFragment = CoreFragment()
-                    fragmentTransaction.add(R.id.frameLayout_main, coreFragment!!)
+                R.id.nav_cores -> {
+                    title = R.string.nav_processor
+                    if (coreFragment != null) {
+                        fragmentTransaction.show(coreFragment!!)
+                    } else {
+                        coreFragment = CoreFragment()
+                        fragmentTransaction.add(R.id.frameLayout_main, coreFragment!!)
+                    }
+                    frag = coreFragment!!
                 }
-                frag = coreFragment!!
-            }
-            R.id.nav_applyyc -> {
-                title = R.string.nav_yc
-                if (applyYCFragment != null) {
-                    fragmentTransaction.show(applyYCFragment!!)
-                } else {
-                    applyYCFragment = ApplyYCFragment()
-                    fragmentTransaction.add(R.id.frameLayout_main, applyYCFragment!!)
+                R.id.nav_applyyc -> {
+                    title = R.string.nav_yc
+                    if (applyYCFragment != null) {
+                        fragmentTransaction.show(applyYCFragment!!)
+                    } else {
+                        applyYCFragment = ApplyYCFragment()
+                        fragmentTransaction.add(R.id.frameLayout_main, applyYCFragment!!)
+                    }
+                    frag = applyYCFragment!!
                 }
-                frag = applyYCFragment!!
-            }
-            R.id.nav_romio -> {
-                title = R.string.nav_romio
-                if (romIOFragment != null) {
-                    fragmentTransaction.show(romIOFragment!!)
-                } else {
-                    romIOFragment = RomIOFragment()
-                    fragmentTransaction.add(R.id.frameLayout_main, romIOFragment!!)
+                R.id.nav_romio -> {
+                    title = R.string.nav_romio
+                    if (romIOFragment != null) {
+                        fragmentTransaction.show(romIOFragment!!)
+                    } else {
+                        romIOFragment = RomIOFragment()
+                        fragmentTransaction.add(R.id.frameLayout_main, romIOFragment!!)
+                    }
+                    frag = romIOFragment!!
                 }
-                frag = romIOFragment!!
-            }
-            R.id.nav_others -> {
-                title = R.string.nav_other
-                if (extendsFragment != null) {
-                    fragmentTransaction.show(extendsFragment!!)
-                } else {
-                    extendsFragment = ExtendsFragment()
-                    fragmentTransaction.add(R.id.frameLayout_main, extendsFragment!!)
+                R.id.nav_others -> {
+                    title = R.string.nav_other
+                    if (extendsFragment != null) {
+                        fragmentTransaction.show(extendsFragment!!)
+                    } else {
+                        extendsFragment = ExtendsFragment()
+                        fragmentTransaction.add(R.id.frameLayout_main, extendsFragment!!)
+                    }
+                    frag = extendsFragment!!
                 }
-                frag = extendsFragment!!
+                else -> {
+                    frag = mainFragment
+                    fragmentTransaction.show(mainFragment)
+                    title = R.string.nav_main
+                }
             }
-            else -> {
-                frag = mainFragment
-                fragmentTransaction.show(mainFragment)
-                title = R.string.nav_main
+
+            toolbar.setTitle(title)
+            if (frag != currentFragment) {
+                fragmentTransaction.hide(currentFragment).commit()
             }
+            currentFragment = frag
+        } else {
+            startActivity(Intent(this, UsageActivity::class.java))
         }
 
-        toolbar.setTitle(title)
-        if (frag != currentFragment) {
-            fragmentTransaction.hide(currentFragment).commit()
-        }
-        currentFragment = frag
-        //Log.i("currentFragment", currentFragment.toString())
         return true
     }
 }

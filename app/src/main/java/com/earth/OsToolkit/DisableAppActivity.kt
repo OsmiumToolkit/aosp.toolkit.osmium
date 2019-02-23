@@ -201,6 +201,7 @@ class DisableAppActivity : AppCompatActivity() {
             super.onCreate(savedInstanceState)
             setContentView(R.layout.activity_disableselection)
             val dialog = Dialog(this)
+
             dialog.setCancelable(false)
             dialog.setContentView(LayoutInflater.from(this).inflate(R.layout.dialog_loading, null))
             dialog.show()

@@ -8,6 +8,7 @@ package com.earth.OsToolkit.view;
  *
  */
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.util.AttributeSet;
@@ -40,14 +41,14 @@ public class DeviceInfoView extends LinearLayout {
 
     @SuppressWarnings("ViewConstructor")
     public static class ChildView extends LinearLayout {
-        public ChildView(Context context, int i, String v) {
-            this(context, context.getString(i), v);
+        public ChildView(Activity activity, int i, String v) {
+            this(activity, activity.getString(i), v);
         }
 
-        public ChildView(Context context, String i, String v) {
-            super(context);
+        public ChildView(Activity activity, String i, String v) {
+            super(activity);
 
-            LayoutInflater.from(context).inflate(R.layout.childview_switchcompact, this);
+            LayoutInflater.from(activity).inflate(R.layout.childview_switchcompact, this);
             TextView item = findViewById(R.id.item);
             TextView value = findViewById(R.id.value);
             item.setText(i);

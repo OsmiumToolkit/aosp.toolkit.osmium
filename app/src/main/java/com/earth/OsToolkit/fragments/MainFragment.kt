@@ -60,10 +60,6 @@ class MainFragment : Fragment() {
             process.waitFor()
         }
 
-        fetching.setOnClickListener {
-            startActivity(Intent(activity, UsageActivity::class.java))
-        }
-
         disabletower.setOnClickListener {
             startActivity(Intent(activity, DisableAppActivity::class.java))
         }

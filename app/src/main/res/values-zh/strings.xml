@@ -17,6 +17,7 @@
     <string name="cancel" >取消</string >
     
     <string name="nav_main" >主页</string >
+    <string name="nav_monitor" >实时检测</string >
     <string name="nav_about" >关于应用</string >
     <string name="nav_deviceinfo" >设备信息</string >
     <string name="nav_title_toolkit" >工具箱</string >
@@ -181,7 +182,7 @@
     <string name="extends_mac_title" >修改Mac地址</string >
     <string name="extends_mac_sum" >修改本机网络的mac地址\n（假如在修改后无法连接wifi，请重启解决手机，并且不再使用本功能）</string >
     
-    <string name="realtimefetching" >实时检测</string >
+    
     <string name="battery" >电池</string >
     <string name="battery_level" >电池电量:\u0020</string >
     <string name="battery_voltage" >电池电压:\u0020</string >

@@ -2,7 +2,6 @@ package com.earth.OsToolkit.fragments
 
 import android.app.Dialog
 import android.content.Context
-import android.graphics.Point
 import android.os.*
 import android.support.v4.app.Fragment
 import android.view.*
@@ -39,7 +38,7 @@ import java.util.*
  *
  */
 
-@SuppressWarnings("all")
+//@SuppressWarnings("all")
 class DeviceInfoFragment : Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -55,26 +54,26 @@ class DeviceInfoFragment : Fragment() {
 
         val t1 = Thread {
             val m = ChildView(
-                activity,
+                activity!!,
                 R.string.deviceinfo_general_manufacturer,
                 Build.MANUFACTURER[0].toUpperCase() + Build.MANUFACTURER.substring(1)
             )
             val b = ChildView(
-                activity,
+                activity!!,
                 R.string.deviceinfo_general_brand,
                 Build.BRAND[0].toUpperCase() + Build.BOARD.substring(1)
             )
-            val mo = ChildView(activity, R.string.deviceinfo_general_model, Build.MODEL)
-            val d = ChildView(activity, R.string.deviceinfo_general_device, Build.DEVICE)
-            val p = ChildView(activity, R.string.deviceinfo_general_product, Build.PRODUCT)
-            val h = ChildView(activity, R.string.deviceinfo_general_hardware, Build.HARDWARE)
+            val mo = ChildView(activity!!, R.string.deviceinfo_general_model, Build.MODEL)
+            val d = ChildView(activity!!, R.string.deviceinfo_general_device, Build.DEVICE)
+            val p = ChildView(activity!!, R.string.deviceinfo_general_product, Build.PRODUCT)
+            val h = ChildView(activity!!, R.string.deviceinfo_general_hardware, Build.HARDWARE)
 
             activity!!.runOnUiThread { generalRoot.addViews(m, b, mo, d, p, h) }
         }
         t1.start()
 
         val t2 = Thread {
-            val v = ChildView(activity, R.string.deviceinfo_android_version, getAndroidVersion())
+            val v = ChildView(activity!!, R.string.deviceinfo_android_version, getAndroidVersion())
             val vN = ChildView(activity, R.string.deviceinfo_android_versionName, getAndroidVersionName())
             val s = ChildView(activity, R.string.deviceinfo_android_sdk, Build.VERSION.SDK_INT.toString())
             val t = ChildView(activity, R.string.deviceinfo_android_type, Build.TYPE)
@@ -129,7 +128,8 @@ class DeviceInfoFragment : Fragment() {
             val dd = ChildView(activity, R.string.deviceinfo_display_densityDpi, densityDpi.toString())
 
             val scaledDensity = displayMatrix.scaledDensity
-            val s = ChildView(activity, R.string.deviceinfo_display_scaledDensity, scaledDensity.toString())
+            val s =
+                ChildView(activity, R.string.deviceinfo_display_scaledDensity, scaledDensity.toString())
 
             activity!!.runOnUiThread { displayRoot.addViews(r, d, dd, s) }
         }
@@ -146,4 +146,5 @@ class DeviceInfoFragment : Fragment() {
             }, 1000)
         }.start()
     }
+
 }
