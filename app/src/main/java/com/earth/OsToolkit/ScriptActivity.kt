@@ -63,7 +63,7 @@ class ScriptActivity : AppCompatActivity() {
         Thread {
             try {
                 val url = URL(
-                    "https://raw.githubusercontent.com/1552980358/1552980358.github.io/master/" +
+                    "https://raw.githubusercontent.com/osmiumtoolkit/scripts/master" +
                             type + File.separator +
                             index + File.separator +
                             name

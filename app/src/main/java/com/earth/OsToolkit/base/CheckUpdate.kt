@@ -21,7 +21,7 @@ class CheckUpdate {
         override fun run() {
             super.run()
             try {
-                val url = URL("https://raw.githubusercontent.com/1552980358/1552980358.github.io/master/OsToolkit")
+                val url = URL("https://raw.githubusercontent.com/osmiumtoolkit/update/master/Version")
                 val inputStream: InputStream = url.openStream()
                 val inputStreamReader = InputStreamReader(inputStream, "utf-8")
                 val bufferedReader = BufferedReader(inputStreamReader)
@@ -41,7 +41,6 @@ class CheckUpdate {
             while (isAlive) {
                 sleep(1)
             }
-            Log.i("version", version)
             return version
         }
     }
@@ -71,7 +70,7 @@ class CheckUpdate {
             super.run()
             // 设置来源
             val url =
-                URL("https://raw.githubusercontent.com/1552980358/1552980358.github.io/master/OsToolkitChangelogZh")
+                URL("https://raw.githubusercontent.com/osmiumtoolkit/update/master/ChangelogZh")
             try {
                 // 连接&获取
                 val inputStream: InputStream = url.openStream()
@@ -100,7 +99,6 @@ class CheckUpdate {
         }
 
         fun returnData(): String {
-            Log.i("changelogZh", data.toString())
             return data.toString()
         }
     }
@@ -111,7 +109,7 @@ class CheckUpdate {
             super.run()
             // 设置来源
             val url =
-                URL("https://raw.githubusercontent.com/1552980358/1552980358.github.io/master/OsToolkitChangelogEn")
+                URL("https://raw.githubusercontent.com/osmiumtoolkit/update/master/ChangelogEn")
             try {
                 // 连接&获取
                 val inputStream: InputStream = url.openStream()
@@ -149,7 +147,7 @@ class CheckUpdate {
         var data: String? = null
         override fun run() {
             super.run()
-            val url = URL("https://raw.githubusercontent.com/1552980358/1552980358.github.io/master/OsToolkitDate")
+            val url = URL("https://raw.githubusercontent.com/osmiumtoolkit/update/master/Date")
             try {
                 val inputStream = url.openStream()
                 val inputStreamReader = InputStreamReader(inputStream, "utf-8")
@@ -175,82 +173,3 @@ class CheckUpdate {
     }
 
 }
-
-
-/*
-
-class CheckUpdate : Thread() {
-
-    private var version : String? = null
-    private var date : String? = null
-    private val changelogZh = StringBuilder()
-    private val changelogEn = StringBuilder()
-
-    override fun run() {
-        super.run()
-        try {
-            var url = URL("https://raw.githubusercontent.com/1552980358/1552980358.github.io/master/OsToolkit")
-            val inputStream : InputStream = url.openStream()
-            val inputStreamReader = InputStreamReader(inputStream, "utf-8")
-            val bufferedReader = BufferedReader(inputStreamReader)
-
-            version = bufferedReader.readLine()
-            date = bufferedReader.readLine()
-
-            if (bufferedReader.readLine() == "<ENG>") {
-                var string: String? = bufferedReader.readLine()
-                while (!string.equals(null) and !string.equals("<CN>")) {
-                    changelogEn.append("$string\n")
-                    string = bufferedReader.readLine()
-                }
-
-                while (!string.equals(null)) {
-                    changelogZh.append("$string\n")
-                    string = bufferedReader.readLine()
-                }
-            }
-
-            inputStream.close()
-            inputStreamReader.close()
-            bufferedReader.close()
-        } catch (e : Exception) {
-            e.printStackTrace()
-        }
-    }
-
-    // Thread blocking / 线程堵塞
-    fun waitFor() : Boolean  {
-        start()
-        if (!isInterrupted) {
-            while (isAlive) {
-                try {
-                    sleep(10)
-                } catch (e : Exception) {
-                    e.printStackTrace()
-                }
-            }
-            return true
-        }
-        return false
-    }
-
-    // return data / 返回数据
-    fun getVersion() : String? {
-        Log.i("version", version)
-        return this.version
-    }
-    fun getDate() : String? {
-        Log.i("date", date)
-        return this.date
-    }
-    fun getChangelogEn() : String? {
-        Log.i("changelogEn", changelogEn.toString())
-        return changelogEn.toString()
-    }
-    fun getChangelogZh() : String? {
-        Log.i("changelogZh", changelogZh.toString())
-        return changelogZh.toString()
-    }
-}
-
-        */
