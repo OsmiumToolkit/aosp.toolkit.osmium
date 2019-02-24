@@ -1,6 +1,7 @@
 package com.earth.OsToolkit.fragments
 
 import android.content.Context
+import android.content.Intent
 import android.os.Build
 import android.os.Bundle
 import android.support.v4.app.Fragment
@@ -14,6 +15,7 @@ import com.earth.OsToolkit.base.BaseIndex.*
 import com.earth.OsToolkit.base.BaseKotlinOperation.Companion.ShortToast
 import com.earth.OsToolkit.base.BaseKotlinOperation.Companion.checkFilePresent
 import com.earth.OsToolkit.base.BaseKotlinOperation.Companion.readFile
+import com.earth.OsToolkit.base.BaseManager
 import com.topjohnwu.superuser.Shell
 import kotlinx.android.synthetic.main.fragment_extends.*
 import java.lang.Exception
@@ -28,6 +30,11 @@ import java.lang.Exception
  */
 
 class ExtendsFragment : Fragment() {
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        BaseManager.getInstance().setExtendsFragment(this)
+    }
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.fragment_extends, container, false)
     }
@@ -98,5 +105,10 @@ class ExtendsFragment : Fragment() {
             }
 
         }
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        BaseManager.getInstance().restartExtendsFragment()
     }
 }

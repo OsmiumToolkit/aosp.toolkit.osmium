@@ -35,8 +35,6 @@ public class BaseManager extends ContainerApp {
 
     private WelcomeActivity welcomeActivity;
 
-    //public List<AppCompatActivity> appCompatActivities = new ArrayList<>();
-
     public synchronized static BaseManager getInstance() {
         if (instance == null) {
             instance = new BaseManager();
@@ -80,9 +78,14 @@ public class BaseManager extends ContainerApp {
     }
 
     private ChargingFragment chargingFragment;
+    private ExtendsFragment extendsFragment;
 
     public void setChargingFragment(ChargingFragment chargingFragment) {
         this.chargingFragment = chargingFragment;
+    }
+
+    public void setExtendsFragment(ExtendsFragment extendsFragment) {
+        this.extendsFragment = extendsFragment;
     }
 
     public void restartChargingFragment() {
@@ -93,17 +96,11 @@ public class BaseManager extends ContainerApp {
         mainActivity.onRecreateChargingFragment(tmp);
     }
 
-    //private RomIOFragment romIOFragment;
-    public void setRomIOFragment(RomIOFragment romIOFragment) {
-        //this.romIOFragment = romIOFragment;
-    }
-    /*
-    public void restartRomIOFragment() {
-        RomIOFragment tmp = new RomIOFragment();
+    public void restartExtendsFragment() {
+        ExtendsFragment tmp = new ExtendsFragment();
         FragmentTransaction fragmentTransaction = mainActivity.getSupportFragmentManager().beginTransaction();
-        fragmentTransaction.remove(romIOFragment).add(R.id.frameLayout_main, tmp).commit();
-        this.romIOFragment = tmp;
-        mainActivity.onRecreateRomIOFragment(tmp);
+        fragmentTransaction.remove(extendsFragment).add(R.id.frameLayout_main, tmp).commit();
+        this.extendsFragment = tmp;
+        mainActivity.onRecreateExtendsFragment(tmp);
     }
-    */
 }

@@ -63,7 +63,7 @@ class ScriptActivity : AppCompatActivity() {
         Thread {
             try {
                 val url = URL(
-                    "https://raw.githubusercontent.com/osmiumtoolkit/scripts/master" +
+                    "https://raw.githubusercontent.com/osmiumtoolkit/scripts/master/" +
                             type + File.separator +
                             index + File.separator +
                             name
@@ -90,7 +90,7 @@ class ScriptActivity : AppCompatActivity() {
                     fileOutputStream.close()
                 }
             } catch (e: Exception) {
-                ShortToast(this, e.toString())
+                runOnUiThread { ShortToast(this, e.toString()) }
             }
 
             setPermission()

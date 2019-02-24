@@ -34,11 +34,6 @@ import java.lang.Exception
  */
 
 class RomIOFragment : Fragment() {
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        BaseManager.getInstance().setRomIOFragment(this)
-    }
-
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.fragment_romio, container, false)
     }

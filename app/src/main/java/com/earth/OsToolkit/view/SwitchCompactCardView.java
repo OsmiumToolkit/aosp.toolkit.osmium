@@ -21,7 +21,6 @@ import android.content.res.TypedArray;
 import android.support.v4.app.Fragment;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
-import android.view.View;
 import android.widget.*;
 import android.support.v7.widget.SwitchCompat;
 
@@ -30,6 +29,7 @@ import com.earth.OsToolkit.ScriptActivity;
 
 import com.earth.OsToolkit.base.BaseKotlinOperation;
 
+@SuppressWarnings("all")
 public class SwitchCompactCardView extends LinearLayout {
 
     public SwitchCompactCardView(Context context, AttributeSet attributeSet) {
@@ -111,7 +111,6 @@ public class SwitchCompactCardView extends LinearLayout {
                                 .putExtra("index", index)
                                 .putExtra("name", name),
                         0)).start();
-
             });
         }
     }
