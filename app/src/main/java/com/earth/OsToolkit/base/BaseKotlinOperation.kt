@@ -69,7 +69,7 @@ class BaseKotlinOperation {
         }
 
         fun readFile(filePath: String): String {
-            val su: List<String> = Shell.su("cat $filePath").exec().out
+            val su = Shell.su("cat $filePath").exec().out
             val stringBuilder = StringBuilder()
             for (i: Int in 0 until su.size) {
                 stringBuilder.append(su[i])
@@ -89,6 +89,24 @@ class BaseKotlinOperation {
             val file = File(filePath)
             return file.exists()
         }
+
+        fun readShellContent(command: String): String {
+            val su = Shell.su(command).exec().out
+            val stringBuilder = StringBuilder()
+            for (i: Int in 0 until su.size) {
+                stringBuilder.append(su[i])
+                if (i != su.size - 1) {
+                    stringBuilder.append("\n")
+                }
+            }
+
+            return if (!stringBuilder.toString().isEmpty()) {
+                stringBuilder.toString()
+            } else {
+                "Fail"
+            }
+        }
+
 
         fun getAndroidVersion(): String {
             when (Build.VERSION.SDK_INT) {

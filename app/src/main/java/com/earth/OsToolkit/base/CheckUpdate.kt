@@ -138,13 +138,12 @@ class CheckUpdate {
         }
 
         fun returnData(): String {
-            Log.i("changelogEn", data.toString())
             return data.toString()
         }
     }
 
     class GetDate : Thread() {
-        var data: String? = null
+        private var data: String? = null
         override fun run() {
             super.run()
             val url = URL("https://raw.githubusercontent.com/osmiumtoolkit/update/master/Date")

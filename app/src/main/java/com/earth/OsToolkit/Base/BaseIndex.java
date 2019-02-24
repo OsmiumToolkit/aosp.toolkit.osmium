@@ -34,6 +34,10 @@ public class BaseIndex {
     public final static String io_iostats_ufs = "/sys/block/sda/queue/iostats";
     public final static String io_nomerges_ufs = "/sys/block/sda/queue/nomerges";
 
+
+    // Command / 指令
+    public final static String extends_freeform = "settings get global enable_freeform_support";
+
     // Type / 类型
     public final static String type_shell = "shell";
     public final static String type_yc = "yc";
@@ -42,6 +46,7 @@ public class BaseIndex {
     // BaseIndex / 目录
     public final static String index_charging = "charging";
     public final static String index_romio = "romio";
+    public final static String index_extends = "extends";
 
 
     // Shell / 脚本
@@ -55,5 +60,8 @@ public class BaseIndex {
     public final static String IO_RANDOM_UFS = "io_random_ufs.sh";
     public final static String IO_IOSTATS_UFS = "io_iostats_ufs.sh";
     public final static String IO_NOMERGES_UFS = "io_nomerges_ufs.sh";
+
+    public final static String EXTENDS_FREE_FORM = "free_form.sh";
+
 
 }

@@ -21,6 +21,7 @@ import android.content.res.TypedArray;
 import android.support.v4.app.Fragment;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
+import android.view.View;
 import android.widget.*;
 import android.support.v7.widget.SwitchCompat;
 
@@ -73,6 +74,32 @@ public class SwitchCompactCardView extends LinearLayout {
         } else {
             boolean status = false;
             if (BaseKotlinOperation.Companion.readFile(file).equals("1")) {
+                status = true;
+            }
+
+            switchCompat.setChecked(status);
+            indicator.setText(status ? R.string.sw_en : R.string.sw_dis);
+            switchCompat.setOnCheckedChangeListener((buttonView, isChecked) -> {
+                new Thread(() -> fragment.startActivityForResult(new Intent(getContext(), ScriptActivity.class)
+                                .putExtra("type", type)
+                                .putExtra("index", index)
+                                .putExtra("name", name),
+                        0)).start();
+
+            });
+        }
+    }
+
+    public void initSwitchCompact(Fragment fragment, String command, String type, String index, String name, boolean mode) {
+        SwitchCompat switchCompat = findViewById(R.id.switchCompact);
+        TextView indicator = findViewById(R.id.indicator);
+
+        if (!mode) {
+            switchCompat.setClickable(false);
+            indicator.setText(R.string.sw_none);
+        } else {
+            boolean status = false;
+            if (BaseKotlinOperation.Companion.readShellContent(command).equals("1")) {
                 status = true;
             }
 
