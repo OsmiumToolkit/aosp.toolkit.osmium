@@ -23,7 +23,14 @@
                 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter >
+            
+            <meta-data
+                android:name="android.app.shortcuts"
+                android:resource="@xml/shortcuts" />
+            
         </activity >
+        
+        
         
         <activity
             android:name=".MainActivity"
@@ -49,6 +56,8 @@
         <activity
             android:name=".DisableAppActivity$DisableSelectActivity"
             android:theme="@style/AppTheme.NoActionBar" />
+        
+        <activity android:name=".ShortcutDisableActivity" />
     
     </application >
 

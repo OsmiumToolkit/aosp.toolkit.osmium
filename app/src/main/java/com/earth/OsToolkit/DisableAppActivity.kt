@@ -136,8 +136,10 @@ class DisableAppActivity : AppCompatActivity() {
         }.start()
     }
 
+
+
     @Suppress("all")
-    class AppIconView(
+    private class AppIconView(
         activity: Activity,
         packageName: String,
         hideList: List<String>,
@@ -243,7 +245,7 @@ class DisableAppActivity : AppCompatActivity() {
         }
 
         @Suppress("all")
-        class SelectDisableView(
+        private class SelectDisableView(
             activity: Activity,
             packageInfo: PackageInfo,
             packageManager: PackageManager,

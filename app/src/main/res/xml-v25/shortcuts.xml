@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shortcuts xmlns:android="http://schemas.android.com/apk/res/android" >
+    <shortcut
+        android:shortcutId="d_all"
+        android:enabled="true"
+        android:shortcutShortLabel="@string/ss2"
+        android:shortcutLongLabel="@string/ss2"
+        android:shortcutDisabledMessage="@string/ss2"
+        android:icon="@mipmap/ic_launcher">
+        
+        <intent
+            android:action="android.intent.action.VIEW"
+            android:targetPackage="com.earth.OsToolkit"
+            android:targetClass="com.earth.OsToolkit.ShortcutDisableActivity" />
+        
+    </shortcut >
+    
+    <shortcut
+        android:shortcutId="d_app"
+        android:enabled="true"
+        android:shortcutShortLabel="@string/ss"
+        android:shortcutLongLabel="@string/ss"
+        android:shortcutDisabledMessage="@string/ss"
+        android:icon="@mipmap/ic_launcher">
+        
+        <intent
+            android:action="android.intent.action.VIEW"
+            android:targetPackage="com.earth.OsToolkit"
+            android:targetClass="com.earth.OsToolkit.DisableAppActivity" />
+        
+        <categories android:name="android.shortcut.conversation" />
+    </shortcut >
+    
+</shortcuts >
