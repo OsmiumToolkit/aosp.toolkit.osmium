@@ -3,7 +3,9 @@ package com.earth.OsToolkit
 import android.app.Activity
 import android.content.Context
 import android.os.Bundle
+
 import com.earth.OsToolkit.base.BaseKotlinOperation.Companion.ShortToast
+
 import com.topjohnwu.superuser.Shell
 
 /*
@@ -27,6 +29,7 @@ class ShortcutDisableActivity: Activity() {
             }
             runOnUiThread {
                 ShortToast(this, "Finish")
+                finish()
             }
         }.start()
     }

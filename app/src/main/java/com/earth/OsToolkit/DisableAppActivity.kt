@@ -86,7 +86,7 @@ class DisableAppActivity : AppCompatActivity() {
 
         window.navigationBarColor = ContextCompat.getColor(this, R.color.colorPrimaryDark)
 
-        toolbar.setNavigationOnClickListener { onBackPressed() }
+        toolbar.setNavigationOnClickListener { finish() }
         floatingActionButton.setOnClickListener {
             startActivityForResult(Intent(this, DisableSelectActivity::class.java), 0)
         }
@@ -135,8 +135,6 @@ class DisableAppActivity : AppCompatActivity() {
             runOnUiThread { dialog.cancel() }
         }.start()
     }
-
-
 
     @Suppress("all")
     private class AppIconView(
@@ -213,7 +211,7 @@ class DisableAppActivity : AppCompatActivity() {
                 val installedPackage = packageManager.getInstalledPackages(0)
                 // 获取已添加应用 fetch added apps
                 val savedSet = getSharedPreferences("disabledApp", Context.MODE_PRIVATE)
-                    .getStringSet("added", mutableSetOf<String>())
+                    .getStringSet("added", mutableSetOf<String>()) as MutableSet<String>
                 // 显示 show
                 for (i in installedPackage) {
                     val selectDisableView = SelectDisableView(this, i, packageManager, savedSet)
@@ -292,7 +290,7 @@ class DisableAppActivity : AppCompatActivity() {
                     } else {
                         Thread {
                             addedSet.remove(packageInfo.packageName)
-                            Log.i("addedSet", addedSet.toString())
+                            //Log.i("addedSet", addedSet.toString())
                             activity.getSharedPreferences("disabledApp", Context.MODE_PRIVATE).edit()
                                 .remove("added").commit()
                             if (addedSet.size > 0) {

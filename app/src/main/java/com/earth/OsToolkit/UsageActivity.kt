@@ -126,7 +126,8 @@ class UsageActivity : AppCompatActivity() {
         for (i in sensorDataChildViewList) {
             i.interruptThread()
         }
-        super.onBackPressed()
+        finish()
+        onDestroy()
     }
 
     class BatteryReceiver(activity: UsageActivity, progressBar: ProgressBar, level: TextView, voltage: TextView) : BroadcastReceiver() {
