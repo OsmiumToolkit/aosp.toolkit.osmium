@@ -12,8 +12,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
-        android:name=".base.BaseManager"
-        android:fullBackupContent="">
+        android:name=".base.BaseManager">
         
         <activity
             android:name=".SplashActivity"
