@@ -62,6 +62,6 @@ public class BaseIndex {
     public final static String IO_NOMERGES_UFS = "io_nomerges_ufs.sh";
 
     public final static String EXTENDS_FREE_FORM = "free_form.sh";
-
+    public final static String EXTENDS_DETECT_SERVER = "detect_server.sh";
 
 }

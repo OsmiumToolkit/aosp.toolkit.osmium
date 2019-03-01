@@ -57,11 +57,19 @@
         
     </android.support.v7.widget.CardView >
     
-    <com.earth.OsToolkit.view.SwitchCompactCardView
+    <com.earth.OsToolkit.view.LoadScriptView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/freeform"
         app:title="@string/extends_ff_title"
         app:summary="@string/extends_ff_title"/>
+    
+    <!-- 1 Mar 2019 -->
+    <com.earth.OsToolkit.view.LoadScriptView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/detectserver"
+        app:title="@string/extends_nt_title"
+        app:summary="@string/extends_nt_sum"/>
     
 </LinearLayout >

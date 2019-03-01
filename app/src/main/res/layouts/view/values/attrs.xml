@@ -7,7 +7,7 @@
         <attr name="hideSummary" format="boolean" />
     </declare-styleable >
 
-    <declare-styleable name="SwitchCompactCardView" >
+    <declare-styleable name="LoadScriptView" >
         <attr name="title" />
         <attr name="summary" />
     </declare-styleable>
@@ -19,6 +19,5 @@
     <attr name="icon" format="reference" />
     <attr name="title" format="string" />
     <attr name="summary" format="string" />
-
 
 </resources >

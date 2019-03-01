@@ -79,9 +79,9 @@ class RomIOFragment : Fragment() {
 
         override fun onActivityCreated(savedInstanceState: Bundle?) {
             super.onActivityCreated(savedInstanceState)
-            emmc_addrandom.initSwitchCompact(parent, io_random_emmc, type_shell, index_romio, IO_RANDOM_EMMC)
-            emmc_iostats.initSwitchCompact(parent, io_iostats_emmc, type_shell, index_romio, IO_IOSTATS_EMMC)
-            emmc_nomerges.initSwitchCompact(parent, io_nomerges_emmc, type_shell, index_romio, IO_NOMERGES_EMMC)
+            emmc_addrandom.init(parent, io_random_emmc, type_shell, index_romio, IO_RANDOM_EMMC)
+            emmc_iostats.init(parent, io_iostats_emmc, type_shell, index_romio, IO_IOSTATS_EMMC)
+            emmc_nomerges.init(parent, io_nomerges_emmc, type_shell, index_romio, IO_NOMERGES_EMMC)
 
         }
 
@@ -148,9 +148,9 @@ class RomIOFragment : Fragment() {
 
         override fun onActivityCreated(savedInstanceState: Bundle?) {
             super.onActivityCreated(savedInstanceState)
-            ufs_addrandom.initSwitchCompact(parent, io_random_ufs, type_shell, index_romio, IO_RANDOM_UFS)
-            ufs_iostats.initSwitchCompact(parent, io_iostats_ufs, type_shell, index_romio, IO_IOSTATS_UFS)
-            ufs_nomerges.initSwitchCompact(parent, io_nomerges_ufs, type_shell, index_romio, IO_NOMERGES_UFS)
+            ufs_addrandom.init(parent, io_random_ufs, type_shell, index_romio, IO_RANDOM_UFS)
+            ufs_iostats.init(parent, io_iostats_ufs, type_shell, index_romio, IO_IOSTATS_UFS)
+            ufs_nomerges.init(parent, io_nomerges_ufs, type_shell, index_romio, IO_NOMERGES_UFS)
         }
 
         override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

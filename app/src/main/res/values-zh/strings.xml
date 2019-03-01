@@ -183,6 +183,8 @@
     <string name="extends_mac_sum" >修改本机网络的mac地址\n（假如在修改后无法连接wifi，请重启解决手机，并且不再使用本功能）</string >
     <string name="extends_ff_title">FreeForm多窗口模式</string>
     <string name="extends_ff_sum">Android 6.0(SDK24)或以上隐藏功能接口</string>
+    <string name="extends_nt_title" >去网络叹号</string>
+    <string name="extends_nt_sum">去除连接网络后移动信号/Wi-Fi旁的感叹号</string>
     
     <string name="battery" >电池</string >
     <string name="battery_level" >电池电量:\u0020</string >

@@ -42,9 +42,9 @@ class ChargingFragment : Fragment() {
         super.onActivityCreated(savedInstanceState)
         setWarning()
 
-        charging_allow.initSwitchCompact(this, Charging_Allow, type_shell, index_charging, CHARGE_ALLOW)
-        charging_qc3.initSwitchCompact(this, Charging_QC3, type_shell, index_charging, CHARGE_QC3)
-        charging_usbqc.initSwitchCompact(this, Charging_USBQC, type_shell, index_charging, CHARGE_USBQC)
+        charging_allow.init(this, Charging_Allow, type_shell, index_charging, CHARGE_ALLOW)
+        charging_qc3.init(this, Charging_QC3, type_shell, index_charging, CHARGE_QC3)
+        charging_usbqc.init(this, Charging_USBQC, type_shell, index_charging, CHARGE_USBQC)
     }
 
     private fun setWarning() {

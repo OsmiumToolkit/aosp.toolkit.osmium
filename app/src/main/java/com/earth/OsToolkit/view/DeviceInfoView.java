@@ -48,7 +48,7 @@ public class DeviceInfoView extends LinearLayout {
         public ChildView(Activity activity, String i, String v) {
             super(activity);
 
-            LayoutInflater.from(activity).inflate(R.layout.childview_switchcompact, this);
+            LayoutInflater.from(activity).inflate(R.layout.childview_deviceinfo, this);
             TextView item = findViewById(R.id.item);
             TextView value = findViewById(R.id.value);
             item.setText(i);
