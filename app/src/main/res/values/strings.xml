@@ -63,7 +63,7 @@
 
     <string name="script_title_head" >Run Script \"%s\"</string >
 
-    <string name="script_head" >================\n-OsToolkit\n-By1552980358\n================</string >
+    <string name="script_head" >================================\nOsToolkit\nBy SkyNight(1552980358)\n================================</string >
     <string name="script_download"> - Downloading&#8230;</string>
     <string name="script_download_done">Succeed to download!</string>
     <string name="script_download_fail">Failed to download!</string>
@@ -203,4 +203,5 @@
     
     <string name="ss">- Tower of Disable -</string>
     <string name="ss2">Disable all</string>
+    <string name="ss_toast">Disabled totally %d app(s) in added list</string>
 </resources>

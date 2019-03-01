@@ -42,39 +42,14 @@ import java.lang.Exception
 
 @Suppress("all")
 class DisableAppActivity : AppCompatActivity() {
+    private val appIconViewList = mutableListOf<AppIconView>()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_disableapp)
 
         initialize()
-        Thread {
-            // 已加入列表 added list
-            val savedList = getSharedPreferences("disabledApp", Context.MODE_PRIVATE)
-                .getStringSet("added", setOf<String>())
-            // 已禁用列表 disabled list
-            val hidedList = Shell.su("pm list package -d").exec().out
-
-            if (savedList!!.size > 0) {
-                val packageManager = packageManager
-                // 创建图标 Create Icon
-                for ((j, i) in savedList.withIndex()) {
-                    val appIconView = AppIconView(this, i, hidedList, packageManager)
-
-                    // 定义图标位置
-                    val layoutParams = GridLayout.LayoutParams()
-                    layoutParams.rowSpec = GridLayout.spec(j / 4, 1f)
-                    layoutParams.columnSpec = GridLayout.spec(j % 4, 1f)
-
-                    runOnUiThread { gridLayout.addView(appIconView, layoutParams) }
-                }
-            } else {
-                runOnUiThread { song.visibility = View.VISIBLE }
-            }
-
-            runOnUiThread {
-                progressBar.visibility = View.GONE
-            }
-        }.start()
+        initGrid()
     }
 
     private fun initialize() {
@@ -90,6 +65,15 @@ class DisableAppActivity : AppCompatActivity() {
         floatingActionButton.setOnClickListener {
             startActivityForResult(Intent(this, DisableSelectActivity::class.java), 0)
         }
+        floatingActionButton.setOnLongClickListener {
+            startActivity(Intent(this, ShortcutDisableActivity::class.java))
+            Thread {
+                for (i in appIconViewList) {
+                    runOnUiThread { i.showDisable() }
+                }
+            }.start()
+            return@setOnLongClickListener true
+        }
         toolbar.setTitle(R.string.disable_toolbar)
         if (!getSharedPreferences("ui", Context.MODE_PRIVATE).getBoolean("disableNotice", true)) {
             notice.visibility = View.GONE
@@ -97,8 +81,41 @@ class DisableAppActivity : AppCompatActivity() {
         notice.setOnLongClickListener {
             getSharedPreferences("ui", Context.MODE_PRIVATE).edit().putBoolean("disableNotice", false).apply()
             notice.visibility = View.GONE
-            true
+            return@setOnLongClickListener true
         }
+    }
+
+    private fun initGrid() {
+        Thread {
+            // 已加入列表 added list
+            val savedList = getSharedPreferences("disabledApp", Context.MODE_PRIVATE)
+                .getStringSet("added", setOf<String>())
+            // 已禁用列表 disabled list
+            val hidedList = Shell.su("pm list package -d").exec().out
+
+            if (savedList!!.size > 0) {
+                val packageManager = packageManager
+
+                // 创建图标 Create Icon
+                for ((j, i) in savedList.withIndex()) {
+                    val appIconView = AppIconView(this, i, hidedList, packageManager)
+
+                    // 定义图标位置
+                    val layoutParams = GridLayout.LayoutParams()
+                    layoutParams.rowSpec = GridLayout.spec(j / 4, 1f)
+                    layoutParams.columnSpec = GridLayout.spec(j % 4, 1f)
+
+                    runOnUiThread { gridLayout.addView(appIconView, layoutParams) }
+                    appIconViewList.add(appIconView)
+                }
+            } else {
+                runOnUiThread { song.visibility = View.VISIBLE }
+            }
+
+            runOnUiThread {
+                progressBar.visibility = View.GONE
+            }
+        }.start()
     }
 
     @Suppress("all")
@@ -191,7 +208,10 @@ class DisableAppActivity : AppCompatActivity() {
                 )
                 return@setOnLongClickListener true
             }
+        }
 
+        fun showDisable() {
+            isDisabled.visibility = View.VISIBLE
         }
     }
 

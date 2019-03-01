@@ -153,6 +153,6 @@ class ScriptActivity : AppCompatActivity() {
 
     override fun onBackPressed() {
         setResult(Activity.RESULT_OK)
-        onDestroy()
+        super.onBackPressed()
     }
 }

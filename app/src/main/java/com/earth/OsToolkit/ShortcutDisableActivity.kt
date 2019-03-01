@@ -29,7 +29,7 @@ class ShortcutDisableActivity: Activity() {
                 Shell.su("pm disable $i").exec()
             }
             runOnUiThread {
-                ShortToast(this, "Finish")
+                ShortToast(this, String.format(getString(R.string.ss_toast), savedList.size))
             }
         }.start()
     }
