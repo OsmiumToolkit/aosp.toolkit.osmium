@@ -23,7 +23,7 @@
             android:layout_width="15dp"
             android:layout_height="15dp"
             android:background="@drawable/disable_background"
-            android:src="@drawable/disable_foreground"
+            android:src="@mipmap/disable_foreground"
             android:id="@+id/isDisabled" />
     </RelativeLayout >
     

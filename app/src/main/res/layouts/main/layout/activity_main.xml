@@ -106,7 +106,7 @@
                     <ImageView
                         android:layout_width="25dp"
                         android:layout_height="25dp"
-                        android:src="@drawable/disable_foreground"
+                        android:src="@mipmap/disable_foreground"
                         android:background="@drawable/disable_background"
                         android:layout_gravity="center" />
                     

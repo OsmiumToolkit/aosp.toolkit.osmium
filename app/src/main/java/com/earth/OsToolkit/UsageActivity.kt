@@ -2,12 +2,10 @@ package com.earth.OsToolkit
 
 import android.app.Activity
 import android.content.*
-import android.os.BatteryManager
-import android.os.Bundle
+import android.os.*
 import android.support.v4.content.ContextCompat
 import android.support.v7.app.AppCompatActivity
-import android.view.LayoutInflater
-import android.view.View
+import android.view.*
 import android.widget.*
 import com.earth.OsToolkit.base.BaseKotlinOperation.Companion.getAvailableCore
 import com.earth.OsToolkit.base.BaseKotlinOperation.Companion.readFile
@@ -15,6 +13,7 @@ import com.earth.OsToolkit.base.BaseKotlinOperation.Companion.readFile
 import kotlinx.android.synthetic.main.activity_usage.*
 import kotlinx.android.synthetic.main.view_corefreq.view.*
 import kotlinx.android.synthetic.main.view_sensordata.view.*
+
 import java.io.File
 import java.lang.StringBuilder
 
@@ -64,7 +63,7 @@ class UsageActivity : AppCompatActivity() {
                 var c: Int
                 var lastC = 0
                 while (true) {
-                    c =  batteryManager.getIntProperty(BatteryManager.BATTERY_PROPERTY_CURRENT_NOW) / 1000
+                    c =  0 - batteryManager.getIntProperty(BatteryManager.BATTERY_PROPERTY_CURRENT_NOW) / 1000
                     if (lastC != c) {
                         runOnUiThread {
                             battery_current.text = "$c mA"
@@ -126,8 +125,7 @@ class UsageActivity : AppCompatActivity() {
         for (i in sensorDataChildViewList) {
             i.interruptThread()
         }
-        finish()
-        onDestroy()
+        super.onBackPressed()
     }
 
     class BatteryReceiver(activity: UsageActivity, progressBar: ProgressBar, level: TextView, voltage: TextView) : BroadcastReceiver() {
@@ -158,8 +156,6 @@ class UsageActivity : AppCompatActivity() {
                 level!!.text = l.toString()
                 voltage!!.text = v
             }
-
-
         }
     }
 

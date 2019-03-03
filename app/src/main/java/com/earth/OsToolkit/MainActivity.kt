@@ -16,8 +16,10 @@ package com.earth.OsToolkit
  *
  */
 
+import android.app.AlertDialog
 import android.app.Dialog
 import android.content.Context
+import android.content.DialogInterface
 import android.content.Intent
 import android.os.Bundle
 import android.support.design.widget.NavigationView
@@ -31,6 +33,7 @@ import android.widget.LinearLayout
 
 import com.earth.OsToolkit.base.BaseManager
 import com.earth.OsToolkit.fragments.*
+import com.topjohnwu.superuser.Shell
 
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.app_bar_main.*
@@ -186,9 +189,20 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         when (item.itemId) {
-
+            R.id.reb -> Shell.su("reboot").exec()
+            R.id.soft -> Shell.su("killall zygote").exec()
+            R.id.bl -> Shell.su("reboot bootloader").exec()
+            R.id.rec -> Shell.su("reboot recovery").exec()
+            R.id.re9008 -> {
+                val builder = AlertDialog.Builder(this)
+                builder.setTitle(R.string.warn_9008_title)
+                    .setMessage(R.string.warn_9008_msg)
+                    .setPositiveButton(R.string.cont) { _, _ ->
+                        Shell.su("reboot edl").exec()
+                    }.setNegativeButton(R.string.cancel) { _, _ -> }
+                    .show()
+            }
         }
-
         return super.onOptionsItemSelected(item)
     }
 

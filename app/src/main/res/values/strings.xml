@@ -6,10 +6,6 @@
     <string name="nav_header_title" >OsmiumToolkit &lt;Experimental&gt;</string >
     <string name="nav_header_subtitle" >- Vulpecula -</string >
     <string name="nav_header_desc" >Navigation header</string >
-    <string name="reboot" >Reboot Options</string >
-    <string name="reboot_system">Reboot System</string>
-    <string name="reboot_rec" >Reboot Recovery</string >
-    <string name="reboot_soft" >Soft Reboot</string >
     
     <string name="loading">Loading&#8230;</string>
 
@@ -28,6 +24,14 @@
     <string name="nav_title_3rd" >3rd Party support</string >
     <string name="nav_yc" >YC cpufreq-interactive-opt</string >
     <string name="nav_tower">- Tower -</string>
+    
+    <string name="main_reb">Reboot Device</string>
+    <string name="main_soft">Soft Reboot</string>
+    <string name="main_bl">Reboot to Bootloader</string>
+    <string name="main_rec">Reboot to Recovery</string>
+    <string name="main_9008">Reboot to 9008 Mode</string>
+    <string name="warn_9008_title">WARNING</string>
+    <string name="warn_9008_msg">This operation is DANGEROUS\nMake SURE you have learn operation of 9008 before entering\nStop running may be found on some devices</string>
 
     <string name="name_yc9559" >\u0040yc9559</string >
     <string name="name_xzr" >\u0040xzr467706992</string >
@@ -194,7 +198,7 @@
     <string name="processor">Processor Frequency</string>
     <string name="thermal_sensor">Thermal Sensor</string>
     
-    <string name="disable_des">Disable app to stop background services for increasing battery life.\nClick"+"to add application.\nClick icon to enable and start.\nLong click icon to disable.\n***Be awareness to disable system app***\n(Long click here to hide this notice)</string>
+    <string name="disable_des">Disable app to stop background services for increasing battery life.\nClick"+"to add app.\nClick icon to enable and start.\nLong click icon to disable.\nLong click "+" to disable all app in the list\n***Be awareness to disable system app***\n(Long click here to hide this notice)</string>
     <string name="disable_title">- Disable Stele -</string>
     <string name="disable_toolbar">- Tower of Disable -</string>
     <string name="disable_select">Select Apps&#8230;</string>

@@ -35,31 +35,6 @@ class MainFragment : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        header.setOnClickListener {
-            if (content.visibility == View.GONE) {
-                content.visibility = View.VISIBLE
-                indicator.setImageDrawable(ContextCompat.getDrawable(context!!, R.drawable.ic_open))
-            } else {
-                content.visibility = View.GONE
-                indicator.setImageDrawable(ContextCompat.getDrawable(context!!, R.drawable.ic_hide))
-            }
-        }
-
-        re_system.setOnClickListener {
-            val process: Process = Runtime.getRuntime().exec(arrayOf("su", "-c", "reboot"))
-            process.waitFor()
-        }
-
-        re_rec.setOnClickListener {
-            val process: Process = Runtime.getRuntime().exec(arrayOf("su", "-c", "reboot", "recovery"))
-            process.waitFor()
-        }
-
-        re_soft.setOnClickListener {
-            val process: Process = Runtime.getRuntime().exec(arrayOf("su", "-c", "killall", "zygote"))
-            process.waitFor()
-        }
-
         disabletower.setOnClickListener {
             startActivity(Intent(activity, DisableAppActivity::class.java))
         }

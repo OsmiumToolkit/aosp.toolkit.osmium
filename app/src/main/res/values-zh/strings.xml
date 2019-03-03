@@ -6,10 +6,6 @@
     <string name="nav_header_title" >锇•工具箱 &lt;实验版&gt;</string >
     <string name="nav_header_subtitle" >- 住在地球真累 -</string >
     <string name="nav_header_desc" >Navigation header</string >
-    <string name="reboot" >重启选项</string >
-    <string name="reboot_system" >重启系统</string >
-    <string name="reboot_rec" >重启Recovery</string >
-    <string name="reboot_soft" >软重启</string >
     
     <string name="loading" >加载中&#8230;</string >
     
@@ -28,6 +24,14 @@
     <string name="nav_title_3rd" >第三方提供</string >
     <string name="nav_yc" >YC调度</string >
     <string name="nav_tower" >- 镇魂塔 -</string >
+    
+    <string name="main_reb">重启设备</string>
+    <string name="main_soft">软重启</string>
+    <string name="main_bl">重启到Bootloader</string>
+    <string name="main_rec">重启到Recovery</string>
+    <string name="main_9008">重启到9008模式</string>
+    <string name="warn_9008_title">警告</string>
+    <string name="warn_9008_msg">此操作可能具有一定危险性\n请确保在已经学会如何使用9008后再进入该模式\n部分机型可能会出现卡住无法改出的情况</string>
     
     <string name="name_yc9559" >\u0040yc9559</string >
     <string name="name_xzr" >\u0040xzr467706992</string >
