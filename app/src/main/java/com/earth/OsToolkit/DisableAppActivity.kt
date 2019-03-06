@@ -4,12 +4,12 @@ import android.app.Activity
 import android.app.Dialog
 import android.content.Context
 import android.content.Intent
+import android.content.pm.ApplicationInfo
 import android.content.pm.PackageInfo
 import android.content.pm.PackageManager
 import android.os.Bundle
 import android.support.v4.content.ContextCompat
 import android.support.v7.app.AppCompatActivity
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.GridLayout
@@ -220,8 +220,9 @@ class DisableAppActivity : AppCompatActivity() {
         override fun onCreate(savedInstanceState: Bundle?) {
             super.onCreate(savedInstanceState)
             setContentView(R.layout.activity_disableselection)
-            val dialog = Dialog(this)
+            initialize()
 
+            val dialog = Dialog(this)
             dialog.setCancelable(false)
             dialog.setContentView(LayoutInflater.from(this).inflate(R.layout.dialog_loading, null))
             dialog.show()
@@ -240,7 +241,6 @@ class DisableAppActivity : AppCompatActivity() {
 
                 runOnUiThread { dialog.cancel() }
             }.start()
-            initialize()
         }
 
         private fun initialize() {
@@ -259,7 +259,7 @@ class DisableAppActivity : AppCompatActivity() {
 
         override fun onBackPressed() {
             super.onBackPressed()
-            setResult(0)
+            setResult(Activity.RESULT_OK)
         }
 
         @Suppress("all")
@@ -270,8 +270,13 @@ class DisableAppActivity : AppCompatActivity() {
             addedSet: MutableSet<String>
         ) :
             LinearLayout(activity) {
+            var isSystemApp = true
+            var activity: Activity? = null
+
             init {
                 LayoutInflater.from(activity).inflate(R.layout.view_selectdisable, this)
+                this.activity = activity
+
                 // 应用名 App's name
                 label.text = packageManager.getApplicationLabel(
                     packageManager.getApplicationInfo(
@@ -290,6 +295,18 @@ class DisableAppActivity : AppCompatActivity() {
                 if (addedSet.contains(packageInfo.packageName)) {
                     checkBox.isChecked = true
                 }
+
+                // 系统应用flag System app flag
+                isSystemApp =
+                    ((packageManager.getPackageInfo(packageInfo.packageName, 0).applicationInfo.flags
+                            and ApplicationInfo.FLAG_SYSTEM) != 0)
+
+                this.hideView()
+
+                if (!isSystemApp) {
+                    systemApp.visibility = View.GONE
+                }
+
 
                 // 设置监听 listeners
                 checkBox.setOnCheckedChangeListener { _, isChecked ->
@@ -328,6 +345,30 @@ class DisableAppActivity : AppCompatActivity() {
                 }
                 rootRelative.setOnClickListener {
                     checkBox.isChecked = !checkBox.isChecked
+                }
+            }
+
+            /*
+             * Check whether be system app
+             * 检测是否系统应用
+             *
+             * showView()
+             * 显示View
+             *
+             * hideView()
+             * 隐藏View
+             *
+             */
+
+            fun showView() {
+                if (isSystemApp) {
+                    activity!!.runOnUiThread { select_root.visibility = View.VISIBLE }
+                }
+            }
+
+            fun hideView() {
+                if (isSystemApp) {
+                    activity!!.runOnUiThread { select_root.visibility = View.GONE }
                 }
             }
         }

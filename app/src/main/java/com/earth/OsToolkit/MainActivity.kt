@@ -18,9 +18,7 @@ package com.earth.OsToolkit
 
 import android.app.AlertDialog
 import android.app.Dialog
-import android.content.Context
-import android.content.DialogInterface
-import android.content.Intent
+import android.content.*
 import android.os.Bundle
 import android.support.design.widget.NavigationView
 import android.support.v4.app.Fragment
@@ -29,7 +27,6 @@ import android.support.v4.view.GravityCompat
 import android.support.v7.app.ActionBarDrawerToggle
 import android.support.v7.app.AppCompatActivity
 import android.view.*
-import android.widget.LinearLayout
 
 import com.earth.OsToolkit.base.BaseManager
 import com.earth.OsToolkit.fragments.*

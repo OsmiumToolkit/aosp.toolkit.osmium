@@ -60,6 +60,17 @@ class ScriptActivity : AppCompatActivity() {
     }
 
     private fun download(type: String, index: String, name: String) {
+        /*
+         *
+         * 下载脚本文件到cache
+         * Download script to cache
+         *
+         * @param type: String
+         * @param index: String
+         * @param name: String
+         *
+         */
+
         Thread {
             try {
                 val url = URL(
@@ -98,6 +109,16 @@ class ScriptActivity : AppCompatActivity() {
     }
 
     private fun setPermission() {
+        /*
+         *
+         * 设置限权
+         * set script permission
+         *
+         * 使它成为可执行文件
+         * make it executable
+         *
+         */
+
         if (file!!.length() > 1) {
             runOnUiThread {
                 script_download.append(file!!.length().toString() + "Bytes\n")
@@ -126,25 +147,31 @@ class ScriptActivity : AppCompatActivity() {
     }
 
     private fun runScript() {
-        val command = Shell.su("/system/bin/sh ${file.toString()}").exec()
-        val outputList = command.out
+        /*
+         * 运行脚本
+         * run script
+         *
+         */
+
+        val stdOut = mutableListOf<String>()
+        val stdError = mutableListOf<String>()
+        Shell.su("/system/bin/sh ${file.toString()}").to(stdOut, stdError).exec()
 
         // 内容输出 output process
-        if (outputList.size > 0) {
+        if (stdOut.size > 0) {
             runOnUiThread { script_process_title.visibility = View.VISIBLE }
             Thread {
-                for (i in outputList) {
+                for (i in stdOut) {
                     runOnUiThread { script_process.append(i + "\n") }
                 }
             }.start()
         }
 
         // 错误输出 output error
-        val errorList = command.err
-        if (errorList.size > 0) {
+        if (stdError.size > 0) {
             runOnUiThread { script_error_title.visibility = View.VISIBLE }
             Thread {
-                for (i in outputList) {
+                for (i in stdError) {
                     runOnUiThread { script_error.append(i + "\n") }
                 }
             }.start()

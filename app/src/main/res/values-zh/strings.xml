@@ -38,6 +38,8 @@
     
     <string name="warning" >Copyright &#169;1552980358 &#8211; 2019</string >
     
+    <string name="systemApp">&#60;系统应用&#62;</string>
+    
     <string name="update_check" >检查更新</string >
     <string name="update_fail" >更新检查失败: 请检查网络连接后尝试</string >
     <string name="update_found" >更新已发布!</string >

@@ -37,6 +37,8 @@
     <string name="name_xzr" >\u0040xzr467706992</string >
 
     <string name="warning">Copyright &#169;1552980358 &#8211; 2019</string>
+    
+    <string name="systemApp">&#60;SYSTEM APP&#62;</string>
 
     <string name="update_check" >Check for update</string >
     <string name="update_fail" >Fail to check: Please check your Internet connection</string >
