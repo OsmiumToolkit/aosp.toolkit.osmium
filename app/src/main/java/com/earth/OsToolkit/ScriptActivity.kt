@@ -6,8 +6,8 @@ import android.support.v4.content.ContextCompat
 import android.support.v7.app.AppCompatActivity
 import android.view.View
 
-import com.earth.OsToolkit.base.BaseKotlinOperation.Companion.setPermission
-import com.earth.OsToolkit.base.BaseKotlinOperation.Companion.ShortToast
+import com.earth.OsToolkit.base.BaseOperation.Companion.setPermission
+import com.earth.OsToolkit.base.BaseOperation.Companion.ShortToast
 
 import com.topjohnwu.superuser.Shell
 import kotlinx.android.synthetic.main.activity_script.*

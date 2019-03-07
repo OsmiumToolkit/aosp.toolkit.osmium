@@ -8,9 +8,9 @@ import android.support.v4.app.Fragment
 import android.view.*
 import android.widget.*
 import com.earth.OsToolkit.R
-import com.earth.OsToolkit.base.BaseKotlinOperation
-import com.earth.OsToolkit.base.BaseKotlinOperation.Companion.ShortToast
-import com.earth.OsToolkit.base.BaseKotlinOperation.Companion.getAvailableCore
+import com.earth.OsToolkit.base.BaseOperation
+import com.earth.OsToolkit.base.BaseOperation.Companion.ShortToast
+import com.earth.OsToolkit.base.BaseOperation.Companion.getAvailableCore
 import com.earth.OsToolkit.base.BaseManager
 import com.topjohnwu.superuser.Shell
 import kotlinx.android.synthetic.main.fragment_core.*
@@ -90,7 +90,7 @@ class CoreFragment : Fragment() {
 
             val list = ArrayList(
                 Arrays.asList(
-                    *BaseKotlinOperation.readFile(
+                    *BaseOperation.readFile(
                         "/sys/devices/system/cpu/cpu"
                                 + core + "/cpufreq/scaling_available_frequencies"
                     )
@@ -98,7 +98,7 @@ class CoreFragment : Fragment() {
                 )
             )
 
-            val freq = BaseKotlinOperation.readFile(
+            val freq = BaseOperation.readFile(
                 ("/sys/devices/system/cpu/cpu"
                         + core + "/cpufreq/" + "scaling_max_freq")
             )
@@ -147,7 +147,7 @@ class CoreFragment : Fragment() {
                             Shell.su("echo \"${list[position]}\" > sys/devices/system/cpu/cpu$core/cpufreq/scaling_max_freq")
 
                         } catch (e: Exception) {
-                            BaseKotlinOperation.ShortToast(activity, e.toString())
+                            BaseOperation.ShortToast(activity, e.toString())
                         }
 
                     }
@@ -165,7 +165,7 @@ class CoreFragment : Fragment() {
 
             val list = ArrayList(
                 Arrays.asList(
-                    *BaseKotlinOperation.readFile(
+                    *BaseOperation.readFile(
                         ("/sys/devices/system/cpu/cpu"
                                 + core + "/cpufreq/scaling_available_frequencies")
                     )
@@ -173,7 +173,7 @@ class CoreFragment : Fragment() {
                 )
             )
 
-            val freq = BaseKotlinOperation.readFile("/sys/devices/system/cpu/cpu$core/cpufreq/scaling_min_freq")
+            val freq = BaseOperation.readFile("/sys/devices/system/cpu/cpu$core/cpufreq/scaling_min_freq")
 
             var j = 0
 
@@ -220,7 +220,7 @@ class CoreFragment : Fragment() {
                             Shell.su("echo \"${list[position]}\" > sys/devices/system/cpu/cpu$core/cpufreq/scaling_min_freq")
                                 .exec()
                         } catch (e: Exception) {
-                            BaseKotlinOperation.ShortToast(activity, e.toString())
+                            BaseOperation.ShortToast(activity, e.toString())
                         }
 
                     }
@@ -239,7 +239,7 @@ class CoreFragment : Fragment() {
 
             val list = ArrayList(
                 Arrays.asList(
-                    *BaseKotlinOperation.readFile(
+                    *BaseOperation.readFile(
                         ("/sys/devices/system/cpu/cpu"
                                 + core + "/cpufreq/scaling_available_governors")
                     )
@@ -247,7 +247,7 @@ class CoreFragment : Fragment() {
                 )
             )
 
-            val governor = BaseKotlinOperation.readFile(
+            val governor = BaseOperation.readFile(
                 ("sys/devices/system/cpu/cpu"
                         + core + "/cpufreq/scaling_governor")
             )
@@ -288,7 +288,7 @@ class CoreFragment : Fragment() {
                             Shell.su("echo \"${list[position]}\" > sys/devices/system/cpu/cpu$core/cpufreq/scaling_governor")
                                 .exec()
                         } catch (e: Exception) {
-                            BaseKotlinOperation.ShortToast(activity, e.toString())
+                            BaseOperation.ShortToast(activity, e.toString())
                         }
 
                     }

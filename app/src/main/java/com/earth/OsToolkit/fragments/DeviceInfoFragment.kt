@@ -7,14 +7,14 @@ import android.support.v4.app.Fragment
 import android.view.*
 
 import com.earth.OsToolkit.R
-import com.earth.OsToolkit.base.BaseKotlinOperation.Companion.getAvailableCore
-import com.earth.OsToolkit.base.BaseKotlinOperation.Companion.getABI32
-import com.earth.OsToolkit.base.BaseKotlinOperation.Companion.getABI64
-import com.earth.OsToolkit.base.BaseKotlinOperation.Companion.getABIs
-import com.earth.OsToolkit.base.BaseKotlinOperation.Companion.getAndroidVersion
-import com.earth.OsToolkit.base.BaseKotlinOperation.Companion.getAndroidVersionName
-import com.earth.OsToolkit.base.BaseKotlinOperation.Companion.unitConvert
-import com.earth.OsToolkit.base.BaseJavaOperation
+import com.earth.OsToolkit.base.BaseOperation.Companion.getAvailableCore
+import com.earth.OsToolkit.base.BaseOperation.Companion.getABI32
+import com.earth.OsToolkit.base.BaseOperation.Companion.getABI64
+import com.earth.OsToolkit.base.BaseOperation.Companion.getABIs
+import com.earth.OsToolkit.base.BaseOperation.Companion.getAndroidVersion
+import com.earth.OsToolkit.base.BaseOperation.Companion.getAndroidVersionName
+import com.earth.OsToolkit.base.BaseOperation.Companion.unitConvert
+import com.earth.OsToolkit.base.BaseOperation.Companion.getMemory
 import com.earth.OsToolkit.view.DeviceInfoView.ChildView
 
 import kotlinx.android.synthetic.main.fragment_deviceinfo.*
@@ -95,7 +95,7 @@ class DeviceInfoFragment : Fragment() {
         t3.start()
 
         val t4 = Thread {
-            val memoryInfo = BaseJavaOperation.getMemory(activity)
+            val memoryInfo = getMemory(context!!)
             val to = ChildView(activity, R.string.deviceinfo_ram_totalMem, unitConvert(memoryInfo.totalMem))
             val th = ChildView(activity, R.string.deviceinfo_ram_threshold, unitConvert(memoryInfo.threshold))
 

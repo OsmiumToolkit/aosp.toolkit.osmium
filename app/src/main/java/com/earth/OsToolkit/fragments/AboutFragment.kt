@@ -16,7 +16,7 @@ import com.earth.OsToolkit.base.Accessing.Companion.accessCoolapkRelease
 import com.earth.OsToolkit.base.Accessing.Companion.accessGitHubSource
 import com.earth.OsToolkit.base.CheckUpdate
 import com.earth.OsToolkit.base.BaseIndex.*
-import com.earth.OsToolkit.base.BaseKotlinOperation.Companion.getPackageVersion
+import com.earth.OsToolkit.base.BaseOperation.Companion.getPackageVersion
 import com.earth.OsToolkit.fragments.dialog.UpdateDialogFragment
 
 /*

@@ -15,7 +15,7 @@ import android.view.View
 import android.widget.GridLayout
 import android.widget.LinearLayout
 import com.earth.OsToolkit.base.Accessing.Companion.openPackage
-import com.earth.OsToolkit.base.BaseKotlinOperation.Companion.ShortToast
+import com.earth.OsToolkit.base.BaseOperation.Companion.ShortToast
 import com.topjohnwu.superuser.Shell
 
 import kotlinx.android.synthetic.main.activity_disableapp.*

@@ -7,7 +7,7 @@ import android.view.*
 import com.earth.OsToolkit.R
 import com.earth.OsToolkit.base.BaseManager
 
-import com.earth.OsToolkit.base.BaseKotlinOperation.Companion.checkFilePresent
+import com.earth.OsToolkit.base.BaseOperation.Companion.checkFilePresent
 import com.earth.OsToolkit.base.BaseIndex.*
 import kotlinx.android.synthetic.main.fragment_charging.*
 

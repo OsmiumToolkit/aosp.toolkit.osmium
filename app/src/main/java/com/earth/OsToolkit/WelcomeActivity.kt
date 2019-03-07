@@ -30,7 +30,7 @@ import com.earth.OsToolkit.base.BaseManager
 import kotlinx.android.synthetic.main.activity_welcome.*
 import android.view.View.*
 import android.view.ViewGroup
-import com.earth.OsToolkit.base.BaseKotlinOperation.Companion.checkRoot
+import com.earth.OsToolkit.base.BaseOperation.Companion.checkRoot
 import kotlinx.android.synthetic.main.fragment_welcome_4.*
 
 class WelcomeActivity : AppCompatActivity() {

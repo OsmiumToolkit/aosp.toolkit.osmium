@@ -18,7 +18,7 @@ import android.widget.Toast
  *
  */
 
-class BaseKotlinOperation {
+class BaseOperation {
     companion object {
         fun checkRoot(): Boolean {
             try {

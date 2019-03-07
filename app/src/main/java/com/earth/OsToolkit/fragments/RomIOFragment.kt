@@ -1,23 +1,19 @@
 package com.earth.OsToolkit.fragments
 
 import android.content.Context
-import android.content.Intent
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentManager
 import android.support.v4.app.FragmentPagerAdapter
 import android.support.v7.widget.AppCompatSeekBar
-import android.util.Log
 import android.view.*
 import android.widget.SeekBar
 
 import com.earth.OsToolkit.R
 import com.earth.OsToolkit.base.BaseIndex.*
-import com.earth.OsToolkit.base.BaseKotlinOperation
-import com.earth.OsToolkit.base.BaseKotlinOperation.Companion.ShortToast
-import com.earth.OsToolkit.base.BaseManager
-import com.earth.OsToolkit.base.BaseKotlinOperation.Companion.checkFilePresent
-import com.earth.OsToolkit.base.BaseKotlinOperation.Companion.readFile
+import com.earth.OsToolkit.base.BaseOperation.Companion.ShortToast
+import com.earth.OsToolkit.base.BaseOperation.Companion.checkFilePresent
+import com.earth.OsToolkit.base.BaseOperation.Companion.readFile
 
 import kotlinx.android.synthetic.main.fragment_romio.*
 import kotlinx.android.synthetic.main.fragment_romio_emmc.*

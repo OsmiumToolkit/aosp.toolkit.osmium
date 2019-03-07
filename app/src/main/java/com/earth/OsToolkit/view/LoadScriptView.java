@@ -27,7 +27,7 @@ import android.support.v7.widget.SwitchCompat;
 import com.earth.OsToolkit.R;
 import com.earth.OsToolkit.ScriptActivity;
 
-import com.earth.OsToolkit.base.BaseKotlinOperation;
+import com.earth.OsToolkit.base.BaseOperation;
 
 @SuppressWarnings("all")
 public class LoadScriptView extends LinearLayout {
@@ -52,12 +52,12 @@ public class LoadScriptView extends LinearLayout {
         SwitchCompat switchCompat = findViewById(R.id.switchCompact);
         TextView indicator = findViewById(R.id.indicator);
 
-        if (!BaseKotlinOperation.Companion.checkFilePresent(file)) {
+        if (!BaseOperation.Companion.checkFilePresent(file)) {
             switchCompat.setClickable(false);
             indicator.setText(R.string.sw_none);
         } else {
             boolean status = false;
-            if (BaseKotlinOperation.Companion.readFile(file).equals("1")) {
+            if (BaseOperation.Companion.readFile(file).equals("1")) {
                 status = true;
             }
 
@@ -80,7 +80,7 @@ public class LoadScriptView extends LinearLayout {
             indicator.setText(R.string.sw_none);
         } else {
             boolean status = false;
-            if (BaseKotlinOperation.Companion.readShellContent(command).equals("1")) {
+            if (BaseOperation.Companion.readShellContent(command).equals("1")) {
                 status = true;
             }
 

@@ -8,9 +8,9 @@ import android.view.*
 
 import com.earth.OsToolkit.R
 import com.earth.OsToolkit.base.BaseIndex.*
-import com.earth.OsToolkit.base.BaseKotlinOperation.Companion.ShortToast
-import com.earth.OsToolkit.base.BaseKotlinOperation.Companion.checkFilePresent
-import com.earth.OsToolkit.base.BaseKotlinOperation.Companion.readFile
+import com.earth.OsToolkit.base.BaseOperation.Companion.ShortToast
+import com.earth.OsToolkit.base.BaseOperation.Companion.checkFilePresent
+import com.earth.OsToolkit.base.BaseOperation.Companion.readFile
 import com.earth.OsToolkit.base.BaseManager
 
 import com.topjohnwu.superuser.Shell

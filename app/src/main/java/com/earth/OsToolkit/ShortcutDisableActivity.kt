@@ -3,9 +3,8 @@ package com.earth.OsToolkit
 import android.app.Activity
 import android.content.Context
 import android.os.Bundle
-import android.util.Log
 
-import com.earth.OsToolkit.base.BaseKotlinOperation.Companion.ShortToast
+import com.earth.OsToolkit.base.BaseOperation.Companion.ShortToast
 
 import com.topjohnwu.superuser.Shell
 

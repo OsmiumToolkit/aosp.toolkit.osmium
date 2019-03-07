@@ -7,8 +7,8 @@ import android.support.v4.content.ContextCompat
 import android.support.v7.app.AppCompatActivity
 import android.view.*
 import android.widget.*
-import com.earth.OsToolkit.base.BaseKotlinOperation.Companion.getAvailableCore
-import com.earth.OsToolkit.base.BaseKotlinOperation.Companion.readFile
+import com.earth.OsToolkit.base.BaseOperation.Companion.getAvailableCore
+import com.earth.OsToolkit.base.BaseOperation.Companion.readFile
 
 import kotlinx.android.synthetic.main.activity_usage.*
 import kotlinx.android.synthetic.main.view_corefreq.view.*
