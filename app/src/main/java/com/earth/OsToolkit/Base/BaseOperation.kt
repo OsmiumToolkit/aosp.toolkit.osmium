@@ -1,5 +1,6 @@
 package com.earth.OsToolkit.base
 
+import android.app.ActivityManager
 import android.content.Context
 import android.os.Build
 import com.topjohnwu.superuser.Shell
@@ -172,6 +173,13 @@ class BaseKotlinOperation {
                 long > 1024 -> (long / 1024).toString() + "KB"
                 else -> long.toString() + "B"
             }
+        }
+
+        fun getMemory(context: Context): ActivityManager.MemoryInfo {
+            val memoryInfo = ActivityManager.MemoryInfo()
+            val activityManager = context.getSystemService(Context.ACTIVITY_SERVICE) as ActivityManager
+            activityManager.getMemoryInfo(memoryInfo)
+            return memoryInfo
         }
 
         fun ShortToast(context: Context, string: String) {
