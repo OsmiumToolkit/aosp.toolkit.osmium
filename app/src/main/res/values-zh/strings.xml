@@ -205,6 +205,7 @@
     <string name="disable_select" >选择&#8230;</string >
     <string name="click" >- 点击紫色区域进入『镇魂塔』 -</string >
     <string name="t_disable" >镇压 %s</string >
+    <string name="disable_showsys">系统应用</string>
     
     <string name="ss">- 镇魂塔 -</string>
     <string name="ss2">镇压</string>

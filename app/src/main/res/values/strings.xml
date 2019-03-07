@@ -206,6 +206,7 @@
     <string name="disable_select">Select Apps&#8230;</string>
     <string name="click">Click violet part to enter\n- Tower of Disable -</string>
     <string name="t_disable">Disable %s</string>
+    <string name="disable_showsys">Show system app</string>
     
     <string name="ss">- Tower of Disable -</string>
     <string name="ss2">Disable all</string>

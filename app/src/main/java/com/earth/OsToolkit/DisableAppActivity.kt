@@ -227,6 +227,8 @@ class DisableAppActivity : AppCompatActivity() {
             dialog.setContentView(LayoutInflater.from(this).inflate(R.layout.dialog_loading, null))
             dialog.show()
 
+            val viewList = mutableListOf<SelectDisableView>()
+
             Thread {
                 // 获取已安装应用 fetch installed apps
                 val installedPackage = packageManager.getInstalledPackages(0)
@@ -237,10 +239,26 @@ class DisableAppActivity : AppCompatActivity() {
                 for (i in installedPackage) {
                     val selectDisableView = SelectDisableView(this, i, packageManager, savedSet)
                     runOnUiThread { root.addView(selectDisableView) }
+                    viewList.add(selectDisableView)
                 }
 
                 runOnUiThread { dialog.cancel() }
             }.start()
+
+            switchCompact.setOnCheckedChangeListener { _, isChecked ->
+                Thread {
+                    // 显示与隐藏系统应用 Show / hide system app
+                    if (isChecked) {
+                        for (i in viewList) {
+                            i.showView()
+                        }
+                    } else {
+                        for (i in viewList) {
+                            i.hideView()
+                        }
+                    }
+                }.start()
+            }
         }
 
         private fun initialize() {
@@ -306,7 +324,6 @@ class DisableAppActivity : AppCompatActivity() {
                 if (!isSystemApp) {
                     systemApp.visibility = View.GONE
                 }
-
 
                 // 设置监听 listeners
                 checkBox.setOnCheckedChangeListener { _, isChecked ->

@@ -8,7 +8,7 @@
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
     tools:context=".DisableAppActivity$DisableSelectActivity"
-    android:background="@color/colorPrimaryDark">
+    android:background="@color/colorPrimaryDark" >
     
     <android.support.design.widget.CoordinatorLayout
         android:layout_width="match_parent"
@@ -25,7 +25,31 @@
                 android:layout_height="?attr/actionBarSize"
                 android:background="?attr/colorPrimary"
                 app:popupTheme="@style/AppTheme.PopupOverlay" />
-        
+            
+            <android.support.v7.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" >
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" >
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:padding="@dimen/textView_margin"
+                        android:textColor="@android:color/black"
+                        android:text="@string/disable_showsys"/>
+                    <android.support.v7.widget.SwitchCompat
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"
+                        android:layout_centerVertical="true"
+                        android:padding="@dimen/cardView_padding"
+                        android:checked="false"
+                        android:id="@+id/switchCompact"/>
+                </RelativeLayout >
+                
+            </android.support.v7.widget.CardView >
         </android.support.design.widget.AppBarLayout >
         
         <ScrollView
