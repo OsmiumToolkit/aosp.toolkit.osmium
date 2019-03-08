@@ -84,11 +84,11 @@ class ExtendsFragment : Fragment() {
                     try {
                         editText.setSelection(s.toString().length.plus(1))
                     } catch (e: Exception) {
-                        ShortToast(activity as Context, e.toString())
+                        ShortToast(activity!!, e.toString(), true)
                         try {
                             editText.setSelection(s.toString().length)
                         } catch (e: Exception) {
-                            ShortToast(activity as Context, e.toString())
+                            ShortToast(activity!!, e.toString(), true)
                         }
                     }
 

@@ -27,9 +27,7 @@ class ShortcutDisableActivity: Activity() {
             for (i in savedList!!) {
                 Shell.su("pm disable $i").exec()
             }
-            runOnUiThread {
-                ShortToast(this, String.format(getString(R.string.ss_toast), savedList.size))
-            }
+            ShortToast(this, String.format(getString(R.string.ss_toast), savedList.size), false)
         }.start()
     }
 

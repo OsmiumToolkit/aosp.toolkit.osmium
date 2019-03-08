@@ -95,8 +95,8 @@ class RomIOFragment : Fragment() {
                         }
                         seekBar.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
                             override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
-                                try {
-                                    Thread {
+                                Thread {
+                                    try {
                                         Runtime.getRuntime().exec(
                                             arrayOf(
                                                 "su",
@@ -107,10 +107,10 @@ class RomIOFragment : Fragment() {
                                                 "/sys/block/mmcblk0/queue/rq_affinity"
                                             )
                                         )
-                                    }.start()
-                                } catch (e: Exception) {
-                                    ShortToast(activity as Context, e.toString())
-                                }
+                                    } catch (e: Exception) {
+                                        ShortToast(activity!!, e.toString(), false)
+                                    }
+                                }.start()
                             }
 
                             override fun onStartTrackingTouch(seekBar: SeekBar?) {
@@ -163,18 +163,18 @@ class RomIOFragment : Fragment() {
                         }
                         seekBar.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
                             override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
-                                try {
-                                    Thread {
+                                Thread {
+                                    try {
                                         Runtime.getRuntime().exec(
                                             arrayOf(
                                                 "su", "-c",
                                                 "echo", "\"" + progress + "\"", ">", "/sys/block/sda/queue/rq_affinity"
                                             )
                                         )
-                                    }.start()
-                                } catch (e: Exception) {
-                                    ShortToast(activity as Context, e.toString())
-                                }
+                                    } catch (e: Exception) {
+                                        ShortToast(activity!!, e.toString(), false)
+                                    }
+                                }.start()
                             }
 
                             override fun onStartTrackingTouch(seekBar: SeekBar?) {

@@ -101,7 +101,7 @@ class ScriptActivity : AppCompatActivity() {
                     fileOutputStream.close()
                 }
             } catch (e: Exception) {
-                runOnUiThread { ShortToast(this, e.toString()) }
+                ShortToast(this, e.toString(), false)
             }
 
             setPermission()
