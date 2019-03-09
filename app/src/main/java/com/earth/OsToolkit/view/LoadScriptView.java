@@ -104,9 +104,7 @@ public class LoadScriptView extends LinearLayout {
 
     private void startActivityForResult(Fragment fragment, String type, String index, String name) {
         new Thread(() -> fragment.startActivityForResult(new Intent(getContext(), ScriptActivity.class)
-                        .putExtra("type", type)
-                        .putExtra("index", index)
-                        .putExtra("name", name),
+                        .putExtra("path", type + "/" + index + "/" + name),
                 0)).start();
     }
 

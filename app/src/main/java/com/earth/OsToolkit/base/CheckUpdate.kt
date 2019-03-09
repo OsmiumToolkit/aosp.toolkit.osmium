@@ -1,9 +1,10 @@
 package com.earth.OsToolkit.base
 
-import android.util.Log
+import com.earth.OsToolkit.base.BaseIndex.*
 import java.io.*
 import java.lang.*
 import java.net.URL
+import java.nio.charset.Charset
 
 /*
  * OsToolkit - Kotlin
@@ -21,18 +22,17 @@ class CheckUpdate {
         override fun run() {
             super.run()
             try {
-                val url = URL("https://raw.githubusercontent.com/osmiumtoolkit/update/master/Version")
+                // 设置来源 Set source
+                val url = URL(CheckUpdate_Version)
+
+                // 连接&获取 Connect and fetch
                 val inputStream: InputStream = url.openStream()
-                val inputStreamReader = InputStreamReader(inputStream, "utf-8")
-                val bufferedReader = BufferedReader(inputStreamReader)
 
-                version = bufferedReader.readLine()
-
+                // 读取&保存 Read and save
+                version = inputStream.bufferedReader(Charsets.UTF_8).readLine()
                 inputStream.close()
-                inputStreamReader.close()
-                bufferedReader.close()
             } catch (e: Exception) {
-                e.printStackTrace()
+                //
             }
         }
 
@@ -68,33 +68,24 @@ class CheckUpdate {
         var data: StringBuilder = StringBuilder()
         override fun run() {
             super.run()
-            // 设置来源
-            val url =
-                URL("https://raw.githubusercontent.com/osmiumtoolkit/update/master/ChangelogZh")
             try {
-                // 连接&获取
+                // 设置来源 Set source
+                val url =
+                    URL(CheckUpdate_ChangelogZh)
+
+                // 连接&获取 Connect and fetch
                 val inputStream: InputStream = url.openStream()
-                // 读取
-                val inputStreamReader = InputStreamReader(inputStream, "utf-8")
-                val bufferedReader = BufferedReader(inputStreamReader)
 
-                // 复制到变量
-                var line: String? = bufferedReader.readLine()
-                while (line != null) {
-                    data.append(line)
-                    line = bufferedReader.readLine()
-                    if (line != null) {
-                        data.append("\n")
-                    }
-                }
-
-                // 释放资源
+                // 读取 Read
+                val lines = inputStream.bufferedReader(Charsets.UTF_8).readLines()
                 inputStream.close()
-                inputStreamReader.close()
-                bufferedReader.close()
 
+                // 保存 Save
+                for (i in lines) {
+                    data.append("$i\n")
+                }
             } catch (e: Exception) {
-                e.printStackTrace()
+                //
             }
         }
 
@@ -107,33 +98,23 @@ class CheckUpdate {
         var data: StringBuilder = StringBuilder()
         override fun run() {
             super.run()
-            // 设置来源
-            val url =
-                URL("https://raw.githubusercontent.com/osmiumtoolkit/update/master/ChangelogEn")
             try {
-                // 连接&获取
+                // 设置来源 Set source
+                val url =
+                    URL(CheckUpdate_ChangelogEn)
+                // 连接&获取 Connect and fetch
                 val inputStream: InputStream = url.openStream()
-                // 读取
-                val inputStreamReader = InputStreamReader(inputStream, "utf-8")
-                val bufferedReader = BufferedReader(inputStreamReader)
 
-                // 复制到变量
-                var line: String? = bufferedReader.readLine()
-                while (line != null) {
-                    data.append(line)
-                    line = bufferedReader.readLine()
-                    if (line != null) {
-                        data.append("\n")
-                    }
-                }
-
-                // 释放资源
+                // 读取 Read
+                val lines = inputStream.bufferedReader(Charsets.UTF_8).readLines()
                 inputStream.close()
-                inputStreamReader.close()
-                bufferedReader.close()
 
+                // 保存 Save
+                for (i in lines) {
+                    data.append("$i\n")
+                }
             } catch (e: Exception) {
-                e.printStackTrace()
+                //
             }
         }
 
@@ -143,22 +124,22 @@ class CheckUpdate {
     }
 
     class GetDate : Thread() {
-        private var data: String? = null
+        private var date: String? = null
         override fun run() {
             super.run()
-            val url = URL("https://raw.githubusercontent.com/osmiumtoolkit/update/master/Date")
+
             try {
+                // 设置来源 Set source
+                val url = URL(CheckUpdate_Date)
+
+                // 连接&获取 Connect and fetch
                 val inputStream = url.openStream()
-                val inputStreamReader = InputStreamReader(inputStream, "utf-8")
-                val bufferedReader = BufferedReader(inputStreamReader)
 
-                this.data = bufferedReader.readLine()
-
+                // 读取&保存 Read and save
+                date = inputStream.bufferedReader(Charsets.UTF_8).readLine()
                 inputStream.close()
-                inputStreamReader.close()
-                bufferedReader.close()
             } catch (e: Exception) {
-                e.printStackTrace()
+                //
             }
         }
 
@@ -167,7 +148,7 @@ class CheckUpdate {
             while (isAlive) {
                 sleep(1)
             }
-            return data
+            return date
         }
     }
 

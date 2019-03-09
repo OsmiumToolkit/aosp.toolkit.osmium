@@ -55,7 +55,7 @@ public class UpdateDialogFragment extends DialogFragment {
 
         builder.setTitle(R.string.update_found);
         builder.setPositiveButton(R.string.update_github, (dialog, which) -> {
-            Accessing.Companion.accessGibHubRelease(getActivity());
+            Accessing.Companion.accessGitHub(getActivity(), Repo_Release);
         }).setNegativeButton(R.string.update_coolapk, (dialog, which) -> {
             Accessing.Companion.accessCoolapkRelease(getActivity(), PackageName);
         }).setNeutralButton(R.string.cancel, (dialog, which) -> {

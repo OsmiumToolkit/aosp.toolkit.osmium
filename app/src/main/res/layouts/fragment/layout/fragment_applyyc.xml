@@ -18,7 +18,7 @@
             app:cardCornerRadius="@dimen/cardView_cardCornerRadius" >
             
             <LinearLayout
-                android:id="@+id/yc_snap"
+                android:id="@+id/snap"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical" >
@@ -32,8 +32,8 @@
                     android:padding="@dimen/cardView_padding" >
                     
                     <ImageView
-                        android:layout_width="@dimen/applyyc_img"
-                        android:layout_height="@dimen/applyyc_img"
+                        android:layout_width="@dimen/applycpufreqopt_img"
+                        android:layout_height="@dimen/applycpufreqopt_img"
                         android:layout_gravity="center_vertical"
                         android:src="@mipmap/ic_snapdragon" />
                     
@@ -56,7 +56,7 @@
             app:cardCornerRadius="@dimen/cardView_cardCornerRadius" >
             
             <LinearLayout
-                android:id="@+id/yc_mtk"
+                android:id="@+id/mtk"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical" >
@@ -69,8 +69,8 @@
                     android:padding="@dimen/cardView_padding" >
                     
                     <ImageView
-                        android:layout_width="@dimen/applyyc_img"
-                        android:layout_height="@dimen/applyyc_img"
+                        android:layout_width="@dimen/applycpufreqopt_img"
+                        android:layout_height="@dimen/applycpufreqopt_img"
                         android:layout_gravity="center_vertical"
                         android:src="@mipmap/ic_mediatek" />
                     
@@ -93,7 +93,7 @@
             app:cardCornerRadius="@dimen/cardView_cardCornerRadius" >
             
             <LinearLayout
-                android:id="@+id/yc_exynos"
+                android:id="@+id/exynos"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="vertical" >
@@ -106,8 +106,8 @@
                     android:padding="@dimen/cardView_padding" >
                     
                     <ImageView
-                        android:layout_width="@dimen/applyyc_img"
-                        android:layout_height="@dimen/applyyc_img"
+                        android:layout_width="@dimen/applycpufreqopt_img"
+                        android:layout_height="@dimen/applycpufreqopt_img"
                         android:layout_gravity="center_vertical"
                         android:src="@mipmap/ic_exynos" />
                     
@@ -130,7 +130,7 @@
             app:cardCornerRadius="@dimen/cardView_cardCornerRadius" >
             
             <LinearLayout
-                android:id="@+id/yc_kirin"
+                android:id="@+id/kirin"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical" >
@@ -143,8 +143,8 @@
                     android:padding="@dimen/cardView_padding" >
                     
                     <ImageView
-                        android:layout_width="@dimen/applyyc_img"
-                        android:layout_height="@dimen/applyyc_img"
+                        android:layout_width="@dimen/applycpufreqopt_img"
+                        android:layout_height="@dimen/applycpufreqopt_img"
                         android:layout_gravity="center_vertical"
                         android:src="@mipmap/ic_huawei" />
                     
@@ -167,7 +167,7 @@
             app:cardCornerRadius="@dimen/cardView_cardCornerRadius" >
             
             <LinearLayout
-                android:id="@+id/yc_atom"
+                android:id="@+id/atom"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical" >
@@ -180,8 +180,8 @@
                     android:padding="@dimen/cardView_padding" >
                     
                     <ImageView
-                        android:layout_width="@dimen/applyyc_img"
-                        android:layout_height="@dimen/applyyc_img"
+                        android:layout_width="@dimen/applycpufreqopt_img"
+                        android:layout_height="@dimen/applycpufreqopt_img"
                         android:layout_gravity="center_vertical"
                         android:src="@mipmap/ic_intel" />
                     

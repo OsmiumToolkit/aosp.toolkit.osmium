@@ -32,20 +32,18 @@ class ScriptActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_script)
 
-        val type = intent.getStringExtra("type")
-        val index = intent.getStringExtra("index")
-        val name = if (intent.getStringExtra("name").endsWith(".sh")) {
-            intent.getStringExtra("name")
+        val path = if (intent.getStringExtra("path").endsWith(".sh")) {
+            intent.getStringExtra("path")
         } else {
-            intent.getStringExtra("name").plus(".sh")
+            intent.getStringExtra("path").plus(".sh")
         }
 
         //Log.i("script", "$type + $index + $name")
 
-        file = File(cacheDir.absolutePath + File.separator + name)
+        file = File(path)
 
         initialize()
-        download(type, index, name)
+        download(path)
     }
 
     private fun initialize() {
@@ -59,7 +57,7 @@ class ScriptActivity : AppCompatActivity() {
         toolbar.setNavigationOnClickListener { onBackPressed() }
     }
 
-    private fun download(type: String, index: String, name: String) {
+    private fun download(path: String) {
         /*
          *
          * 下载脚本文件到cache
@@ -74,10 +72,7 @@ class ScriptActivity : AppCompatActivity() {
         Thread {
             try {
                 val url = URL(
-                    "https://raw.githubusercontent.com/osmiumtoolkit/scripts/master/" +
-                            type + File.separator +
-                            index + File.separator +
-                            name
+                    "https://raw.githubusercontent.com/osmiumtoolkit/scripts/master/$path"
                 )
 
                 val inputStream = url.openStream()
