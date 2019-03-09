@@ -198,6 +198,8 @@
     <string name="extends_nt_title" >Change internet detecting server</string >
     <string name="extends_nt_sum" >For hiding \"!\" next to data/Wi-Fi icon when connect to Internet(for mainland of China)</string >
     
+    <string name="usage">CPU Usage:\u0020</string>
+    
     <string name="battery" >Battery</string >
     <string name="battery_level" >Battery Level:\u0020</string >
     <string name="battery_voltage" >Battery Voltage:\u0020</string >

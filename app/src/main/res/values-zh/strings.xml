@@ -197,6 +197,8 @@
     <string name="extends_nt_title" >去网络叹号</string >
     <string name="extends_nt_sum" >去除连接网络后移动信号/Wi-Fi旁的感叹号</string >
     
+    <string name="usage">处理器总占用:\u0020</string>
+    
     <string name="battery" >电池</string >
     <string name="battery_level" >电池电量:\u0020</string >
     <string name="battery_voltage" >电池电压:\u0020</string >
