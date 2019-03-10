@@ -45,6 +45,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     private var chargingFragment: Fragment? = null
     private var coreFragment: Fragment? = null
     private var applyYCFragment: Fragment? = null
+    private var applyPixelCatFragment: Fragment? = null
     private var romIOFragment: Fragment? = null
     private var extendsFragment: Fragment? = null
 
@@ -243,6 +244,16 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                         fragmentTransaction.add(R.id.frameLayout_main, applyYCFragment!!)
                     }
                     frag = applyYCFragment!!
+                }
+                R.id.nav_applypc -> {
+                    title = R.string.nav_pc
+                    if (applyPixelCatFragment != null) {
+                        fragmentTransaction.show(applyPixelCatFragment!!)
+                    } else {
+                        applyPixelCatFragment = ApplyPixelCatFragment()
+                        fragmentTransaction.add(R.id.frameLayout_main, applyPixelCatFragment!!)
+                    }
+                    frag = applyPixelCatFragment!!
                 }
                 R.id.nav_romio -> {
                     title = R.string.nav_romio

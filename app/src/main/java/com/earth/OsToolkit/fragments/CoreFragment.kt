@@ -55,8 +55,8 @@ class CoreFragment : Fragment() {
                     }
                 }
             } catch (e: Exception) {
-                activity?.runOnUiThread {
-                    ShortToast(activity as Context, e.toString())
+                ShortToast(activity!!, e.toString(), false)
+                activity!!.runOnUiThread {
                     BaseManager.getInstance().exceptionBreaker(this)
                 }
             } finally {
@@ -119,35 +119,22 @@ class CoreFragment : Fragment() {
             }
             val a = i
 
+            val arrayAdapter = ArrayAdapter(
+                activity,
+                android.R.layout.simple_spinner_dropdown_item,
+                list
+            )
+
             activity.runOnUiThread {
-                val arrayAdapter = ArrayAdapter(
-                    activity,
-                    android.R.layout.simple_spinner_dropdown_item,
-                    list
-                )
                 arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
                 spinner.adapter = arrayAdapter
                 spinner.setSelection(a)
                 spinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
                     override fun onItemSelected(parent: AdapterView<*>, view: View, position: Int, id: Long) {
                         try {
-                            /*
-                            Runtime.getRuntime().exec(
-                                arrayOf(
-                                    "su",
-                                    "-c",
-                                    "echo",
-                                    "\"" + list.get(position) + "\"",
-                                    ">",
-                                    "sys/devices/system/cpu/cpu$core/cpufreq/scaling_max_freq"
-                                )
-                            )
-                            */
-
                             Shell.su("echo \"${list[position]}\" > sys/devices/system/cpu/cpu$core/cpufreq/scaling_max_freq")
-
                         } catch (e: Exception) {
-                            BaseOperation.ShortToast(activity, e.toString())
+                            BaseOperation.ShortToast(activity, e.toString(), true)
                         }
 
                     }
@@ -192,35 +179,23 @@ class CoreFragment : Fragment() {
 
             val a = j
 
+            val arrayAdapter = ArrayAdapter(
+                activity,
+                android.R.layout.simple_spinner_dropdown_item,
+                list
+            )
+
             activity.runOnUiThread {
-                val arrayAdapter = ArrayAdapter(
-                    activity,
-                    android.R.layout.simple_spinner_dropdown_item,
-                    list
-                )
                 arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
                 spinner.adapter = arrayAdapter
                 spinner.setSelection(a)
                 spinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
                     override fun onItemSelected(parent: AdapterView<*>, view: View, position: Int, id: Long) {
                         try {
-                            /*
-                            Runtime.getRuntime().exec(
-                                arrayOf(
-                                    "su",
-                                    "-c",
-                                    "echo",
-                                    "\"" + list.get(position) + "\"",
-                                    ">",
-                                    "sys/devices/system/cpu/cpu$core/cpufreq/scaling_min_freq"
-                                )
-                            )
-                            */
-
                             Shell.su("echo \"${list[position]}\" > sys/devices/system/cpu/cpu$core/cpufreq/scaling_min_freq")
                                 .exec()
                         } catch (e: Exception) {
-                            BaseOperation.ShortToast(activity, e.toString())
+                            BaseOperation.ShortToast(activity, e.toString(), true)
                         }
 
                     }
@@ -264,31 +239,23 @@ class CoreFragment : Fragment() {
 
             val a = k
 
+            val arrayAdapter = ArrayAdapter(
+                activity,
+                android.R.layout.simple_spinner_dropdown_item,
+                list
+            )
+
             activity.runOnUiThread {
-                val arrayAdapter = ArrayAdapter(
-                    activity,
-                    android.R.layout.simple_spinner_dropdown_item,
-                    list
-                )
                 arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
                 spinner.adapter = arrayAdapter
                 spinner.setSelection(a)
                 spinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
                     override fun onItemSelected(parent: AdapterView<*>, view: View, position: Int, id: Long) {
-
                         try {
-                            /*
-                            Runtime.getRuntime().exec(
-                                arrayOf(
-                                    "su", "-c", "echo", "\"" + list[position] + "\"", ">",
-                                    "sys/devices/system/cpu/cpu$core/cpufreq/scaling_governor"
-                                )
-                            )
-                            */
                             Shell.su("echo \"${list[position]}\" > sys/devices/system/cpu/cpu$core/cpufreq/scaling_governor")
                                 .exec()
                         } catch (e: Exception) {
-                            BaseOperation.ShortToast(activity, e.toString())
+                            BaseOperation.ShortToast(activity, e.toString(), true)
                         }
 
                     }

@@ -84,11 +84,11 @@ class ExtendsFragment : Fragment() {
                     try {
                         editText.setSelection(s.toString().length.plus(1))
                     } catch (e: Exception) {
-                        ShortToast(activity as Context, e.toString())
+                        ShortToast(activity!!, e.toString(), true)
                         try {
                             editText.setSelection(s.toString().length)
                         } catch (e: Exception) {
-                            ShortToast(activity as Context, e.toString())
+                            ShortToast(activity!!, e.toString(), true)
                         }
                     }
 
@@ -98,14 +98,20 @@ class ExtendsFragment : Fragment() {
             done.setOnClickListener {
                 val mac = editText.text.toString()
                 if (mac.length == 17 && pattern.matches(mac)) {
-                    Shell.su(
-                        "chmod 644 /sys/class/net/wlan0/address",
-                        "svc wifi disable", "ifconfig wlan0 down",
-                        "echo $mac > /sys/class/net/wlan0/address",
-                        "ifconfig wlan0 hw ether $mac",
-                        "ifconfig wlan0 up",
-                        "svc wifi enable"
-                    ).exec()
+                    Thread {
+                        try {
+                            Shell.su(
+                                "chmod 644 /sys/class/net/wlan0/address",
+                                "svc wifi disable", "ifconfig wlan0 down",
+                                "echo $mac > /sys/class/net/wlan0/address",
+                                "ifconfig wlan0 hw ether $mac",
+                                "ifconfig wlan0 up",
+                                "svc wifi enable"
+                            ).exec()
+                        } catch (e: Exception) {
+                            ShortToast(activity!!, e.toString(), false)
+                        }
+                    }.start()
                 }
             }
 

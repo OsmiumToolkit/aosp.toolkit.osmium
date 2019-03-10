@@ -38,7 +38,7 @@ import java.util.*
  *
  */
 
-//@SuppressWarnings("all")
+@Suppress("all")
 class DeviceInfoFragment : Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {

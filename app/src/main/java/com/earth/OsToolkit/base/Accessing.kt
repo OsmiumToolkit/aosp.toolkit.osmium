@@ -6,7 +6,7 @@ import android.content.pm.PackageInfo
 import android.content.pm.PackageManager
 import android.net.Uri
 import android.support.v4.app.FragmentActivity
-import com.earth.OsToolkit.base.BaseIndex.CoolapkPackageName
+import com.earth.OsToolkit.base.BaseIndex.*
 import java.lang.Exception
 
 /*
@@ -28,14 +28,12 @@ import java.lang.Exception
 
 class Accessing {
     companion object {
-        fun accessGitHubSource(fragmentActivity: FragmentActivity?) {
-            fragmentActivity!!.startActivity(Intent().setData(Uri.parse("https://github.com/1552980358/com.earth.OsToolkit")).setAction(
-                Intent.ACTION_VIEW))
-        }
-
-        fun accessGibHubRelease(fragmentActivity: FragmentActivity?) {
-            fragmentActivity!!.startActivity(Intent().setData(Uri.parse("https://github.com/1552980358/com.earth.OsToolkit/releases")).setAction(
-                Intent.ACTION_VIEW))
+        fun accessGitHub(fragmentActivity: FragmentActivity?, source: String) {
+            fragmentActivity!!.startActivity(
+                Intent().setData(Uri.parse(source)).setAction(
+                    Intent.ACTION_VIEW
+                )
+            )
         }
 
         fun openPackage(activity: Activity, packageManager: PackageManager, packageName: String) {
@@ -52,16 +50,25 @@ class Accessing {
 
             if (packageName.contains(CoolapkPackageName)) {
                 try {
-                    fragmentActivity.startActivity(Intent().setData(Uri.parse("market://details?id=$name")).setPackage(
-                        CoolapkPackageName).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK))
+                    fragmentActivity.startActivity(
+                        Intent().setData(Uri.parse("$Market_Head$name")).setPackage(
+                            CoolapkPackageName
+                        ).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                    )
                 } catch (e: Exception) {
                     e.printStackTrace()
-                    fragmentActivity.startActivity(Intent().setData(Uri.parse("http://www.coolapk.com/apk/$name")).setAction(
-                        Intent.ACTION_VIEW))
+                    fragmentActivity.startActivity(
+                        Intent().setData(Uri.parse("$Coolapk_Apk$name")).setAction(
+                            Intent.ACTION_VIEW
+                        )
+                    )
                 }
             } else {
-                fragmentActivity.startActivity(Intent().setData(Uri.parse("http://www.coolapk.com/apk/$name")).setAction(
-                    Intent.ACTION_VIEW))
+                fragmentActivity.startActivity(
+                    Intent().setData(Uri.parse("$Coolapk_Apk$name")).setAction(
+                        Intent.ACTION_VIEW
+                    )
+                )
             }
         }
 
@@ -75,16 +82,25 @@ class Accessing {
 
             if (packageName.contains(CoolapkPackageName)) {
                 try {
-                    fragmentActivity.startActivity(Intent().setData(Uri.parse("http://www.coolapk.com/u/$account")).setPackage(
-                        CoolapkPackageName).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK))
+                    fragmentActivity.startActivity(
+                        Intent().setData(Uri.parse("$Coolapk_User$account")).setPackage(
+                            CoolapkPackageName
+                        ).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                    )
                 } catch (e: Exception) {
                     e.printStackTrace()
-                    fragmentActivity.startActivity(Intent().setData(Uri.parse("http://www.coolapk.com/u/$account")).setAction(
-                        Intent.ACTION_VIEW))
+                    fragmentActivity.startActivity(
+                        Intent().setData(Uri.parse("$Coolapk_User$account")).setAction(
+                            Intent.ACTION_VIEW
+                        )
+                    )
                 }
             } else {
-                fragmentActivity.startActivity(Intent().setData(Uri.parse("http://www.coolapk.com/u/$account")).setAction(
-                    Intent.ACTION_VIEW))
+                fragmentActivity.startActivity(
+                    Intent().setData(Uri.parse("$Coolapk_User$account")).setAction(
+                        Intent.ACTION_VIEW
+                    )
+                )
             }
         }
     }

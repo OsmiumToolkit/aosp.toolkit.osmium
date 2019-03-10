@@ -7,39 +7,42 @@
     <string name="nav_header_subtitle" >- Vulpecula -</string >
     <string name="nav_header_desc" >Navigation header</string >
     
-    <string name="loading">Loading&#8230;</string>
-
+    <string name="loading" >Loading&#8230;</string >
+    
     <string name="cont" >Continue</string >
     <string name="cancel" >Cancel</string >
-
+    
     <string name="nav_main" >Home</string >
-    <string name="nav_monitor">Device monitor</string>
+    <string name="nav_monitor" >Device monitor</string >
     <string name="nav_about" >AboutToolkit</string >
     <string name="nav_deviceinfo" >DeviceInfo</string >
     <string name="nav_title_toolkit" >Toolkit</string >
     <string name="nav_charging" >Charging</string >
     <string name="nav_processor" >Processor</string >
-    <string name="nav_romio">ROM I/O</string>
-    <string name="nav_other">Other</string>
+    <string name="nav_romio" >ROM I/O</string >
+    <string name="nav_other" >Other</string >
     <string name="nav_title_3rd" >3rd Party support</string >
     <string name="nav_yc" >YC cpufreq-interactive-opt</string >
-    <string name="nav_tower">- Tower -</string>
+    <string name="nav_pc" >Pixel Cat cpufreq</string >
+    <string name="nav_tower" >- Tower -</string >
     
-    <string name="main_reb">Reboot Device</string>
-    <string name="main_soft">Soft Reboot</string>
-    <string name="main_bl">Reboot to Bootloader</string>
-    <string name="main_rec">Reboot to Recovery</string>
-    <string name="main_9008">Reboot to 9008 Mode</string>
-    <string name="warn_9008_title">WARNING</string>
-    <string name="warn_9008_msg">This operation is DANGEROUS\nMake SURE you have learn operation of 9008 before entering\nStop running may be found on some devices</string>
-
+    <string name="main_reb" >Reboot Device</string >
+    <string name="main_soft" >Soft Reboot</string >
+    <string name="main_bl" >Reboot to Bootloader</string >
+    <string name="main_rec" >Reboot to Recovery</string >
+    <string name="main_9008" >Reboot to 9008 Mode</string >
+    <string name="warn_9008_title" >WARNING</string >
+    <string name="warn_9008_msg" >This operation is DANGEROUS\nMake SURE you have learn operation of 9008 before entering\nStop running may be found on some devices</string >
+    
     <string name="name_yc9559" >\u0040yc9559</string >
     <string name="name_xzr" >\u0040xzr467706992</string >
-
-    <string name="warning">Copyright &#169;1552980358 &#8211; 2019</string>
+    <string name="name_cjybyjk">\u0040cjybyjk</string>
+    <string name="name_topjohnwu">\u0040topjohnwu</string>
     
-    <string name="systemApp">&#60;SYSTEM APP&#62;</string>
-
+    <string name="warning" >Copyright &#169;1552980358 &#8211; 2019</string >
+    
+    <string name="systemApp" >&#60;SYSTEM APP&#62;</string >
+    
     <string name="update_check" >Check for update</string >
     <string name="update_fail" >Fail to check: Please check your Internet connection</string >
     <string name="update_found" >New Update is released!</string >
@@ -52,70 +55,72 @@
     <string name="update_changelogEn" >English(英语)</string >
     <string name="update_changelogZh" >Simplified Chinese(简体中文)</string >
     <string name="update_newest" >It is the newest version now.</string >
-
+    
     <string name="item_card_device" >Device</string >
     <string name="item_card_device_android" >Android %s(%s, API %d)</string >
-
+    
     <string name="about_version" >Release</string >
     <string name="about_maintainer" >Maintainer</string >
     <string name="about_sourcecode" >Source Code</string >
     <string name="about_coolapk" >Coolapk</string >
     <string name="about_github" >GitHub</string >
     <string name="aboout_credit" >Credit</string >
-    <string name="about_xzr_sum" >Open-sourced Lanthanum System Toolbox molecules</string >
-    <string name="about_yc9559_sum" >yc9559\'s pufreq-interactive-opt</string >
+    <string name="about_xzr_sum" >Lanthanum System Toolbox</string >
+    <string name="about_yc9559_sum" >yc9559 cpufreq-interactive-opt</string >
+    <string name="about_pc_sum">cjybyjk PixelCat</string>
+    <string name="about_johnwu_sum">libsu</string>
     <string name="about_set_navBar" >NavBar color follows theme color</string >
     <string name="about_set_theme" >Customize theme</string >
-
+    
     <string name="script_title_head" >Run Script \"%s\"</string >
-
+    
     <string name="script_head" >================================\nOsToolkit\nBy SkyNight(1552980358)\n================================</string >
-    <string name="script_download"> - Downloading&#8230;</string>
-    <string name="script_download_done">Succeed to download!</string>
-    <string name="script_download_fail">Failed to download!</string>
-    <string name="script_target">- Target :</string>
-    <string name="script_permission"> - Setting permission&#8230;</string>
-    <string name="script_permission_done">Succeed to set permission!</string>
-    <string name="script_permission_fail">Failed to set permission!</string>
-    <string name="script_command"> - Command :</string>
-    <string name="script_process"> - Process :</string>
-    <string name="script_error"> - Error :</string>
-
-    <string name="welcome_tab_1">Welcome</string>
-    <string name="welcome_tab_2">Intro</string>
-    <string name="welcome_tab_3">About</string>
-    <string name="welcome_tab_4">Start</string>
-
+    <string name="script_download" > - Downloading&#8230;</string >
+    <string name="script_download_done" >Succeed to download!</string >
+    <string name="script_download_fail" >Failed to download!</string >
+    <string name="script_target" >- Target :</string >
+    <string name="script_permission" > - Setting permission&#8230;</string >
+    <string name="script_permission_done" >Succeed to set permission!</string >
+    <string name="script_permission_fail" >Failed to set permission!</string >
+    <string name="script_command" > - Command :</string >
+    <string name="script_process" > - Process :</string >
+    <string name="script_error" > - Error :</string >
+    
+    <string name="welcome_tab_1" >Welcome</string >
+    <string name="welcome_tab_2" >Intro</string >
+    <string name="welcome_tab_3" >About</string >
+    <string name="welcome_tab_4" >Start</string >
+    
     <string name="welcome_1_title" >Wellcome</string >
     <string name="welcome_1_subtitle" >Here is Osmium Toolkit</string >
-
+    
     <string name="welcome_2_title" >#BeUnstable</string >
     <string name="welcome_2_subtitle" >An Open-Sourced project! Do what you want!</string >
     <string name="welcome_2_title2" >#!/system/bin</string >
     <string name="welcone_2_subtitle2" >Shell commands are used and being Open-Sourced</string >
-
+    
     <string name="welcome_3_title" >About</string >
     <string name="welcome_3_subtitle" >Author</string >
     <string name="welcome_3_auth" >\u00401552980358</string >
     <string name="welcome_3_spcialthank" >Special Thanks</string >
     <string name="welcome_3_test" >Cooperation Tester</string >
     <string name="welcome_3_yuge" >\u0040鱼鸽</string >
-
+    
     <string name="welcome_4_title" >Ready To Start&#8230;</string >
     <string name="welcome_4_subtitle" >But I need Root permission first&#8230;</string >
     <string name="welcome_4_btn" >→ Click here continue ←</string >
-
+    
     <string name="welcome_get_root" >Try getting Root permission(Command\"su\")</string >
     <string name="welcome_get_root_success" >Succeed!</string >
     <string name="welcome_get_root_fail" >Failed!</string >
     <string name="welcome_get_root_pbm" >Failed!Something wrong with the process&#8230;</string >
-
+    
     <string name="sw_dis" >Disabled</string >
     <string name="sw_en" >Enabled</string >
     <string name="sw_none" >Unavailable</string >
     <string name="toast_succeed" >Succeed</string >
     <string name="toast_failed" >Failed!</string >
-
+    
     <string name="charging_not_support" >WARNING:\nOption(s) is/are not supported on your device</string >
     <string name="charging_qc3_title" >QC3.0 Fast Charging</string >
     <string name="charging_qc3_sum" >Enable/Disable QC3.0 - It might not work</string >
@@ -124,91 +129,93 @@
     <string name="charging_usbqc_title" >USB Quick Charge</string >
     <string name="charging_usbqc_sum" >Enable/Disable USB Quick Charge(need support from 3rd party kernel)</string >
     
-    <string name="romio_addrandom_title">Add randomize</string>
-    <string name="romio_addrandom_sum">Fetch entropy by rotating device</string>
-    <string name="romio_nomerges_title">Help debugging</string>
-    <string name="romio_nomerges_sum">Disable to boost performance</string>
-    <string name="romio_iostats_title">Iostat</string>
-    <string name="romio_iostats_sum">Disable to boost performance.\nBut some application depends on it \nmay not work properly </string>
-    <string name="romio_rq_title">RQ affinity</string>
-    <string name="romio_rq_sum">Control level of reaction of CPU when facing I/O exception</string>
-    <string name="romio_rq_extreme">Extreme</string>
-    <string name="romio_rq_default">Default</string>
-    <string name="romio_rq_conservative">Conservative</string>
+    <string name="romio_addrandom_title" >Add randomize</string >
+    <string name="romio_addrandom_sum" >Fetch entropy by rotating device</string >
+    <string name="romio_nomerges_title" >Help debugging</string >
+    <string name="romio_nomerges_sum" >Disable to boost performance</string >
+    <string name="romio_iostats_title" >Iostat</string >
+    <string name="romio_iostats_sum" >Disable to boost performance.\nBut some application depends on it \nmay not work properly </string >
+    <string name="romio_rq_title" >RQ affinity</string >
+    <string name="romio_rq_sum" >Control level of reaction of CPU when facing I/O exception</string >
+    <string name="romio_rq_extreme" >Extreme</string >
+    <string name="romio_rq_default" >Default</string >
+    <string name="romio_rq_conservative" >Conservative</string >
     
     <string name="deviceinfo_general_title" >Device</string >
     <string name="deviceinfo_general_manufacturer" >Manufacturer</string >
     <string name="deviceinfo_general_brand" >Brand</string >
     <string name="deviceinfo_general_model" >Model</string >
     <string name="deviceinfo_general_device" >Device</string >
-    <string name="deviceinfo_general_product">Product</string>
+    <string name="deviceinfo_general_product" >Product</string >
     <string name="deviceinfo_general_hardware" >Hardware</string >
     
-    <string name="deviceinfo_display_title">Display</string>
-    <string name="deviceinfo_display_resolution">Resolution</string>
-    <string name="deviceinfo_display_density">Density</string>
-    <string name="deviceinfo_display_densityDpi">Density DPI</string>
-    <string name="deviceinfo_display_scaledDensity">Scaled Density</string>
-
+    <string name="deviceinfo_display_title" >Display</string >
+    <string name="deviceinfo_display_resolution" >Resolution</string >
+    <string name="deviceinfo_display_density" >Density</string >
+    <string name="deviceinfo_display_densityDpi" >Density DPI</string >
+    <string name="deviceinfo_display_scaledDensity" >Scaled Density</string >
+    
     <string name="deviceinfo_android_title" >Android</string >
     <string name="deviceinfo_android_version" >Version</string >
-    <string name="deviceinfo_soc_board">Board</string>
-    <string name="deviceinfo_android_versionName">VersionName</string>
-    <string name="deviceinfo_android_sdk">SDK</string>
+    <string name="deviceinfo_soc_board" >Board</string >
+    <string name="deviceinfo_android_versionName" >VersionName</string >
+    <string name="deviceinfo_android_sdk" >SDK</string >
     <string name="deviceinfo_android_type" >Build Type</string >
-
+    
     <string name="deviceinfo_soc_title" >SoC</string >
     <string name="deviceinfo_soc_manufacturer" >Manufacturer</string >
     <string name="deviceinfo_soc_cores" >Cores</string >
     <string name="deviceinfo_soc_abis" >Supported ABIs</string >
     <string name="deviceinfo_soc_abis64" >Supported 64-bit ABIs</string >
     <string name="deviceinfo_soc_abis32" >Supported 32-bit ABIs</string >
-
+    
     <string name="deviceinfo_ram_title" >RAM</string >
     <string name="deviceinfo_ram_totalMem" >Total RAM</string >
     <string name="deviceinfo_ram_threshold" >Threshold</string >
-
+    
     <string name="deviceinfo_jvm_title" >Java Runtime</string >
     <string name="deviceinfo_jvm_maxmem" >JVM Max Memory</string >
     <string name="deviceinfo_jvm_totalmem" >JVM Total Memory</string >
-
+    
     <string name="cores_no" >Number of core(s): %d</string >
     <string name="kiloHertz" >\u0020kHz</string >
     <string name="cores_max_freq" >Max. Frequency: </string >
     <string name="cores_min_freq" >Min. Frequency: </string >
     <string name="cores_governor" >Governor: </string >
-
+    
     <string name="applyyc_des" >YC is a repository adjusting the interactive parameters by personal feeling started by CoolApk member ＠yc9559. It is now open-sourced on GitHub.</string >
     <string name="apply_snap" >Qualcomm Snapdragon</string >
     <string name="apply_exynos" >Samsung Exynos</string >
     <string name="apply_mtk" >MediaTek Helio</string >
     <string name="apply_kirin" >HuaWei Hisilicon Kirin</string >
     <string name="apply_atom" >Intel Atom</string >
-    <string name="apply_confirm" >You are going to download a script for CPU "%s" sized around 7kB, which the script will automatically run.\nContinue?</string >
+    <string name="apply_confirm" >It will directly write into required file and apply for %s, can\'t be reverse, please back-up your system first.\nContinue?</string >
     
-    <string name="extends_mac_title">Customize MAC address</string>
-    <string name="extends_mac_sum">Customize network device\'s MAC address\n(Reboot and never use this if network can\'t be connected)</string>
-    <string name="extends_ff_title">FreeForm Multi-Windows</string>
-    <string name="extends_ff_sum">Android 6.0(SDK24) or above hidden API</string>
-    <string name="extends_nt_title" >Change internet detecting server</string>
-    <string name="extends_nt_sum">For hiding \"!\" next to data/Wi-Fi icon when connect to Internet(for mainland of China)</string>
-   
-    <string name="battery">Battery</string>
-    <string name="battery_level">Battery Level:\u0020</string>
-    <string name="battery_voltage">Battery Voltage:\u0020</string>
-    <string name="battery_current">Battery Current:\u0020</string >
-    <string name="processor">Processor Frequency</string>
-    <string name="thermal_sensor">Thermal Sensor</string>
+    <string name="extends_mac_title" >Customize MAC address</string >
+    <string name="extends_mac_sum" >Customize network device\'s MAC address\n(Reboot and never use this if network can\'t be connected)</string >
+    <string name="extends_ff_title" >FreeForm Multi-Windows</string >
+    <string name="extends_ff_sum" >Android 6.0(SDK24) or above hidden API</string >
+    <string name="extends_nt_title" >Change internet detecting server</string >
+    <string name="extends_nt_sum" >For hiding \"!\" next to data/Wi-Fi icon when connect to Internet(for mainland of China)</string >
     
-    <string name="disable_des">Disable app to stop background services for increasing battery life.\nClick"+"to add app.\nClick icon to enable and start.\nLong click icon to disable.\nLong click "+" to disable all app in the list\n***Be awareness to disable system app***\n(Long click here to hide this notice)</string>
-    <string name="disable_title">- Disable Stele -</string>
-    <string name="disable_toolbar">- Tower of Disable -</string>
-    <string name="disable_select">Select Apps&#8230;</string>
-    <string name="click">Click violet part to enter\n- Tower of Disable -</string>
-    <string name="t_disable">Disable %s</string>
-    <string name="disable_showsys">Show system app</string>
+    <string name="usage">CPU Usage:\u0020</string>
     
-    <string name="ss">- Tower of Disable -</string>
-    <string name="ss2">Disable all</string>
-    <string name="ss_toast">Disabled totally %d app(s) in added list</string>
-</resources>
+    <string name="battery" >Battery</string >
+    <string name="battery_level" >Battery Level:\u0020</string >
+    <string name="battery_voltage" >Battery Voltage:\u0020</string >
+    <string name="battery_current" >Battery Current:\u0020</string >
+    <string name="processor" >Processor Frequency</string >
+    <string name="thermal_sensor" >Thermal Sensor</string >
+    
+    <string name="disable_des" >Disable app to stop background services for increasing battery life.\nClick"+"to add app.\nClick icon to enable and start.\nLong click icon to disable.\nLong click "+" to disable all app in the list\n***Be awareness to disable system app***\n(Long click here to hide this notice)</string >
+    <string name="disable_title" >- Disable Stele -</string >
+    <string name="disable_toolbar" >- Tower of Disable -</string >
+    <string name="disable_select" >Select Apps&#8230;</string >
+    <string name="click" >Click violet part to enter\n- Tower of Disable -</string >
+    <string name="t_disable" >Disable %s</string >
+    <string name="disable_showsys" >Show system app</string >
+    
+    <string name="ss" >- Tower of Disable -</string >
+    <string name="ss2" >Disable all</string >
+    <string name="ss_toast" >Disabled totally %d app(s) in added list</string >
+</resources >

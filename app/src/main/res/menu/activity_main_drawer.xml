@@ -39,6 +39,10 @@
                 android:id="@+id/nav_applyyc"
                 android:icon="@drawable/ic_yc"
                 android:title="@string/nav_yc" />
+            <item
+                android:id="@+id/nav_applypc"
+                android:icon="@drawable/ic_yc"
+                android:title="@string/nav_pc" />
         </menu >
     </item >
 </menu >

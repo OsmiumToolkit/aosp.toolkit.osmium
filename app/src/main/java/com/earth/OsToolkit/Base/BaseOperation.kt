@@ -1,5 +1,6 @@
 package com.earth.OsToolkit.base
 
+import android.app.Activity
 import android.app.ActivityManager
 import android.content.Context
 import android.os.Build
@@ -182,8 +183,13 @@ class BaseOperation {
             return memoryInfo
         }
 
-        fun ShortToast(context: Context, string: String) {
-            Toast.makeText(context, string, Toast.LENGTH_SHORT).show()
+        fun ShortToast(activity: Activity, string: String, UIThread: Boolean) {
+            if (UIThread) {
+                Toast.makeText(activity, string, Toast.LENGTH_SHORT).show()
+            } else {
+                activity.runOnUiThread { Toast.makeText(activity, string, Toast.LENGTH_SHORT).show() }
+            }
+
         }
     }
 }

@@ -23,22 +23,25 @@
     <string name="nav_other" >其他杂项</string >
     <string name="nav_title_3rd" >第三方提供</string >
     <string name="nav_yc" >YC调度</string >
+    <string name="nav_pc" >橘猫调度</string >
     <string name="nav_tower" >- 镇魂塔 -</string >
     
-    <string name="main_reb">重启设备</string>
-    <string name="main_soft">软重启</string>
-    <string name="main_bl">重启到Bootloader</string>
-    <string name="main_rec">重启到Recovery</string>
-    <string name="main_9008">重启到9008模式</string>
-    <string name="warn_9008_title">警告</string>
-    <string name="warn_9008_msg">此操作可能具有一定危险性\n请确保在已经学会如何使用9008后再进入该模式\n部分机型可能会出现卡住无法改出的情况</string>
+    <string name="main_reb" >重启设备</string >
+    <string name="main_soft" >软重启</string >
+    <string name="main_bl" >重启到Bootloader</string >
+    <string name="main_rec" >重启到Recovery</string >
+    <string name="main_9008" >重启到9008模式</string >
+    <string name="warn_9008_title" >警告</string >
+    <string name="warn_9008_msg" >此操作可能具有一定危险性\n请确保在已经学会如何使用9008后再进入该模式\n部分机型可能会出现卡住无法改出的情况</string >
     
     <string name="name_yc9559" >\u0040yc9559</string >
     <string name="name_xzr" >\u0040xzr467706992</string >
+    <string name="name_cjybyjk">\u0040cjybyjk</string>
+    <string name="name_topjohnwu">\u0040topjohnwu</string>
     
     <string name="warning" >Copyright &#169;1552980358 &#8211; 2019</string >
     
-    <string name="systemApp">&#60;系统应用&#62;</string>
+    <string name="systemApp" >&#60;系统应用&#62;</string >
     
     <string name="update_check" >检查更新</string >
     <string name="update_fail" >更新检查失败: 请检查网络连接后尝试</string >
@@ -62,8 +65,10 @@
     <string name="about_coolapk" >酷安</string >
     <string name="about_github" >GitHub</string >
     <string name="aboout_credit" >鸣谢</string >
-    <string name="about_xzr_sum" >镧系统工具箱开源模块</string >
+    <string name="about_xzr_sum" >镧系统工具箱</string >
     <string name="about_yc9559_sum" >yc9559调度</string >
+    <string name="about_pc_sum">橘猫调度</string>
+    <string name="about_johnwu_sum">libsu库</string>
     <string name="about_set_navBar" >导航栏颜色跟随主题</string >
     <string name="about_set_theme" >自定义主题</string >
     
@@ -183,14 +188,16 @@
     <string name="apply_mtk" >联发科 Helio</string >
     <string name="apply_kirin" >华为海思 麒麟</string >
     <string name="apply_atom" >英特尔 Atom</string >
-    <string name="apply_confirm" >将会为处理器"%s"下载约7kB的脚本文件,下载完成后会自动执行。\n继续?</string >
+    <string name="apply_confirm" >将会为%s直接写入所需文件应用无法挽回，敬请备份系统。\n继续?</string >
     
     <string name="extends_mac_title" >修改Mac地址</string >
     <string name="extends_mac_sum" >修改本机网络的mac地址\n（假如在修改后无法连接wifi，请重启解决手机，并且不再使用本功能）</string >
-    <string name="extends_ff_title">FreeForm多窗口模式</string>
-    <string name="extends_ff_sum">Android 6.0(SDK24)或以上隐藏功能接口</string>
-    <string name="extends_nt_title" >去网络叹号</string>
-    <string name="extends_nt_sum">去除连接网络后移动信号/Wi-Fi旁的感叹号</string>
+    <string name="extends_ff_title" >FreeForm多窗口模式</string >
+    <string name="extends_ff_sum" >Android 6.0(SDK24)或以上隐藏功能接口</string >
+    <string name="extends_nt_title" >去网络叹号</string >
+    <string name="extends_nt_sum" >去除连接网络后移动信号/Wi-Fi旁的感叹号</string >
+    
+    <string name="usage">处理器总占用:\u0020</string>
     
     <string name="battery" >电池</string >
     <string name="battery_level" >电池电量:\u0020</string >
@@ -205,9 +212,9 @@
     <string name="disable_select" >选择&#8230;</string >
     <string name="click" >- 点击紫色区域进入『镇魂塔』 -</string >
     <string name="t_disable" >镇压 %s</string >
-    <string name="disable_showsys">系统应用</string>
+    <string name="disable_showsys" >系统应用</string >
     
-    <string name="ss">- 镇魂塔 -</string>
-    <string name="ss2">镇压</string>
-    <string name="ss_toast">已禁用已添加列表内%d个</string>
-</resources>
+    <string name="ss" >- 镇魂塔 -</string >
+    <string name="ss2" >镇压</string >
+    <string name="ss_toast" >已禁用已添加列表内%d个</string >
+</resources >

@@ -13,7 +13,7 @@ import com.earth.OsToolkit.MainActivity
 import com.earth.OsToolkit.R
 import com.earth.OsToolkit.base.Accessing.Companion.accessCoolapkAccount
 import com.earth.OsToolkit.base.Accessing.Companion.accessCoolapkRelease
-import com.earth.OsToolkit.base.Accessing.Companion.accessGitHubSource
+import com.earth.OsToolkit.base.Accessing.Companion.accessGitHub
 import com.earth.OsToolkit.base.CheckUpdate
 import com.earth.OsToolkit.base.BaseIndex.*
 import com.earth.OsToolkit.base.BaseOperation.Companion.getPackageVersion
@@ -64,7 +64,7 @@ class AboutFragment : Fragment() {
         }
 
         source.setOnClickListener {
-            accessGitHubSource(activity)
+            accessGitHub(activity, Repo_Source)
         }
 
         xzr.setOnClickListener {
@@ -72,6 +72,12 @@ class AboutFragment : Fragment() {
         }
         yc.setOnClickListener {
             accessCoolapkAccount(activity, YcID)
+        }
+        pc.setOnClickListener {
+
+        }
+        libsu.setOnClickListener {
+            accessGitHub(activity, Repo_libsu)
         }
 
         val sharedPreferences = activity!!.getSharedPreferences("ui", Context.MODE_PRIVATE)

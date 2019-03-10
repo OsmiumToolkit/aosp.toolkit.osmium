@@ -5,8 +5,11 @@ import android.content.*
 import android.os.*
 import android.support.v4.content.ContextCompat
 import android.support.v7.app.AppCompatActivity
+import android.util.Log
 import android.view.*
 import android.widget.*
+
+import com.earth.OsToolkit.base.BaseOperation.Companion.ShortToast
 import com.earth.OsToolkit.base.BaseOperation.Companion.getAvailableCore
 import com.earth.OsToolkit.base.BaseOperation.Companion.readFile
 
@@ -16,6 +19,9 @@ import kotlinx.android.synthetic.main.view_sensordata.view.*
 
 import java.io.File
 import java.lang.StringBuilder
+import java.io.FileInputStream
+import java.util.*
+
 
 /*
  * OsToolkit - Kotlin
@@ -31,6 +37,7 @@ class UsageActivity : AppCompatActivity() {
     private var batteryReceiver: BatteryReceiver? = null
     private val coreFreqViewList = mutableListOf<CoreFreqView>()
     private val sensorDataChildViewList = mutableListOf<SensorDataChildView>()
+    private val threadList = mutableListOf<Thread>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -50,6 +57,96 @@ class UsageActivity : AppCompatActivity() {
                     grid.addView(coreFreqView)
                 }
             }
+
+            /*
+             *
+             * 计算CPU总使用率 Calculate total CPU usage
+             * 抓取/proc/stat保存第一行数据，然后再等待一段时间后再次抓取/proc/stat，再用公式计算出使用率，再将此次抓取的数据保存，然后无限重复
+             * Catch /proc/stat and save first line in specific order, and catch /proc/stat again after waiting a period of time
+             * then calculate usage by following formula, then save new data, finally repeat and repeat...
+             *
+             * /proc/stat第一行参考(Array.asList的话中间会因为有个空白，所以会导致List失去目录1，所以user的目录是2)
+             * First line example of /proc/stat (due to a space, list will lost index 1, so index of user is 2)
+             * cpu  user nice system idle iowait irq softirq 0 0 0
+             *
+             * 总使用率 TotalUsage
+             * user+nice+system+iowait+irq+softirq
+             *
+             * 空闲 WaitingTime
+             * idle
+             *
+             * 公式 Formula
+             * ((新WaitingTime - 新TotalUsage) - (旧WaitingTime - 旧TotalUsage)) / (新WaitingTime - 旧WaitingTime) * 100
+             * ((New WaitingTime - New TotalUsage) - (Old WaitingTime - Old TotalUsage)) / (New WaitingTime - Old WaitingTime) * 100
+             *
+             */
+
+            val thread = Thread {
+                var lastIdle: Float
+                var lastTotal: Float
+                try {
+                    val fileInputStream = FileInputStream(File("/proc/stat"))
+                    val stat = ArrayList(
+                        Arrays.asList(
+                            *fileInputStream.bufferedReader(Charsets.UTF_8).readLine()
+                                .split((" ").toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()
+                        )
+                    )
+                    fileInputStream.close()
+                    Thread {
+                        for (i: Int in 0 until stat.size)
+                            Log.i("statList $i", stat[i])
+                    }.start()
+
+                    lastIdle = stat[5].toFloat()
+                    Log.i("lastIdle", stat[4])
+                    lastTotal =
+                        stat[2].toFloat() + stat[3].toFloat() + stat[4].toFloat() + stat[6].toFloat() +
+                                stat[7].toFloat() + stat[8].toFloat() + stat[9].toFloat()
+                } catch (e: Exception) {
+                    runOnUiThread { ShortToast(this, e.toString(), false) }
+                    lastIdle = 0f
+                    lastTotal = 0f
+                }
+
+                try {
+                    Thread.sleep(1000)
+                } catch (e: Exception) {
+                    //
+                }
+
+                while (true) {
+                    try {
+                        val fileInputStream = FileInputStream(File("/proc/stat"))
+                        val stat = ArrayList(
+                            Arrays.asList(
+                                *fileInputStream.bufferedReader(Charsets.UTF_8).readLine()
+                                    .split((" ").toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()
+                            )
+                        )
+                        fileInputStream.close()
+                        val nowIdle = stat[5].toFloat()
+                        val nowTotal =
+                            stat[2].toFloat() + stat[3].toFloat() + stat[4].toFloat() + stat[6].toFloat() +
+                                    stat[7].toFloat() + stat[8].toFloat() + stat[9].toFloat()
+                        val u = 100f * ((nowIdle - nowTotal) - (lastIdle - lastTotal)) / (nowIdle - lastIdle)
+                        runOnUiThread { usage.text = u.toString() }
+                        lastIdle = nowIdle
+                        lastTotal = nowTotal
+                    } catch (e: Exception) {
+                        runOnUiThread { ShortToast(this, e.toString(), false) }
+                        break
+                    }
+                    try {
+                        Thread.sleep(1000)
+                    } catch (e: Exception) {
+                        //
+                    }
+                }
+            }
+            thread.start()
+            threadList.add(thread)
+
         }
         t1.start()
 
@@ -63,7 +160,7 @@ class UsageActivity : AppCompatActivity() {
                 var c: Int
                 var lastC = 0
                 while (true) {
-                    c =  0 - batteryManager.getIntProperty(BatteryManager.BATTERY_PROPERTY_CURRENT_NOW) / 1000
+                    c = 0 - batteryManager.getIntProperty(BatteryManager.BATTERY_PROPERTY_CURRENT_NOW) / 1000
                     if (lastC != c) {
                         runOnUiThread {
                             battery_current.text = "$c mA"
@@ -76,9 +173,9 @@ class UsageActivity : AppCompatActivity() {
                         //
                     }
                 }
-
             }
             currentThread.start()
+            threadList.add(currentThread)
         }
 
         t2.start()
@@ -125,10 +222,14 @@ class UsageActivity : AppCompatActivity() {
         for (i in sensorDataChildViewList) {
             i.interruptThread()
         }
+        for (i in threadList) {
+            i.interrupt()
+        }
         super.onBackPressed()
     }
 
-    class BatteryReceiver(activity: UsageActivity, progressBar: ProgressBar, level: TextView, voltage: TextView) : BroadcastReceiver() {
+    class BatteryReceiver(activity: UsageActivity, progressBar: ProgressBar, level: TextView, voltage: TextView) :
+        BroadcastReceiver() {
         private var activity: UsageActivity? = null
         private var progressBar: ProgressBar? = null
         private var level: TextView? = null

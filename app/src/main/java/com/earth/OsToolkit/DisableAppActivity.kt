@@ -14,8 +14,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.widget.GridLayout
 import android.widget.LinearLayout
+
 import com.earth.OsToolkit.base.Accessing.Companion.openPackage
 import com.earth.OsToolkit.base.BaseOperation.Companion.ShortToast
+
 import com.topjohnwu.superuser.Shell
 
 import kotlinx.android.synthetic.main.activity_disableapp.*
@@ -188,7 +190,7 @@ class DisableAppActivity : AppCompatActivity() {
                     try {
                         openPackage(activity, packageManager, packageName)
                     } catch (e: Exception) {
-                        activity.runOnUiThread { ShortToast(activity, e.toString()) }
+                        ShortToast(activity, e.toString(), false)
                     }
                 }.start()
             }
@@ -200,11 +202,12 @@ class DisableAppActivity : AppCompatActivity() {
                 }.start()
 
                 ShortToast(
-                    activity as Context,
+                    activity,
                     String.format(
                         activity.getString(R.string.t_disable),
                         packageManager.getApplicationLabel(packageManager.getApplicationInfo(packageName, 0))
-                    )
+                    ),
+                    true
                 )
                 return@setOnLongClickListener true
             }
@@ -354,7 +357,7 @@ class DisableAppActivity : AppCompatActivity() {
                             try {
                                 Shell.su("pm enable ${packageInfo.packageName}").exec()
                             } catch (e: Exception) {
-                                ShortToast(activity, e.toString())
+                                ShortToast(activity, e.toString(), false)
                             }
                             dialog.cancel()
                         }.start()
