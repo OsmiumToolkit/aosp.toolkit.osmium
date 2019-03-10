@@ -43,3 +43,4 @@
 - LibXZR(xzr467706992)  : [Lanthanum-system-toolbox moledules](https://github.com/Lanthanum-system-toolbox-v2/Modules)
 - Matt Yang(yc9559)     : [cpufreq-interactive-opt](https://github.com/yc9559/cpufreq-interactive-opt)
 - John Wu(topjohnwu)    : [libsu](https://github.com/topjohnwu/libsu)
+- Shelling Ford(cjybyjk): [powercfg_generator](https://github.com/cjybyjk/powercfg_generator)
