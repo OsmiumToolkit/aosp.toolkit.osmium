@@ -32,8 +32,8 @@ import kotlin.Exception
 
 /*
  * Changelog:
- * - detectserver: 1 Mar 2019
- *
+ * - detectserver :  1 Mar 2019
+ * - Short URL    : 13 Mar 2019
  */
 
 class ExtendsFragment : Fragment() {

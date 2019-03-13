@@ -4,6 +4,7 @@ import android.app.Activity
 import android.os.Bundle
 import android.support.v4.content.ContextCompat
 import android.support.v7.app.AppCompatActivity
+import android.util.Log
 import android.view.View
 
 import com.earth.OsToolkit.base.BaseOperation.Companion.setPermission
@@ -38,9 +39,7 @@ class ScriptActivity : AppCompatActivity() {
             intent.getStringExtra("path").plus(".sh")
         }
 
-        //Log.i("script", "$type + $index + $name")
-
-        file = File(path)
+        file = File("${cacheDir.absolutePath}${File.separator}$path")
 
         initialize()
         download(path)
@@ -49,8 +48,7 @@ class ScriptActivity : AppCompatActivity() {
     private fun initialize() {
         setSupportActionBar(toolbar)
 
-        if (supportActionBar != null)
-            supportActionBar!!.setDisplayHomeAsUpEnabled(true)
+        supportActionBar!!.setDisplayHomeAsUpEnabled(true)
 
         window.statusBarColor = ContextCompat.getColor(this, android.R.color.black)
 
