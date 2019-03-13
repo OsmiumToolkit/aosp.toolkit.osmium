@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical" >
     
     <android.support.v7.widget.CardView
@@ -11,50 +11,55 @@
         android:layout_height="wrap_content"
         android:padding="@dimen/cardView_padding"
         android:layout_margin="@dimen/cardView_margin"
-        app:cardCornerRadius="@dimen/cardView_cardCornerRadius">
+        app:cardCornerRadius="@dimen/cardView_cardCornerRadius" >
+        
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:padding="@dimen/cardView_linear_padding">
+            android:padding="@dimen/cardView_linear_padding" >
+            
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="@android:color/black"
                 android:textSize="@dimen/frag_title"
-                android:text="@string/extends_mac_title"/>
+                android:text="@string/extends_mac_title" />
+            
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/extends_mac_sum"/>
+                android:text="@string/extends_mac_sum" />
             
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                android:orientation="horizontal" >
+                
                 <EditText
-                    android:layout_width="match_parent"
+                    android:layout_width="@dimen/dp_0"
                     android:layout_height="wrap_content"
                     android:layout_weight="9"
                     android:id="@+id/editText"
                     android:inputType="text"
                     android:digits="0123456789abcdefghigklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ:"
-                    android:maxLength="17"/>
+                    android:maxLength="17" />
+                
                 <ImageView
                     android:id="@+id/done"
                     android:clickable="true"
                     android:focusable="true"
-                    android:layout_width="wrap_content"
+                    android:layout_width="@dimen/dp_0"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_weight="1"
                     android:src="@drawable/ic_arrow_forward"
                     android:padding="@dimen/frag_pad"
-                    android:background="@drawable/ripple_effect"/>
+                    android:background="@drawable/ripple_effect" />
             </LinearLayout >
-            
-        </LinearLayout >
         
+        </LinearLayout >
+    
     </android.support.v7.widget.CardView >
     
     <com.earth.OsToolkit.view.LoadScriptView
@@ -62,7 +67,7 @@
         android:layout_height="wrap_content"
         android:id="@+id/freeform"
         app:title="@string/extends_ff_title"
-        app:summary="@string/extends_ff_title"/>
+        app:summary="@string/extends_ff_title" />
     
     <!-- 1 Mar 2019 -->
     <com.earth.OsToolkit.view.LoadScriptView
@@ -70,6 +75,99 @@
         android:layout_height="wrap_content"
         android:id="@+id/detectserver"
         app:title="@string/extends_nt_title"
-        app:summary="@string/extends_nt_sum"/>
+        app:summary="@string/extends_nt_sum" />
     
+    <!-- 13 Mar 2019 -->
+    <android.support.v7.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/cardView_padding"
+        android:layout_margin="@dimen/cardView_margin" >
+        
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="@dimen/dp_10">
+            
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/cardview_title"
+                android:text="@string/extends_su_title"
+                android:textColor="@android:color/black"/>
+            
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal" >
+                
+                <android.support.v7.widget.AppCompatEditText
+                    android:layout_width="@dimen/dp_0"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="9"
+                    android:padding="@dimen/dp_10"
+                    android:layout_margin="@dimen/dp_5"
+                    android:gravity="start|top"
+                    android:minLines="2"
+                    android:background="@drawable/shape_edittext_1"
+                    android:id="@+id/before" />
+                
+                <RelativeLayout
+                    android:layout_width="@dimen/dp_0"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1" >
+                    
+                    <android.support.v7.widget.AppCompatImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:src="@drawable/ic_arrow_forward"
+                        android:layout_centerHorizontal="true"
+                        android:id="@+id/get"
+                        android:clickable="true"
+                        android:focusable="true"
+                        android:background="?android:attr/selectableItemBackground"/>
+                </RelativeLayout >
+            </LinearLayout >
+            
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal" >
+                
+                <android.support.v7.widget.AppCompatEditText
+                    android:layout_width="@dimen/dp_0"
+                    android:id="@+id/after"
+                    android:layout_weight="8"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/shape_edittext_1"
+                    android:padding="@dimen/dp_10"
+                    android:layout_margin="@dimen/dp_5" />
+                
+                <RelativeLayout
+                    android:layout_width="@dimen/dp_0"
+                    android:layout_weight="2"
+                    android:layout_height="match_parent"
+                    android:id="@+id/copy"
+                    android:background="?android:attr/selectableItemBackground"
+                    android:clickable="true"
+                    android:focusable="true">
+                    
+                    <android.support.v7.widget.AppCompatTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/colorPrimaryDark"
+                        android:layout_centerHorizontal="true"
+                        android:layout_centerVertical="true"
+                        android:text="@string/extends_su_cp" />
+                </RelativeLayout >
+            </LinearLayout >
+        
+        
+        
+        </LinearLayout >
+    
+    </android.support.v7.widget.CardView >
+
 </LinearLayout >

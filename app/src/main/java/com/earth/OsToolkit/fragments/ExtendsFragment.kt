@@ -1,6 +1,8 @@
 package com.earth.OsToolkit.fragments
 
 import android.content.*
+import android.content.ClipboardManager
+import android.net.Uri
 import android.os.*
 import android.support.v4.app.Fragment
 import android.text.*
@@ -16,7 +18,8 @@ import com.earth.OsToolkit.base.BaseManager
 import com.topjohnwu.superuser.Shell
 
 import kotlinx.android.synthetic.main.fragment_extends.*
-import java.lang.Exception
+import java.net.URL
+import kotlin.Exception
 
 /*
  * OsToolkit - Kotlin
@@ -55,6 +58,7 @@ class ExtendsFragment : Fragment() {
             Build.VERSION.SDK_INT >= 24
         )
         detectserver.init(this, type_shell, index_extends, EXTENDS_DETECT_SERVER)
+        setShortUrl()
     }
 
     private fun setMac() {
@@ -115,6 +119,27 @@ class ExtendsFragment : Fragment() {
                 }
             }
 
+        }
+    }
+
+    private fun setShortUrl() {
+        get.setOnClickListener {
+            val b = "http://suo.im/api.php?url=${before.text}"
+            Thread {
+                try {
+                    val url = URL(b)
+                    val inputStream = url.openStream()
+                    val result = inputStream.bufferedReader(Charsets.UTF_8).readLine()
+                    activity!!.runOnUiThread { result?.let { after.setText(it) } }
+                    inputStream.close()
+                } catch (e: Exception) {
+                    ShortToast(activity!!, e.toString(), false)
+                }
+            }.start()
+        }
+        copy.setOnClickListener {
+            val clipboardManager = activity!!.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
+            clipboardManager.primaryClip = ClipData.newRawUri("Label", Uri.parse(after.text as String?))
         }
     }
 

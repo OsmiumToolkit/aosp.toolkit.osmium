@@ -63,8 +63,8 @@ class WelcomeActivity : AppCompatActivity() {
 
     class ViewPagerAdapter(
         fragmentManager: FragmentManager?,
-        var fragmentList: List<Fragment>,
-        var tabList: List<String>
+        private var fragmentList: List<Fragment>,
+        private var tabList: List<String>
     ) : FragmentPagerAdapter(fragmentManager) {
         override fun getItem(p0: Int): Fragment {
             return fragmentList[p0]
@@ -83,31 +83,6 @@ class WelcomeActivity : AppCompatActivity() {
         override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
             return inflater.inflate(R.layout.fragment_welcome_1, container, false)
         }
-
-        /*
-        override fun onActivityCreated(savedInstanceState: Bundle?) {
-            super.onActivityCreated(savedInstanceState)
-            val language = listOf("中文", "English")
-            val arrayAdapter : ArrayAdapter<String> = ArrayAdapter(context!!, android.R.layout.simple_spinner_dropdown_item, language)
-            arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-            spinner.adapter = arrayAdapter
-
-            val lang : String? = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {resources.configuration.locales.get(0).language} else {resources.configuration.locale.language}
-            Log.i("lang", lang!!)
-            if (lang == Locale.CHINESE.toString()) {
-                spinner.setSelection(0)
-                activity?.getSharedPreferences("ui", Context.MODE_PRIVATE)?.edit()?.putInt("language", 0)?.apply()
-            } else {
-                spinner.setSelection(1)
-                activity?.getSharedPreferences("ui", Context.MODE_PRIVATE)?.edit()?.putInt("language", 1)?.apply()
-            }
-
-            spinner.setOnItemClickListener { _, _, position, _ ->
-                activity?.getSharedPreferences("ui", Context.MODE_PRIVATE)?.edit()?.putInt("language", position)?.apply()
-            }
-
-        }
-        */
     }
 
     class Welcome2Fragment : Fragment() {
