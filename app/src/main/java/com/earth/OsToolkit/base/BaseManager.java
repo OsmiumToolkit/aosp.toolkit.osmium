@@ -10,11 +10,13 @@ package com.earth.OsToolkit.base;
 
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
+
 import com.earth.OsToolkit.BuildConfig;
 import com.earth.OsToolkit.MainActivity;
 import com.earth.OsToolkit.R;
 import com.earth.OsToolkit.WelcomeActivity;
 import com.earth.OsToolkit.fragments.*;
+
 import com.topjohnwu.superuser.ContainerApp;
 import com.topjohnwu.superuser.Shell;
 
