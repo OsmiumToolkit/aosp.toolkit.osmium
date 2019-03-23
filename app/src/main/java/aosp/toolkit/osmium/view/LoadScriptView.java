@@ -26,7 +26,6 @@ import android.support.v7.widget.SwitchCompat;
 
 import aosp.toolkit.osmium.ScriptActivity;
 import aosp.toolkit.osmium.R;
-import aosp.toolkit.osmium.ScriptActivity;
 
 import aosp.toolkit.osmium.base.BaseOperation;
 

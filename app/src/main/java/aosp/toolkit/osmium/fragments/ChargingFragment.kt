@@ -30,10 +30,12 @@ import kotlinx.android.synthetic.main.fragment_charging.*
 
 
 class ChargingFragment : Fragment() {
+    /*
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         aosp.toolkit.osmium.base.BaseManager.getInstance().setChargingFragment(this)
     }
+    */
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.fragment_charging, container, false)
@@ -42,7 +44,10 @@ class ChargingFragment : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         setWarning()
+        initViews()
+    }
 
+    private fun initViews() {
         charging_allow.init(this, Charging_Allow, type_shell, index_charging, CHARGE_ALLOW)
         charging_qc3.init(this, Charging_QC3, type_shell, index_charging, CHARGE_QC3)
         charging_usbqc.init(this, Charging_USBQC, type_shell, index_charging, CHARGE_USBQC)
@@ -56,6 +61,6 @@ class ChargingFragment : Fragment() {
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        aosp.toolkit.osmium.base.BaseManager.getInstance().restartChargingFragment()
+        initViews()
     }
 }

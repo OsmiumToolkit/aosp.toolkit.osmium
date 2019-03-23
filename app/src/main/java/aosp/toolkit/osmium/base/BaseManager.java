@@ -9,13 +9,9 @@ package aosp.toolkit.osmium.base;
  */
 
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentTransaction;
 
 import aosp.toolkit.osmium.BuildConfig;
-import aosp.toolkit.osmium.fragments.ChargingFragment;
-import aosp.toolkit.osmium.fragments.ExtendsFragment;
 import aosp.toolkit.osmium.fragments.MainFragment;
-import aosp.toolkit.osmium.R;
 import aosp.toolkit.osmium.*;
 
 import com.topjohnwu.superuser.ContainerApp;
@@ -80,6 +76,7 @@ public class BaseManager extends ContainerApp {
         mainActivity.exceptionBeaker();
     }
 
+    /*
     private ChargingFragment chargingFragment;
     private ExtendsFragment extendsFragment;
 
@@ -91,6 +88,7 @@ public class BaseManager extends ContainerApp {
         this.extendsFragment = extendsFragment;
     }
 
+
     public void restartChargingFragment() {
         ChargingFragment tmp = new ChargingFragment();
         FragmentTransaction fragmentTransaction = mainActivity.getSupportFragmentManager().beginTransaction();
@@ -99,11 +97,12 @@ public class BaseManager extends ContainerApp {
         mainActivity.onRecreateChargingFragment(tmp);
     }
 
-    public void restartExtendsFragment() {
+    public void restartExtendsFragmet() {
         ExtendsFragment tmp = new ExtendsFragment();
         FragmentTransaction fragmentTransaction = mainActivity.getSupportFragmentManager().beginTransaction();
         fragmentTransaction.remove(extendsFragment).add(R.id.frameLayout_main, tmp).commit();
         this.extendsFragment = tmp;
         mainActivity.onRecreateExtendsFragment(tmp);
     }
+    */
 }

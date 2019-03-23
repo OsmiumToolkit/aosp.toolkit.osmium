@@ -17,6 +17,7 @@ import aosp.toolkit.osmium.base.Accessing.Companion.accessGitHub
 import aosp.toolkit.osmium.base.CheckUpdate
 import aosp.toolkit.osmium.base.BaseIndex.*
 import aosp.toolkit.osmium.base.BaseOperation.Companion.getPackageVersion
+import aosp.toolkit.osmium.fragments.dialog.UpdateDialogFragment
 
 /*
  * OsToolkit - Kotlin
@@ -56,7 +57,7 @@ class AboutFragment : Fragment() {
             if (version != (getPackageVersion(activity)) && version != null) {
                 val getChangelog = CheckUpdate.GetChangelog()
                 getChangelog.onFetching()
-                val updateDialogFragment = aosp.toolkit.osmium.fragments.dialog.UpdateDialogFragment()
+                val updateDialogFragment = UpdateDialogFragment()
                     .setData(version, CheckUpdate.GetDate().returnData(),
                     getChangelog.changelogZh, getChangelog.changelogEn)
                 updateDialogFragment.show(fragmentManager, "updateChecking")

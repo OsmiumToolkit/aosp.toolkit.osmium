@@ -38,7 +38,7 @@ public class UpdateDialogFragment extends DialogFragment {
     @Override
     public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-        View view = LayoutInflater.from(getActivity()).inflate(R.layout.dialogfragment_update,null);
+        View view = LayoutInflater.from(getActivity()).inflate(R.layout.dialogfragment_update, null);
 
         TextView v = view.findViewById(R.id.update_version);
         TextView d = view.findViewById(R.id.update_date);
@@ -51,6 +51,7 @@ public class UpdateDialogFragment extends DialogFragment {
         d.setText(date);
         cEn.setText(changelogEn);
         cZh.setText(changelogZh);
+
         Zh.setOnClickListener(v1 -> cZh.setVisibility(cZh.getVisibility() == View.GONE ? View.VISIBLE : View.GONE));
         En.setOnClickListener(v1 -> cEn.setVisibility(cEn.getVisibility() == View.GONE ? View.VISIBLE : View.GONE));
 

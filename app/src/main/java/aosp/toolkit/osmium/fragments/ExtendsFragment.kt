@@ -36,10 +36,12 @@ import kotlin.Exception
  */
 
 class ExtendsFragment : Fragment() {
+    /*
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         aosp.toolkit.osmium.base.BaseManager.getInstance().setExtendsFragment(this)
     }
+    */
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.fragment_extends, container, false)
@@ -144,6 +146,6 @@ class ExtendsFragment : Fragment() {
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        aosp.toolkit.osmium.base.BaseManager.getInstance().restartExtendsFragment()
+        detectserver.init(this, type_shell, index_extends, EXTENDS_DETECT_SERVER)
     }
 }

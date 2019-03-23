@@ -60,19 +60,8 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         aosp.toolkit.osmium.base.BaseManager.getInstance().finishActivities()
         aosp.toolkit.osmium.base.BaseManager.instance.setMainActivity(this, mainFragment)
 
-        val dialog = Dialog(this)
-        dialog.setContentView(LayoutInflater.from(this).inflate(R.layout.dialog_loading, null))
-        dialog.show()
-
         initUI()
         addFragment()
-
-        Timer().schedule(object : TimerTask() {
-            override fun run() {
-                dialog.cancel()
-            }
-        }, 1000)
-
         Timer().schedule(object : TimerTask() {
             override fun run() {
                 runOnUiThread {

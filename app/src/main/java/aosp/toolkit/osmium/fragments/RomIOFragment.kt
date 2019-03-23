@@ -1,5 +1,6 @@
 package aosp.toolkit.osmium.fragments
 
+import android.content.Intent
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentManager
@@ -38,9 +39,6 @@ class RomIOFragment : Fragment() {
         val romIOeMMCFragment = RomIOeMMCFragment()
         val romIOUFSFragment = RomIOUFSFragment()
 
-        romIOeMMCFragment.getParent(this)
-        romIOUFSFragment.getParent(this)
-
         val fragments = listOf(romIOeMMCFragment, romIOUFSFragment)
         val tabs = listOf("eMMC", "UFS")
         viewPager.adapter = ViewPagerAdapter(fragmentManager, fragments, tabs)
@@ -66,7 +64,6 @@ class RomIOFragment : Fragment() {
     }
 
     class RomIOeMMCFragment : Fragment() {
-        private var parent: RomIOFragment? = null
 
         override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
             return inflater.inflate(R.layout.fragment_romio_emmc, container, false)
@@ -74,10 +71,13 @@ class RomIOFragment : Fragment() {
 
         override fun onActivityCreated(savedInstanceState: Bundle?) {
             super.onActivityCreated(savedInstanceState)
-            emmc_addrandom.init(parent, io_random_emmc, type_shell, index_romio, IO_RANDOM_EMMC)
-            emmc_iostats.init(parent, io_iostats_emmc, type_shell, index_romio, IO_IOSTATS_EMMC)
-            emmc_nomerges.init(parent, io_nomerges_emmc, type_shell, index_romio, IO_NOMERGES_EMMC)
+            initViews()
+        }
 
+        fun initViews() {
+            emmc_addrandom.init(this, io_random_emmc, type_shell, index_romio, IO_RANDOM_EMMC)
+            emmc_iostats.init(this, io_iostats_emmc, type_shell, index_romio, IO_IOSTATS_EMMC)
+            emmc_nomerges.init(this, io_nomerges_emmc, type_shell, index_romio, IO_NOMERGES_EMMC)
         }
 
         override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -126,16 +126,15 @@ class RomIOFragment : Fragment() {
                     activity!!.runOnUiThread { seekBar.isEnabled = false }
                 }
             }.start()
-
         }
 
-        fun getParent(parent: RomIOFragment) {
-            this.parent = parent
+        override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+            super.onActivityResult(requestCode, resultCode, data)
+            initViews()
         }
     }
 
     class RomIOUFSFragment : Fragment() {
-        private var parent: RomIOFragment? = null
 
         override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
             return inflater.inflate(R.layout.fragment_romio_ufs, container, false)
@@ -143,9 +142,13 @@ class RomIOFragment : Fragment() {
 
         override fun onActivityCreated(savedInstanceState: Bundle?) {
             super.onActivityCreated(savedInstanceState)
-            ufs_addrandom.init(parent, io_random_ufs, type_shell, index_romio, IO_RANDOM_UFS)
-            ufs_iostats.init(parent, io_iostats_ufs, type_shell, index_romio, IO_IOSTATS_UFS)
-            ufs_nomerges.init(parent, io_nomerges_ufs, type_shell, index_romio, IO_NOMERGES_UFS)
+            initViews()
+        }
+
+        fun initViews() {
+            ufs_addrandom.init(this, io_random_ufs, type_shell, index_romio, IO_RANDOM_UFS)
+            ufs_iostats.init(this, io_iostats_ufs, type_shell, index_romio, IO_IOSTATS_UFS)
+            ufs_nomerges.init(this, io_nomerges_ufs, type_shell, index_romio, IO_NOMERGES_UFS)
         }
 
         override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -188,11 +191,11 @@ class RomIOFragment : Fragment() {
                     activity!!.runOnUiThread { seekBar.isEnabled = false }
                 }
             }.start()
-
         }
 
-        fun getParent(parent: RomIOFragment) {
-            this.parent = parent
+        override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+            super.onActivityResult(requestCode, resultCode, data)
+            initViews()
         }
     }
 }
