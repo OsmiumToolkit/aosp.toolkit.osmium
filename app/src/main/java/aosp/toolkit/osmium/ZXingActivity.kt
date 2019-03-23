@@ -18,6 +18,7 @@ import com.google.zxing.common.HybridBinarizer
 import com.google.zxing.qrcode.QRCodeReader
 
 import kotlinx.android.synthetic.main.activity_zxing.*
+
 /*
  * OsToolkit - Kotlin
  *
@@ -46,7 +47,36 @@ class ZXingActivity : AppCompatActivity() {
             }.start()
         }
 
+        button.setOnClickListener {
+            val t = editText.text.toString()
+            Thread {
+                try {
 
+                    val bitMatrix = MultiFormatWriter().encode(t, BarcodeFormat.QR_CODE, 500, 500)
+                    val width = 500
+                    val height = 500
+
+                    val pixels = IntArray(width * height)
+
+                    for (y: Int in 0 until height) {
+                        val offset = y * width
+                        for (x: Int in 0 until width) {
+                            pixels[offset + x] = if (bitMatrix.get(x, y)) {
+                                ContextCompat.getColor(this, android.R.color.black)
+                            } else {
+                                ContextCompat.getColor(this, android.R.color.white)
+                            }
+                        }
+
+                        val bitmap = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888)
+                        bitmap.setPixels(pixels, 0, width, 0, 0, width, height)
+                        runOnUiThread { imageView.setImageBitmap(bitmap) }
+                    }
+                } catch (e: Exception) {
+                    ShortToast(this, e.toString(), false)
+                }
+            }.start()
+        }
     }
 
     private fun initialize() {
@@ -111,28 +141,29 @@ class ZXingActivity : AppCompatActivity() {
         super.onActivityResult(requestCode, resultCode, data)
         when (requestCode) {
             0 -> {
-                Thread {if (resultCode == Activity.RESULT_OK) {
-                    //val bitmap = MediaStore.Images.Media.getBitmap(contentResolver, data!!.data!!)
-                    val bitmap = data!!.extras!!.get("data") as Bitmap
-                    val width = bitmap.width
-                    val height = bitmap.height
-                    val d = IntArray(width * height)
-                    bitmap.getPixels(d, 0, width, 0, 0, width, height)
-                    val rgbLuminanceSource = RGBLuminanceSource(width, height, d)
-                    val binaryBitmap = BinaryBitmap(HybridBinarizer(rgbLuminanceSource))
-                    val qrCodeReader = QRCodeReader()
+                Thread {
+                    if (resultCode == Activity.RESULT_OK) {
+                        //val bitmap = MediaStore.Images.Media.getBitmap(contentResolver, data!!.data!!)
+                        val bitmap = data!!.extras!!.get("data") as Bitmap
+                        val width = bitmap.width
+                        val height = bitmap.height
+                        val d = IntArray(width * height)
+                        bitmap.getPixels(d, 0, width, 0, 0, width, height)
+                        val rgbLuminanceSource = RGBLuminanceSource(width, height, d)
+                        val binaryBitmap = BinaryBitmap(HybridBinarizer(rgbLuminanceSource))
+                        val qrCodeReader = QRCodeReader()
 
-                    var r = "fail"
-                    try {
-                        r = qrCodeReader.decode(binaryBitmap).toString()
-                    } catch (e: Exception) {
-                        e.printStackTrace()
-                        ShortToast(this, e.toString(), false)
+                        var r = "fail"
+                        try {
+                            r = qrCodeReader.decode(binaryBitmap).toString()
+                        } catch (e: Exception) {
+                            e.printStackTrace()
+                            ShortToast(this, e.toString(), false)
+                        }
+
+                        runOnUiThread { result.text = r }
+
                     }
-
-                    runOnUiThread { result.text = r }
-
-                }
                 }.start()
             }
             1 -> {
