@@ -10,36 +10,36 @@
         android:layout_height="wrap_content"
         android:orientation="vertical" >
         
-        <com.earth.OsToolkit.view.DeviceInfoView
+        <aosp.toolkit.osmium.view.DeviceInfoView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/generalRoot"
             app:title="@string/deviceinfo_general_title" />
-        <com.earth.OsToolkit.view.DeviceInfoView
+        <aosp.toolkit.osmium.view.DeviceInfoView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/displayRoot"
             app:title="@string/deviceinfo_display_title"/>
         
-        <com.earth.OsToolkit.view.DeviceInfoView
+        <aosp.toolkit.osmium.view.DeviceInfoView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/androidRoot"
             app:title="@string/deviceinfo_android_title" />
         
-        <com.earth.OsToolkit.view.DeviceInfoView
+        <aosp.toolkit.osmium.view.DeviceInfoView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/socRoot"
             app:title="@string/deviceinfo_soc_title" />
         
-        <com.earth.OsToolkit.view.DeviceInfoView
+        <aosp.toolkit.osmium.view.DeviceInfoView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/ramRoot"
             app:title="@string/deviceinfo_ram_title" />
         
-        <com.earth.OsToolkit.view.DeviceInfoView
+        <aosp.toolkit.osmium.view.DeviceInfoView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/jvmRoot"

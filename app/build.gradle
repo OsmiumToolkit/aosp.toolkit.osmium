@@ -7,7 +7,7 @@ apply plugin: 'kotlin-android-extensions'
 android {
     compileSdkVersion 28
     defaultConfig {
-        applicationId "com.earth.OsToolkit"
+        applicationId "aosp.toolkit.osmium"
         minSdkVersion 21
         targetSdkVersion 28
         versionCode 106

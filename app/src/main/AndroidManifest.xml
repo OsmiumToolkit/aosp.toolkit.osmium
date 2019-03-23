@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest
     xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.earth.OsToolkit" >
+    package="aosp.toolkit.osmium" >
     
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.CAMERA" />
@@ -13,7 +13,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
-        android:name=".base.BaseManager">
+        android:name="aosp.toolkit.osmium.base.BaseManager">
         
         <activity
             android:name=".SplashActivity"
@@ -49,11 +49,11 @@
             android:theme="@style/AppTheme.NoActionBar" />
         
         <activity
-            android:name=".DisableAppActivity"
+            android:name="aosp.toolkit.osmium.DisableAppActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         
         <activity
-            android:name=".DisableAppActivity$DisableSelectActivity"
+            android:name="aosp.toolkit.osmium.DisableAppActivity$DisableSelectActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         
         <activity
