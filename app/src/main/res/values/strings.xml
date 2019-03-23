@@ -197,6 +197,8 @@
     <string name="extends_ff_sum" >Android 6.0(SDK24) or above hidden API</string >
     <string name="extends_nt_title" >Change internet detecting server</string >
     <string name="extends_nt_sum" >For hiding \"!\" next to data/Wi-Fi icon when connect to Internet(for mainland of China)</string >
+    <string name="extends_su_title">Shorten URL</string>
+    <string name="extends_su_cp">Copy</string>
     
     <string name="usage">CPU Usage:\u0020</string>
     

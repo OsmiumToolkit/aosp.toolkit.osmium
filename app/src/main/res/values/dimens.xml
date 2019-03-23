@@ -49,4 +49,12 @@
     <dimen name="cardview_title">24sp</dimen>
     
     <dimen name="cardview_core_freq">20sp</dimen>
+    
+    <dimen name="dp_0">0dp</dimen>
+    
+    <dimen name="dp_5">5dp</dimen>
+    
+    <dimen name="dp_10">10dp</dimen>
+    
+    <dimen name="dp_16">16dp</dimen>
 </resources>
