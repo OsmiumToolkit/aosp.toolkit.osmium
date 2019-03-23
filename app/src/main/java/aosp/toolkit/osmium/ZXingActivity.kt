@@ -5,7 +5,6 @@ import android.app.Activity
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
-import android.graphics.BitmapFactory
 import android.os.Bundle
 import android.provider.MediaStore
 import android.support.v4.app.ActivityCompat
@@ -16,9 +15,9 @@ import aosp.toolkit.osmium.base.BaseOperation.Companion.ShortToast
 
 import com.google.zxing.*
 import com.google.zxing.common.HybridBinarizer
+import com.google.zxing.qrcode.QRCodeReader
 
 import kotlinx.android.synthetic.main.activity_zxing.*
-
 /*
  * OsToolkit - Kotlin
  *
@@ -34,16 +33,20 @@ class ZXingActivity : AppCompatActivity() {
         setContentView(R.layout.activity_zxing)
         initialize()
 
+
         scan.setOnClickListener {
             Thread {
                 startCamera()
             }.start()
         }
+
         select.setOnClickListener {
             Thread {
                 startGallery()
             }.start()
         }
+
+
     }
 
     private fun initialize() {
@@ -55,6 +58,7 @@ class ZXingActivity : AppCompatActivity() {
 
         toolbar.setNavigationOnClickListener { finish() }
     }
+
 
     private fun startCamera() {
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED) {
@@ -70,6 +74,7 @@ class ZXingActivity : AppCompatActivity() {
         }
     }
 
+
     private fun startGallery() {
         if (ActivityCompat.checkSelfPermission(
                 this,
@@ -83,13 +88,20 @@ class ZXingActivity : AppCompatActivity() {
                 ),
                 1
             )
+        } else {
+            // 获取限权 Request permission
+            ActivityCompat.requestPermissions(
+                this,
+                arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE), // 相机限权 Camera permission)
+                1   // 请求码 Request Code
+            )
         }
     }
 
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
         when (requestCode) {
-            0 -> startCamera()
+            //0 -> startCamera()
             1 -> startGallery()
             else -> return
         }
@@ -99,60 +111,51 @@ class ZXingActivity : AppCompatActivity() {
         super.onActivityResult(requestCode, resultCode, data)
         when (requestCode) {
             0 -> {
-                Thread {
+                Thread {if (resultCode == Activity.RESULT_OK) {
+                    //val bitmap = MediaStore.Images.Media.getBitmap(contentResolver, data!!.data!!)
                     val bitmap = data!!.extras!!.get("data") as Bitmap
-                    val multiFormatReader = MultiFormatReader()
-                    val x = bitmap.width
-                    val y = bitmap.height
-                    val pixels = IntArray(x * y)
-                    bitmap.getPixels(pixels, 0, x, 0, 0, x, y)
-                    val luminanceSource = RGBLuminanceSource(x, y, pixels)
-                    val binaryBitmap = BinaryBitmap(HybridBinarizer(luminanceSource))
+                    val width = bitmap.width
+                    val height = bitmap.height
+                    val d = IntArray(width * height)
+                    bitmap.getPixels(d, 0, width, 0, 0, width, height)
+                    val rgbLuminanceSource = RGBLuminanceSource(width, height, d)
+                    val binaryBitmap = BinaryBitmap(HybridBinarizer(rgbLuminanceSource))
+                    val qrCodeReader = QRCodeReader()
 
+                    var r = "fail"
                     try {
-                        val hint = hashMapOf<DecodeHintType, Any>(
-                            DecodeHintType.CHARACTER_SET to Charsets.UTF_8,
-                            DecodeHintType.POSSIBLE_FORMATS to BarcodeFormat.QR_CODE,
-                            DecodeHintType.TRY_HARDER to true
-                        )
-                        val r = multiFormatReader.decode(binaryBitmap, hint)
-                        runOnUiThread { result.text = r.text }
+                        r = qrCodeReader.decode(binaryBitmap).toString()
                     } catch (e: Exception) {
+                        e.printStackTrace()
                         ShortToast(this, e.toString(), false)
                     }
+
+                    runOnUiThread { result.text = r }
+
+                }
                 }.start()
             }
             1 -> {
                 Thread {
                     if (resultCode == Activity.RESULT_OK) {
-                        val img = data!!.data
-                        val array = arrayOf(MediaStore.Images.Media.DATA)
+                        val bitmap = MediaStore.Images.Media.getBitmap(contentResolver, data!!.data!!)
+                        val width = bitmap.width
+                        val height = bitmap.height
+                        val d = IntArray(width * height)
+                        bitmap.getPixels(d, 0, width, 0, 0, width, height)
+                        val rgbLuminanceSource = RGBLuminanceSource(width, height, d)
+                        val binaryBitmap = BinaryBitmap(HybridBinarizer(rgbLuminanceSource))
+                        val qrCodeReader = QRCodeReader()
 
-                        val cursor = contentResolver.query(img!!, array,
-                            null, null, null)
-                        val path = cursor?.getString(cursor.getColumnIndex(MediaStore.Images.Media.DATA))
-                        cursor?.close()
-
-                        val bitmap = BitmapFactory.decodeFile(path)
-                        val multiFormatReader = MultiFormatReader()
-                        val x = bitmap.width
-                        val y = bitmap.height
-                        val pixels = IntArray(x * y)
-                        bitmap.getPixels(pixels, 0, x, 0, 0, x, y)
-                        val luminanceSource = RGBLuminanceSource(x, y, pixels)
-                        val binaryBitmap = BinaryBitmap(HybridBinarizer(luminanceSource))
-
+                        var r = "fail"
                         try {
-                            val hint = hashMapOf<DecodeHintType, Any>(
-                                DecodeHintType.CHARACTER_SET to Charsets.UTF_8,
-                                DecodeHintType.POSSIBLE_FORMATS to BarcodeFormat.QR_CODE,
-                                DecodeHintType.TRY_HARDER to true
-                            )
-                            val r = multiFormatReader.decode(binaryBitmap, hint)
-                            runOnUiThread { result.text = r.text }
+                            r = qrCodeReader.decode(binaryBitmap).toString()
                         } catch (e: Exception) {
                             ShortToast(this, e.toString(), false)
                         }
+
+                        runOnUiThread { result.text = r }
+
                     }
                 }.start()
             }

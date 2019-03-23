@@ -108,7 +108,6 @@ public class LoadScriptView extends LinearLayout {
                 0)).start();
     }
 
-
     private void setLinearLayoutOnClickListener() {
         LinearLayout root = findViewById(R.id.root);
         RelativeLayout content = findViewById(R.id.content);

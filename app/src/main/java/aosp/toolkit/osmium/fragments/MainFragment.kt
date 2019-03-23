@@ -4,8 +4,10 @@ import android.content.Intent
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.view.*
+import aosp.toolkit.osmium.DisableAppActivity
 
 import aosp.toolkit.osmium.R
+import aosp.toolkit.osmium.ZXingActivity
 import kotlinx.android.synthetic.main.fragment_main.*
 
 
@@ -30,7 +32,10 @@ class MainFragment : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         disabletower.setOnClickListener {
-            startActivity(Intent(activity, aosp.toolkit.osmium.DisableAppActivity::class.java))
+            startActivity(Intent(activity, DisableAppActivity::class.java))
+        }
+        click.setOnClickListener {
+            startActivity(Intent(activity, ZXingActivity::class.java))
         }
     }
 }
