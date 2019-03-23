@@ -1,6 +1,7 @@
 # Osmium Toolkit - 锇·工具箱
 ### 包名 / Package Name
-- com.earth.OsToolkit
+- aosp.toolkit.osmium
+- ~~com.earth.OsToolkit~~ (已弃用)
 ### 作者 / Maintainer
 - SkyNight(1552980358)
 ### 编写语言 / Programming Language
