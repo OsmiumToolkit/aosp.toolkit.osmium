@@ -32,13 +32,16 @@ class ScriptActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_script)
 
-        val path = if (intent.getStringExtra("path").endsWith(".sh")) {
-            intent.getStringExtra("path")
+        var script = intent.getStringExtra("script")
+
+        val path = if (script.endsWith(".sh")) {
+            intent.getStringExtra("path") + script
         } else {
-            intent.getStringExtra("path").plus(".sh")
+            script += ".sh"
+            intent.getStringExtra("path") + script
         }
 
-        file = File("${cacheDir.absolutePath}${File.separator}$path")
+        file = File("${cacheDir.absolutePath}${File.separator}$script")
 
         initialize()
         download(path)

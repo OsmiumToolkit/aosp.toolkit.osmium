@@ -6,6 +6,7 @@ import android.net.Uri
 import android.os.*
 import android.support.v4.app.Fragment
 import android.text.*
+import android.util.Log
 import android.view.*
 
 import aosp.toolkit.osmium.R
@@ -139,8 +140,12 @@ class ExtendsFragment : Fragment() {
             }.start()
         }
         copy.setOnClickListener {
-            val clipboardManager = activity!!.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
-            clipboardManager.primaryClip = ClipData.newRawUri("Label", Uri.parse(after.text as String?))
+            try {
+                val clipboardManager = activity!!.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
+                clipboardManager.primaryClip = ClipData.newPlainText("Label", after.text)
+            } catch (e: Exception) {
+                ShortToast(activity!!, e.toString(), false)
+            }
         }
     }
 
