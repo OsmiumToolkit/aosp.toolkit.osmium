@@ -1,6 +1,6 @@
 # Toolkit Perseus - 英仙
 ### 包名 / Package Name
-- aosp.toolkit.英仙 Perseus
+- aosp.toolkit.perseus
 - ~~com.earth.OsToolkit~~ (已弃用)
 ### 作者 / Maintainer
 - SkyNight(1552980358)
