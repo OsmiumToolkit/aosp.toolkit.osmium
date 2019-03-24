@@ -197,7 +197,8 @@
     <string name="extends_nt_title" >去网络叹号</string >
     <string name="extends_nt_sum" >去除连接网络后移动信号/Wi-Fi旁的感叹号</string >
     <string name="extends_su_title">缩短URL</string>
-    <string name="extends_su_cp">复制</string>
+    
+    <string name="cp">复制</string>
     
     <string name="usage">处理器总占用:\u0020</string>
     
@@ -219,4 +220,9 @@
     <string name="ss" >- 镇魂塔 -</string >
     <string name="ss2" >镇压</string >
     <string name="ss_toast" >已禁用已添加列表内%d个</string >
+    
+    <string name="zxing_decode">解析</string>
+    <string name="zxing_camera">相机拍摄</string>
+    <string name="zxing_gallery">相册选择</string>
+    <string name="zxing_generate">生成二维码</string>
 </resources >

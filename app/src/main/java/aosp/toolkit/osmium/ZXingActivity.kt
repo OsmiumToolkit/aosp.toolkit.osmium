@@ -2,6 +2,9 @@ package aosp.toolkit.osmium
 
 import android.Manifest
 import android.app.Activity
+import android.content.ClipData
+import android.content.ClipboardManager
+import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
@@ -28,6 +31,15 @@ import kotlinx.android.synthetic.main.activity_zxing.*
  *
  */
 
+/*
+ * Changelog
+ *
+ * Scan through camera : 23 Mar 2019
+ * Scan through gallery : 23 Mar 2019
+ * Generate : 23 Mar 2019
+ *
+ */
+
 class ZXingActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -35,29 +47,40 @@ class ZXingActivity : AppCompatActivity() {
         initialize()
 
 
-        scan.setOnClickListener {
+        camera.setOnClickListener {
             Thread {
                 startCamera()
             }.start()
         }
 
-        select.setOnClickListener {
+        gallery.setOnClickListener {
             Thread {
                 startGallery()
             }.start()
         }
 
-        button.setOnClickListener {
-            val t = editText.text.toString()
+        copyUri.setOnClickListener {
+            editText.text?.let {
+                Thread {
+                    (getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager).primaryClip =
+                        ClipData.newPlainText("Label", it.toString())
+                }.start()
+            }
+        }
+
+        generate.setOnClickListener {
+            val t = editText1.text.toString()
             Thread {
                 try {
-
+                    // 生成二进制、设置宽高 Generate in form of binary, set width and height
                     val bitMatrix = MultiFormatWriter().encode(t, BarcodeFormat.QR_CODE, 500, 500)
                     val width = 500
                     val height = 500
 
+                    // 像素格数量 No. of pixels
                     val pixels = IntArray(width * height)
 
+                    // 写入像素格 Write pixels
                     for (y: Int in 0 until height) {
                         val offset = y * width
                         for (x: Int in 0 until width) {
@@ -68,8 +91,10 @@ class ZXingActivity : AppCompatActivity() {
                             }
                         }
 
+                        // 转换成Bitmap格式 Convert into Bitmap format
                         val bitmap = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888)
                         bitmap.setPixels(pixels, 0, width, 0, 0, width, height)
+
                         runOnUiThread { imageView.setImageBitmap(bitmap) }
                     }
                 } catch (e: Exception) {
@@ -131,7 +156,7 @@ class ZXingActivity : AppCompatActivity() {
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
         when (requestCode) {
-            //0 -> startCamera()
+            0 -> startCamera()
             1 -> startGallery()
             else -> return
         }
@@ -143,50 +168,60 @@ class ZXingActivity : AppCompatActivity() {
             0 -> {
                 Thread {
                     if (resultCode == Activity.RESULT_OK) {
-                        //val bitmap = MediaStore.Images.Media.getBitmap(contentResolver, data!!.data!!)
+                        // 直接接收Bitmap Get Bitmap directly
                         val bitmap = data!!.extras!!.get("data") as Bitmap
+
+                        // 获取宽高 Get width and height
                         val width = bitmap.width
                         val height = bitmap.height
+
+                        // 获取像素格数量 Get no. of pixels
                         val d = IntArray(width * height)
                         bitmap.getPixels(d, 0, width, 0, 0, width, height)
-                        val rgbLuminanceSource = RGBLuminanceSource(width, height, d)
-                        val binaryBitmap = BinaryBitmap(HybridBinarizer(rgbLuminanceSource))
-                        val qrCodeReader = QRCodeReader()
+
+                        val binaryBitmap = BinaryBitmap(HybridBinarizer(RGBLuminanceSource(width, height, d)))
 
                         var r = "fail"
                         try {
-                            r = qrCodeReader.decode(binaryBitmap).toString()
+                            // 解析 decode
+                            r = QRCodeReader().decode(binaryBitmap).toString()
                         } catch (e: Exception) {
                             e.printStackTrace()
                             ShortToast(this, e.toString(), false)
                         }
 
-                        runOnUiThread { result.text = r }
+                        runOnUiThread { editText.setText(r) }
 
+                        // 释放 release
+                        bitmap.recycle()
                     }
                 }.start()
             }
             1 -> {
                 Thread {
+
                     if (resultCode == Activity.RESULT_OK) {
+                        // 返回的Uri使用媒体储存空间获取Bitmap
+                        // Apply uri to get Bitmap through MediaStore
                         val bitmap = MediaStore.Images.Media.getBitmap(contentResolver, data!!.data!!)
+
+                        // 以下内容与以上相同 Following is same as above
                         val width = bitmap.width
                         val height = bitmap.height
                         val d = IntArray(width * height)
                         bitmap.getPixels(d, 0, width, 0, 0, width, height)
-                        val rgbLuminanceSource = RGBLuminanceSource(width, height, d)
-                        val binaryBitmap = BinaryBitmap(HybridBinarizer(rgbLuminanceSource))
-                        val qrCodeReader = QRCodeReader()
+                        val binaryBitmap = BinaryBitmap(HybridBinarizer(RGBLuminanceSource(width, height, d)))
 
                         var r = "fail"
                         try {
-                            r = qrCodeReader.decode(binaryBitmap).toString()
+                            r = QRCodeReader().decode(binaryBitmap).toString()
                         } catch (e: Exception) {
                             ShortToast(this, e.toString(), false)
                         }
 
-                        runOnUiThread { result.text = r }
+                        runOnUiThread { editText.setText(r) }
 
+                        bitmap.recycle()
                     }
                 }.start()
             }

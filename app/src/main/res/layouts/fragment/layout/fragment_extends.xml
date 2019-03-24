@@ -160,7 +160,7 @@
                         android:textColor="@color/colorPrimaryDark"
                         android:layout_centerHorizontal="true"
                         android:layout_centerVertical="true"
-                        android:text="@string/extends_su_cp" />
+                        android:text="@string/cp" />
                 </RelativeLayout >
             </LinearLayout >
         
