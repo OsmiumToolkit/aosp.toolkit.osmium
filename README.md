@@ -1,6 +1,6 @@
-# Osmium Toolkit - 锇·工具箱
+# Toolkit Perseus - 英仙
 ### 包名 / Package Name
-- aosp.toolkit.osmium
+- aosp.toolkit.英仙 Perseus
 - ~~com.earth.OsToolkit~~ (已弃用)
 ### 作者 / Maintainer
 - SkyNight(1552980358)
