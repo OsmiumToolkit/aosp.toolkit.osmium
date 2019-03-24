@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources >
-    <string name="app_name" >OsmiumToolkit</string >
+    <string name="app_name" >Toolkit Perseus</string >
     <string name="navigation_drawer_open" >Open navigation drawer</string >
     <string name="navigation_drawer_close" >Close navigation drawer</string >
-    <string name="nav_header_title" >OsmiumToolkit &lt;Experimental&gt;</string >
-    <string name="nav_header_subtitle" >- Vulpecula -</string >
+    <string name="nav_header_title" >Toolkit Perseus &lt;η&gt;</string >
+    <string name="nav_header_subtitle" >- SkyNight -</string >
     <string name="nav_header_desc" >Navigation header</string >
     
     <string name="loading" >Loading&#8230;</string >

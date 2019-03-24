@@ -7,7 +7,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
-    tools:context="aosp.toolkit.osmium.DisableAppActivity$DisableSelectActivity"
+    tools:context="aosp.toolkit.perseus.DisableAppActivity$DisableSelectActivity"
     android:background="@color/colorPrimaryDark" >
     
     <android.support.design.widget.CoordinatorLayout

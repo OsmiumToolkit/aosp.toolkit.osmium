@@ -37,21 +37,21 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <aosp.toolkit.osmium.view.LoadScriptView
+            <aosp.toolkit.perseus.view.LoadScriptView
                 android:id="@+id/charging_allow"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:title="@string/charging_allow_title"
                 app:summary="@string/charging_allow_sum"/>
 
-            <aosp.toolkit.osmium.view.LoadScriptView
+            <aosp.toolkit.perseus.view.LoadScriptView
                 android:id="@+id/charging_qc3"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:title="@string/charging_qc3_title"
                 app:summary="@string/charging_qc3_sum"/>
 
-            <aosp.toolkit.osmium.view.LoadScriptView
+            <aosp.toolkit.perseus.view.LoadScriptView
                 android:id="@+id/charging_usbqc"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

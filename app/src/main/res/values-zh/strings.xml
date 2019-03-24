@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources >
-    <string name="app_name" >锇•工具箱</string >
+    <string name="app_name" >英仙 Perseus</string >
     <string name="navigation_drawer_open" >Open navigation drawer</string >
     <string name="navigation_drawer_close" >Close navigation drawer</string >
-    <string name="nav_header_title" >锇•工具箱 &lt;实验版&gt;</string >
+    <string name="nav_header_title" >英仙 Perseus &lt;η&gt;</string >
     <string name="nav_header_subtitle" >- 住在地球真累 -</string >
     <string name="nav_header_desc" >Navigation header</string >
     
@@ -73,7 +73,7 @@
     <string name="about_set_theme" >自定义主题</string >
     
     <string name="script_title_head" >运行脚本 \"%s\"</string >
-    <string name="script_head" >================================\n锇·工具箱\nBy 住在地球真累\n================================</string >
+    <string name="script_head" >================================\n英仙 Perseus\nBy 住在地球真累\n================================</string >
     <string name="script_download" > - 下载脚本中&#8230;</string >
     <string name="script_download_done" >下载完成!</string >
     <string name="script_download_fail" >下载失败!</string >
