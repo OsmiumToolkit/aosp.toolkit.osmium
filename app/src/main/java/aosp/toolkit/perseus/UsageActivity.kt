@@ -12,15 +12,17 @@ import android.widget.*
 import aosp.toolkit.perseus.base.BaseOperation.Companion.ShortToast
 import aosp.toolkit.perseus.base.BaseOperation.Companion.getAvailableCore
 import aosp.toolkit.perseus.base.BaseOperation.Companion.readFile
+import com.topjohnwu.superuser.Shell
 
 import kotlinx.android.synthetic.main.activity_usage.*
 import kotlinx.android.synthetic.main.view_corefreq.view.*
 import kotlinx.android.synthetic.main.view_sensordata.view.*
 
 import java.io.File
-import java.lang.StringBuilder
 import java.io.FileInputStream
+import java.lang.StringBuilder
 import java.util.*
+import kotlin.collections.ArrayList
 
 
 /*
@@ -84,22 +86,34 @@ class UsageActivity : AppCompatActivity() {
             val thread = Thread {
                 var lastIdle: Float
                 var lastTotal: Float
+                var root: Boolean // 是否使用root Whether use ROOT
+                var stat: ArrayList<String>
+
                 try {
                     val fileInputStream = FileInputStream(File("/proc/stat"))
-                    val stat = ArrayList(
+                    stat = ArrayList(
                         Arrays.asList(
                             *fileInputStream.bufferedReader(Charsets.UTF_8).readLine()
                                 .split((" ").toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()
                         )
                     )
                     fileInputStream.close()
-                    Thread {
-                        for (i: Int in 0 until stat.size)
-                            Log.i("statList $i", stat[i])
-                    }.start()
+                    root = false
+                } catch (e: Exception) {
+                    // 文件权限不足时会抛出IOException, 从而判断是否需要ROOT
+                    // IOException thrown when "Permission Denied", applied to consider using ROOT
+                    ShortToast(this, e.toString(), false)
+                    stat = ArrayList(
+                        Arrays.asList(
+                            *Shell.su("cat /proc/stat").exec().out[0]
+                                .split((" ").toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()
+                        )
+                    )
+                    root = true
+                }
 
+                try {
                     lastIdle = stat[5].toFloat()
-                    Log.i("lastIdle", stat[4])
                     lastTotal =
                         stat[2].toFloat() + stat[3].toFloat() + stat[4].toFloat() + stat[6].toFloat() +
                                 stat[7].toFloat() + stat[8].toFloat() + stat[9].toFloat()
@@ -115,34 +129,64 @@ class UsageActivity : AppCompatActivity() {
                     //
                 }
 
-                while (true) {
-                    try {
-                        val fileInputStream = FileInputStream(File("/proc/stat"))
-                        val stat = ArrayList(
-                            Arrays.asList(
-                                *fileInputStream.bufferedReader(Charsets.UTF_8).readLine()
-                                    .split((" ").toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()
+                if (root) {
+                    while (true) {
+                        try {
+                            val stat = ArrayList(
+                                Arrays.asList(
+                                    *Shell.su("cat /proc/stat").exec().out[0]
+                                        .split((" ").toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()
+                                )
                             )
-                        )
-                        fileInputStream.close()
-                        val nowIdle = stat[5].toFloat()
-                        val nowTotal =
-                            stat[2].toFloat() + stat[3].toFloat() + stat[4].toFloat() + stat[6].toFloat() +
-                                    stat[7].toFloat() + stat[8].toFloat() + stat[9].toFloat()
-                        val u = 100f * ((nowIdle - nowTotal) - (lastIdle - lastTotal)) / (nowIdle - lastIdle)
-                        runOnUiThread { usage.text = u.toString() }
-                        lastIdle = nowIdle
-                        lastTotal = nowTotal
-                    } catch (e: Exception) {
-                        runOnUiThread { ShortToast(this, e.toString(), false) }
-                        break
+                            val nowIdle = stat[5].toFloat()
+                            val nowTotal =
+                                stat[2].toFloat() + stat[3].toFloat() + stat[4].toFloat() + stat[6].toFloat() +
+                                        stat[7].toFloat() + stat[8].toFloat() + stat[9].toFloat()
+                            val u = 100f * ((nowIdle - nowTotal) - (lastIdle - lastTotal)) / (nowIdle - lastIdle)
+                            runOnUiThread { usage.text = u.toString() }
+                            lastIdle = nowIdle
+                            lastTotal = nowTotal
+                        } catch (e: Exception) {
+                            runOnUiThread { ShortToast(this, e.toString(), false) }
+                            break
+                        }
+                        try {
+                            Thread.sleep(1000)
+                        } catch (e: Exception) {
+                            //
+                        }
                     }
-                    try {
-                        Thread.sleep(1000)
-                    } catch (e: Exception) {
-                        //
+                } else {
+                    while (true) {
+                        try {
+                            val fileInputStream = FileInputStream(File("/proc/stat"))
+                            val stat = ArrayList(
+                                Arrays.asList(
+                                    *fileInputStream.bufferedReader(Charsets.UTF_8).readLine()
+                                        .split((" ").toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()
+                                )
+                            )
+                            fileInputStream.close()
+                            val nowIdle = stat[5].toFloat()
+                            val nowTotal =
+                                stat[2].toFloat() + stat[3].toFloat() + stat[4].toFloat() + stat[6].toFloat() +
+                                        stat[7].toFloat() + stat[8].toFloat() + stat[9].toFloat()
+                            val u = 100f * ((nowIdle - nowTotal) - (lastIdle - lastTotal)) / (nowIdle - lastIdle)
+                            runOnUiThread { usage.text = u.toString() }
+                            lastIdle = nowIdle
+                            lastTotal = nowTotal
+                        } catch (e: Exception) {
+                            runOnUiThread { ShortToast(this, e.toString(), false) }
+                            break
+                        }
+                        try {
+                            Thread.sleep(1000)
+                        } catch (e: Exception) {
+                            //
+                        }
                     }
                 }
+
             }
             thread.start()
             threadList.add(thread)
