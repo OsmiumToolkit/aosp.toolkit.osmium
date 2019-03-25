@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources >
-    <string name="app_name" >OsmiumToolkit</string >
+    <string name="app_name" >Toolkit Perseus</string >
     <string name="navigation_drawer_open" >Open navigation drawer</string >
     <string name="navigation_drawer_close" >Close navigation drawer</string >
-    <string name="nav_header_title" >OsmiumToolkit &lt;Experimental&gt;</string >
-    <string name="nav_header_subtitle" >- Vulpecula -</string >
+    <string name="nav_header_title" >Toolkit Perseus &lt;η&gt;</string >
+    <string name="nav_header_subtitle" >- SkyNight -</string >
     <string name="nav_header_desc" >Navigation header</string >
     
     <string name="loading" >Loading&#8230;</string >
@@ -198,7 +198,7 @@
     <string name="extends_nt_title" >Change internet detecting server</string >
     <string name="extends_nt_sum" >For hiding \"!\" next to data/Wi-Fi icon when connect to Internet(for mainland of China)</string >
     <string name="extends_su_title">Shorten URL</string>
-    <string name="extends_su_cp">Copy</string>
+    <string name="cp">Copy</string>
     
     <string name="usage">CPU Usage:\u0020</string>
     
@@ -220,4 +220,9 @@
     <string name="ss" >- Tower of Disable -</string >
     <string name="ss2" >Disable all</string >
     <string name="ss_toast" >Disabled totally %d app(s) in added list</string >
+    
+    <string name="zxing_decode">Decode</string>
+    <string name="zxing_camera">From Camera</string>
+    <string name="zxing_gallery">From Gallery</string>
+    <string name="zxing_generate">Generate QRCode</string>
 </resources >

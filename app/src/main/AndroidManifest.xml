@@ -1,10 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest
     xmlns:android="http://schemas.android.com/apk/res/android"
-    package="aosp.toolkit.osmium" >
+    package="aosp.toolkit.perseus" >
     
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     
     <application
         android:allowBackup="true"
@@ -13,10 +15,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
-        android:name="aosp.toolkit.osmium.base.BaseManager">
+        android:name="aosp.toolkit.perseus.base.BaseManager"
+        android:usesCleartextTraffic="true" >
         
         <activity
-            android:name=".SplashActivity"
+            android:name="aosp.toolkit.perseus.SplashActivity"
             android:label="@string/app_name"
             android:theme="@android:style/Theme.NoDisplay" >
             <intent-filter >
@@ -28,37 +31,41 @@
             <meta-data
                 android:name="android.app.shortcuts"
                 android:resource="@xml/shortcuts" />
-            
+        
         </activity >
         
         <activity
-            android:name=".MainActivity"
+            android:name="aosp.toolkit.perseus.MainActivity"
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar" />
         
         <activity
-            android:name=".WelcomeActivity"
+            android:name="aosp.toolkit.perseus.WelcomeActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         
         <activity
-            android:name=".ScriptActivity"
+            android:name="aosp.toolkit.perseus.ScriptActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         
         <activity
-            android:name=".UsageActivity"
+            android:name="aosp.toolkit.perseus.UsageActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         
         <activity
-            android:name="aosp.toolkit.osmium.DisableAppActivity"
+            android:name="aosp.toolkit.perseus.DisableAppActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         
         <activity
-            android:name="aosp.toolkit.osmium.DisableAppActivity$DisableSelectActivity"
+            android:name="aosp.toolkit.perseus.DisableAppActivity$DisableSelectActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         
         <activity
-            android:name=".ShortcutDisableActivity"
-            android:theme="@android:style/Theme.NoDisplay"/>
+            android:name="aosp.toolkit.perseus.ShortcutDisableActivity"
+            android:theme="@android:style/Theme.NoDisplay" />
+        
+        <activity
+            android:name="aosp.toolkit.perseus.ZXingActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
     
     </application >
 
