@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources >
+    <string-array name="version">
+        <item>Mirfak</item>
+        <item>Algol</item>
+        <item>γ Persei</item>
+        <item>δ Persei</item>
+        <item>ε Persei</item>
+        <item>Menkib</item>
+        <item>Miram</item>
+        <item>ι Persei</item>
+        <item>κ Persei</item>
+        <item>λ Persei</item>
+        <item>μ Persei</item>
+        <item>ν Persei</item>
+        <item>χ Persei</item>
+        <item>Menchib</item>
+        <item>Atik</item>
+        <item>π Persei</item>
+        <item>Gorgonea Tertia</item>
+        <item>τ Persei</item>
+        <item>φ Persei</item>
+        <item>ψ Persei</item>
+        <item>ω Persei</item>
+        <item>i Persei</item>
+        <item>θ Persei</item>
+        <item>σ Persei</item>
+        <item>o Persei</item>
+        <item>1 Persei</item>
+        <item>4 Persei</item>
+        <item>5 Persei</item>
+        <item>6 Persei</item>
+        <item>8 Persei</item>
+        <item>12 Persei</item>
+        <item>14 Persei</item>
+        <item>16 Persei</item>
+        <item>17 Persei</item>
+        <item>20 Persei</item>
+        <item>29 Persei</item>
+        <item>30 Persei</item>
+        <item>31 Persei</item>
+        <item>32 Persei</item>
+        <item>34 Persei</item>
+        <item>36 Persei</item>
+        <item>40 Persei</item>
+        <item>42 Persei</item>
+        <item>43 Persei</item>
+        <item>48 Persei</item>
+        <item>49 Persei</item>
+        <item>50 Persei</item>
+        <item>51 Persei</item>
+        <item>52 Persei</item>
+        <item>53 Persei</item>
+        <item>55 Persei</item>
+        <item>55 Persei</item>
+        <item>57 Persei</item>
+        <item>58 Persei</item>
+        <item>59 Persei</item>
+        <item>b Persei</item>
+        <item>b1 Persei</item>
+        <item>IX Persei</item>
+        <item>HIP 14066</item>
+        <item>HIP 19949</item>
+        <item>HIP 20156</item>
+        <item>HIP 21238</item>
+    </string-array>
+</resources >
