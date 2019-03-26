@@ -6,6 +6,7 @@ import android.support.v4.content.ContextCompat
 import android.support.v7.app.AppCompatActivity
 import android.view.View
 
+import aosp.toolkit.perseus.base.BaseIndex.Script_Head
 import aosp.toolkit.perseus.base.BaseOperation.Companion.setPermission
 import aosp.toolkit.perseus.base.BaseOperation.Companion.ShortToast
 
@@ -72,7 +73,7 @@ class ScriptActivity : AppCompatActivity() {
         Thread {
             try {
                 val url = URL(
-                    "https://raw.githubusercontent.com/osmiumtoolkit/scripts/master/$path"
+                    "$Script_Head$path"
                 )
 
                 val inputStream = url.openStream()

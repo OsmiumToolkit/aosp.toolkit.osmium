@@ -59,4 +59,18 @@
     <dimen name="dp_16">16dp</dimen>
     
     <dimen name="px_503">503px</dimen>
+    
+    <dimen name="px_500">500px</dimen>
+    
+    <dimen name="dp_50">50dp</dimen>
+    
+    <dimen name="sp_40">40sp</dimen>
+    
+    <dimen name="sp_50">50sp</dimen>
+    
+    <dimen name="sp_30">30sp</dimen>
+    
+    <dimen name="dp_200">200dp</dimen>
+    
+    <dimen name="dp_1">1dp</dimen>
 </resources>

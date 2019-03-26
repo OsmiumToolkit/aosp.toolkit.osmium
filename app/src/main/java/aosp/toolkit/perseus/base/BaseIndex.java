@@ -8,10 +8,12 @@ package aosp.toolkit.perseus.base;
  *
  */
 
+import aosp.toolkit.perseus.BuildConfig;
+
 public class BaseIndex {
 
     // Package Information/信息
-    public final static String PackageName = "com.earth.OsToolkit";
+    public final static String PackageName = BuildConfig.APPLICATION_ID;
     public final static String CoolapkPackageName = "com.coolapk.market";
     public final static String OsToolkitSubstratumName = "substratum.earth.OsToolkit";
     public final static String SubstratumName = "projekt.substratum";
@@ -27,13 +29,14 @@ public class BaseIndex {
 
 
     // Github
-    public final static String CheckUpdate_Version = "https://raw.githubusercontent.com/osmiumtoolkit/update/master/Version";
-    public final static String CheckUpdate_Date = "https://raw.githubusercontent.com/osmiumtoolkit/update/master/Date";
-    public final static String CheckUpdate_ChangelogZh = "https://raw.githubusercontent.com/osmiumtoolkit/update/master/ChangelogZh";
-    public final static String CheckUpdate_ChangelogEn = "https://raw.githubusercontent.com/osmiumtoolkit/update/master/ChangelogEn";
+    public final static String Script_Head = "https://raw.githubusercontent.com/ToolkitPerseus/scripts/master/";
+    public final static String CheckUpdate_Version = "https://raw.githubusercontent.com/ToolkitPerseus/update/master/Version";
+    public final static String CheckUpdate_Date = "https://raw.githubusercontent.com/ToolkitPerseus/update/master/Date";
+    public final static String CheckUpdate_ChangelogZh = "https://raw.githubusercontent.com/ToolkitPerseus/update/master/ChangelogZh";
+    public final static String CheckUpdate_ChangelogEn = "https://raw.githubusercontent.com/ToolkitPerseus/update/master/ChangelogEn";
 
-    public final static String Repo_Source = "https://github.com/1552980358/com.earth.OsToolkit";
-    public final static String Repo_Release = "https://github.com/1552980358/com.earth.OsToolkit/releases";
+    public final static String Repo_Source = "https://github.com/1552980358/aosp.toolkit.perseus";
+    public final static String Repo_Release = "https://github.com/ToolkitPerseus/aosp.toolkit.perseus/releases";
     public final static String Repo_libsu = "https://github.com/topjohnwu/libsu";
 
 

@@ -50,7 +50,7 @@ class AboutFragment : Fragment() {
             accessCoolapkAccount(activity, MaintainerCoolapkID)
         }
 
-        release.setSummary(activity!!.packageManager.getPackageInfo(PackageName, 0).versionName)
+        release.setSummary(activity?.packageManager?.getPackageInfo(PackageName, 0)?.versionName)
 
         update.setOnClickListener {
             val version = CheckUpdate.CheckVersion().getVersion()

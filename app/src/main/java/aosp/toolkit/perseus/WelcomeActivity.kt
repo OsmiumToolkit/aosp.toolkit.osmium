@@ -1,5 +1,24 @@
 package aosp.toolkit.perseus
 
+import android.content.Intent
+import android.graphics.Color
+import android.graphics.Paint
+import android.os.Bundle
+import android.support.v4.app.Fragment
+import android.support.v4.app.FragmentManager
+import android.support.v4.app.FragmentPagerAdapter
+import android.support.v4.content.ContextCompat
+import android.support.v7.app.AppCompatActivity
+import android.view.LayoutInflater
+import android.view.View
+import android.view.View.*
+import android.view.ViewGroup
+import aosp.toolkit.perseus.base.BaseManager
+import kotlinx.android.synthetic.main.activity_welcome.*
+import kotlinx.android.synthetic.main.fragment_ready.*
+import kotlinx.android.synthetic.main.fragment_welcome.*
+import java.lang.Exception
+
 /*
  * OsToolkit - Kotlin
  *
@@ -14,108 +33,102 @@ package aosp.toolkit.perseus
  *
  * 9/1/2019
  *
+ * Re-write
+ * 25 Mar 2019
+ *
  */
-
-
-import android.content.*
-import android.os.Bundle
-import android.support.v4.app.Fragment
-import android.support.v4.app.FragmentManager
-import android.support.v4.app.FragmentPagerAdapter
-import android.support.v7.app.AppCompatActivity
-import android.view.LayoutInflater
-import android.view.View
-import android.view.View.*
-import android.view.ViewGroup
-
-import kotlinx.android.synthetic.main.activity_welcome.*
-
-
-import aosp.toolkit.perseus.base.BaseOperation.Companion.checkRoot
-
-import kotlinx.android.synthetic.main.fragment_welcome_4.*
-
 class WelcomeActivity : AppCompatActivity() {
+    private var t: Thread? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_welcome)
 
-        aosp.toolkit.perseus.base.BaseManager.getInstance().setWelcomeActivity(this)
+        BaseManager.getInstance().setWelcomeActivity(this)
 
         val option = (SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
                 or SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
                 or SYSTEM_UI_FLAG_LAYOUT_STABLE)
-
         window.decorView.systemUiVisibility = option
 
-        val fragments = listOf(
-            Welcome1Fragment(), Welcome2Fragment(),
-            Welcome3Fragment(), Welcome4Fragment()
-        )
+        val tabList = listOf(getString(R.string.welcome_tab_welcome), getString(R.string.welcome_tab_ready))
+        val fragmentList = listOf(WelcomeFragment(), ReadyFragment())
 
-        val tabList = listOf(
-            getString(R.string.welcome_tab_1), getString(R.string.welcome_tab_2),
-            getString(R.string.welcome_tab_3), getString(R.string.welcome_tab_4)
-        )
-
-        viewPager.adapter = ViewPagerAdapter(supportFragmentManager, fragments, tabList)
+        viewPager.adapter = ViewPagerAdapter(supportFragmentManager, tabList, fragmentList)
         tabLayout.setupWithViewPager(viewPager)
 
+        t = Thread {
+            val colors = listOf(
+                ContextCompat.getColor(this, R.color.red),
+                ContextCompat.getColor(this, R.color.orange),
+                ContextCompat.getColor(this, R.color.yellow),
+                ContextCompat.getColor(this, R.color.green),
+                ContextCompat.getColor(this, R.color.cyan),
+                ContextCompat.getColor(this, R.color.blue),
+                ContextCompat.getColor(this, R.color.purple)
+            )
+            var i = 0
+            while (true) {
+                if (i != 6) {
+                    runOnUiThread { root.setBackgroundColor(colors[i]) }
+                    i++
+                } else {
+                    runOnUiThread { root.setBackgroundColor(colors[0]) }
+                    i = 1
+                }
+                try {
+                    Thread.sleep(2000)
+                } catch (e: Exception) {
+                    //
+                }
+            }
+        }
+        t!!.start()
+    }
+
+    override fun finish() {
+        t!!.interrupt()
+        super.finish()
     }
 
     class ViewPagerAdapter(
-        fragmentManager: FragmentManager?,
-        private var fragmentList: List<Fragment>,
-        private var tabList: List<String>
+        fragmentManager: FragmentManager,
+        private val tavList: List<String>,
+        private val fragmentList: List<Fragment>
     ) : FragmentPagerAdapter(fragmentManager) {
-        override fun getItem(p0: Int): Fragment {
-            return fragmentList[p0]
-        }
-
         override fun getCount(): Int {
             return fragmentList.size
         }
 
+        override fun getItem(p0: Int): Fragment {
+            return fragmentList[p0]
+        }
+
         override fun getPageTitle(position: Int): CharSequence? {
-            return tabList[position]
+            return tavList[position]
         }
     }
 
-    class Welcome1Fragment : Fragment() {
+    class WelcomeFragment: Fragment() {
         override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-            return inflater.inflate(R.layout.fragment_welcome_1, container, false)
+            return inflater.inflate(R.layout.fragment_welcome, container, false)
+        }
+
+        override fun onActivityCreated(savedInstanceState: Bundle?) {
+            super.onActivityCreated(savedInstanceState)
+            val array = resources.getStringArray(R.array.version)
+            version.text = array[0]
+            version.paint.flags = Paint.UNDERLINE_TEXT_FLAG
         }
     }
 
-    class Welcome2Fragment : Fragment() {
+    class ReadyFragment: Fragment() {
         override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-            return inflater.inflate(R.layout.fragment_welcome_2, container, false)
-        }
-    }
-
-    class Welcome3Fragment : Fragment() {
-        override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-            return inflater.inflate(R.layout.fragment_welcome_3, container, false)
-        }
-    }
-
-    class Welcome4Fragment : Fragment() {
-        override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-            return inflater.inflate(R.layout.fragment_welcome_4, container, false)
+            return inflater.inflate(R.layout.fragment_ready, container, false)
         }
 
-        override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-            super.onViewCreated(view, savedInstanceState)
-
-            start_su.setOnClickListener {
-                Thread {
-                    if (checkRoot()) {
-                        activity!!.getSharedPreferences("splash", Context.MODE_PRIVATE).edit()
-                            .putBoolean("welcome", true).apply()
-                        startActivity(Intent(activity, MainActivity::class.java))
-                    }
-                }.start()
-            }
+        override fun onActivityCreated(savedInstanceState: Bundle?) {
+            super.onActivityCreated(savedInstanceState)
+            root_S.setOnClickListener { startActivity(Intent(context!!, MainActivity::class.java)) }
         }
     }
 }
