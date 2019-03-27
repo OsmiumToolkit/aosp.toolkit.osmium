@@ -78,13 +78,13 @@ public class BaseManager extends ContainerApp {
 
     /*
     private ChargingFragment chargingFragment;
-    private ExtendsFragment extendsFragment;
+    private OtherFragment extendsFragment;
 
     public void setChargingFragment(ChargingFragment chargingFragment) {
         this.chargingFragment = chargingFragment;
     }
 
-    public void setExtendsFragment(ExtendsFragment extendsFragment) {
+    public void setExtendsFragment(OtherFragment extendsFragment) {
         this.extendsFragment = extendsFragment;
     }
 
@@ -98,7 +98,7 @@ public class BaseManager extends ContainerApp {
     }
 
     public void restartExtendsFragmet() {
-        ExtendsFragment tmp = new ExtendsFragment();
+        OtherFragment tmp = new OtherFragment();
         FragmentTransaction fragmentTransaction = mainActivity.getSupportFragmentManager().beginTransaction();
         fragmentTransaction.remove(extendsFragment).add(R.id.frameLayout_main, tmp).commit();
         this.extendsFragment = tmp;

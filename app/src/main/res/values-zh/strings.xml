@@ -16,6 +16,8 @@
     <string name="nav_monitor" >实时检测</string >
     <string name="nav_about" >关于应用</string >
     <string name="nav_deviceinfo" >设备信息</string >
+    <string name="nav_title_extends">扩展功能</string>
+    <string name="nav_zxing">解析二维码</string>
     <string name="nav_title_toolkit" >工具箱</string >
     <string name="nav_charging" >充电相关</string >
     <string name="nav_processor" >处理器相关</string >
@@ -169,13 +171,13 @@
     <string name="apply_atom" >英特尔 Atom</string >
     <string name="apply_confirm" >将会为%s直接写入所需文件应用无法挽回，敬请备份系统。\n继续?</string >
     
-    <string name="extends_mac_title" >修改Mac地址</string >
-    <string name="extends_mac_sum" >修改本机网络的mac地址\n（假如在修改后无法连接wifi，请重启解决手机，并且不再使用本功能）</string >
-    <string name="extends_ff_title" >FreeForm多窗口模式</string >
-    <string name="extends_ff_sum" >Android 6.0(SDK24)或以上隐藏功能接口</string >
-    <string name="extends_nt_title" >去网络叹号</string >
-    <string name="extends_nt_sum" >去除连接网络后移动信号/Wi-Fi旁的感叹号</string >
-    <string name="extends_su_title">缩短URL</string>
+    <string name="other_mac_title" >修改Mac地址</string >
+    <string name="other_mac_sum" >修改本机网络的mac地址\n（假如在修改后无法连接wifi，请重启解决手机，并且不再使用本功能）</string >
+    <string name="other_ff_title" >FreeForm多窗口模式</string >
+    <string name="other_ff_sum" >Android 6.0(SDK24)或以上隐藏功能接口</string >
+    <string name="other_nt_title" >去网络叹号</string >
+    <string name="other_nt_sum" >去除连接网络后移动信号/Wi-Fi旁的感叹号</string >
+    <string name="other_su_title">缩短URL</string>
     
     <string name="cp">复制</string>
     

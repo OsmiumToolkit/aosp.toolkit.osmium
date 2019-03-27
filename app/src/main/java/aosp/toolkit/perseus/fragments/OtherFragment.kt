@@ -15,7 +15,7 @@ import aosp.toolkit.perseus.base.BaseOperation.Companion.readFile
 
 import com.topjohnwu.superuser.Shell
 
-import kotlinx.android.synthetic.main.fragment_extends.*
+import kotlinx.android.synthetic.main.fragment_other.*
 import java.net.URL
 import kotlin.Exception
 
@@ -34,7 +34,7 @@ import kotlin.Exception
  * - Short URL    : 13 Mar 2019
  */
 
-class ExtendsFragment : Fragment() {
+class OtherFragment : Fragment() {
     /*
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -43,7 +43,7 @@ class ExtendsFragment : Fragment() {
     */
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return inflater.inflate(R.layout.fragment_extends, container, false)
+        return inflater.inflate(R.layout.fragment_other, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

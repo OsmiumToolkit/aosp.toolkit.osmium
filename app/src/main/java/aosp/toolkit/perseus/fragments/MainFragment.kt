@@ -34,8 +34,5 @@ class MainFragment : Fragment() {
         disabletower.setOnClickListener {
             startActivity(Intent(activity, DisableAppActivity::class.java))
         }
-        click.setOnClickListener {
-            startActivity(Intent(activity, ZXingActivity::class.java))
-        }
     }
 }
