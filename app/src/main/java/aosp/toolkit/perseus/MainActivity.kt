@@ -111,11 +111,13 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         if (drawer_layout.isDrawerOpen(GravityCompat.START)) {
             drawer_layout.closeDrawer(GravityCompat.START)
         } else {
-            val fragmentManager = supportFragmentManager.beginTransaction()
-            for (i in supportFragmentManager.fragments) {
-                fragmentManager.remove(i)
-            }
-            fragmentManager.commit()
+            Thread {
+                val fragmentManager = supportFragmentManager.beginTransaction()
+                for (i in supportFragmentManager.fragments) {
+                    fragmentManager.remove(i)
+                }
+                fragmentManager.commit()
+            }.start()
 
             super.onBackPressed()
         }
@@ -165,101 +167,104 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     }
 
     private fun exchangeFragment(id: Int) {
-        val frag: Fragment
-        val fragmentTransaction = supportFragmentManager.beginTransaction()
-        val title: Int
-        when (id) {
-            R.id.nav_charging -> {
-                title = R.string.nav_charging
-                if (chargingFragment != null) {
-                    fragmentTransaction.show(chargingFragment!!)
-                } else {
-                    chargingFragment = ChargingFragment()
-                    fragmentTransaction.add(R.id.frameLayout_main, chargingFragment!!)
+        Thread {
+            val frag: Fragment
+            val fragmentTransaction = supportFragmentManager.beginTransaction()
+            val title: Int
+            when (id) {
+                R.id.nav_charging -> {
+                    title = R.string.nav_charging
+                    if (chargingFragment != null) {
+                        fragmentTransaction.show(chargingFragment!!)
+                    } else {
+                        chargingFragment = ChargingFragment()
+                        fragmentTransaction.add(R.id.frameLayout_main, chargingFragment!!)
+                    }
+                    frag = chargingFragment!!
                 }
-                frag = chargingFragment!!
-            }
-            R.id.nav_cores -> {
-                title = R.string.nav_processor
-                if (coreFragment != null) {
-                    fragmentTransaction.show(coreFragment!!)
-                } else {
-                    coreFragment = CoreFragment()
-                    fragmentTransaction.add(R.id.frameLayout_main, coreFragment!!)
+                R.id.nav_cores -> {
+                    title = R.string.nav_processor
+                    if (coreFragment != null) {
+                        fragmentTransaction.show(coreFragment!!)
+                    } else {
+                        coreFragment = CoreFragment()
+                        fragmentTransaction.add(R.id.frameLayout_main, coreFragment!!)
+                    }
+                    frag = coreFragment!!
                 }
-                frag = coreFragment!!
-            }
-            R.id.nav_applyyc -> {
-                title = R.string.nav_yc
-                if (applyYCFragment != null) {
-                    fragmentTransaction.show(applyYCFragment!!)
-                } else {
-                    applyYCFragment = ApplyYCFragment()
-                    fragmentTransaction.add(R.id.frameLayout_main, applyYCFragment!!)
+                R.id.nav_applyyc -> {
+                    title = R.string.nav_yc
+                    if (applyYCFragment != null) {
+                        fragmentTransaction.show(applyYCFragment!!)
+                    } else {
+                        applyYCFragment = ApplyYCFragment()
+                        fragmentTransaction.add(R.id.frameLayout_main, applyYCFragment!!)
+                    }
+                    frag = applyYCFragment!!
                 }
-                frag = applyYCFragment!!
-            }
-            R.id.nav_applypc -> {
-                title = R.string.nav_pc
-                if (applyPixelCatFragment != null) {
-                    fragmentTransaction.show(applyPixelCatFragment!!)
-                } else {
-                    applyPixelCatFragment = ApplyPixelCatFragment()
-                    fragmentTransaction.add(R.id.frameLayout_main, applyPixelCatFragment!!)
+                R.id.nav_applypc -> {
+                    title = R.string.nav_pc
+                    if (applyPixelCatFragment != null) {
+                        fragmentTransaction.show(applyPixelCatFragment!!)
+                    } else {
+                        applyPixelCatFragment = ApplyPixelCatFragment()
+                        fragmentTransaction.add(R.id.frameLayout_main, applyPixelCatFragment!!)
+                    }
+                    frag = applyPixelCatFragment!!
                 }
-                frag = applyPixelCatFragment!!
-            }
-            R.id.nav_romio -> {
-                title = R.string.nav_romio
-                if (romIOFragment != null) {
-                    fragmentTransaction.show(romIOFragment!!)
-                } else {
-                    romIOFragment = RomIOFragment()
-                    fragmentTransaction.add(R.id.frameLayout_main, romIOFragment!!)
+                R.id.nav_romio -> {
+                    title = R.string.nav_romio
+                    if (romIOFragment != null) {
+                        fragmentTransaction.show(romIOFragment!!)
+                    } else {
+                        romIOFragment = RomIOFragment()
+                        fragmentTransaction.add(R.id.frameLayout_main, romIOFragment!!)
+                    }
+                    frag = romIOFragment!!
                 }
-                frag = romIOFragment!!
-            }
-            R.id.nav_others -> {
-                title = R.string.nav_other
-                if (otherFragment != null) {
-                    fragmentTransaction.show(otherFragment!!)
-                } else {
-                    otherFragment = OtherFragment()
-                    fragmentTransaction.add(R.id.frameLayout_main, otherFragment!!)
+                R.id.nav_others -> {
+                    title = R.string.nav_other
+                    if (otherFragment != null) {
+                        fragmentTransaction.show(otherFragment!!)
+                    } else {
+                        otherFragment = OtherFragment()
+                        fragmentTransaction.add(R.id.frameLayout_main, otherFragment!!)
+                    }
+                    frag = otherFragment!!
                 }
-                frag = otherFragment!!
-            }
-            R.id.nav_about -> {
-                title = R.string.nav_about
-                if (aboutFragment != null) {
-                    fragmentTransaction.show(aboutFragment!!)
-                } else {
-                    aboutFragment = AboutFragment()
-                    fragmentTransaction.add(R.id.frameLayout_main, aboutFragment!!)
+                R.id.nav_about -> {
+                    title = R.string.nav_about
+                    if (aboutFragment != null) {
+                        fragmentTransaction.show(aboutFragment!!)
+                    } else {
+                        aboutFragment = AboutFragment()
+                        fragmentTransaction.add(R.id.frameLayout_main, aboutFragment!!)
+                    }
+                    frag = aboutFragment!!
                 }
-                frag = aboutFragment!!
-            }
-            R.id.nav_deviceinfo -> {
-                title = R.string.nav_deviceinfo
-                if (deviceInfoFragment != null) {
-                    fragmentTransaction.show(aboutFragment!!)
-                } else {
-                    deviceInfoFragment = DeviceInfoFragment()
-                    fragmentTransaction.add(R.id.frameLayout_main, deviceInfoFragment!!)
+                R.id.nav_deviceinfo -> {
+                    title = R.string.nav_deviceinfo
+                    if (deviceInfoFragment != null) {
+                        fragmentTransaction.show(aboutFragment!!)
+                    } else {
+                        deviceInfoFragment = DeviceInfoFragment()
+                        fragmentTransaction.add(R.id.frameLayout_main, deviceInfoFragment!!)
+                    }
+                    frag = deviceInfoFragment!!
                 }
-                frag = deviceInfoFragment!!
+                else -> {
+                    frag = mainFragment
+                    fragmentTransaction.show(mainFragment)
+                    title = R.string.nav_main
+                }
             }
-            else -> {
-                frag = mainFragment
-                fragmentTransaction.show(mainFragment)
-                title = R.string.nav_main
-            }
-        }
 
-        toolbar.setTitle(title)
-        if (frag != currentFragment) {
-            fragmentTransaction.hide(currentFragment).commit()
-        }
-        currentFragment = frag
+            runOnUiThread { toolbar.setTitle(title) }
+            if (frag != currentFragment) {
+                fragmentTransaction.hide(currentFragment).commit()
+            }
+            currentFragment = frag
+        }.start()
+
     }
 }
