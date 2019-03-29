@@ -71,6 +71,10 @@ public class BaseManager extends ContainerApp {
         this.mainFragment = mainFragment;
     }
 
+    public MainActivity getMainActivity() {
+        return this.mainActivity;
+    }
+
     public void exceptionBreaker(Fragment fragment) {
         mainActivity.getSupportFragmentManager().beginTransaction().remove(fragment).show(mainFragment).commit();
         mainActivity.exceptionBeaker();

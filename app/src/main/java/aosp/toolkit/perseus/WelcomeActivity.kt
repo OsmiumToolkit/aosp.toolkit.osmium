@@ -76,7 +76,7 @@ class WelcomeActivity : AppCompatActivity() {
                     i = 1
                 }
                 try {
-                    Thread.sleep(2000)
+                    Thread.sleep(500)
                 } catch (e: Exception) {
                     //
                 }

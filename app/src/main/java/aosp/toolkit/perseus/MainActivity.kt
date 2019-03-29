@@ -23,20 +23,37 @@ import android.support.design.widget.NavigationView
 import android.support.v4.app.Fragment
 import android.support.v4.content.ContextCompat
 import android.support.v4.view.GravityCompat
+import android.support.v4.widget.DrawerLayout
 import android.support.v7.app.ActionBarDrawerToggle
 import android.support.v7.app.AppCompatActivity
 import android.view.*
+import android.widget.LinearLayout
 
 import aosp.toolkit.perseus.fragments.*
+import aosp.toolkit.perseus.view.SideNavigationView
 
 import com.topjohnwu.superuser.Shell
 
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.app_bar_main.*
+import java.lang.Exception
 
 import java.util.*
 
-class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
+class MainActivity : AppCompatActivity()/*, NavigationView.OnNavigationItemSelectedListener*/ {
+    val onNavigationItemSelectedListener = NavigationView.OnNavigationItemSelectedListener{item ->
+        drawer_layout.closeDrawer(GravityCompat.START)
+
+        val id = item.itemId
+
+        when (id) {
+            R.id.nav_monitor -> startActivity(Intent(this, UsageActivity::class.java))
+            R.id.nav_tower -> startActivity(Intent(this, DisableAppActivity::class.java))
+            R.id.nav_zxing -> startActivity(Intent(this, ZXingActivity::class.java))
+            else -> exchangeFragment(id)
+        }
+        return@OnNavigationItemSelectedListener true
+    }
 
     // 定义fragments
     private var mainFragment: MainFragment = MainFragment()
@@ -54,11 +71,14 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
-
         // 移除上一个activity
         aosp.toolkit.perseus.base.BaseManager.getInstance().finishActivities()
         aosp.toolkit.perseus.base.BaseManager.instance.setMainActivity(this, mainFragment)
+
+        setContentView(R.layout.activity_main)
+
+
+
 
         initUI()
         addFragment()
@@ -95,7 +115,20 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             // window.navigationBarColor = resources.getColor(R.color.colorPrimary, null)
         }
 
-        nav_view.setNavigationItemSelectedListener(this)
+        /*
+        val sideNavigationView = SideNavigationView(
+            this,
+            R.layout.nav_header_main,
+            null,
+            R.menu.activity_main_drawer,
+            this,
+            R.color.colorPrimaryDark
+        )
+        val layoutParams =
+            DrawerLayout.LayoutParams(DrawerLayout.LayoutParams.WRAP_CONTENT, DrawerLayout.LayoutParams.MATCH_PARENT)
+        layoutParams.gravity = Gravity.START
+        drawer_layout.addView(sideNavigationView, layoutParams)
+        */
     }
 
     fun exceptionBeaker() {
@@ -151,6 +184,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         return super.onOptionsItemSelected(item)
     }
 
+    /*
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         // Handle navigation view item clicks here.
         drawer_layout.closeDrawer(GravityCompat.START)
@@ -165,6 +199,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         }
         return true
     }
+    */
 
     private fun exchangeFragment(id: Int) {
         Thread {
@@ -267,4 +302,5 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         }.start()
 
     }
+
 }

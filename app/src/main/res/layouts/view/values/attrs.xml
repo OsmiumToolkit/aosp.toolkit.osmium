@@ -6,16 +6,28 @@
         <attr name="icon" />
         <attr name="hideSummary" format="boolean" />
     </declare-styleable >
-
+    
     <declare-styleable name="LoadScriptView" >
         <attr name="title" />
         <attr name="summary" />
-    </declare-styleable>
-
+    </declare-styleable >
+    
+    
+    <declare-styleable name="SideNavigationView" >
+        <attr name="headerLayout" format="reference" />
+        
+        <attr name="menu" format="reference" />
+    
+        <attr name="itemIconTint" format="color" />
+        
+        <attr name="bottomLayout" format="reference" />
+    </declare-styleable >
+    
+    
     <declare-styleable name="DeviceInfoView" >
-        <attr name="title"/>
-    </declare-styleable>
-
+        <attr name="title" />
+    </declare-styleable >
+    
     <attr name="icon" format="reference" />
     <attr name="title" format="string" />
     <attr name="summary" format="string" />
