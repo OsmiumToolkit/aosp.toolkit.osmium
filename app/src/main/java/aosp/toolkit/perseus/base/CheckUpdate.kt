@@ -1,8 +1,7 @@
 package aosp.toolkit.perseus.base
 
 import aosp.toolkit.perseus.base.BaseIndex.*
-import java.io.*
-import java.lang.*
+import java.io.InputStream
 import java.net.URL
 
 /*

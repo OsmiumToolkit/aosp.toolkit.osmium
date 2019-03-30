@@ -26,7 +26,8 @@ import android.widget.TextView;
 import aosp.toolkit.perseus.R;
 import aosp.toolkit.perseus.base.Accessing;
 
-import static aosp.toolkit.perseus.base.BaseIndex.*;
+import static aosp.toolkit.perseus.base.BaseIndex.Repo_Release;
+import static aosp.toolkit.perseus.base.BaseIndex.PackageName;
 
 public class UpdateDialogFragment extends DialogFragment {
     String version;

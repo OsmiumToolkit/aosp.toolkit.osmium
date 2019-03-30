@@ -203,13 +203,15 @@ class BaseOperation {
                 toast.duration = LENGTH_SHORT
                 toast.show()
             } else {
-                val t = Toast(activity as Context)
                 val view = LayoutInflater.from(activity as Context).inflate(R.layout.toast, null)
                 val textView = view.findViewById<TextView>(R.id.toast)
                 textView.text = string
-                t.view = view
-                t.duration = LENGTH_SHORT
-                activity.runOnUiThread { t.show() }
+                activity.runOnUiThread {
+                    val t = Toast(activity)
+                    t.view = view
+                    t.duration = LENGTH_SHORT
+                    t.show()
+                }
             }
 
         }

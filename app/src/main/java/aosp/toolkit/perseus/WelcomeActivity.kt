@@ -1,7 +1,6 @@
 package aosp.toolkit.perseus
 
 import android.content.Intent
-import android.graphics.Color
 import android.graphics.Paint
 import android.os.Bundle
 import android.support.v4.app.Fragment
@@ -13,10 +12,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.View.*
 import android.view.ViewGroup
+
+import aosp.toolkit.perseus.base.BaseIndex.versionIndex
 import aosp.toolkit.perseus.base.BaseManager
+
 import kotlinx.android.synthetic.main.activity_welcome.*
 import kotlinx.android.synthetic.main.fragment_ready.*
 import kotlinx.android.synthetic.main.fragment_welcome.*
+
 import java.lang.Exception
 
 /*
@@ -116,7 +119,7 @@ class WelcomeActivity : AppCompatActivity() {
         override fun onActivityCreated(savedInstanceState: Bundle?) {
             super.onActivityCreated(savedInstanceState)
             val array = resources.getStringArray(R.array.version)
-            version.text = array[0]
+            version.text = array[versionIndex]
             version.paint.flags = Paint.UNDERLINE_TEXT_FLAG
         }
     }

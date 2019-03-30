@@ -17,7 +17,8 @@ package aosp.toolkit.perseus
  */
 
 import android.app.AlertDialog
-import android.content.*
+import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.support.design.widget.NavigationView
 import android.support.v4.app.Fragment
@@ -25,7 +26,8 @@ import android.support.v4.content.ContextCompat
 import android.support.v4.view.GravityCompat
 import android.support.v7.app.ActionBarDrawerToggle
 import android.support.v7.app.AppCompatActivity
-import android.view.*
+import android.view.Menu
+import android.view.MenuItem
 
 import aosp.toolkit.perseus.base.BaseManager
 import aosp.toolkit.perseus.fragments.*
@@ -41,7 +43,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
     // 定义fragments
     private var mainFragment: MainFragment = MainFragment()
-    private var aboutFragment: Fragment? = null
+    //private var aboutFragment: Fragment? = null
     private var deviceInfoFragment: Fragment? = null
     private var chargingFragment: Fragment? = null
     private var coreFragment: Fragment? = null
@@ -84,6 +86,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         )
 
         drawer_layout.addDrawerListener(toggle)
+        drawer_layout.setScrimColor(ContextCompat.getColor(this, android.R.color.transparent))
         toggle.syncState()
 
         if (getSharedPreferences("ui", Context.MODE_PRIVATE).getBoolean("navBar", true)) {
@@ -107,18 +110,20 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     }
 
     override fun onBackPressed() {
-        if (drawer_layout.isDrawerOpen(GravityCompat.START)) {
-            drawer_layout.closeDrawer(GravityCompat.START)
-        } else {
-            Thread {
-                val fragmentManager = supportFragmentManager.beginTransaction()
-                for (i in supportFragmentManager.fragments) {
-                    fragmentManager.remove(i)
-                }
-                fragmentManager.commit()
-            }.start()
+        when {
+            drawer_layout.isDrawerOpen(GravityCompat.END) -> drawer_layout.closeDrawer(GravityCompat.END)
+            drawer_layout.isDrawerOpen(GravityCompat.START) -> drawer_layout.closeDrawer(GravityCompat.START)
+            else -> {
+                Thread {
+                    val fragmentManager = supportFragmentManager.beginTransaction()
+                    for (i in supportFragmentManager.fragments) {
+                        fragmentManager.remove(i)
+                    }
+                    fragmentManager.commit()
+                }.start()
 
-            super.onBackPressed()
+                super.onBackPressed()
+            }
         }
     }
 
@@ -158,6 +163,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             R.id.nav_monitor -> startActivity(Intent(this, UsageActivity::class.java))
             R.id.nav_tower -> startActivity(Intent(this, DisableAppActivity::class.java))
             R.id.nav_zxing -> startActivity(Intent(this, ZXingActivity::class.java))
+            R.id.nav_about -> drawer_layout.openDrawer(GravityCompat.END)
             else -> exchangeFragment(id)
         }
         return true
@@ -230,20 +236,10 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                     }
                     frag = otherFragment!!
                 }
-                R.id.nav_about -> {
-                    title = R.string.nav_about
-                    if (aboutFragment != null) {
-                        fragmentTransaction.show(aboutFragment!!)
-                    } else {
-                        aboutFragment = AboutFragment()
-                        fragmentTransaction.add(R.id.frameLayout_main, aboutFragment!!)
-                    }
-                    frag = aboutFragment!!
-                }
                 R.id.nav_deviceinfo -> {
                     title = R.string.nav_deviceinfo
                     if (deviceInfoFragment != null) {
-                        fragmentTransaction.show(aboutFragment!!)
+                        fragmentTransaction.show(deviceInfoFragment!!)
                     } else {
                         deviceInfoFragment = DeviceInfoFragment()
                         fragmentTransaction.add(R.id.frameLayout_main, deviceInfoFragment!!)

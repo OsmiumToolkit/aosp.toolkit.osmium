@@ -4,7 +4,9 @@ import android.app.Dialog
 import android.content.Context
 import android.os.*
 import android.support.v4.app.Fragment
-import android.view.*
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 
 import aosp.toolkit.perseus.R
 import aosp.toolkit.perseus.base.BaseOperation.Companion.getAvailableCore

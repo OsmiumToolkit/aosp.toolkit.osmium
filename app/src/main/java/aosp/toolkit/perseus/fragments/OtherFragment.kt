@@ -1,11 +1,17 @@
 package aosp.toolkit.perseus.fragments
 
-import android.content.*
+import android.content.ClipData
 import android.content.ClipboardManager
-import android.os.*
+import android.content.Context
+import android.content.Intent
+import android.os.Build
+import android.os.Bundle
 import android.support.v4.app.Fragment
-import android.text.*
-import android.view.*
+import android.text.Editable
+import android.text.TextWatcher
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 
 import aosp.toolkit.perseus.R
 import aosp.toolkit.perseus.base.BaseIndex.*
@@ -16,8 +22,9 @@ import aosp.toolkit.perseus.base.BaseOperation.Companion.readFile
 import com.topjohnwu.superuser.Shell
 
 import kotlinx.android.synthetic.main.fragment_other.*
-import java.net.URL
 import kotlin.Exception
+
+import java.net.URL
 
 /*
  * OsToolkit - Kotlin

@@ -16,7 +16,8 @@ package aosp.toolkit.perseus
  *
  */
 
-import android.content.*
+import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.support.v4.app.ActivityCompat
 import android.support.v7.app.AppCompatActivity
@@ -29,13 +30,17 @@ class SplashActivity : AppCompatActivity() {
 
         ActivityCompat.requestPermissions(this, permission, 1)
 
-        if (getSharedPreferences("splash", Context.MODE_PRIVATE)
-                .getBoolean("welcome", false)
-        ) {
-            startActivity(Intent(this, MainActivity::class.java))
-        } else {
-            startActivity(Intent(this, WelcomeActivity::class.java))
-        }
+        startActivity(
+            Intent(
+                this, if (getSharedPreferences("splash", Context.MODE_PRIVATE)
+                        .getBoolean("welcome", false)
+                ) {
+                    MainActivity::class.java
+                } else {
+                    WelcomeActivity::class.java
+                }
+            )
+        )
 
         finish()
     }

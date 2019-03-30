@@ -1,12 +1,20 @@
 package aosp.toolkit.perseus
 
 import android.app.Activity
-import android.content.*
-import android.os.*
+import android.content.BroadcastReceiver
+import android.content.Context
+import android.content.Intent
+import android.content.IntentFilter
+import android.os.BatteryManager
+import android.os.Bundle
 import android.support.v4.content.ContextCompat
 import android.support.v7.app.AppCompatActivity
-import android.view.*
-import android.widget.*
+import android.view.LayoutInflater
+import android.view.View
+import android.widget.GridLayout
+import android.widget.LinearLayout
+import android.widget.ProgressBar
+import android.widget.TextView
 
 import aosp.toolkit.perseus.base.BaseOperation.Companion.ShortToast
 import aosp.toolkit.perseus.base.BaseOperation.Companion.getAvailableCore
@@ -16,12 +24,12 @@ import com.topjohnwu.superuser.Shell
 import kotlinx.android.synthetic.main.activity_usage.*
 import kotlinx.android.synthetic.main.view_corefreq.view.*
 import kotlinx.android.synthetic.main.view_sensordata.view.*
+import kotlin.collections.ArrayList
 
 import java.io.File
 import java.io.FileInputStream
 import java.lang.StringBuilder
-import java.util.*
-import kotlin.collections.ArrayList
+import java.util.Arrays
 
 
 /*

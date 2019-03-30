@@ -21,15 +21,15 @@ import kotlinx.android.synthetic.main.view_navigation.view.*
  */
 
 
-class SideNavigationView(ctx: Context, attributeSet: AttributeSet) : LinearLayout(ctx) {
+class SideNavigationView(context: Context, attributeSet: AttributeSet) : LinearLayout(context) {
     init {
-        LayoutInflater.from(ctx).inflate(R.layout.view_navigation, this)
-        val typedArray = ctx.obtainStyledAttributes(attributeSet, R.styleable.SideNavigationView)
+        LayoutInflater.from(context).inflate(R.layout.view_navigation, this)
+        val typedArray = context.obtainStyledAttributes(attributeSet, R.styleable.SideNavigationView)
 
         // 设置HeaderLayout布局 Set HeaderLayout
         if (typedArray.hasValue(R.styleable.SideNavigationView_headerLayout)) {
             headerLayout.addView(
-                LayoutInflater.from(ctx).inflate(
+                LayoutInflater.from(context).inflate(
                     typedArray.getResourceId(
                         R.styleable.SideNavigationView_headerLayout,
                         0
@@ -43,7 +43,7 @@ class SideNavigationView(ctx: Context, attributeSet: AttributeSet) : LinearLayou
         // 设置BottomLayout布局 Set BottomLayout
         if (typedArray.hasValue(R.styleable.SideNavigationView_bottomLayout)) {
             bottomLayout.addView(
-                LayoutInflater.from(ctx).inflate(
+                LayoutInflater.from(context).inflate(
                     typedArray.getResourceId(
                         R.styleable.SideNavigationView_bottomLayout,
                         0
@@ -57,6 +57,8 @@ class SideNavigationView(ctx: Context, attributeSet: AttributeSet) : LinearLayou
         // 设置Menu Set Menu
         if (typedArray.hasValue(R.styleable.SideNavigationView_menu)) {
             navigationView.inflateMenu(typedArray.getResourceId(R.styleable.SideNavigationView_menu, 0))
+        } else {
+            navigationView.visibility = View.GONE
         }
 
         //设置itemIconTint Set itemIconTint

@@ -1,49 +1,72 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView
+<RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent" >
+    android:layout_height="match_parent"
+    android:background="@android:color/transparent"
+    android:clickable="true"
+    android:focusable="true">
     
     <LinearLayout
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="vertical" >
+        android:orientation="vertical"
+        android:layout_centerVertical="true"
+        android:background="@android:color/transparent" >
         
         <android.support.v7.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
+            android:padding="@dimen/cardView_margin"
             android:layout_margin="@dimen/cardView_margin"
-            android:padding="@dimen/cardView_padding"
-            app:cardCornerRadius="@dimen/cardView_cardCornerRadius" >
+            app:cardCornerRadius="@dimen/cardView_cardCornerRadius">
             
             <LinearLayout
-                android:id="@+id/about_info"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical" >
-                
+                android:background="@android:color/black">
                 <LinearLayout
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal" >
-                    
-                    <ImageView
-                        android:layout_width="@dimen/about_ic_launcher"
-                        android:layout_height="@dimen/about_ic_launcher"
-                        android:padding="@dimen/cardView_padding"
-                        android:src="@mipmap/ic_launcher" />
-                    
-                    <TextView
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:background="@drawable/ripple_effect"
+                    android:orientation="vertical" >
+        
+                    <android.support.v7.widget.AppCompatTextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:id="@+id/version"
                         android:layout_gravity="center"
-                        android:padding="10dp"
-                        android:text="@string/app_name"
-                        android:textAppearance="@style/TextAppearance.AppCompat.Headline" />
-                
+                        android:textColor="@android:color/white"
+                        android:textSize="@dimen/sp_40"
+                        android:textStyle="bold" />
+        
+                    <android.support.v7.widget.AppCompatTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/welcome_welcome_2"
+                        android:textColor="@android:color/white"
+                        android:textSize="@dimen/sp_30"
+                        android:layout_gravity="center" />
+    
                 </LinearLayout >
+            </LinearLayout >
+            
+        </android.support.v7.widget.CardView >
+        
+        <android.support.v7.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/cardView_padding"
+            android:layout_margin="@dimen/cardView_margin"
+            app:cardCornerRadius="@dimen/cardView_cardCornerRadius">
+            
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical" >
                 
                 <aosp.toolkit.perseus.view.AboutView
                     android:id="@+id/maintainer"
@@ -52,7 +75,7 @@
                     app:icon="@drawable/ic_maintainer"
                     app:summary="@string/nav_header_subtitle"
                     app:title="@string/about_maintainer" />
-                
+    
                 <aosp.toolkit.perseus.view.AboutView
                     android:id="@+id/release"
                     android:layout_width="match_parent"
@@ -75,93 +98,40 @@
                     app:icon="@drawable/ic_source"
                     app:summary="https://github.com/1552980358/com.earth.OsToolkit"
                     app:title="@string/about_sourcecode" />
-            
             </LinearLayout >
-        
         </android.support.v7.widget.CardView >
-        
+    
         <android.support.v7.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_margin="@dimen/cardView_margin"
             android:padding="@dimen/cardView_padding"
-            app:cardCornerRadius="@dimen/cardView_cardCornerRadius" >
-            
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical" >
-                
-                <aosp.toolkit.perseus.view.AboutView
-                    android:id="@+id/xzr"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    app:icon="@drawable/ic_maintainer"
-                    app:summary="@string/about_xzr_sum"
-                    app:title="@string/name_xzr" />
-                
-                <aosp.toolkit.perseus.view.AboutView
-                    android:id="@+id/libsu"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    app:icon="@drawable/ic_maintainer"
-                    app:summary="@string/about_johnwu_sum"
-                    app:title="@string/name_topjohnwu" />
-                
-                <aosp.toolkit.perseus.view.AboutView
-                    android:id="@+id/yc"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    app:icon="@drawable/ic_maintainer"
-                    app:summary="@string/about_yc9559_sum"
-                    app:title="@string/name_yc9559" />
-                
-                <aosp.toolkit.perseus.view.AboutView
-                    android:id="@+id/pc"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    app:icon="@drawable/ic_maintainer"
-                    app:summary="@string/about_pc_sum"
-                    app:title="@string/name_cjybyjk" />
-            </LinearLayout >
-        </android.support.v7.widget.CardView >
+            app:cardCornerRadius="@dimen/cardView_cardCornerRadius"
+            android:background="@android:color/white">
         
-        <android.support.v7.widget.CardView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_margin="@dimen/cardView_margin"
-            android:padding="@dimen/cardView_padding"
-            app:cardCornerRadius="@dimen/cardView_cardCornerRadius" >
-            
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical" >
-                
-                <LinearLayout
+            
+                <RelativeLayout
                     android:id="@+id/navBar"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="?android:attr/selectableItemBackground"
                     android:clickable="true"
-                    android:focusable="true"
-                    android:orientation="horizontal" >
-                    
+                    android:focusable="true" >
+                
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:gravity="center_vertical"
                         android:padding="@dimen/about_padding"
                         android:text="@string/about_set_navBar"
+                        android:layout_centerVertical="true"
                         android:textAppearance="@style/TextAppearance.AppCompat.Subhead" />
-                    
-                    <RelativeLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center" >
-                        
+                
                         <android.support.v7.widget.SwitchCompat
                             android:id="@+id/switchCompact"
                             android:layout_width="wrap_content"
@@ -169,14 +139,12 @@
                             android:layout_alignParentEnd="true"
                             android:padding="@dimen/about_padding" />
                     </RelativeLayout >
-                
-                </LinearLayout >
-                
+            
                 <View
                     android:layout_width="wrap_content"
                     android:layout_height="@dimen/view_height"
                     android:background="@color/view" />
-                
+            
                 <LinearLayout
                     android:id="@+id/theme"
                     android:layout_width="match_parent"
@@ -185,7 +153,7 @@
                     android:clickable="true"
                     android:focusable="true"
                     android:orientation="horizontal" >
-                    
+                
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -193,12 +161,12 @@
                         android:padding="@dimen/about_padding"
                         android:text="@string/about_set_theme"
                         android:textAppearance="@style/TextAppearance.AppCompat.Subhead" />
-                    
+                
                     <RelativeLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center" >
-                        
+                    
                         <ImageView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -207,12 +175,12 @@
                             android:padding="8dp"
                             android:src="@drawable/ic_go" />
                     </RelativeLayout >
-                
-                </LinearLayout >
             
+                </LinearLayout >
+        
             </LinearLayout >
         </android.support.v7.widget.CardView >
-    
     </LinearLayout >
 
-</ScrollView >
+
+</RelativeLayout >
