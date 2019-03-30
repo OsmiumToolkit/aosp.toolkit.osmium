@@ -67,7 +67,7 @@ class ApplyYCFragment : Fragment() {
                     }
                 }
             } catch (e: Exception) {
-                ShortToast(activity!!, e.toString(), false)
+                ShortToast(activity!!, e, false)
             }
 
             try {

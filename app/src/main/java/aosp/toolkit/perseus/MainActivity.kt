@@ -23,24 +23,21 @@ import android.support.design.widget.NavigationView
 import android.support.v4.app.Fragment
 import android.support.v4.content.ContextCompat
 import android.support.v4.view.GravityCompat
-import android.support.v4.widget.DrawerLayout
 import android.support.v7.app.ActionBarDrawerToggle
 import android.support.v7.app.AppCompatActivity
 import android.view.*
-import android.widget.LinearLayout
 
 import aosp.toolkit.perseus.fragments.*
-import aosp.toolkit.perseus.view.SideNavigationView
 
 import com.topjohnwu.superuser.Shell
 
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.app_bar_main.*
-import java.lang.Exception
 
 import java.util.*
 
-class MainActivity : AppCompatActivity()/*, NavigationView.OnNavigationItemSelectedListener*/ {
+class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
+    /*
     val onNavigationItemSelectedListener = NavigationView.OnNavigationItemSelectedListener{item ->
         drawer_layout.closeDrawer(GravityCompat.START)
 
@@ -54,6 +51,7 @@ class MainActivity : AppCompatActivity()/*, NavigationView.OnNavigationItemSelec
         }
         return@OnNavigationItemSelectedListener true
     }
+    */
 
     // 定义fragments
     private var mainFragment: MainFragment = MainFragment()
@@ -76,9 +74,6 @@ class MainActivity : AppCompatActivity()/*, NavigationView.OnNavigationItemSelec
         aosp.toolkit.perseus.base.BaseManager.instance.setMainActivity(this, mainFragment)
 
         setContentView(R.layout.activity_main)
-
-
-
 
         initUI()
         addFragment()
@@ -184,7 +179,6 @@ class MainActivity : AppCompatActivity()/*, NavigationView.OnNavigationItemSelec
         return super.onOptionsItemSelected(item)
     }
 
-    /*
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         // Handle navigation view item clicks here.
         drawer_layout.closeDrawer(GravityCompat.START)
@@ -199,7 +193,6 @@ class MainActivity : AppCompatActivity()/*, NavigationView.OnNavigationItemSelec
         }
         return true
     }
-    */
 
     private fun exchangeFragment(id: Int) {
         Thread {

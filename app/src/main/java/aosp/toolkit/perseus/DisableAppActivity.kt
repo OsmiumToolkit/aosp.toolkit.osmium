@@ -192,7 +192,7 @@ class DisableAppActivity : AppCompatActivity() {
                     try {
                         openPackage(activity, packageManager, packageName)
                     } catch (e: Exception) {
-                        ShortToast(activity, e.toString(), false)
+                        ShortToast(activity, e, false)
                     }
                 }.start()
             }
@@ -365,7 +365,7 @@ class DisableAppActivity : AppCompatActivity() {
                             try {
                                 Shell.su("pm enable ${packageInfo.packageName}").exec()
                             } catch (e: Exception) {
-                                ShortToast(activity, e.toString(), false)
+                                ShortToast(activity, e, false)
                             }
                             dialog.cancel()
                         }.start()

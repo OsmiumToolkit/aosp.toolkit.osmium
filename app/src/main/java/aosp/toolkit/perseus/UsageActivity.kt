@@ -101,7 +101,7 @@ class UsageActivity : AppCompatActivity() {
                 } catch (e: Exception) {
                     // 文件权限不足时会抛出IOException, 从而判断是否需要ROOT
                     // IOException thrown when "Permission Denied", applied to consider using ROOT
-                    ShortToast(this, e.toString(), false)
+                    ShortToast(this, e, false)
                     stat = ArrayList(
                         Arrays.asList(
                             *Shell.su("cat /proc/stat").exec().out[0]
@@ -117,7 +117,7 @@ class UsageActivity : AppCompatActivity() {
                         stat[2].toFloat() + stat[3].toFloat() + stat[4].toFloat() + stat[6].toFloat() +
                                 stat[7].toFloat() + stat[8].toFloat() + stat[9].toFloat()
                 } catch (e: Exception) {
-                    runOnUiThread { ShortToast(this, e.toString(), false) }
+                    runOnUiThread { ShortToast(this, e, false) }
                     lastIdle = 0f
                     lastTotal = 0f
                 }
@@ -146,7 +146,7 @@ class UsageActivity : AppCompatActivity() {
                             lastIdle = nowIdle
                             lastTotal = nowTotal
                         } catch (e: Exception) {
-                            runOnUiThread { ShortToast(this, e.toString(), false) }
+                            runOnUiThread { ShortToast(this, e, false) }
                             break
                         }
                         try {
@@ -175,7 +175,7 @@ class UsageActivity : AppCompatActivity() {
                             lastIdle = nowIdle
                             lastTotal = nowTotal
                         } catch (e: Exception) {
-                            runOnUiThread { ShortToast(this, e.toString(), false) }
+                            runOnUiThread { ShortToast(this, e, false) }
                             break
                         }
                         try {

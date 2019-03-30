@@ -98,7 +98,7 @@ class ZXingActivity : AppCompatActivity() {
                         runOnUiThread { imageView.setImageBitmap(bitmap) }
                     }
                 } catch (e: Exception) {
-                    ShortToast(this, e.toString(), false)
+                    ShortToast(this, e, false)
                 }
             }.start()
         }
@@ -187,7 +187,7 @@ class ZXingActivity : AppCompatActivity() {
                             r = QRCodeReader().decode(binaryBitmap).toString()
                         } catch (e: Exception) {
                             e.printStackTrace()
-                            ShortToast(this, e.toString(), false)
+                            ShortToast(this, e, false)
                         }
 
                         runOnUiThread { editText.setText(r) }
@@ -216,7 +216,7 @@ class ZXingActivity : AppCompatActivity() {
                         try {
                             r = QRCodeReader().decode(binaryBitmap).toString()
                         } catch (e: Exception) {
-                            ShortToast(this, e.toString(), false)
+                            ShortToast(this, e, false)
                         }
 
                         runOnUiThread { editText.setText(r) }

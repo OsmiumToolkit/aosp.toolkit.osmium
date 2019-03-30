@@ -68,6 +68,6 @@ class SideNavigationView(ctx: Context, attributeSet: AttributeSet) : LinearLayou
 
         typedArray.recycle()
 
-        navigationView.setNavigationItemSelectedListener(BaseManager.getInstance().mainActivity.onNavigationItemSelectedListener)
+        navigationView.setNavigationItemSelectedListener(BaseManager.getInstance().mainActivity)
     }
 }

@@ -57,7 +57,7 @@ class CoreFragment : Fragment() {
                     }
                 }
             } catch (e: Exception) {
-                ShortToast(activity!!, e.toString(), false)
+                ShortToast(activity!!, e, false)
                 activity!!.runOnUiThread {
                     aosp.toolkit.perseus.base.BaseManager.getInstance().exceptionBreaker(this)
                 }
@@ -136,7 +136,7 @@ class CoreFragment : Fragment() {
                         try {
                             Shell.su("echo \"${list[position]}\" > sys/devices/system/cpu/cpu$core/cpufreq/scaling_max_freq")
                         } catch (e: Exception) {
-                            BaseOperation.ShortToast(activity, e.toString(), true)
+                            BaseOperation.ShortToast(activity, e, true)
                         }
 
                     }
@@ -197,7 +197,7 @@ class CoreFragment : Fragment() {
                             Shell.su("echo \"${list[position]}\" > sys/devices/system/cpu/cpu$core/cpufreq/scaling_min_freq")
                                 .exec()
                         } catch (e: Exception) {
-                            BaseOperation.ShortToast(activity, e.toString(), true)
+                            BaseOperation.ShortToast(activity, e, true)
                         }
 
                     }
@@ -257,7 +257,7 @@ class CoreFragment : Fragment() {
                             Shell.su("echo \"${list[position]}\" > sys/devices/system/cpu/cpu$core/cpufreq/scaling_governor")
                                 .exec()
                         } catch (e: Exception) {
-                            BaseOperation.ShortToast(activity, e.toString(), true)
+                            BaseOperation.ShortToast(activity, e, true)
                         }
 
                     }
