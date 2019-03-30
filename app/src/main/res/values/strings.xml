@@ -16,6 +16,8 @@
     <string name="nav_monitor" >Device monitor</string >
     <string name="nav_about" >AboutToolkit</string >
     <string name="nav_deviceinfo" >DeviceInfo</string >
+    <string name="nav_title_extends">Extends</string>
+    <string name="nav_zxing">QR Reader</string>
     <string name="nav_title_toolkit" >Toolkit</string >
     <string name="nav_charging" >Charging</string >
     <string name="nav_processor" >Processor</string >
@@ -174,13 +176,14 @@
     <string name="apply_atom" >Intel Atom</string >
     <string name="apply_confirm" >It will directly write into required file and apply for %s, can\'t be reverse, please back-up your system first.\nContinue?</string >
     
-    <string name="extends_mac_title" >Customize MAC address</string >
-    <string name="extends_mac_sum" >Customize network device\'s MAC address\n(Reboot and never use this if network can\'t be connected)</string >
-    <string name="extends_ff_title" >FreeForm Multi-Windows</string >
-    <string name="extends_ff_sum" >Android 6.0(SDK24) or above hidden API</string >
-    <string name="extends_nt_title" >Change internet detecting server</string >
-    <string name="extends_nt_sum" >For hiding \"!\" next to data/Wi-Fi icon when connect to Internet(for mainland of China)</string >
-    <string name="extends_su_title">Shorten URL</string>
+    <string name="other_mac_title" >Customize MAC address</string >
+    <string name="other_mac_sum" >Customize network device\'s MAC address\n(Reboot and never use this if network can\'t be connected)</string >
+    <string name="other_ff_title" >FreeForm Multi-Windows</string >
+    <string name="other_ff_sum" >Android 6.0(SDK24) or above hidden API</string >
+    <string name="other_nt_title" >Change internet detecting server</string >
+    <string name="other_nt_sum" >For hiding \"!\" next to data/Wi-Fi icon when connect to Internet(for mainland of China)</string >
+    <string name="other_su_title">Shorten URL</string>
+    
     <string name="cp">Copy</string>
     
     <string name="usage">CPU Usage:\u0020</string>

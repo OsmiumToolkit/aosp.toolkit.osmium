@@ -15,7 +15,7 @@ import aosp.toolkit.perseus.base.BaseOperation.Companion.readFile
 
 import com.topjohnwu.superuser.Shell
 
-import kotlinx.android.synthetic.main.fragment_extends.*
+import kotlinx.android.synthetic.main.fragment_other.*
 import java.net.URL
 import kotlin.Exception
 
@@ -34,7 +34,7 @@ import kotlin.Exception
  * - Short URL    : 13 Mar 2019
  */
 
-class ExtendsFragment : Fragment() {
+class OtherFragment : Fragment() {
     /*
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -43,7 +43,7 @@ class ExtendsFragment : Fragment() {
     */
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return inflater.inflate(R.layout.fragment_extends, container, false)
+        return inflater.inflate(R.layout.fragment_other, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -88,11 +88,11 @@ class ExtendsFragment : Fragment() {
                     try {
                         editText.setSelection(s.toString().length.plus(1))
                     } catch (e: Exception) {
-                        ShortToast(activity!!, e.toString(), true)
+                        ShortToast(activity!!, e, true)
                         try {
                             editText.setSelection(s.toString().length)
                         } catch (e: Exception) {
-                            ShortToast(activity!!, e.toString(), true)
+                            ShortToast(activity!!, e, true)
                         }
                     }
 
@@ -113,7 +113,7 @@ class ExtendsFragment : Fragment() {
                                 "svc wifi enable"
                             ).exec()
                         } catch (e: Exception) {
-                            ShortToast(activity!!, e.toString(), false)
+                            ShortToast(activity!!, e, false)
                         }
                     }.start()
                 }
@@ -133,7 +133,7 @@ class ExtendsFragment : Fragment() {
                     activity!!.runOnUiThread { result?.let { after.setText(it) } }
                     inputStream.close()
                 } catch (e: Exception) {
-                    ShortToast(activity!!, e.toString(), false)
+                    ShortToast(activity!!, e, false)
                 }
             }.start()
         }
@@ -142,7 +142,7 @@ class ExtendsFragment : Fragment() {
                 val clipboardManager = activity!!.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
                 clipboardManager.primaryClip = ClipData.newPlainText("Label", after.text)
             } catch (e: Exception) {
-                ShortToast(activity!!, e.toString(), false)
+                ShortToast(activity!!, e, false)
             }
         }
     }

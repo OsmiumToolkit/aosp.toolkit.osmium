@@ -97,7 +97,7 @@ class ScriptActivity : AppCompatActivity() {
                     fileOutputStream.close()
                 }
             } catch (e: Exception) {
-                ShortToast(this, e.toString(), false)
+                ShortToast(this, e, false)
             }
 
             setPermission()

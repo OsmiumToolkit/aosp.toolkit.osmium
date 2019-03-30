@@ -24,12 +24,12 @@
                 android:layout_height="wrap_content"
                 android:textColor="@android:color/black"
                 android:textSize="@dimen/frag_title"
-                android:text="@string/extends_mac_title" />
+                android:text="@string/other_mac_title" />
             
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/extends_mac_sum" />
+                android:text="@string/other_mac_sum" />
             
             <LinearLayout
                 android:layout_width="match_parent"
@@ -66,16 +66,16 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/freeform"
-        app:title="@string/extends_ff_title"
-        app:summary="@string/extends_ff_title" />
+        app:title="@string/other_ff_title"
+        app:summary="@string/other_ff_title" />
     
     <!-- 1 Mar 2019 -->
     <aosp.toolkit.perseus.view.LoadScriptView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/detectserver"
-        app:title="@string/extends_nt_title"
-        app:summary="@string/extends_nt_sum" />
+        app:title="@string/other_nt_title"
+        app:summary="@string/other_nt_sum" />
     
     <!-- 13 Mar 2019 -->
     <android.support.v7.widget.CardView
@@ -94,7 +94,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="@dimen/cardview_title"
-                android:text="@string/extends_su_title"
+                android:text="@string/other_su_title"
                 android:textColor="@android:color/black"/>
             
             <LinearLayout

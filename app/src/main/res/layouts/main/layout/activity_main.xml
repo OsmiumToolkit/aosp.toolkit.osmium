@@ -7,13 +7,15 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
-    tools:openDrawer="start" >
+    tools:openDrawer="start"
+    android:background="@color/colorPrimaryDark">
     
     <include
         layout="@layout/app_bar_main"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
     
+    <!--
     <android.support.design.widget.NavigationView
         android:id="@+id/nav_view"
         android:layout_width="wrap_content"
@@ -22,104 +24,17 @@
         android:fitsSystemWindows="false"
         app:itemIconTint="@color/colorPrimaryDark"
         app:headerLayout="@layout/nav_header_main"
-        app:menu="@menu/activity_main_drawer" >
-        
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="51dp"
-            android:layout_gravity="bottom"
-            android:orientation="vertical"
-            android:background="@android:color/white">
-            
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="@color/gray_dcdcdc" />
-            
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="horizontal" >
-                
-                <LinearLayout
-                    android:id="@+id/nav_about"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:background="?android:attr/selectableItemBackground"
-                    android:clickable="true"
-                    android:focusable="true"
-                    android:orientation="vertical"
-                    android:padding="3dp" >
-                    
-                    <LinearLayout
-                        android:layout_width="25dp"
-                        android:layout_height="25dp"
-                        android:layout_gravity="center"
-                        android:background="@drawable/ic_about"
-                        android:gravity="center"/>
-                    
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:text="@string/nav_about"
-                        android:textColor="@android:color/black" />
-                </LinearLayout >
-                
-                <LinearLayout
-                    android:id="@+id/nav_deviceinfo"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:background="?android:attr/selectableItemBackground"
-                    android:clickable="true"
-                    android:focusable="true"
-                    android:orientation="vertical"
-                    android:padding="3dp" >
-                    
-                    <LinearLayout
-                        android:layout_width="25dp"
-                        android:layout_height="25dp"
-                        android:layout_gravity="center_horizontal"
-                        android:background="@drawable/ic_phone" />
-                    
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:text="@string/nav_deviceinfo"
-                        android:textColor="@android:color/black" />
-                
-                </LinearLayout >
-                
-                <LinearLayout
-                    android:id="@+id/nav_tower"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:background="?android:attr/selectableItemBackground"
-                    android:clickable="true"
-                    android:focusable="true"
-                    android:orientation="vertical"
-                    android:padding="3dp" >
-                    
-                    <ImageView
-                        android:layout_width="25dp"
-                        android:layout_height="25dp"
-                        android:src="@mipmap/disable_foreground"
-                        android:background="@drawable/disable_background"
-                        android:layout_gravity="center" />
-                    
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/nav_tower"
-                        android:layout_gravity="center"
-                        android:textColor="@android:color/black" />
-                </LinearLayout >
-            </LinearLayout >
-        </LinearLayout >
-    </android.support.design.widget.NavigationView >
-
+        app:menu="@menu/activity_main_drawer" />
+     
+    -->
+    <aosp.toolkit.perseus.view.SideNavigationView
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:id="@+id/nav_view"
+        android:layout_gravity="start"
+        android:fitsSystemWindows="false"
+        app:itemIconTint="@color/colorPrimaryDark"
+        app:headerLayout="@layout/nav_header_main"
+        app:menu="@menu/activity_main_drawer" />
+    
 </android.support.v4.widget.DrawerLayout >

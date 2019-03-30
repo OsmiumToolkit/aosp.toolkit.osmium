@@ -4,10 +4,17 @@ import android.app.Activity
 import android.app.ActivityManager
 import android.content.Context
 import android.os.Build
+import android.view.LayoutInflater
+import android.widget.TextView
+import android.widget.Toast
+import android.widget.Toast.LENGTH_SHORT
+
 import com.topjohnwu.superuser.Shell
+
 import java.io.*
 import java.util.regex.Pattern
-import android.widget.Toast
+
+import aosp.toolkit.perseus.R
 
 
 /*
@@ -183,11 +190,26 @@ class BaseOperation {
             return memoryInfo
         }
 
+        fun ShortToast(activity: Activity, exception: Exception, UIThread: Boolean) {
+            this.ShortToast(activity, exception.toString(), UIThread)
+        }
         fun ShortToast(activity: Activity, string: String, UIThread: Boolean) {
             if (UIThread) {
-                Toast.makeText(activity, string, Toast.LENGTH_SHORT).show()
+                val toast = Toast(activity as Context)
+                val view = LayoutInflater.from(activity as Context).inflate(R.layout.toast, null)
+                val textView = view.findViewById<TextView>(R.id.toast)
+                textView.text = string
+                toast.view = view
+                toast.duration = LENGTH_SHORT
+                toast.show()
             } else {
-                activity.runOnUiThread { Toast.makeText(activity, string, Toast.LENGTH_SHORT).show() }
+                val t = Toast(activity as Context)
+                val view = LayoutInflater.from(activity as Context).inflate(R.layout.toast, null)
+                val textView = view.findViewById<TextView>(R.id.toast)
+                textView.text = string
+                t.view = view
+                t.duration = LENGTH_SHORT
+                activity.runOnUiThread { t.show() }
             }
 
         }
