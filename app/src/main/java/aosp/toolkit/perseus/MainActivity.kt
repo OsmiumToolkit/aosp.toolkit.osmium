@@ -181,8 +181,6 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         // Handle navigation view item clicks here.
-        drawer_layout.closeDrawer(GravityCompat.START)
-
         val id = item.itemId
 
         when (id) {
@@ -195,6 +193,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     }
 
     private fun exchangeFragment(id: Int) {
+        drawer_layout.closeDrawer(GravityCompat.START)
         Thread {
             val frag: Fragment
             val fragmentTransaction = supportFragmentManager.beginTransaction()
