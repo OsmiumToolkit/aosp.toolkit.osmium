@@ -105,21 +105,12 @@ class CoreFragment : Fragment() {
                         + core + "/cpufreq/" + "scaling_max_freq")
             )
 
-            var i = 0
-
-            if (list.contains(freq)) {
+            val i = if (!list.contains(freq)) {
                 list.add(freq)
-                i = list.size - 1
+                list.size - 1
             } else {
-                while (i < list.size) {
-                    if (list[i] == freq) {
-                        break
-                    } else {
-                        i++
-                    }
-                }
+                list.indexOf(freq)
             }
-            val a = i
 
             val arrayAdapter = ArrayAdapter(
                 activity,
@@ -130,7 +121,7 @@ class CoreFragment : Fragment() {
             activity.runOnUiThread {
                 arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
                 spinner.adapter = arrayAdapter
-                spinner.setSelection(a)
+                spinner.setSelection(i)
                 spinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
                     override fun onItemSelected(parent: AdapterView<*>, view: View, position: Int, id: Long) {
                         try {
@@ -164,22 +155,12 @@ class CoreFragment : Fragment() {
 
             val freq = BaseOperation.readFile("/sys/devices/system/cpu/cpu$core/cpufreq/scaling_min_freq")
 
-            var j = 0
-
-            if (!list.contains(freq)) {
+            val i = if (!list.contains(freq)) {
                 list.add(freq)
-                j = list.size - 1
+                list.size - 1
             } else {
-                while (j < list.size) {
-                    if (list[j] == freq) {
-                        break
-                    } else {
-                        j++
-                    }
-                }
+                list.indexOf(freq)
             }
-
-            val a = j
 
             val arrayAdapter = ArrayAdapter(
                 activity,
@@ -190,7 +171,7 @@ class CoreFragment : Fragment() {
             activity.runOnUiThread {
                 arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
                 spinner.adapter = arrayAdapter
-                spinner.setSelection(a)
+                spinner.setSelection(i)
                 spinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
                     override fun onItemSelected(parent: AdapterView<*>, view: View, position: Int, id: Long) {
                         try {
@@ -229,17 +210,7 @@ class CoreFragment : Fragment() {
                         + core + "/cpufreq/scaling_governor")
             )
 
-            var k = 0
-
-            while (k < list.size) {
-                if (list[k] == governor) {
-                    break
-                } else {
-                    k++
-                }
-            }
-
-            val a = k
+            val i = list.indexOf(governor)
 
             val arrayAdapter = ArrayAdapter(
                 activity,
@@ -250,7 +221,7 @@ class CoreFragment : Fragment() {
             activity.runOnUiThread {
                 arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
                 spinner.adapter = arrayAdapter
-                spinner.setSelection(a)
+                spinner.setSelection(i)
                 spinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
                     override fun onItemSelected(parent: AdapterView<*>, view: View, position: Int, id: Long) {
                         try {

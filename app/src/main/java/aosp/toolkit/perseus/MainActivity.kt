@@ -26,9 +26,8 @@ import android.support.v4.view.GravityCompat
 import android.support.v7.app.ActionBarDrawerToggle
 import android.support.v7.app.AppCompatActivity
 import android.view.*
-import aosp.toolkit.perseus.base.BaseManager
-import aosp.toolkit.perseus.base.BaseOperation.Companion.ShortToast
 
+import aosp.toolkit.perseus.base.BaseManager
 import aosp.toolkit.perseus.fragments.*
 
 import com.topjohnwu.superuser.Shell
@@ -96,21 +95,6 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             // 6.0加入的API 无法适配 5.0 / 5.1
             // window.navigationBarColor = resources.getColor(R.color.colorPrimary, null)
         }
-
-        /*
-        val sideNavigationView = SideNavigationView(
-            this,
-            R.layout.nav_header_main,
-            null,
-            R.menu.activity_main_drawer,
-            this,
-            R.color.colorPrimaryDark
-        )
-        val layoutParams =
-            DrawerLayout.LayoutParams(DrawerLayout.LayoutParams.WRAP_CONTENT, DrawerLayout.LayoutParams.MATCH_PARENT)
-        layoutParams.gravity = Gravity.START
-        drawer_layout.addView(sideNavigationView, layoutParams)
-        */
     }
 
     fun exceptionBeaker() {
