@@ -26,6 +26,8 @@ import android.support.v4.view.GravityCompat
 import android.support.v7.app.ActionBarDrawerToggle
 import android.support.v7.app.AppCompatActivity
 import android.view.*
+import aosp.toolkit.perseus.base.BaseManager
+import aosp.toolkit.perseus.base.BaseOperation.Companion.ShortToast
 
 import aosp.toolkit.perseus.fragments.*
 
@@ -37,21 +39,6 @@ import kotlinx.android.synthetic.main.app_bar_main.*
 import java.util.*
 
 class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
-    /*
-    val onNavigationItemSelectedListener = NavigationView.OnNavigationItemSelectedListener{item ->
-        drawer_layout.closeDrawer(GravityCompat.START)
-
-        val id = item.itemId
-
-        when (id) {
-            R.id.nav_monitor -> startActivity(Intent(this, UsageActivity::class.java))
-            R.id.nav_tower -> startActivity(Intent(this, DisableAppActivity::class.java))
-            R.id.nav_zxing -> startActivity(Intent(this, ZXingActivity::class.java))
-            else -> exchangeFragment(id)
-        }
-        return@OnNavigationItemSelectedListener true
-    }
-    */
 
     // 定义fragments
     private var mainFragment: MainFragment = MainFragment()
@@ -70,8 +57,8 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         // 移除上一个activity
-        aosp.toolkit.perseus.base.BaseManager.getInstance().finishActivities()
-        aosp.toolkit.perseus.base.BaseManager.instance.setMainActivity(this, mainFragment)
+        BaseManager.getInstance().finishActivities()
+        BaseManager.instance.setMainActivity(this, mainFragment)
 
         setContentView(R.layout.activity_main)
 

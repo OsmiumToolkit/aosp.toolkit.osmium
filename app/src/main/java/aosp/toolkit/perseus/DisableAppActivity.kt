@@ -222,15 +222,11 @@ class DisableAppActivity : AppCompatActivity() {
 
     @Suppress("all")
     class DisableSelectActivity : AppCompatActivity() {
+        var done = false
         override fun onCreate(savedInstanceState: Bundle?) {
             super.onCreate(savedInstanceState)
             setContentView(R.layout.activity_disableselection)
             initialize()
-
-            val dialog = Dialog(this)
-            dialog.setCancelable(false)
-            dialog.setContentView(LayoutInflater.from(this).inflate(R.layout.dialog_loading, null))
-            dialog.show()
 
             val viewList = mutableListOf<aosp.toolkit.perseus.DisableAppActivity.DisableSelectActivity.SelectDisableView>()
 
@@ -252,8 +248,17 @@ class DisableAppActivity : AppCompatActivity() {
                     runOnUiThread { root.addView(selectDisableView) }
                     viewList.add(selectDisableView)
                 }
+                try {
+                    Thread.sleep(1000)
+                } catch (e: Exception) {
+                    //
+                }
 
-                runOnUiThread { dialog.cancel() }
+                runOnUiThread {
+                    progress.visibility = View.GONE
+                    root.visibility = View.VISIBLE
+                }
+                done = true
             }.start()
 
             switchCompact.setOnCheckedChangeListener { _, isChecked ->
@@ -287,8 +292,11 @@ class DisableAppActivity : AppCompatActivity() {
         }
 
         override fun onBackPressed() {
-            setResult(Activity.RESULT_OK)
-            super.onBackPressed()
+            if (done) {
+                setResult(Activity.RESULT_OK)
+                overridePendingTransition(R.anim.start, R.anim.finish)
+                super.onBackPressed()
+            }
         }
 
         @Suppress("all")
@@ -322,7 +330,7 @@ class DisableAppActivity : AppCompatActivity() {
 
                 // 设置是否添加 added status
                 if (addedSet.contains(packageInfo.packageName)) {
-                    checkBox.isChecked = true
+                    activity.runOnUiThread { checkBox.isChecked = true }
                 }
 
                 // 系统应用flag System app flag
