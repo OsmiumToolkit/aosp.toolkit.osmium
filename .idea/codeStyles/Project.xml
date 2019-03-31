@@ -54,6 +54,7 @@
     </Objective-C-extensions>
     <XML>
       <option name="XML_ATTRIBUTE_WRAP" value="4" />
+      <option name="XML_TEXT_WRAP" value="0" />
       <option name="XML_KEEP_BLANK_LINES" value="4" />
       <option name="XML_ALIGN_ATTRIBUTES" value="false" />
       <option name="XML_SPACE_AFTER_TAG_NAME" value="true" />
@@ -63,7 +64,6 @@
       <option name="RIGHT_MARGIN" value="1" />
       <indentOptions>
         <option name="CONTINUATION_INDENT_SIZE" value="4" />
-        <option name="KEEP_INDENTS_ON_EMPTY_LINES" value="true" />
       </indentOptions>
     </codeStyleSettings>
     <codeStyleSettings language="kotlin">

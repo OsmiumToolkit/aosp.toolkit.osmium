@@ -28,8 +28,12 @@ import android.support.v7.app.ActionBarDrawerToggle
 import android.support.v7.app.AppCompatActivity
 import android.view.Menu
 import android.view.MenuItem
+import android.view.View
+import android.widget.LinearLayout
+import android.widget.RelativeLayout
 
 import aosp.toolkit.perseus.base.BaseManager
+import aosp.toolkit.perseus.base.BaseOperation.Companion.ShortToast
 import aosp.toolkit.perseus.fragments.*
 
 import com.topjohnwu.superuser.Shell
@@ -39,7 +43,7 @@ import kotlinx.android.synthetic.main.app_bar_main.*
 
 import java.util.*
 
-class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
+class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener, View.OnClickListener {
 
     // 定义fragments
     private var mainFragment: MainFragment = MainFragment()
@@ -71,18 +75,18 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                     drawer_layout.openDrawer(GravityCompat.START)
                 }
             }
-        }, 1000)
+        }, 500)
     }
 
     private fun initUI() {
         setSupportActionBar(toolbar)
 
         val toggle = ActionBarDrawerToggle(
-            this,
-            drawer_layout,
-            toolbar,
-            R.string.navigation_drawer_open,
-            R.string.navigation_drawer_close
+                this,
+                drawer_layout,
+                toolbar,
+                R.string.navigation_drawer_open,
+                R.string.navigation_drawer_close
         )
 
         drawer_layout.addDrawerListener(toggle)
@@ -145,11 +149,11 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             R.id.re9008 -> {
                 val builder = AlertDialog.Builder(this)
                 builder.setTitle(R.string.warn_9008_title)
-                    .setMessage(R.string.warn_9008_msg)
-                    .setPositiveButton(R.string.cont) { _, _ ->
-                        Shell.su("reboot edl").exec()
-                    }.setNegativeButton(R.string.cancel) { _, _ -> }
-                    .show()
+                        .setMessage(R.string.warn_9008_msg)
+                        .setPositiveButton(R.string.cont) { _, _ ->
+                            Shell.su("reboot edl").exec()
+                        }.setNegativeButton(R.string.cancel) { _, _ -> }
+                        .show()
             }
         }
         return super.onOptionsItemSelected(item)
@@ -163,10 +167,24 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             R.id.nav_monitor -> startActivity(Intent(this, UsageActivity::class.java))
             R.id.nav_tower -> startActivity(Intent(this, DisableAppActivity::class.java))
             R.id.nav_zxing -> startActivity(Intent(this, ZXingActivity::class.java))
-            R.id.nav_about -> drawer_layout.openDrawer(GravityCompat.END)
+
             else -> exchangeFragment(id)
         }
         return true
+    }
+
+    fun navigationViewBottomListener(view: View) {
+        view.findViewById<RelativeLayout>(R.id.nav_about).setOnClickListener(this)
+    }
+
+    override fun onClick(v: View?) {
+        val id = v!!.id
+        when (id) {
+            R.id.nav_about -> {
+                drawer_layout.closeDrawer(GravityCompat.START)
+                drawer_layout.openDrawer(GravityCompat.END)
+            }
+        }
     }
 
     private fun exchangeFragment(id: Int) {

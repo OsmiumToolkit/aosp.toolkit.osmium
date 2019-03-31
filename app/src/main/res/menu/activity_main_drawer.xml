@@ -11,12 +11,13 @@
             android:title="@string/nav_main"
             android:checkable="true"
             android:checked="true" />
-        
+        <!--
         <item
             android:title="@string/nav_about"
             android:id="@+id/nav_about"
             android:icon="@drawable/ic_about"
             android:checkable="false" />
+            -->
         
         <item
             android:title="@string/nav_deviceinfo"

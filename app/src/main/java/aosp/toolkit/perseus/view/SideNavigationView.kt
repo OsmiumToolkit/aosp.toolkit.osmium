@@ -42,14 +42,13 @@ class SideNavigationView(context: Context, attributeSet: AttributeSet) : LinearL
 
         // 设置BottomLayout布局 Set BottomLayout
         if (typedArray.hasValue(R.styleable.SideNavigationView_bottomLayout)) {
-            bottomLayout.addView(
-                LayoutInflater.from(context).inflate(
+            val view = LayoutInflater.from(context).inflate(
                     typedArray.getResourceId(
-                        R.styleable.SideNavigationView_bottomLayout,
-                        0
-                    ), null
-                )
-            )
+                            R.styleable.SideNavigationView_bottomLayout,
+                            0
+                    ), null)
+            BaseManager.getInstance().mainActivity.navigationViewBottomListener(view)
+            bottomLayout.addView(view)
         } else {
             bottomLayout.visibility = View.GONE
         }
