@@ -10,6 +10,8 @@
 
     <color name="gray">#757575</color>
 
+    <color name="half_transparent">#80ffffff</color>
+
     <color name="gray_fafafa">#fafafa</color>
     <color name="gray_dcdcdc">#dcdcdc</color>
     <color name="red">#FF0000</color>

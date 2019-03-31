@@ -7,53 +7,63 @@
     android:clickable="true"
     android:focusable="true">
 
-    <LinearLayout
+    <android.support.v7.widget.CardView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"
-        android:orientation="vertical">
-
-        <android.support.v7.widget.CardView
-            android:layout_width="match_parent"
+        android:padding="@dimen/dp_5"
+        android:layout_margin="@dimen/dp_5"
+        app:cardCornerRadius="@dimen/dp_5">
+        <LinearLayout
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="@dimen/cardView_margin"
-            android:padding="@dimen/cardView_padding"
-            app:cardCornerRadius="@dimen/cardView_cardCornerRadius">
+            android:orientation="vertical"
+            android:background="@android:color/transparent"
+            android:layout_margin="@dimen/dp_5">
 
-            <LinearLayout
-                android:id="@+id/headerLayout"
+            <android.support.v7.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"/>
-        </android.support.v7.widget.CardView>
+                android:layout_margin="@dimen/cardView_margin"
+                android:padding="@dimen/cardView_padding"
+                app:cardCornerRadius="@dimen/cardView_cardCornerRadius">
 
-        <android.support.v7.widget.CardView
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/nav_menu_height"
-            android:layout_margin="@dimen/cardView_margin"
-            android:padding="@dimen/cardView_padding"
-            app:cardCornerRadius="@dimen/cardView_cardCornerRadius">
+                <LinearLayout
+                    android:id="@+id/headerLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"/>
+            </android.support.v7.widget.CardView>
 
-            <android.support.design.widget.NavigationView
-                android:id="@+id/navigationView"
+            <android.support.v7.widget.CardView
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"/>
-        </android.support.v7.widget.CardView>
+                android:layout_height="@dimen/nav_menu_height"
+                android:layout_margin="@dimen/cardView_margin"
+                android:padding="@dimen/cardView_padding"
+                app:cardCornerRadius="@dimen/cardView_cardCornerRadius">
 
-        <android.support.v7.widget.CardView
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/dp_50"
-            android:layout_margin="@dimen/cardView_margin"
-            android:padding="@dimen/cardView_padding"
-            app:cardCornerRadius="@dimen/cardView_cardCornerRadius">
+                <android.support.design.widget.NavigationView
+                    android:id="@+id/navigationView"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"/>
+            </android.support.v7.widget.CardView>
 
-            <LinearLayout
-                android:id="@+id/bottomLayout"
+            <android.support.v7.widget.CardView
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical"/>
-        </android.support.v7.widget.CardView>
-    </LinearLayout>
+                android:layout_height="@dimen/dp_50"
+                android:layout_margin="@dimen/cardView_margin"
+                android:padding="@dimen/cardView_padding"
+                app:cardCornerRadius="@dimen/cardView_cardCornerRadius">
+
+                <LinearLayout
+                    android:id="@+id/bottomLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"/>
+            </android.support.v7.widget.CardView>
+        </LinearLayout>
+    </android.support.v7.widget.CardView>
+
+
 
 </RelativeLayout>
