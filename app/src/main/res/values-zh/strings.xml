@@ -11,6 +11,7 @@
     
     <string name="cont" >继续</string >
     <string name="cancel" >取消</string >
+    <string name="yes">确定</string>
     
     <string name="nav_main" >主页</string >
     <string name="nav_monitor" >实时检测</string >
@@ -66,13 +67,10 @@
     <string name="about_sourcecode" >源代码</string >
     <string name="about_coolapk" >酷安</string >
     <string name="about_github" >GitHub</string >
-    <string name="aboout_credit" >鸣谢</string >
-    <string name="about_xzr_sum" >镧系统工具箱</string >
-    <string name="about_yc9559_sum" >yc9559调度</string >
-    <string name="about_pc_sum">橘猫调度</string>
-    <string name="about_johnwu_sum">libsu库</string>
     <string name="about_set_navBar" >导航栏颜色跟随主题</string >
     <string name="about_set_theme" >自定义主题</string >
+
+    <string name="licence">Open Source Licence</string>
     
     <string name="script_title_head" >运行脚本 \"%s\"</string >
     <string name="script_head" >================================\n英仙 Perseus\nBy 住在地球真累\n================================</string >

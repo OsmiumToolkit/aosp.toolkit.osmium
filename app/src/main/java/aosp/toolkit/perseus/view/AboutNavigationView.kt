@@ -14,6 +14,7 @@ import aosp.toolkit.perseus.base.Accessing
 import aosp.toolkit.perseus.base.BaseIndex
 import aosp.toolkit.perseus.base.BaseManager
 import aosp.toolkit.perseus.base.CheckUpdate
+import aosp.toolkit.perseus.fragments.dialog.LicenceDialogFragment
 import aosp.toolkit.perseus.fragments.dialog.UpdateDialogFragment
 import kotlinx.android.synthetic.main.view_about_navigation.view.*
 
@@ -103,5 +104,7 @@ class AboutNavigationView(context: Context, attributeSet: AttributeSet) : Linear
                 }
             }.start()
         }
+
+        licence.setOnClickListener { BaseManager.getInstance().mainActivity.showLicenceList() }
     }
 }

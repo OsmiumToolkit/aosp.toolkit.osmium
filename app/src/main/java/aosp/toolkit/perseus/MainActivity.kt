@@ -29,12 +29,11 @@ import android.support.v7.app.AppCompatActivity
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
-import android.widget.LinearLayout
 import android.widget.RelativeLayout
 
 import aosp.toolkit.perseus.base.BaseManager
-import aosp.toolkit.perseus.base.BaseOperation.Companion.ShortToast
 import aosp.toolkit.perseus.fragments.*
+import aosp.toolkit.perseus.fragments.dialog.LicenceDialogFragment
 
 import com.topjohnwu.superuser.Shell
 
@@ -171,6 +170,10 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             else -> exchangeFragment(id)
         }
         return true
+    }
+
+    fun showLicenceList() {
+        Thread {LicenceDialogFragment().show(supportFragmentManager, "LicenceDialogFragment()") }.start()
     }
 
     fun navigationViewBottomListener(view: View) {

@@ -11,6 +11,7 @@
     
     <string name="cont" >Continue</string >
     <string name="cancel" >Cancel</string >
+    <string name="yes">Yes</string>
     
     <string name="nav_main" >Home</string >
     <string name="nav_monitor" >Device monitor</string >
@@ -66,13 +67,10 @@
     <string name="about_sourcecode" >Source Code</string >
     <string name="about_coolapk" >Coolapk</string >
     <string name="about_github" >GitHub</string >
-    <string name="aboout_credit" >Credit</string >
-    <string name="about_xzr_sum" >Lanthanum System Toolbox</string >
-    <string name="about_yc9559_sum" >yc9559 cpufreq-interactive-opt</string >
-    <string name="about_pc_sum">cjybyjk PixelCat</string>
-    <string name="about_johnwu_sum">libsu</string>
     <string name="about_set_navBar" >NavBar color follows theme color</string >
     <string name="about_set_theme" >Customize theme</string >
+
+    <string name="licence">开源许可证</string>
     
     <string name="script_title_head" >Run Script \"%s\"</string >
     
