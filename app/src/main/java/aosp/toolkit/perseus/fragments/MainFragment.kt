@@ -1,14 +1,13 @@
 package aosp.toolkit.perseus.fragments
 
-import android.content.Intent
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.view.View
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import aosp.toolkit.perseus.DisableAppActivity
 
 import aosp.toolkit.perseus.R
+import aosp.toolkit.perseus.base.BaseManager
 import kotlinx.android.synthetic.main.fragment_main.*
 
 
@@ -32,8 +31,11 @@ class MainFragment : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        disabletower.setOnClickListener {
-            startActivity(Intent(activity, DisableAppActivity::class.java))
+        left.setOnClickListener {
+            BaseManager.getInstance().mainActivity.openDrawerLayoutLeft()
+        }
+        right.setOnClickListener {
+            BaseManager.getInstance().mainActivity.openDrawerLayoutRight()
         }
     }
 }

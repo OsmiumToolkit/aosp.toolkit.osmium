@@ -28,6 +28,9 @@
     <string name="nav_yc" >YC调度</string >
     <string name="nav_pc" >橘猫调度</string >
     <string name="nav_tower" >- 镇魂塔 -</string >
+
+    <string name="main_left">&lt;------------------------\n应用功能</string>
+    <string name="main_right">关于应用\n------------------------&gt;</string>
     
     <string name="main_reb" >重启设备</string >
     <string name="main_soft" >软重启</string >

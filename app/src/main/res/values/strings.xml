@@ -28,6 +28,9 @@
     <string name="nav_yc" >YC cpufreq-interactive-opt</string >
     <string name="nav_pc" >Pixel Cat cpufreq</string >
     <string name="nav_tower" >- Tower -</string >
+
+    <string name="main_left">&lt;------------------------\nFeatures</string>
+    <string name="main_right">About\n------------------------&gt;</string>
     
     <string name="main_reb" >Reboot Device</string >
     <string name="main_soft" >Soft Reboot</string >
@@ -70,7 +73,7 @@
     <string name="about_set_navBar" >NavBar color follows theme color</string >
     <string name="about_set_theme" >Customize theme</string >
 
-    <string name="licence">开源许可证</string>
+    <string name="licence">Open Source Licence</string>
     
     <string name="script_title_head" >Run Script \"%s\"</string >
     

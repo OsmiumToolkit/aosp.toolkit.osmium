@@ -176,6 +176,13 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         Thread {LicenceDialogFragment().show(supportFragmentManager, "LicenceDialogFragment()") }.start()
     }
 
+    fun openDrawerLayoutLeft() {
+        drawer_layout.openDrawer(GravityCompat.START)
+    }
+    fun openDrawerLayoutRight() {
+        drawer_layout.openDrawer(GravityCompat.END)
+    }
+
     fun navigationViewBottomListener(view: View) {
         view.findViewById<RelativeLayout>(R.id.nav_about).setOnClickListener(this)
     }
