@@ -16,7 +16,6 @@ import java.util.regex.Pattern
 
 import aosp.toolkit.perseus.R
 
-
 /*
  * OsToolkit - Kotlin
  *

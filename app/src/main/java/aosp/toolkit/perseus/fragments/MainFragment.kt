@@ -49,7 +49,7 @@ class MainFragment : Fragment() {
                         result.setTextColor(ContextCompat.getColor(activity!!, R.color.red))
                         result.text = getString(R.string.check_root_fail)
                     }
-                    ShortToast(activity!!, R.string.check_root_fail, true)
+                    ShortToast(activity!!, R.string.check_root_fail, false)
                 }
 
             }.start()
