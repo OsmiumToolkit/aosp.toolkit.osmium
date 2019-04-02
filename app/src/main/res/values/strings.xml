@@ -29,6 +29,11 @@
     <string name="nav_pc" >Pixel Cat cpufreq</string >
     <string name="nav_tower" >- Tower -</string >
 
+    <string name="check_root_title">Request for ROOT Permission</string>
+    <string name="check_root_content1">Click white region to start</string>
+    <string name="check_root_content2">Result: </string>
+    <string name="check_root_pass">Pass</string>
+    <string name="check_root_fail">Fail</string>
     <string name="main_left">&lt;------------------------\nFeatures</string>
     <string name="main_right">About\n------------------------&gt;</string>
     

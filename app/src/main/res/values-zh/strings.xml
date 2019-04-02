@@ -29,6 +29,11 @@
     <string name="nav_pc" >橘猫调度</string >
     <string name="nav_tower" >- 镇魂塔 -</string >
 
+    <string name="check_root_title">获取ROOT限权</string>
+    <string name="check_root_content1">点击白色区域开始</string>
+    <string name="check_root_content2">结果: </string>
+    <string name="check_root_pass">通过</string>
+    <string name="check_root_fail">失败</string>
     <string name="main_left">&lt;------------------------\n应用功能</string>
     <string name="main_right">关于应用\n------------------------&gt;</string>
     

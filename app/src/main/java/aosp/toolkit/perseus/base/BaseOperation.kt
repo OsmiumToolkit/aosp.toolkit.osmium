@@ -193,6 +193,9 @@ class BaseOperation {
         fun ShortToast(activity: Activity, exception: Exception, UIThread: Boolean) {
             this.ShortToast(activity, exception.toString(), UIThread)
         }
+        fun ShortToast(activity: Activity, content: Int, UIThread: Boolean) {
+            this.ShortToast(activity, activity.getString(content), UIThread)
+        }
         fun ShortToast(activity: Activity, string: String, UIThread: Boolean) {
             if (UIThread) {
                 val toast = Toast(activity as Context)
