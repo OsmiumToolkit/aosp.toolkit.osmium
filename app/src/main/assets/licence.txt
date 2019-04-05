@@ -9,60 +9,60 @@ libsu-core
 ===============
 Maintainer: topjohnwu
 Licence: Apache License 2.0
-Source: <a herf="https://github.com/topjohnwu/libsu">https://github.com/topjohnwu/libsu</a>
+Source: https://github.com/topjohnwu/libsu
 
 ===============
 zxing-core
 ===============
 Maintainer: ZXing Project
 Licence: Apache License 2.0
-Source: <a herf="https://github.com/zxing/zxing">https://github.com/zxing/zxing</a>
+Source: https://github.com/zxing/zxing
 
 ===============
 zxing-javase
 ===============
 Maintainer: ZXing Project
 Licence: Apache License 2.0
-Source: <a herf="https://github.com/zxing/zxing">https://github.com/zxing/zxing</a>
+Source: https://github.com/zxing/zxing
 
 ===============
 Lanthanum-system-toolbox-v2
 ===============
 Maintainer: xzr467706992
 Licence: None
-Source: <a herf="https://github.com/Lanthanum-system-toolbox-v2">https://github.com/Lanthanum-system-toolbox-v2</a>
+Source: https://github.com/Lanthanum-system-toolbox-v2
 
 ===============
 cpufreq-interactive-opt
 ===============
 Maintainer: yc9559
 Licence: GNU General Public License v3.0
-Source: <a herf="https://github.com/yc9559/cpufreq-interactive-opt">https://github.com/yc9559/cpufreq-interactive-opt</a>
+Source: >https://github.com/yc9559/cpufreq-interactive-opt
 
 ===============
 powercfg_generator
 ===============
 Maintainer: cjybyjk
 Licence: GNU General Public License v3.0
-Source: <a herf="https://github.com/cjybyjk/powercfg_generator">https://github.com/cjybyjk/powercfg_generator</a>
+Source: https://github.com/cjybyjk/powercfg_generator
 
 ===============
 org.jetbrains.kotlin-kotlin-stdlib
 ===============
 Maintainer: JetBrains
 Licence: Apache License 2.0
-Source: <a herf="https://mvnrepository.com/artifact/org.jetbrains.kotlin/kotlin-stdlib">https://mvnrepository.com/artifact/org.jetbrains.kotlin/kotlin-stdlib</a>
+Source: >https://mvnrepository.com/artifact/org.jetbrains.kotlin/kotlin-stdlib
 
 ===============
 com.android.support-support-v4
 ===============
 Maintainer: Google
 Licence: Apache License 2.0
-Source: <a herf="https://mvnrepository.com/artifact/com.android.support/support-v4">https://mvnrepository.com/artifact/com.android.support/support-v4</a>
+Source: https://mvnrepository.com/artifact/com.android.support/support-v4
 
 ===============
 com.android.support-appcompat-v7
 ===============
 Maintainer: Google
 Licence: Apache License 2.0
-Source: <a herf="https://mvnrepository.com/artifact/com.android.support/appcompat-v7">https://mvnrepository.com/artifact/com.android.support/appcompat-v7</a>
+Source: https://mvnrepository.com/artifact/com.android.support/appcompat-v7

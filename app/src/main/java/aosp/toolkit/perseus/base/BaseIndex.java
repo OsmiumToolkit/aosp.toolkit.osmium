@@ -28,6 +28,8 @@ public class BaseIndex {
     public final static String Coolapk_Apk = "http://www.coolapk.com/apk/";
     public final static String Coolapk_User = "http://www.coolapk.com/u/";
 
+    public final static String QQGroupKey = "Zbl6GscS86zcFBrelPvBW2lPcOPtqzt-";
+
 
     // Github
     public final static String Script_Head = "https://raw.githubusercontent.com/ToolkitPerseus/scripts/master/";

@@ -58,8 +58,7 @@ class DisableAppActivity : AppCompatActivity() {
         toolbar.setTitle(R.string.disable_toolbar)
         setSupportActionBar(toolbar)
 
-        if (supportActionBar != null)
-            supportActionBar!!.setDisplayHomeAsUpEnabled(true)
+        if (supportActionBar != null) supportActionBar!!.setDisplayHomeAsUpEnabled(true)
 
         window.navigationBarColor = ContextCompat.getColor(this, R.color.colorPrimaryDark)
 
@@ -90,8 +89,7 @@ class DisableAppActivity : AppCompatActivity() {
     private fun initGrid() {
         Thread {
             // 已加入列表 added list
-            val savedList = getSharedPreferences("disabledApp", Context.MODE_PRIVATE)
-                .getStringSet("added", setOf<String>())
+            val savedList = getSharedPreferences("disabledApp", Context.MODE_PRIVATE).getStringSet("added", setOf<String>())
             // 已禁用列表 disabled list
             val hidedList = Shell.su("pm list package -d").exec().out
 
@@ -100,8 +98,7 @@ class DisableAppActivity : AppCompatActivity() {
 
                 // 创建图标 Create Icon
                 for ((j, i) in savedList.withIndex()) {
-                    val appIconView =
-                        aosp.toolkit.perseus.DisableAppActivity.AppIconView(this, i, hidedList, packageManager)
+                    val appIconView = aosp.toolkit.perseus.DisableAppActivity.AppIconView(this, i, hidedList, packageManager)
 
                     // 定义图标位置
                     val layoutParams = GridLayout.LayoutParams()
@@ -133,15 +130,13 @@ class DisableAppActivity : AppCompatActivity() {
 
         Thread {
             runOnUiThread { song.visibility = View.GONE }
-            val savedList = getSharedPreferences("disabledApp", Context.MODE_PRIVATE)
-                .getStringSet("added", setOf<String>())
+            val savedList = getSharedPreferences("disabledApp", Context.MODE_PRIVATE).getStringSet("added", setOf<String>())
             val hidedList = Shell.su("pm list package -d").exec().out
 
             if (savedList!!.size > 0) {
                 val packageManager = packageManager
                 for ((j, i) in savedList.withIndex()) {
-                    val appIconView =
-                        aosp.toolkit.perseus.DisableAppActivity.AppIconView(this, i, hidedList, packageManager)
+                    val appIconView = aosp.toolkit.perseus.DisableAppActivity.AppIconView(this, i, hidedList, packageManager)
 
                     val layoutParams = GridLayout.LayoutParams()
                     layoutParams.rowSpec = GridLayout.spec(j / 4, 1f)
@@ -159,22 +154,12 @@ class DisableAppActivity : AppCompatActivity() {
 
     @Suppress("all")
     private class AppIconView(
-        activity: Activity,
-        packageName: String,
-        hideList: List<String>,
-        packageManager: PackageManager
-    ) :
-        LinearLayout(activity) {
+        activity: Activity, packageName: String, hideList: List<String>, packageManager: PackageManager) : LinearLayout(activity) {
         init {
             LayoutInflater.from(activity).inflate(R.layout.view_appicon, this)
 
             // 应用名 App's name
-            title.text = packageManager.getApplicationLabel(
-                packageManager.getApplicationInfo(
-                    packageName,
-                    PackageManager.GET_META_DATA
-                )
-            ).toString()
+            title.text = packageManager.getApplicationLabel(packageManager.getApplicationInfo(packageName, PackageManager.GET_META_DATA)).toString()
             // 图标 Icon
             imageView.setImageDrawable(packageManager.getApplicationIcon(packageName))
             // 版本名 Version Name
@@ -203,14 +188,7 @@ class DisableAppActivity : AppCompatActivity() {
                     Shell.su("pm disable $packageName").exec()
                 }.start()
 
-                ShortToast(
-                    activity,
-                    String.format(
-                        activity.getString(R.string.t_disable),
-                        packageManager.getApplicationLabel(packageManager.getApplicationInfo(packageName, 0))
-                    ),
-                    true
-                )
+                ShortToast(activity, String.format(activity.getString(R.string.t_disable), packageManager.getApplicationLabel(packageManager.getApplicationInfo(packageName, 0))), true)
                 return@setOnLongClickListener true
             }
         }
@@ -234,17 +212,10 @@ class DisableAppActivity : AppCompatActivity() {
                 // 获取已安装应用 fetch installed apps
                 val installedPackage = packageManager.getInstalledPackages(0)
                 // 获取已添加应用 fetch added apps
-                val savedSet = getSharedPreferences("disabledApp", Context.MODE_PRIVATE)
-                    .getStringSet("added", mutableSetOf<String>()) as MutableSet<String>
+                val savedSet = getSharedPreferences("disabledApp", Context.MODE_PRIVATE).getStringSet("added", mutableSetOf<String>()) as MutableSet<String>
                 // 显示 show
                 for (i in installedPackage) {
-                    val selectDisableView =
-                        aosp.toolkit.perseus.DisableAppActivity.DisableSelectActivity.SelectDisableView(
-                            this,
-                            i,
-                            packageManager,
-                            savedSet
-                        )
+                    val selectDisableView = aosp.toolkit.perseus.DisableAppActivity.DisableSelectActivity.SelectDisableView(this, i, packageManager, savedSet)
                     runOnUiThread { root.addView(selectDisableView) }
                     viewList.add(selectDisableView)
                 }
@@ -281,8 +252,7 @@ class DisableAppActivity : AppCompatActivity() {
             toolbar_sub.setTitle(R.string.disable_select)
             setSupportActionBar(toolbar_sub)
 
-            if (supportActionBar != null)
-                supportActionBar!!.setDisplayHomeAsUpEnabled(true)
+            if (supportActionBar != null) supportActionBar!!.setDisplayHomeAsUpEnabled(true)
 
             if (getSharedPreferences("ui", Context.MODE_PRIVATE).getBoolean("navBar", true)) {
                 window.navigationBarColor = ContextCompat.getColor(this, R.color.colorPrimary)
@@ -301,12 +271,7 @@ class DisableAppActivity : AppCompatActivity() {
 
         @Suppress("all")
         private class SelectDisableView(
-            activity: Activity,
-            packageInfo: PackageInfo,
-            packageManager: PackageManager,
-            addedSet: MutableSet<String>
-        ) :
-            LinearLayout(activity) {
+            activity: Activity, packageInfo: PackageInfo, packageManager: PackageManager, addedSet: MutableSet<String>) : LinearLayout(activity) {
             var isSystemApp = true
             var activity: Activity? = null
 
@@ -315,12 +280,7 @@ class DisableAppActivity : AppCompatActivity() {
                 this.activity = activity
 
                 // 应用名 App's name
-                label.text = packageManager.getApplicationLabel(
-                    packageManager.getApplicationInfo(
-                        packageInfo.packageName,
-                        PackageManager.GET_META_DATA
-                    )
-                )
+                label.text = packageManager.getApplicationLabel(packageManager.getApplicationInfo(packageInfo.packageName, PackageManager.GET_META_DATA))
                 // 包名 package name
                 name.text = packageInfo.packageName
                 // 版本名 version name
@@ -334,9 +294,7 @@ class DisableAppActivity : AppCompatActivity() {
                 }
 
                 // 系统应用flag System app flag
-                isSystemApp =
-                    ((packageManager.getPackageInfo(packageInfo.packageName, 0).applicationInfo.flags
-                            and ApplicationInfo.FLAG_SYSTEM) != 0)
+                isSystemApp = ((packageManager.getPackageInfo(packageInfo.packageName, 0).applicationInfo.flags and ApplicationInfo.FLAG_SYSTEM) != 0)
 
                 this.hideView()
 
@@ -353,10 +311,8 @@ class DisableAppActivity : AppCompatActivity() {
                     if (isChecked) {
                         Thread {
                             addedSet.add(packageInfo.packageName)
-                            activity.getSharedPreferences("disabledApp", Context.MODE_PRIVATE).edit()
-                                .remove("added").commit()
-                            activity.getSharedPreferences("disabledApp", Context.MODE_PRIVATE).edit()
-                                .putStringSet("added", addedSet).commit()
+                            activity.getSharedPreferences("disabledApp", Context.MODE_PRIVATE).edit().remove("added").commit()
+                            activity.getSharedPreferences("disabledApp", Context.MODE_PRIVATE).edit().putStringSet("added", addedSet).commit()
                             Shell.su("pm disable ${packageInfo.packageName}").exec()
                             dialog.cancel()
                         }.start()
@@ -364,11 +320,9 @@ class DisableAppActivity : AppCompatActivity() {
                         Thread {
                             addedSet.remove(packageInfo.packageName)
                             //Log.i("addedSet", addedSet.toString())
-                            activity.getSharedPreferences("disabledApp", Context.MODE_PRIVATE).edit()
-                                .remove("added").commit()
+                            activity.getSharedPreferences("disabledApp", Context.MODE_PRIVATE).edit().remove("added").commit()
                             if (addedSet.size > 0) {
-                                activity.getSharedPreferences("disabledApp", Context.MODE_PRIVATE).edit()
-                                    .putStringSet("added", addedSet).commit()
+                                activity.getSharedPreferences("disabledApp", Context.MODE_PRIVATE).edit().putStringSet("added", addedSet).commit()
                             }
                             try {
                                 Shell.su("pm enable ${packageInfo.packageName}").exec()

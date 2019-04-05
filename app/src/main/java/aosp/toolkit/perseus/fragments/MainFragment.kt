@@ -36,7 +36,6 @@ class MainFragment : Fragment() {
         super.onActivityCreated(savedInstanceState)
         root.setOnClickListener {
             Thread {
-                //val r = Shell.su("cd /data/data", "ls").exec().err
                 try {
                     Runtime.getRuntime().exec("su").inputStream.bufferedReader(Charsets.UTF_8).readLines()
                     activity!!.runOnUiThread {
@@ -51,7 +50,6 @@ class MainFragment : Fragment() {
                     }
                     ShortToast(activity!!, R.string.check_root_fail, false)
                 }
-
             }.start()
         }
         left.setOnClickListener {

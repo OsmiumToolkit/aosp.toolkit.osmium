@@ -33,6 +33,7 @@ import android.widget.RelativeLayout
 
 import aosp.toolkit.perseus.base.BaseManager
 import aosp.toolkit.perseus.fragments.*
+import aosp.toolkit.perseus.fragments.dialog.AboutmeDialogFragment
 import aosp.toolkit.perseus.fragments.dialog.LicenceDialogFragment
 
 import com.topjohnwu.superuser.Shell
@@ -173,7 +174,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     }
 
     fun showLicenceList() {
-        Thread {LicenceDialogFragment().show(supportFragmentManager, "LicenceDialogFragment()") }.start()
+        Thread {LicenceDialogFragment().show(supportFragmentManager, "LicenceDialogFragment()")}.start()
     }
 
     fun openDrawerLayoutLeft() {
@@ -185,6 +186,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
     fun navigationViewBottomListener(view: View) {
         view.findViewById<RelativeLayout>(R.id.nav_about).setOnClickListener(this)
+        view.findViewById<RelativeLayout>(R.id.nav_aboutme).setOnClickListener(this)
     }
 
     override fun onClick(v: View?) {
@@ -193,6 +195,9 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             R.id.nav_about -> {
                 drawer_layout.closeDrawer(GravityCompat.START)
                 drawer_layout.openDrawer(GravityCompat.END)
+            }
+            R.id.nav_aboutme -> {
+                AboutmeDialogFragment().show(supportFragmentManager, "AboutmeDialogFragment()")
             }
         }
     }
