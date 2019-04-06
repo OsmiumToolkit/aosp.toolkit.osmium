@@ -55,7 +55,6 @@ class DisableAppActivity : AppCompatActivity() {
     }
 
     private fun initialize() {
-        toolbar.setTitle(R.string.disable_toolbar)
         setSupportActionBar(toolbar)
 
         if (supportActionBar != null) supportActionBar!!.setDisplayHomeAsUpEnabled(true)
@@ -249,7 +248,7 @@ class DisableAppActivity : AppCompatActivity() {
         }
 
         private fun initialize() {
-            toolbar_sub.setTitle(R.string.disable_select)
+            //toolbar_sub.setTitle(R.string.disable_select)
             setSupportActionBar(toolbar_sub)
 
             if (supportActionBar != null) supportActionBar!!.setDisplayHomeAsUpEnabled(true)

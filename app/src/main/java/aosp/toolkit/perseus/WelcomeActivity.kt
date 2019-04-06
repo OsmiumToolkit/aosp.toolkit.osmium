@@ -15,6 +15,7 @@ import android.view.ViewGroup
 
 import aosp.toolkit.perseus.base.BaseIndex.versionIndex
 import aosp.toolkit.perseus.base.BaseManager
+import aosp.toolkit.perseus.base.ViewPagerAdapter
 
 import kotlinx.android.synthetic.main.activity_welcome.*
 import kotlinx.android.synthetic.main.fragment_ready.*
@@ -48,15 +49,17 @@ class WelcomeActivity : AppCompatActivity() {
 
         BaseManager.getInstance().setWelcomeActivity(this)
 
-        val option = (SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
-                or SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
-                or SYSTEM_UI_FLAG_LAYOUT_STABLE)
+        val option =
+            (SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION or
+                    SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN or
+                    SYSTEM_UI_FLAG_LAYOUT_STABLE)
         window.decorView.systemUiVisibility = option
 
-        val tabList = listOf(getString(R.string.welcome_tab_welcome), getString(R.string.welcome_tab_ready))
+        val tabList =
+            listOf(getString(R.string.welcome_tab_welcome), getString(R.string.welcome_tab_ready))
         val fragmentList = listOf(WelcomeFragment(), ReadyFragment())
 
-        viewPager.adapter = ViewPagerAdapter(supportFragmentManager, tabList, fragmentList)
+        viewPager.adapter = ViewPagerAdapter(supportFragmentManager, fragmentList, tabList)
         tabLayout.setupWithViewPager(viewPager)
 
         t = Thread {
@@ -93,26 +96,12 @@ class WelcomeActivity : AppCompatActivity() {
         super.finish()
     }
 
-    class ViewPagerAdapter(
-        fragmentManager: FragmentManager,
-        private val tavList: List<String>,
-        private val fragmentList: List<Fragment>
-    ) : FragmentPagerAdapter(fragmentManager) {
-        override fun getCount(): Int {
-            return fragmentList.size
-        }
-
-        override fun getItem(p0: Int): Fragment {
-            return fragmentList[p0]
-        }
-
-        override fun getPageTitle(position: Int): CharSequence? {
-            return tavList[position]
-        }
-    }
-
-    class WelcomeFragment: Fragment() {
-        override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    class WelcomeFragment : Fragment() {
+        override fun onCreateView(
+            inflater: LayoutInflater,
+            container: ViewGroup?,
+            savedInstanceState: Bundle?
+        ): View? {
             return inflater.inflate(R.layout.fragment_welcome, container, false)
         }
 
@@ -124,8 +113,12 @@ class WelcomeActivity : AppCompatActivity() {
         }
     }
 
-    class ReadyFragment: Fragment() {
-        override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    class ReadyFragment : Fragment() {
+        override fun onCreateView(
+            inflater: LayoutInflater,
+            container: ViewGroup?,
+            savedInstanceState: Bundle?
+        ): View? {
             return inflater.inflate(R.layout.fragment_ready, container, false)
         }
 

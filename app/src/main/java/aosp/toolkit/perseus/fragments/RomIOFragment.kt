@@ -16,6 +16,7 @@ import aosp.toolkit.perseus.base.BaseIndex.*
 import aosp.toolkit.perseus.base.BaseOperation.Companion.ShortToast
 import aosp.toolkit.perseus.base.BaseOperation.Companion.checkFilePresent
 import aosp.toolkit.perseus.base.BaseOperation.Companion.readFile
+import aosp.toolkit.perseus.base.ViewPagerAdapter
 
 import kotlinx.android.synthetic.main.fragment_romio.*
 import kotlinx.android.synthetic.main.fragment_romio_emmc.*
@@ -47,23 +48,6 @@ class RomIOFragment : Fragment() {
         tabLayout.setupWithViewPager(viewPager)
     }
 
-    class ViewPagerAdapter(
-        fragmentManager: FragmentManager?,
-        private var fragmentList: List<Fragment>,
-        private var tabList: List<String>
-    ) : FragmentPagerAdapter(fragmentManager) {
-        override fun getItem(p0: Int): Fragment {
-            return fragmentList[p0]
-        }
-
-        override fun getCount(): Int {
-            return fragmentList.size
-        }
-
-        override fun getPageTitle(position: Int): CharSequence? {
-            return tabList[position]
-        }
-    }
 
     class RomIOeMMCFragment : Fragment() {
 

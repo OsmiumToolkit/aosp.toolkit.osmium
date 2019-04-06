@@ -15,6 +15,7 @@
     
     <string name="nav_main" >Home</string >
     <string name="nav_monitor" >Device monitor</string >
+    <string name="nav_downloadmiui">Download MIUI</string>
     <string name="nav_about" >AboutToolkit</string >
     <string name="nav_deviceinfo" >DeviceInfo</string >
     <string name="nav_title_extends">Extends</string>
@@ -222,4 +223,9 @@
     <string name="zxing_camera">From Camera</string>
     <string name="zxing_gallery">From Gallery</string>
     <string name="zxing_generate">Generate QRCode</string>
+
+    <string name="size">Size: </string>
+    <string name="downloading">Downloading…</string>
+    <string name="ver_cn">China</string>
+    <string name="ver_global">Global</string>
 </resources >

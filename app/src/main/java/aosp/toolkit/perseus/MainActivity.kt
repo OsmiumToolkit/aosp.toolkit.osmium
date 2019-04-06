@@ -167,7 +167,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             R.id.nav_monitor -> startActivity(Intent(this, UsageActivity::class.java))
             R.id.nav_tower -> startActivity(Intent(this, DisableAppActivity::class.java))
             R.id.nav_zxing -> startActivity(Intent(this, ZXingActivity::class.java))
-
+            R.id.nav_downloadmiui -> startActivity(Intent(this, DownloadMIUIActivity::class.java))
             else -> exchangeFragment(id)
         }
         return true

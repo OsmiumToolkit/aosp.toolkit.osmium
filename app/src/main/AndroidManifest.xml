@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="aosp.toolkit.perseus" >
     
     <uses-permission android:name="android.permission.INTERNET" />
@@ -16,7 +17,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:name="aosp.toolkit.perseus.base.BaseManager"
-        android:usesCleartextTraffic="true" >
+        android:usesCleartextTraffic="true"
+        tools:ignore="AllowBackup,UnusedAttribute">
         
         <activity
             android:name="aosp.toolkit.perseus.SplashActivity"
@@ -49,15 +51,18 @@
         
         <activity
             android:name="aosp.toolkit.perseus.UsageActivity"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/AppTheme.NoActionBar"
+            android:label="@string/nav_monitor"/>
         
         <activity
             android:name="aosp.toolkit.perseus.DisableAppActivity"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/AppTheme.NoActionBar"
+            android:label="@string/nav_tower"/>
         
         <activity
             android:name="aosp.toolkit.perseus.DisableAppActivity$DisableSelectActivity"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/AppTheme.NoActionBar"
+            android:label="@string/disable_select"/>
         
         <activity
             android:name="aosp.toolkit.perseus.ShortcutDisableActivity"
@@ -65,8 +70,18 @@
         
         <activity
             android:name="aosp.toolkit.perseus.ZXingActivity"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:label="@string/nav_zxing"/>
+
+        <activity
+            android:name=".DownloadMIUIActivity"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:label="@string/nav_downloadmiui"/>
+
+        <activity
+            android:name=".DownloadMIUIActivity$SelectDownloadActivity"
             android:theme="@style/AppTheme.NoActionBar" />
-    
+
     </application >
 
 </manifest >
