@@ -4,7 +4,6 @@ import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageInfo
 import android.graphics.Paint
-import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.widget.LinearLayout
 import aosp.toolkit.perseus.MainActivity
@@ -14,7 +13,6 @@ import aosp.toolkit.perseus.base.Accessing
 import aosp.toolkit.perseus.base.BaseIndex
 import aosp.toolkit.perseus.base.BaseManager
 import aosp.toolkit.perseus.base.CheckUpdate
-import aosp.toolkit.perseus.fragments.dialog.LicenceDialogFragment
 import aosp.toolkit.perseus.fragments.dialog.UpdateDialogFragment
 import kotlinx.android.synthetic.main.view_about_navigation.view.*
 
@@ -27,7 +25,7 @@ import kotlinx.android.synthetic.main.view_about_navigation.view.*
  *
  */
 
-class AboutNavigationView(context: Context, attributeSet: AttributeSet) : LinearLayout(context) {
+class AboutNavigationView(context: Context) : LinearLayout(context) {
     init {
         LayoutInflater.from(context).inflate(R.layout.view_about_navigation, this)
         val mainActivity = BaseManager.getInstance().mainActivity
