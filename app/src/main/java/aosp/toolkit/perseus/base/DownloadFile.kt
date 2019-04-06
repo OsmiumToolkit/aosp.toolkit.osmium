@@ -31,7 +31,7 @@ class DownloadFile(
             }
 
             override fun onResponse(call: Call, response: Response) {
-                val byte = ByteArray(40960)
+                val byte = ByteArray(102400)
                 val filePath = File(targetFilePath)
 
                 if (!filePath.exists()) {
@@ -55,7 +55,6 @@ class DownloadFile(
                         len = inputStream.read(byte)
                         val p = (sum * 1.0f / size * 100).toInt()
                         listener.onDownloading(p)
-                        Log.e("progressLoad", p.toString())
                     }
                     fileOutputStream.flush()
                     listener.onDownloadSuccess(file)

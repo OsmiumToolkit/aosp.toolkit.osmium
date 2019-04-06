@@ -23,7 +23,7 @@ import aosp.toolkit.perseus.base.ViewPagerAdapter
 
 import kotlinx.android.synthetic.main.activity_downloadmiui.*
 import kotlinx.android.synthetic.main.activity_selectdownload.*
-import kotlinx.android.synthetic.main.fragment_miuichina.*
+import kotlinx.android.synthetic.main.fragment_download.*
 import kotlinx.android.synthetic.main.item_selectdownload.view.*
 import kotlinx.android.synthetic.main.view_device.view.*
 import kotlinx.android.synthetic.main.view_selectdownload.view.*
@@ -63,15 +63,13 @@ class DownloadMIUIActivity : AppCompatActivity() {
         override fun onCreateView(
             inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
         ): View? {
-            return inflater.inflate(R.layout.fragment_miuichina, container, false)
+            return inflater.inflate(R.layout.fragment_download, container, false)
         }
 
         override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
             super.onViewCreated(view, savedInstanceState)
             Thread {
-                val document =
-                    Jsoup.connect("http://www.miui.com/download.html")
-                        .get()
+                val document = Jsoup.connect("http://www.miui.com/download.html").get()
 
                 var tables = ""
                 val variables = document.getElementsByTag("script")
@@ -107,7 +105,6 @@ class DownloadMIUIActivity : AppCompatActivity() {
                         layoutParams.rowSpec = GridLayout.spec(i / 2, 1f)
 
                         activity!!.runOnUiThread { gridLayout.addView(deviceView, layoutParams) }
-
                     }
                 }
             }.start()
@@ -118,8 +115,59 @@ class DownloadMIUIActivity : AppCompatActivity() {
         override fun onCreateView(
             inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
         ): View? {
-            return inflater.inflate(R.layout.fragment_miuichina, container, false)
+            return inflater.inflate(R.layout.fragment_download, container, false)
         }
+
+        override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+            super.onViewCreated(view, savedInstanceState)
+            Thread {
+                val document = Jsoup.connect("http://en.miui.com/download.html").get()
+                val file =
+                    File(context!!.externalCacheDir!!.absolutePath + File.separator + "a.txt")
+                if (file.exists()) file.delete()
+                val fileWriter = FileWriter(file)
+                fileWriter.write(document.toString())
+                fileWriter.close()
+
+                var tables = ""
+                val variables = document.getElementsByTag("script")
+                for (i in variables) {
+                    val tmp = i.data().toString()
+                    if (tmp.contains("phones")) {
+                        tables = "{\n\"phone\":" + tmp.substring(
+                            tmp.indexOf("=") + 1, tmp.indexOf(";")
+                        ) + "\n}"
+                        break
+                    }
+                }
+
+                if (!tables.isEmpty()) {
+                    // 解析 Decode
+                    val jsonArray = JSONObject(tables).getJSONArray("phone")
+                    for (i: Int in 0 until jsonArray.length()) {
+                        val jsonObject = jsonArray.getJSONObject(i)
+
+                        val bitmap =
+                            BitmapFactory.decodeStream(URL(jsonObject.getString("pic")).openStream())
+                        val deviceView = DeviceView(
+                            activity!!,
+                            jsonObject.getString("name"),
+                            jsonObject.getString("version"),
+                            bitmap,
+                            jsonObject.getString("pid"),
+                            "en"
+                        )
+                        val layoutParams = GridLayout.LayoutParams()
+                        layoutParams.columnSpec = GridLayout.spec(i % 2, 1f)
+                        layoutParams.rowSpec = GridLayout.spec(i / 2, 1f)
+
+                        activity!!.runOnUiThread { gridLayout.addView(deviceView, layoutParams) }
+
+                    }
+                }
+            }.start()
+        }
+
     }
 
     @SuppressLint("ViewConstructor")
@@ -128,7 +176,11 @@ class DownloadMIUIActivity : AppCompatActivity() {
         init {
             LayoutInflater.from(context).inflate(R.layout.view_device, this)
             model.text = m
-            version.text = v
+            version.text = if (v.contains("I1")) {
+                v.plus("0")
+            } else {
+                v
+            }
             imageView.setImageBitmap(b)
             root.setOnClickListener {
                 startActivity(
@@ -153,9 +205,31 @@ class DownloadMIUIActivity : AppCompatActivity() {
             Thread {
                 val site = intent.getStringExtra("site")
                 val pid = intent.getStringExtra("pid")
+                val getVersion1: String
+                val getVersion1Diff: Int
+                val getVersion2: String
+                val getVersion2Diff: Int
+                val getSize: String
+                val getSizeDiff: Int
+                val downloadBtn: String
+
                 val url = if (!site.isEmpty()) {
+                    getVersion1 = "n: "
+                    getVersion1Diff = 3
+                    getVersion2 = ") "
+                    getVersion2Diff = 1
+                    getSize = "e: "
+                    getSizeDiff = 3
+                    downloadBtn = "btn_5"
                     "http://$site.miui.com/download-$pid.html"
                 } else {
+                    getVersion1 = "本："
+                    getVersion1Diff = 2
+                    getVersion2 = "）"
+                    getVersion2Diff = 1
+                    getSize = "小："
+                    getSizeDiff = 2
+                    downloadBtn = "download_btn"
                     "http://miui.com/download-$pid.html"
                 }
 
@@ -170,7 +244,7 @@ class DownloadMIUIActivity : AppCompatActivity() {
                 fileWriter.close()
 
                 val span = document.getElementsByClass("tab").select("span")
-                if (span.size > 1) {
+                if (span.size > 0) {
                     for (i in span) {
                         val name = document.getElementById(i.attr("id")).text()
                         val selectDownloadView = SelectDownloadView(this, name)
@@ -183,11 +257,12 @@ class DownloadMIUIActivity : AppCompatActivity() {
 
                             val support = j.getElementsByClass("supports").select("p")[0].text()
                             val v = support.substring(
-                                support.indexOf("本：") + 2, support.indexOf("）") + 1
+                                support.indexOf(getVersion1) + getVersion1Diff,
+                                support.indexOf(getVersion2) + getVersion2Diff
                             )
-                            val size = support.substring(support.indexOf("小：") + 2)
+                            val size = support.substring(support.indexOf(getSize) + getSizeDiff)
 
-                            val u = id.getElementsByClass("download_btn").select("a").attr("href")
+                            val u = id.getElementsByClass(downloadBtn).select("a").attr("href")
 
                             val selectDownloadItem = SelectDownloadItem(this, vN, v, size, u)
                             selectDownloadView.addView(selectDownloadItem)
@@ -204,11 +279,13 @@ class DownloadMIUIActivity : AppCompatActivity() {
                         val vN = i.getElementsByClass("download_nv").select("div").text()
 
                         val support = i.getElementsByClass("supports").select("p")[0].text()
-                        val v =
-                            support.substring(support.indexOf("本：") + 2, support.indexOf("）") + 1)
-                        val size = support.substring(support.indexOf("小：") + 2)
+                        val v = support.substring(
+                            support.indexOf(getVersion1) + getVersion1Diff,
+                            support.indexOf(getVersion2) + getVersion2Diff
+                        )
+                        val size = support.substring(support.indexOf(getSize) + getSizeDiff)
 
-                        val u = i.getElementsByClass("download_btn").select("a").attr("href")
+                        val u = i.getElementsByClass(downloadBtn).select("a").attr("href")
                         val selectDownloadItem = SelectDownloadItem(this, vN, v, size, u)
                         selectDownloadView.addView(selectDownloadItem)
                     }
