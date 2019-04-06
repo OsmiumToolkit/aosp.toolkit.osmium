@@ -221,4 +221,6 @@
     <string name="downloading">下载中…</string>
     <string name="ver_cn">中国</string>
     <string name="ver_global">Global</string>
+    <string name="MIUIverName">版本名: </string>
+    <string name="MIUIverID">版本号: </string>
 </resources>

@@ -234,7 +234,7 @@ class DownloadMIUIActivity : AppCompatActivity() {
                 }
 
                 val document = Jsoup.connect(url).get()
-
+/*
                 val file = File(externalCacheDir!!.absolutePath + File.separator + "a.txt")
                 if (file.exists()) {
                     file.delete()
@@ -242,7 +242,7 @@ class DownloadMIUIActivity : AppCompatActivity() {
                 val fileWriter = FileWriter(file)
                 fileWriter.write(document.toString())
                 fileWriter.close()
-
+*/
                 val span = document.getElementsByClass("tab").select("span")
                 if (span.size > 0) {
                     for (i in span) {
@@ -253,7 +253,9 @@ class DownloadMIUIActivity : AppCompatActivity() {
 
                         for (j in id.getElementsByClass("rom_list_div")) {
 
-                            val vN = j.getElementsByClass("download_nv").select("div").text()
+                            val tmp = j.getElementsByClass("download_nv").select("div").text()
+
+                            val vN = tmp.substring(0, tmp.indexOf(">"))
 
                             val support = j.getElementsByClass("supports").select("p")[0].text()
                             val v = support.substring(
@@ -275,8 +277,9 @@ class DownloadMIUIActivity : AppCompatActivity() {
 
                     val listDiv = document.getElementsByClass("rom_list_div")
                     for (i in listDiv) {
+                        val tmp = i.getElementsByClass("download_nv").select("div").text()
 
-                        val vN = i.getElementsByClass("download_nv").select("div").text()
+                        val vN = tmp.substring(0, tmp.indexOf(">"))
 
                         val support = i.getElementsByClass("supports").select("p")[0].text()
                         val v = support.substring(
@@ -314,9 +317,9 @@ class DownloadMIUIActivity : AppCompatActivity() {
     ) : LinearLayout(context) {
         init {
             LayoutInflater.from(context).inflate(R.layout.item_selectdownload, this)
-            versionName.text = vName
-            versionRom.text = v
-            size.append(s)
+            versionName.append(vName)
+            versionRom.append(v)
+            size.text = s
             root_linear.setOnClickListener {
                 Thread {
                     val id = 0x3

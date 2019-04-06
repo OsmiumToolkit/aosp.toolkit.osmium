@@ -228,4 +228,6 @@
     <string name="downloading">Downloading…</string>
     <string name="ver_cn">China</string>
     <string name="ver_global">Global</string>
+    <string name="MIUIverName">Version: </string>
+    <string name="MIUIverID">Version ID: </string>
 </resources >
