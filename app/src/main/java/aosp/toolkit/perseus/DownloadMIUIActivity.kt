@@ -70,7 +70,7 @@ class DownloadMIUIActivity : AppCompatActivity() {
             super.onViewCreated(view, savedInstanceState)
             Thread {
                 val document =
-                    Jsoup.connect("http://www.miui.com/extra.php?mod=rom/download&amp;mobile=yes")
+                    Jsoup.connect("http://www.miui.com/download.html")
                         .get()
 
                 var tables = ""
