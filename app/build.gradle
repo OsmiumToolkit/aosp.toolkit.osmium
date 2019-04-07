@@ -51,7 +51,9 @@ android {
 }
 
 dependencies {
-    implementation 'com.github.topjohnwu.libsu:core:2.2.0'
+    def libsuVersion = '2.3.3'
+    implementation "com.github.topjohnwu.libsu:core:${libsuVersion}"
+    implementation "com.github.topjohnwu.libsu:io:${libsuVersion}"
     implementation 'com.squareup.okhttp3:okhttp:3.14.0'
     implementation 'org.jsoup:jsoup:1.11.3'
     implementation 'com.google.zxing:core:3.3.3'

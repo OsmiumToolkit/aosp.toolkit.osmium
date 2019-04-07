@@ -8,16 +8,16 @@ package aosp.toolkit.perseus.base;
  *
  */
 
+import android.app.Application;
 import android.support.v4.app.Fragment;
 
 import aosp.toolkit.perseus.BuildConfig;
 import aosp.toolkit.perseus.fragments.MainFragment;
 import aosp.toolkit.perseus.*;
 
-import com.topjohnwu.superuser.ContainerApp;
 import com.topjohnwu.superuser.Shell;
 
-public class BaseManager extends ContainerApp {
+public class BaseManager extends Application  {
 
     public BaseManager() {
 
@@ -27,7 +27,7 @@ public class BaseManager extends ContainerApp {
         // Set configurations in a static block
         Shell.Config.setFlags(Shell.FLAG_REDIRECT_STDERR);
         Shell.Config.verboseLogging(BuildConfig.DEBUG);
-        Shell.Config.setTimeout(60);
+        Shell.Config.setTimeout(10);
     }
 
     public static BaseManager instance;
