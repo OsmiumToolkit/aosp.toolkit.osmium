@@ -70,43 +70,51 @@ class DownloadMIUIActivity : AppCompatActivity() {
             super.setUserVisibleHint(isVisibleToUser)
             if (!created && isVisibleToUser) {
                 Thread {
-                    val document = Jsoup.connect("http://www.miui.com/download.html").get()
+                    try {
+                        val document = Jsoup.connect("http://www.miui.com/download.html").get()
 
-                    var tables = ""
-                    val variables = document.getElementsByTag("script")
-                    for (i in variables) {
-                        val tmp = i.data().toString()
-                        if (tmp.contains("phones")) {
-                            tables = "{\n\"phone\":" + tmp.substring(
-                                tmp.indexOf("=") + 1, tmp.indexOf(";")
-                            ) + "\n}"
-                            break
+                        var tables = ""
+                        val variables = document.getElementsByTag("script")
+                        for (i in variables) {
+                            val tmp = i.data().toString()
+                            if (tmp.contains("phones")) {
+                                tables = "{\n\"phone\":" + tmp.substring(
+                                    tmp.indexOf("=") + 1, tmp.indexOf(";")
+                                ) + "\n}"
+                                break
+                            }
                         }
-                    }
 
-                    if (!tables.isEmpty()) {
+                        if (!tables.isEmpty()) {
 
-                        // 解析 Decode
-                        val jsonArray = JSONObject(tables).getJSONArray("phone")
-                        for (i: Int in 0 until jsonArray.length()) {
-                            val jsonObject = jsonArray.getJSONObject(i)
+                            // 解析 Decode
+                            val jsonArray = JSONObject(tables).getJSONArray("phone")
+                            for (i: Int in 0 until jsonArray.length()) {
+                                val jsonObject = jsonArray.getJSONObject(i)
 
-                            val bitmap =
-                                BitmapFactory.decodeStream(URL(jsonObject.getString("pic")).openStream())
-                            val deviceView = DeviceView(
-                                activity!!,
-                                jsonObject.getString("name"),
-                                jsonObject.getString("version"),
-                                bitmap,
-                                jsonObject.getString("pid"),
-                                ""
-                            )
-                            val layoutParams = GridLayout.LayoutParams()
-                            layoutParams.columnSpec = GridLayout.spec(i % 2, 1f)
-                            layoutParams.rowSpec = GridLayout.spec(i / 2, 1f)
+                                val bitmap =
+                                    BitmapFactory.decodeStream(URL(jsonObject.getString("pic")).openStream())
+                                val deviceView = DeviceView(
+                                    activity!!,
+                                    jsonObject.getString("name"),
+                                    jsonObject.getString("version"),
+                                    bitmap,
+                                    jsonObject.getString("pid"),
+                                    ""
+                                )
+                                val layoutParams = GridLayout.LayoutParams()
+                                layoutParams.columnSpec = GridLayout.spec(i % 2, 1f)
+                                layoutParams.rowSpec = GridLayout.spec(i / 2, 1f)
 
-                            activity!!.runOnUiThread { gridLayout.addView(deviceView, layoutParams) }
+                                activity!!.runOnUiThread {
+                                    gridLayout.addView(
+                                        deviceView, layoutParams
+                                    )
+                                }
+                            }
                         }
+                    } catch (e: Exception) {
+                        ShortToast(activity!!, e, false)
                     }
                     created = true
                 }.start()
@@ -126,48 +134,56 @@ class DownloadMIUIActivity : AppCompatActivity() {
             super.setUserVisibleHint(isVisibleToUser)
             if (!created && isVisibleToUser) {
                 Thread {
-                    val document = Jsoup.connect("http://en.miui.com/download.html").get()
-                    val file =
-                        File(context!!.externalCacheDir!!.absolutePath + File.separator + "a.txt")
-                    if (file.exists()) file.delete()
-                    val fileWriter = FileWriter(file)
-                    fileWriter.write(document.toString())
-                    fileWriter.close()
+                    try {
+                        val document = Jsoup.connect("http://en.miui.com/download.html").get()
+                        val file =
+                            File(context!!.externalCacheDir!!.absolutePath + File.separator + "a.txt")
+                        if (file.exists()) file.delete()
+                        val fileWriter = FileWriter(file)
+                        fileWriter.write(document.toString())
+                        fileWriter.close()
 
-                    var tables = ""
-                    val variables = document.getElementsByTag("script")
-                    for (i in variables) {
-                        val tmp = i.data().toString()
-                        if (tmp.contains("phones")) {
-                            tables = "{\n\"phone\":" + tmp.substring(
-                                tmp.indexOf("=") + 1, tmp.indexOf(";")
-                            ) + "\n}"
-                            break
+                        var tables = ""
+                        val variables = document.getElementsByTag("script")
+                        for (i in variables) {
+                            val tmp = i.data().toString()
+                            if (tmp.contains("phones")) {
+                                tables = "{\n\"phone\":" + tmp.substring(
+                                    tmp.indexOf("=") + 1, tmp.indexOf(";")
+                                ) + "\n}"
+                                break
+                            }
                         }
-                    }
 
-                    if (!tables.isEmpty()) {
-                        // 解析 Decode
-                        val jsonArray = JSONObject(tables).getJSONArray("phone")
-                        for (i: Int in 0 until jsonArray.length()) {
-                            val jsonObject = jsonArray.getJSONObject(i)
+                        if (!tables.isEmpty()) {
+                            // 解析 Decode
+                            val jsonArray = JSONObject(tables).getJSONArray("phone")
+                            for (i: Int in 0 until jsonArray.length()) {
+                                val jsonObject = jsonArray.getJSONObject(i)
 
-                            val bitmap =
-                                BitmapFactory.decodeStream(URL(jsonObject.getString("pic")).openStream())
-                            val deviceView = DeviceView(
-                                activity!!,
-                                jsonObject.getString("name"),
-                                jsonObject.getString("version"),
-                                bitmap,
-                                jsonObject.getString("pid"),
-                                "en"
-                            )
-                            val layoutParams = GridLayout.LayoutParams()
-                            layoutParams.columnSpec = GridLayout.spec(i % 2, 1f)
-                            layoutParams.rowSpec = GridLayout.spec(i / 2, 1f)
+                                val bitmap =
+                                    BitmapFactory.decodeStream(URL(jsonObject.getString("pic")).openStream())
+                                val deviceView = DeviceView(
+                                    activity!!,
+                                    jsonObject.getString("name"),
+                                    jsonObject.getString("version"),
+                                    bitmap,
+                                    jsonObject.getString("pid"),
+                                    "en"
+                                )
+                                val layoutParams = GridLayout.LayoutParams()
+                                layoutParams.columnSpec = GridLayout.spec(i % 2, 1f)
+                                layoutParams.rowSpec = GridLayout.spec(i / 2, 1f)
 
-                            activity!!.runOnUiThread { gridLayout.addView(deviceView, layoutParams) }
+                                activity!!.runOnUiThread {
+                                    gridLayout.addView(
+                                        deviceView, layoutParams
+                                    )
+                                }
+                            }
                         }
+                    } catch (e: Exception) {
+                        ShortToast(activity!!, e, false)
                     }
                     created = true
                 }.start()
@@ -348,7 +364,7 @@ class DownloadMIUIActivity : AppCompatActivity() {
                         override fun onDownloadFailed(e: Exception) {
                             ShortToast(
                                 BaseManager.getInstance().mainActivity,
-                                BaseManager.getInstance().mainActivity.getString(R.string.download_failed) + e.toString(),
+                                BaseManager.getInstance().mainActivity.getString(R.string.download_failed) + e,
                                 false
                             )
                             notificationManager.cancelAll()
