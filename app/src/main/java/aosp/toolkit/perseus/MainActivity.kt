@@ -32,6 +32,7 @@ import android.view.View
 import android.widget.RelativeLayout
 
 import aosp.toolkit.perseus.base.BaseManager
+import aosp.toolkit.perseus.base.BaseOperation.Companion.getPackageVersion
 import aosp.toolkit.perseus.fragments.*
 import aosp.toolkit.perseus.fragments.dialog.AboutmeDialogFragment
 import aosp.toolkit.perseus.fragments.dialog.LicenceDialogFragment
@@ -43,7 +44,8 @@ import kotlinx.android.synthetic.main.app_bar_main.*
 
 import java.util.*
 
-class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener, View.OnClickListener {
+class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener,
+    View.OnClickListener {
 
     // 定义fragments
     private var mainFragment: MainFragment = MainFragment()
@@ -67,6 +69,20 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
         setContentView(R.layout.activity_main)
 
+        Thread {
+            if (getSharedPreferences("launch", Context.MODE_PRIVATE).getString(
+                    "aboutAuthor", "0"
+                ) != getPackageVersion(this)
+            ) {
+                AboutmeDialogFragment().show(
+                    supportFragmentManager,
+                    "AboutmeDialogFragment().launch"
+                )
+                getSharedPreferences("launch", Context.MODE_PRIVATE).edit()
+                    .putString("aboutAuthor", getPackageVersion(this)).apply()
+            }
+        }.start()
+
         initUI()
         addFragment()
         Timer().schedule(object : TimerTask() {
@@ -82,11 +98,11 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         setSupportActionBar(toolbar)
 
         val toggle = ActionBarDrawerToggle(
-                this,
-                drawer_layout,
-                toolbar,
-                R.string.navigation_drawer_open,
-                R.string.navigation_drawer_close
+            this,
+            drawer_layout,
+            toolbar,
+            R.string.navigation_drawer_open,
+            R.string.navigation_drawer_close
         )
 
         drawer_layout.addDrawerListener(toggle)
@@ -116,7 +132,9 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     override fun onBackPressed() {
         when {
             drawer_layout.isDrawerOpen(GravityCompat.END) -> drawer_layout.closeDrawer(GravityCompat.END)
-            drawer_layout.isDrawerOpen(GravityCompat.START) -> drawer_layout.closeDrawer(GravityCompat.START)
+            drawer_layout.isDrawerOpen(GravityCompat.START) -> drawer_layout.closeDrawer(
+                GravityCompat.START
+            )
             else -> {
                 Thread {
                     val fragmentManager = supportFragmentManager.beginTransaction()
@@ -148,12 +166,10 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             R.id.rec -> Shell.su("reboot recovery").exec()
             R.id.re9008 -> {
                 val builder = AlertDialog.Builder(this)
-                builder.setTitle(R.string.warn_9008_title)
-                        .setMessage(R.string.warn_9008_msg)
-                        .setPositiveButton(R.string.cont) { _, _ ->
-                            Shell.su("reboot edl").exec()
-                        }.setNegativeButton(R.string.cancel) { _, _ -> }
-                        .show()
+                builder.setTitle(R.string.warn_9008_title).setMessage(R.string.warn_9008_msg)
+                    .setPositiveButton(R.string.cont) { _, _ ->
+                        Shell.su("reboot edl").exec()
+                    }.setNegativeButton(R.string.cancel) { _, _ -> }.show()
             }
         }
         return super.onOptionsItemSelected(item)
@@ -174,12 +190,17 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     }
 
     fun showLicenceList() {
-        Thread {LicenceDialogFragment().show(supportFragmentManager, "LicenceDialogFragment()")}.start()
+        Thread {
+            LicenceDialogFragment().show(
+                supportFragmentManager, "LicenceDialogFragment()"
+            )
+        }.start()
     }
 
     fun openDrawerLayoutLeft() {
         drawer_layout.openDrawer(GravityCompat.START)
     }
+
     fun openDrawerLayoutRight() {
         drawer_layout.openDrawer(GravityCompat.END)
     }

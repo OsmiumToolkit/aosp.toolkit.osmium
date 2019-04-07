@@ -2,24 +2,29 @@
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/root"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:id="@+id/root"
-    android:fitsSystemWindows="true" >
+    android:fitsSystemWindows="true">
 
-    <android.support.v4.view.ViewPager
-        android:id="@+id/viewPager"
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginBottom="@dimen/dp_50"/>
-    
-    <ImageView
-        android:layout_width="@dimen/px_500"
-        android:layout_height="@dimen/px_500"
-        android:src="@mipmap/ic_perseus"
-        android:layout_centerHorizontal="true"
-        android:layout_alignParentBottom="true"
-        android:layout_marginBottom="@dimen/dp_50" />
+        android:background="@android:color/black"
+        android:layout_marginBottom="@dimen/dp_50">
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:src="@mipmap/ic_perseus"
+            tools:ignore="ContentDescription" />
+
+        <android.support.v4.view.ViewPager
+            android:id="@+id/viewPager"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@android:color/transparent" />
+    </RelativeLayout>
 
     <android.support.design.widget.TabLayout
         android:id="@+id/tabLayout"
@@ -34,4 +39,4 @@
         app:tabMode="scrollable"
         app:tabSelectedTextColor="@android:color/white" />
 
-</RelativeLayout >
+</RelativeLayout>

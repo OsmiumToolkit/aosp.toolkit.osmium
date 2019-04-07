@@ -80,9 +80,9 @@
     <string name="about_set_theme">自定义主题</string>
 
     <string name="about_me">关于作者</string>
-    <string name="qqgroup">QQ Group</string>
+    <string name="qqgroup">QQ群</string>
 
-    <string name="licence">Open Source Licence</string>
+    <string name="licence">开源许可证</string>
 
     <string name="script_title_head">运行脚本 \"%s\"</string>
     <string name="script_head">================================\n英仙 Perseus\nBy 住在地球真累\n================================</string>

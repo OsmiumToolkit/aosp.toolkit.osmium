@@ -1,5 +1,6 @@
 package aosp.toolkit.perseus.base
 
+import android.annotation.SuppressLint
 import android.app.Activity
 import android.app.ActivityManager
 import android.content.Context
@@ -27,23 +28,6 @@ import aosp.toolkit.perseus.R
 
 class BaseOperation {
     companion object {
-        fun checkRoot(): Boolean {
-            try {
-                val process: Process = Runtime.getRuntime().exec("su")
-                val dataOutPutStream = DataOutputStream(process.outputStream)
-                dataOutPutStream.writeBytes("exit\n")
-                dataOutPutStream.flush()
-                dataOutPutStream.close()
-                val i = process.waitFor()
-                if (i == 1)
-                    return false
-                return true
-            } catch (e: Exception) {
-                e.printStackTrace()
-            }
-            return false
-        }
-
         fun getPackageVersion(context: Context?): String {
             try {
                 return context?.packageManager!!.getPackageInfo(aosp.toolkit.perseus.base.BaseIndex.PackageName, 0).versionName
@@ -189,12 +173,29 @@ class BaseOperation {
             return memoryInfo
         }
 
+        fun ShortToast(context: Context, int: Int) {
+            this.ShortToast(context, context.getString(int))
+        }
+        fun ShortToast(context: Context, exception: Exception) {
+            this.ShortToast(context, exception.toString())
+        }
+        @SuppressLint("InflateParams")
+        fun ShortToast(context: Context, string: String) {
+            val toast = Toast(context)
+            val view = LayoutInflater.from(context).inflate(R.layout.toast, null)
+            val textView = view.findViewById<TextView>(R.id.toast)
+            textView.text = string
+            toast.view = view
+            toast.duration = LENGTH_SHORT
+            toast.show()
+        }
         fun ShortToast(activity: Activity, exception: Exception, UIThread: Boolean) {
             this.ShortToast(activity, exception.toString(), UIThread)
         }
         fun ShortToast(activity: Activity, content: Int, UIThread: Boolean) {
             this.ShortToast(activity, activity.getString(content), UIThread)
         }
+        @SuppressLint("InflateParams")
         fun ShortToast(activity: Activity, string: String, UIThread: Boolean) {
             if (UIThread) {
                 val toast = Toast(activity as Context)

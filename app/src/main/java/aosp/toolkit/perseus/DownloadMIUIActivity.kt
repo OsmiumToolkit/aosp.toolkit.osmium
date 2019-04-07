@@ -29,9 +29,8 @@ import kotlinx.android.synthetic.main.view_selectdownload.view.*
 
 import org.json.JSONObject
 import org.jsoup.Jsoup
+import java.io.*
 
-import java.io.File
-import java.io.FileWriter
 import java.lang.Exception
 import java.net.URL
 
@@ -56,10 +55,11 @@ class DownloadMIUIActivity : AppCompatActivity() {
         val fragmentList = listOf(MIUIChinaFragment(), MIUIGlobalFragment())
         viewPager.adapter = ViewPagerAdapter(supportFragmentManager, fragmentList, tabList)
         tabLayout.setupWithViewPager(viewPager)
+
     }
 
     class MIUIChinaFragment : Fragment() {
-        var created = false
+        private var created = false
         override fun onCreateView(
             inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
         ): View? {
@@ -123,7 +123,7 @@ class DownloadMIUIActivity : AppCompatActivity() {
     }
 
     class MIUIGlobalFragment : Fragment() {
-        var created = false
+        private var created = false
         override fun onCreateView(
             inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
         ): View? {
