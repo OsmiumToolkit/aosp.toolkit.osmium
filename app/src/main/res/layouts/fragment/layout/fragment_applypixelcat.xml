@@ -2,6 +2,7 @@
 <ScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent" >
     
@@ -15,7 +16,8 @@
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/cardView_margin"
             android:padding="@dimen/cardView_padding"
-            app:cardCornerRadius="@dimen/cardView_cardCornerRadius" >
+            app:cardCornerRadius="@dimen/cardView_cardCornerRadius"
+            app:cardElevation="@dimen/dp_0">
             
             <LinearLayout
                 android:id="@+id/snap"
@@ -29,13 +31,15 @@
                     android:layout_gravity="center_vertical"
                     android:layout_marginStart="@dimen/cardView_margin"
                     android:orientation="horizontal"
-                    android:padding="@dimen/cardView_padding" >
+                    android:padding="@dimen/cardView_padding"
+                    tools:ignore="UseCompoundDrawables,UselessParent">
                     
                     <ImageView
                         android:layout_width="@dimen/applycpufreqopt_img"
                         android:layout_height="@dimen/applycpufreqopt_img"
                         android:layout_gravity="center_vertical"
-                        android:src="@mipmap/ic_snapdragon" />
+                        android:src="@mipmap/ic_snapdragon"
+                        tools:ignore="ContentDescription" />
                     
                     <TextView
                         android:layout_width="wrap_content"
@@ -54,7 +58,8 @@
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/cardView_margin"
             android:padding="@dimen/cardView_padding"
-            app:cardCornerRadius="@dimen/cardView_cardCornerRadius" >
+            app:cardCornerRadius="@dimen/cardView_cardCornerRadius"
+            app:cardElevation="@dimen/dp_0">
             
             <LinearLayout
                 android:id="@+id/exynos"
@@ -67,13 +72,15 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/cardView_margin"
                     android:orientation="horizontal"
-                    android:padding="@dimen/cardView_padding" >
+                    android:padding="@dimen/cardView_padding"
+                    tools:ignore="UseCompoundDrawables,UselessParent">
                     
                     <ImageView
                         android:layout_width="@dimen/applycpufreqopt_img"
                         android:layout_height="@dimen/applycpufreqopt_img"
                         android:layout_gravity="center_vertical"
-                        android:src="@mipmap/ic_exynos" />
+                        android:src="@mipmap/ic_exynos"
+                        tools:ignore="ContentDescription" />
                     
                     <TextView
                         android:layout_width="wrap_content"

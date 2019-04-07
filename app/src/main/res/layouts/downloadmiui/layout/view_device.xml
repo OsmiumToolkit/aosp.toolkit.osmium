@@ -12,7 +12,8 @@
         android:layout_gravity="center"
         android:layout_margin="@dimen/dp_5"
         android:padding="@dimen/dp_5"
-        app:cardCornerRadius="@dimen/dp_5">
+        app:cardCornerRadius="@dimen/dp_5"
+        app:cardElevation="@dimen/dp_0">
 
         <LinearLayout
             android:id="@+id/root"

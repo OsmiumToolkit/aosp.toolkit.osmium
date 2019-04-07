@@ -2,6 +2,7 @@
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical" >
@@ -11,7 +12,8 @@
         android:layout_height="wrap_content"
         android:padding="@dimen/cardView_padding"
         android:layout_margin="@dimen/cardView_margin"
-        app:cardCornerRadius="@dimen/cardView_cardCornerRadius" >
+        app:cardCornerRadius="@dimen/cardView_cardCornerRadius"
+        app:cardElevation="@dimen/dp_0">
         
         <LinearLayout
             android:layout_width="match_parent"
@@ -43,7 +45,8 @@
                     android:id="@+id/editText"
                     android:inputType="text"
                     android:digits="0123456789abcdefghigklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ:"
-                    android:maxLength="17" />
+                    android:maxLength="17"
+                    tools:ignore="Autofill,LabelFor" />
                 
                 <ImageView
                     android:id="@+id/done"
@@ -55,7 +58,8 @@
                     android:layout_weight="1"
                     android:src="@drawable/ic_arrow_forward"
                     android:padding="@dimen/frag_pad"
-                    android:background="@drawable/ripple_effect" />
+                    android:background="@drawable/ripple_effect"
+                    tools:ignore="ContentDescription" />
             </LinearLayout >
         
         </LinearLayout >

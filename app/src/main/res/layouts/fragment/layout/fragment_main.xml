@@ -2,6 +2,7 @@
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorPrimaryDark"
@@ -13,7 +14,8 @@
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/dp_5"
         android:padding="@dimen/dp_5"
-        app:cardCornerRadius="@dimen/dp_5">
+        app:cardCornerRadius="@dimen/dp_5"
+        app:cardElevation="@dimen/dp_0">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -58,7 +60,8 @@
         android:layout_height="match_parent"
         android:clickable="true"
         android:focusable="true"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        tools:ignore="DisableBaselineAlignment">
 
         <RelativeLayout
             android:id="@+id/left"

@@ -2,6 +2,7 @@
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@android:color/transparent"
@@ -15,7 +16,8 @@
         android:layout_margin="@dimen/dp_5"
         android:padding="@dimen/dp_5"
         app:cardBackgroundColor="@color/half_transparent"
-        app:cardCornerRadius="@dimen/dp_5">
+        app:cardCornerRadius="@dimen/dp_5"
+        app:cardElevation="@dimen/dp_0">
 
         <LinearLayout
             android:layout_width="wrap_content"
@@ -30,7 +32,8 @@
                 android:layout_margin="@dimen/cardView_margin"
                 android:padding="@dimen/cardView_margin"
                 app:cardBackgroundColor="@android:color/black"
-                app:cardCornerRadius="@dimen/cardView_cardCornerRadius">
+                app:cardCornerRadius="@dimen/cardView_cardCornerRadius"
+                app:cardElevation="@dimen/dp_0">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -121,7 +124,8 @@
                 android:layout_margin="@dimen/cardView_margin"
                 android:background="@android:color/white"
                 android:padding="@dimen/cardView_padding"
-                app:cardCornerRadius="@dimen/cardView_cardCornerRadius">
+                app:cardCornerRadius="@dimen/cardView_cardCornerRadius"
+                app:cardElevation="@dimen/dp_0">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -143,7 +147,8 @@
                             android:gravity="center_vertical"
                             android:padding="@dimen/about_padding"
                             android:text="@string/about_set_navBar"
-                            android:textAppearance="@style/TextAppearance.AppCompat.Subhead" />
+                            android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
+                            tools:ignore="RelativeOverlap" />
 
                         <android.support.v7.widget.SwitchCompat
                             android:id="@+id/switchCompact"
@@ -186,7 +191,8 @@
                                 android:layout_alignParentEnd="true"
                                 android:gravity="center_vertical"
                                 android:padding="8dp"
-                                android:src="@drawable/ic_go" />
+                                android:src="@drawable/ic_go"
+                                tools:ignore="ContentDescription" />
                         </RelativeLayout>
 
                     </LinearLayout>

@@ -14,7 +14,8 @@
         android:padding="@dimen/dp_5"
         android:layout_margin="@dimen/dp_5"
         app:cardBackgroundColor="@color/half_transparent"
-        app:cardCornerRadius="@dimen/dp_5">
+        app:cardCornerRadius="@dimen/dp_5"
+        app:cardElevation="@dimen/dp_0">
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -27,7 +28,8 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/cardView_margin"
                 android:padding="@dimen/cardView_padding"
-                app:cardCornerRadius="@dimen/cardView_cardCornerRadius">
+                app:cardCornerRadius="@dimen/cardView_cardCornerRadius"
+                app:cardElevation="@dimen/dp_0">
 
                 <LinearLayout
                     android:id="@+id/headerLayout"
@@ -41,7 +43,8 @@
                 android:layout_height="@dimen/nav_menu_height"
                 android:layout_margin="@dimen/cardView_margin"
                 android:padding="@dimen/cardView_padding"
-                app:cardCornerRadius="@dimen/cardView_cardCornerRadius">
+                app:cardCornerRadius="@dimen/cardView_cardCornerRadius"
+                app:cardElevation="@dimen/dp_0">
 
                 <android.support.design.widget.NavigationView
                     android:id="@+id/navigationView"
@@ -54,7 +57,8 @@
                 android:layout_height="@dimen/dp_50"
                 android:layout_margin="@dimen/cardView_margin"
                 android:padding="@dimen/cardView_padding"
-                app:cardCornerRadius="@dimen/cardView_cardCornerRadius">
+                app:cardCornerRadius="@dimen/cardView_cardCornerRadius"
+                app:cardElevation="@dimen/dp_0">
 
                 <LinearLayout
                     android:id="@+id/bottomLayout"

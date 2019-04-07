@@ -9,7 +9,8 @@
     app:cardCornerRadius="@dimen/cardView_cardCornerRadius"
     android:clickable="true"
     android:focusable="true"
-    android:background="@drawable/ripple_effect">
+    android:background="@drawable/ripple_effect"
+    app:cardElevation="@dimen/dp_0">
 
     <LinearLayout
         android:layout_width="match_parent"

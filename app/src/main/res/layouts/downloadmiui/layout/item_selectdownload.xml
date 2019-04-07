@@ -49,7 +49,7 @@
             app:cardBackgroundColor="@color/miui_green"
             app:cardCornerRadius="@dimen/dp_5"
             tools:ignore="RtlSymmetry"
-            >
+            app:cardElevation="@dimen/dp_0">
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
