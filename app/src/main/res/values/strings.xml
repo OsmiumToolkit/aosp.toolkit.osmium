@@ -226,6 +226,8 @@
 
     <string name="size">Size: </string>
     <string name="downloading">Downloading…</string>
+    <string name="download_success">Download Success:\n</string>
+    <string name="download_failed">Download Failed:\n</string>
     <string name="ver_cn">China</string>
     <string name="ver_global">Global</string>
     <string name="MIUIverName">Version: </string>

@@ -219,6 +219,8 @@
 
     <string name="size">大小: </string>
     <string name="downloading">下载中…</string>
+    <string name="download_failed">下载失败:\n</string>
+    <string name="download_success">下载完成:\n</string>
     <string name="ver_cn">中国</string>
     <string name="ver_global">Global</string>
     <string name="MIUIverName">版本名: </string>

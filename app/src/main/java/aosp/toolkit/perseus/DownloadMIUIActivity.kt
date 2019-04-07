@@ -17,9 +17,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.GridLayout
 import android.widget.LinearLayout
-import aosp.toolkit.perseus.base.DownloadFile
-
-import aosp.toolkit.perseus.base.ViewPagerAdapter
+import aosp.toolkit.perseus.base.*
+import aosp.toolkit.perseus.base.BaseOperation.Companion.ShortToast
 
 import kotlinx.android.synthetic.main.activity_downloadmiui.*
 import kotlinx.android.synthetic.main.activity_selectdownload.*
@@ -234,15 +233,15 @@ class DownloadMIUIActivity : AppCompatActivity() {
                 }
 
                 val document = Jsoup.connect(url).get()
-/*
-                val file = File(externalCacheDir!!.absolutePath + File.separator + "a.txt")
-                if (file.exists()) {
-                    file.delete()
-                }
-                val fileWriter = FileWriter(file)
-                fileWriter.write(document.toString())
-                fileWriter.close()
-*/
+                /*
+                                val file = File(externalCacheDir!!.absolutePath + File.separator + "a.txt")
+                                if (file.exists()) {
+                                    file.delete()
+                                }
+                                val fileWriter = FileWriter(file)
+                                fileWriter.write(document.toString())
+                                fileWriter.close()
+                */
                 val span = document.getElementsByClass("tab").select("span")
                 if (span.size > 0) {
                     for (i in span) {
@@ -335,16 +334,27 @@ class DownloadMIUIActivity : AppCompatActivity() {
                     notificationManager.notify(id, builder.build())
 
                     val file = u.substring(u.indexOf("/m") + 1)
+
                     val downloadFile = DownloadFile(
                         u, Environment.getExternalStorageDirectory().absolutePath, file
                     )
                     downloadFile.download(object : DownloadFile.OnDownLoadListener {
                         override fun onDownloadFailed(e: Exception) {
+                            ShortToast(
+                                BaseManager.getInstance().mainActivity,
+                                BaseManager.getInstance().mainActivity.getString(R.string.download_failed) + e.toString(),
+                                false
+                            )
                             notificationManager.cancelAll()
                         }
 
                         override fun onDownloadSuccess(file: File) {
-
+                            ShortToast(
+                                BaseManager.getInstance().mainActivity,
+                                BaseManager.getInstance().mainActivity.getString(R.string.download_success) + file.toString(),
+                                false
+                            )
+                            notificationManager.cancelAll()
                         }
 
                         override fun onDownloading(progress: Int) {
