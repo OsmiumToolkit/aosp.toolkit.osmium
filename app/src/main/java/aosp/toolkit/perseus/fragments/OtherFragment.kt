@@ -17,7 +17,7 @@ import aosp.toolkit.perseus.R
 import aosp.toolkit.perseus.base.BaseIndex.*
 import aosp.toolkit.perseus.base.BaseOperation.Companion.ShortToast
 import aosp.toolkit.perseus.base.BaseOperation.Companion.checkFilePresent
-import aosp.toolkit.perseus.base.BaseOperation.Companion.readFile
+import aosp.toolkit.perseus.base.BaseOperation.Companion.suFileReadLine
 
 import com.topjohnwu.superuser.Shell
 
@@ -70,7 +70,7 @@ class OtherFragment : Fragment() {
 
     private fun setMac() {
         if (checkFilePresent("/sys/class/net/wlan0/address")) {
-            editText.setText(readFile("/sys/class/net/wlan0/address"))
+            editText.setText(suFileReadLine("/sys/class/net/wlan0/address"))
             editText.addTextChangedListener(object : TextWatcher {
                 override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
                 }

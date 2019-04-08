@@ -3,8 +3,6 @@ package aosp.toolkit.perseus.fragments
 import android.content.Intent
 import android.os.Bundle
 import android.support.v4.app.Fragment
-import android.support.v4.app.FragmentManager
-import android.support.v4.app.FragmentPagerAdapter
 import android.support.v7.widget.AppCompatSeekBar
 import android.view.LayoutInflater
 import android.view.View
@@ -15,7 +13,7 @@ import aosp.toolkit.perseus.R
 import aosp.toolkit.perseus.base.BaseIndex.*
 import aosp.toolkit.perseus.base.BaseOperation.Companion.ShortToast
 import aosp.toolkit.perseus.base.BaseOperation.Companion.checkFilePresent
-import aosp.toolkit.perseus.base.BaseOperation.Companion.readFile
+import aosp.toolkit.perseus.base.BaseOperation.Companion.suFileReadLine
 import aosp.toolkit.perseus.base.ViewPagerAdapter
 
 import kotlinx.android.synthetic.main.fragment_romio.*
@@ -71,7 +69,7 @@ class RomIOFragment : Fragment() {
             val seekBar: AppCompatSeekBar = view.findViewById(R.id.seekBar)
             Thread {
                 if (checkFilePresent("/sys/block/mmcblk0/queue/rq_affinity")) {
-                    val status = readFile("/sys/block/mmcblk0/queue/rq_affinity")
+                    val status = suFileReadLine("/sys/block/mmcblk0/queue/rq_affinity")
                     activity!!.runOnUiThread {
                         seekBar.progress = if (status == "Fail") {
                             1
@@ -142,7 +140,7 @@ class RomIOFragment : Fragment() {
             val seekBar: AppCompatSeekBar = view.findViewById(R.id.seekBar)
             Thread {
                 if (checkFilePresent("/sys/block/sda/queue/rq_affinity")) {
-                    val status = readFile("/sys/block/sda/queue/rq_affinity")
+                    val status = suFileReadLine("/sys/block/sda/queue/rq_affinity")
                     activity!!.runOnUiThread {
                         seekBar.progress = if (status == "Fail") {
                             1

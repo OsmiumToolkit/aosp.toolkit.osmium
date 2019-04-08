@@ -18,7 +18,7 @@ import android.widget.TextView
 
 import aosp.toolkit.perseus.base.BaseOperation.Companion.ShortToast
 import aosp.toolkit.perseus.base.BaseOperation.Companion.getAvailableCore
-import aosp.toolkit.perseus.base.BaseOperation.Companion.readFile
+import aosp.toolkit.perseus.base.BaseOperation.Companion.suFileReadLine
 import com.topjohnwu.superuser.Shell
 
 import kotlinx.android.synthetic.main.activity_usage.*
@@ -41,7 +41,7 @@ import java.util.Arrays
  *
  */
 
-@Suppress("all")
+@Suppress("all", "NAME_SHADOWING")
 class UsageActivity : AppCompatActivity() {
     private var batteryReceiver: BatteryReceiver? = null
     private val coreFreqViewList = mutableListOf<CoreFreqView>()
@@ -321,7 +321,7 @@ class UsageActivity : AppCompatActivity() {
                 var f: String
                 var lastFreq = ""
                 while (true) {
-                    f = readFile("/sys/devices/system/cpu/cpu$core/cpufreq/scaling_cur_freq")
+                    f = suFileReadLine("/sys/devices/system/cpu/cpu$core/cpufreq/scaling_cur_freq")
                     // 减低UI线程使用,对比上一秒频率
                     // For reduce usage of UI Thread, compare freq of last second
                     if (lastFreq != f) {
@@ -350,14 +350,14 @@ class UsageActivity : AppCompatActivity() {
 
         init {
             LayoutInflater.from(activity).inflate(R.layout.view_sensordata, this)
-            val t = readFile("/sys/class/thermal/thermal_zone$no/type")
+            val t = suFileReadLine("/sys/class/thermal/thermal_zone$no/type")
             title.text = t
 
             thread = Thread {
                 var d: StringBuilder
                 var lastData = ""
                 while (true) {
-                    d = StringBuilder(readFile("/sys/class/thermal/thermal_zone$no/temp"))
+                    d = StringBuilder(suFileReadLine("/sys/class/thermal/thermal_zone$no/temp"))
                     d.insert(2, ".")
                     if (lastData != d.toString()) {
                         activity.runOnUiThread { content.text = d }

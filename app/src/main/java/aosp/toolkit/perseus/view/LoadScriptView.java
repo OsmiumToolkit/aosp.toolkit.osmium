@@ -57,7 +57,7 @@ public class LoadScriptView extends LinearLayout {
             indicator.setText(R.string.sw_none);
         } else {
             boolean status = false;
-            if (BaseOperation.Companion.readFile(file).equals("1")) {
+            if (BaseOperation.Companion.suFileReadLine(file).equals("1")) {
                 status = true;
             }
 

@@ -60,21 +60,12 @@ class BaseOperation {
             return file.canExecute()
         }
 
-        fun readFile(filePath: String): String {
-            val su = Shell.su("cat $filePath").exec().out
-            val stringBuilder = StringBuilder()
-            for (i: Int in 0 until su.size) {
-                stringBuilder.append(su[i])
-                if (i != su.size - 1) {
-                    stringBuilder.append("\n")
-                }
-            }
+        fun suFileReadLine(filePath: String): String {
+            return Shell.su("cat $filePath").exec().out[0] ?: "Fail"
+        }
 
-            return if (!stringBuilder.toString().isEmpty()) {
-                stringBuilder.toString()
-            } else {
-                "Fail"
-            }
+        fun javaFileReadLine(file: String): String {
+            return FileInputStream(file).bufferedReader(Charsets.UTF_8).readLine() ?: "Fail"
         }
 
         fun checkFilePresent(filePath: String): Boolean {
