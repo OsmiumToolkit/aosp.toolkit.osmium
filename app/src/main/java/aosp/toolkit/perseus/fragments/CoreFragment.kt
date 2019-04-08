@@ -101,6 +101,7 @@ class CoreFragment : Fragment() {
 
         init {
             LayoutInflater.from(activity).inflate(R.layout.view_core, this)
+            title.append(core.toString())
 
             val list = if (!root) {
                 ArrayList(

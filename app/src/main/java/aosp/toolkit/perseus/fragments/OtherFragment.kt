@@ -17,6 +17,7 @@ import aosp.toolkit.perseus.R
 import aosp.toolkit.perseus.base.BaseIndex.*
 import aosp.toolkit.perseus.base.BaseOperation.Companion.ShortToast
 import aosp.toolkit.perseus.base.BaseOperation.Companion.checkFilePresent
+import aosp.toolkit.perseus.base.BaseOperation.Companion.javaFileReadLine
 import aosp.toolkit.perseus.base.BaseOperation.Companion.suFileReadLine
 
 import com.topjohnwu.superuser.Shell
@@ -42,13 +43,6 @@ import java.net.URL
  */
 
 class OtherFragment : Fragment() {
-    /*
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        aosp.toolkit.osmium.base.BaseManager.getInstance().setExtendsFragment(this)
-    }
-    */
-
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.fragment_other, container, false)
     }
@@ -70,7 +64,13 @@ class OtherFragment : Fragment() {
 
     private fun setMac() {
         if (checkFilePresent("/sys/class/net/wlan0/address")) {
-            editText.setText(suFileReadLine("/sys/class/net/wlan0/address"))
+
+            editText.setText(if (javaFileReadLine("/sys/class/net/wlan0/address") != "Fail") {
+                javaFileReadLine("/sys/class/net/wlan0/address")
+            } else {
+                suFileReadLine("/sys/class/net/wlan0/address")
+            })
+
             editText.addTextChangedListener(object : TextWatcher {
                 override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
                 }

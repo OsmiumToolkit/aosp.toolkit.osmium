@@ -56,9 +56,11 @@ public class LoadScriptView extends LinearLayout {
             switchCompat.setClickable(false);
             indicator.setText(R.string.sw_none);
         } else {
-            boolean status = false;
-            if (BaseOperation.Companion.suFileReadLine(file).equals("1")) {
-                status = true;
+            boolean status;
+            if (BaseOperation.Companion.javaFileReadLine(file) != "Fail") {
+                status = BaseOperation.Companion.javaFileReadLine(file).equals("1");
+            } else {
+                status = BaseOperation.Companion.suFileReadLine(file).equals("1");
             }
 
             switchCompat.setChecked(status);

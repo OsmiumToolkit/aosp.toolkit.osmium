@@ -18,6 +18,7 @@ import android.widget.TextView
 
 import aosp.toolkit.perseus.base.BaseOperation.Companion.ShortToast
 import aosp.toolkit.perseus.base.BaseOperation.Companion.getAvailableCore
+import aosp.toolkit.perseus.base.BaseOperation.Companion.javaFileReadLine
 import aosp.toolkit.perseus.base.BaseOperation.Companion.suFileReadLine
 import com.topjohnwu.superuser.Shell
 
@@ -54,8 +55,11 @@ class UsageActivity : AppCompatActivity() {
         initialize()
 
         val t1 = Thread {
+            val root =
+                javaFileReadLine("/sys/devices/system/cpu/cpu0/cpufreq/scaling_cur_freq") == "Fail"
+
             for (i: Int in 0 until getAvailableCore()) {
-                val coreFreqView = CoreFreqView(this, i)
+                val coreFreqView = CoreFreqView(this, i, root)
                 coreFreqViewList.add(coreFreqView)
                 // 设置控件位置 Position of view in grid
                 val layoutParams = GridLayout.LayoutParams()
@@ -100,8 +104,7 @@ class UsageActivity : AppCompatActivity() {
                     val fileInputStream = FileInputStream(File("/proc/stat"))
                     stat = ArrayList(
                         Arrays.asList(
-                            *fileInputStream.bufferedReader(Charsets.UTF_8).readLine()
-                                .split((" ").toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()
+                            *fileInputStream.bufferedReader(Charsets.UTF_8).readLine().split((" ").toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()
                         )
                     )
                     fileInputStream.close()
@@ -112,8 +115,7 @@ class UsageActivity : AppCompatActivity() {
                     ShortToast(this, e, false)
                     stat = ArrayList(
                         Arrays.asList(
-                            *Shell.su("cat /proc/stat").exec().out[0]
-                                .split((" ").toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()
+                            *Shell.su("cat /proc/stat").exec().out[0].split((" ").toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()
                         )
                     )
                     root = true
@@ -122,8 +124,7 @@ class UsageActivity : AppCompatActivity() {
                 try {
                     lastIdle = stat[5].toFloat()
                     lastTotal =
-                        stat[2].toFloat() + stat[3].toFloat() + stat[4].toFloat() + stat[6].toFloat() +
-                                stat[7].toFloat() + stat[8].toFloat() + stat[9].toFloat()
+                        stat[2].toFloat() + stat[3].toFloat() + stat[4].toFloat() + stat[6].toFloat() + stat[7].toFloat() + stat[8].toFloat() + stat[9].toFloat()
                 } catch (e: Exception) {
                     runOnUiThread { ShortToast(this, e, false) }
                     lastIdle = 0f
@@ -141,15 +142,14 @@ class UsageActivity : AppCompatActivity() {
                         try {
                             val stat = ArrayList(
                                 Arrays.asList(
-                                    *Shell.su("cat /proc/stat").exec().out[0]
-                                        .split((" ").toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()
+                                    *Shell.su("cat /proc/stat").exec().out[0].split((" ").toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()
                                 )
                             )
                             val nowIdle = stat[5].toFloat()
                             val nowTotal =
-                                stat[2].toFloat() + stat[3].toFloat() + stat[4].toFloat() + stat[6].toFloat() +
-                                        stat[7].toFloat() + stat[8].toFloat() + stat[9].toFloat()
-                            val u = 100f * ((nowIdle - nowTotal) - (lastIdle - lastTotal)) / (nowIdle - lastIdle)
+                                stat[2].toFloat() + stat[3].toFloat() + stat[4].toFloat() + stat[6].toFloat() + stat[7].toFloat() + stat[8].toFloat() + stat[9].toFloat()
+                            val u =
+                                100f * ((nowIdle - nowTotal) - (lastIdle - lastTotal)) / (nowIdle - lastIdle)
                             runOnUiThread { usage.text = u.toString() }
                             lastIdle = nowIdle
                             lastTotal = nowTotal
@@ -169,16 +169,17 @@ class UsageActivity : AppCompatActivity() {
                             val fileInputStream = FileInputStream(File("/proc/stat"))
                             val stat = ArrayList(
                                 Arrays.asList(
-                                    *fileInputStream.bufferedReader(Charsets.UTF_8).readLine()
-                                        .split((" ").toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()
+                                    *fileInputStream.bufferedReader(Charsets.UTF_8).readLine().split(
+                                        (" ").toRegex()
+                                    ).dropLastWhile { it.isEmpty() }.toTypedArray()
                                 )
                             )
                             fileInputStream.close()
                             val nowIdle = stat[5].toFloat()
                             val nowTotal =
-                                stat[2].toFloat() + stat[3].toFloat() + stat[4].toFloat() + stat[6].toFloat() +
-                                        stat[7].toFloat() + stat[8].toFloat() + stat[9].toFloat()
-                            val u = 100f * ((nowIdle - nowTotal) - (lastIdle - lastTotal)) / (nowIdle - lastIdle)
+                                stat[2].toFloat() + stat[3].toFloat() + stat[4].toFloat() + stat[6].toFloat() + stat[7].toFloat() + stat[8].toFloat() + stat[9].toFloat()
+                            val u =
+                                100f * ((nowIdle - nowTotal) - (lastIdle - lastTotal)) / (nowIdle - lastIdle)
                             runOnUiThread { usage.text = u.toString() }
                             lastIdle = nowIdle
                             lastTotal = nowTotal
@@ -211,7 +212,8 @@ class UsageActivity : AppCompatActivity() {
                 var c: Int
                 var lastC = 0
                 while (true) {
-                    c = 0 - batteryManager.getIntProperty(BatteryManager.BATTERY_PROPERTY_CURRENT_NOW) / 1000
+                    c =
+                        0 - batteryManager.getIntProperty(BatteryManager.BATTERY_PROPERTY_CURRENT_NOW) / 1000
                     if (lastC != c) {
                         runOnUiThread {
                             battery_current.text = "$c mA"
@@ -231,10 +233,11 @@ class UsageActivity : AppCompatActivity() {
 
         t2.start()
         val t3 = Thread {
+            val root = javaFileReadLine("/sys/class/thermal/thermal_zone0/temp") == "Fail"
             val dir = File("/sys/class/thermal")
             val file = dir.listFiles().size
             for (i: Int in 0 until file) {
-                val sensorDataChildView = SensorDataChildView(this, i)
+                val sensorDataChildView = SensorDataChildView(this, i, root)
                 runOnUiThread { rootThermal.addView(sensorDataChildView) }
                 sensorDataChildViewList.add(sensorDataChildView)
             }
@@ -255,8 +258,7 @@ class UsageActivity : AppCompatActivity() {
     private fun initialize() {
         setSupportActionBar(toolbar)
 
-        if (supportActionBar != null)
-            supportActionBar!!.setDisplayHomeAsUpEnabled(true)
+        if (supportActionBar != null) supportActionBar!!.setDisplayHomeAsUpEnabled(true)
 
         if (getSharedPreferences("ui", Context.MODE_PRIVATE).getBoolean("navBar", true)) {
             window.navigationBarColor = ContextCompat.getColor(this, R.color.colorPrimary)
@@ -279,8 +281,12 @@ class UsageActivity : AppCompatActivity() {
         super.onBackPressed()
     }
 
-    class BatteryReceiver(activity: UsageActivity, progressBar: ProgressBar, level: TextView, voltage: TextView) :
-        BroadcastReceiver() {
+    class BatteryReceiver(
+        activity: UsageActivity,
+        progressBar: ProgressBar,
+        level: TextView,
+        voltage: TextView
+    ) : BroadcastReceiver() {
         private var activity: UsageActivity? = null
         private var progressBar: ProgressBar? = null
         private var level: TextView? = null
@@ -311,32 +317,57 @@ class UsageActivity : AppCompatActivity() {
         }
     }
 
-    class CoreFreqView(activity: Activity, core: Int) : LinearLayout(activity) {
+    class CoreFreqView(activity: Activity, core: Int, root: Boolean) : LinearLayout(activity) {
         var thread: Thread? = null
 
         init {
             LayoutInflater.from(activity).inflate(R.layout.view_corefreq, this)
 
-            thread = Thread {
-                var f: String
-                var lastFreq = ""
-                while (true) {
-                    f = suFileReadLine("/sys/devices/system/cpu/cpu$core/cpufreq/scaling_cur_freq")
-                    // 减低UI线程使用,对比上一秒频率
-                    // For reduce usage of UI Thread, compare freq of last second
-                    if (lastFreq != f) {
-                        activity.runOnUiThread { freq.text = "$f KHz" }
-                        // 改变后更新 Update after change
-                        lastFreq = f
+            if (!root) {
+                thread = Thread {
+                    var f: String
+                    var lastFreq = ""
+                    while (true) {
+                        f = javaFileReadLine("/sys/devices/system/cpu/cpu$core/cpufreq/scaling_cur_freq")
+                        // 减低UI线程使用,对比上一秒频率
+                        // For reduce usage of UI Thread, compare freq of last second
+                        if (lastFreq != f) {
+                            activity.runOnUiThread { freq.text = "$f KHz" }
+                            // 改变后更新 Update after change
+                            lastFreq = f
+                        }
+                        try {
+                            Thread.sleep(1000)
+                        } catch (e: Exception) {
+                            // 防止线程停止后继续执行Sleep而导致应用崩溃
+                            // Prevent exception occur after interrupt
+                        }
                     }
-                    try {
-                        Thread.sleep(1000)
-                    } catch (e: Exception) {
-                        // 防止线程停止后继续执行Sleep而导致应用崩溃
-                        // Prevent exception occur after interrupt
+                }
+            } else {
+                thread = Thread {
+                    var f: String
+                    var lastFreq = ""
+                    while (true) {
+                        f =
+                            suFileReadLine("/sys/devices/system/cpu/cpu$core/cpufreq/scaling_cur_freq")
+                        // 减低UI线程使用,对比上一秒频率
+                        // For reduce usage of UI Thread, compare freq of last second
+                        if (lastFreq != f) {
+                            activity.runOnUiThread { freq.text = "$f KHz" }
+                            // 改变后更新 Update after change
+                            lastFreq = f
+                        }
+                        try {
+                            Thread.sleep(1000)
+                        } catch (e: Exception) {
+                            // 防止线程停止后继续执行Sleep而导致应用崩溃
+                            // Prevent exception occur after interrupt
+                        }
                     }
                 }
             }
+
             thread!!.start()
         }
 
@@ -345,29 +376,53 @@ class UsageActivity : AppCompatActivity() {
         }
     }
 
-    class SensorDataChildView(activity: Activity, no: Int) : LinearLayout(activity) {
+    class SensorDataChildView(activity: Activity, no: Int, root: Boolean) : LinearLayout(activity) {
         var thread: Thread? = null
 
         init {
             LayoutInflater.from(activity).inflate(R.layout.view_sensordata, this)
-            val t = suFileReadLine("/sys/class/thermal/thermal_zone$no/type")
-            title.text = t
+            if (!root) {
+                val t = javaFileReadLine("/sys/class/thermal/thermal_zone$no/type")
+                title.text = t
 
-            thread = Thread {
-                var d: StringBuilder
-                var lastData = ""
-                while (true) {
-                    d = StringBuilder(suFileReadLine("/sys/class/thermal/thermal_zone$no/temp"))
-                    d.insert(2, ".")
-                    if (lastData != d.toString()) {
-                        activity.runOnUiThread { content.text = d }
-                        lastData = d.toString()
+                thread = Thread {
+                    var d: StringBuilder
+                    var lastData = ""
+                    while (true) {
+                        d = StringBuilder(javaFileReadLine("/sys/class/thermal/thermal_zone$no/temp"))
+                        d.insert(2, ".")
+                        if (lastData != d.toString()) {
+                            activity.runOnUiThread { content.text = d }
+                            lastData = d.toString()
+                        }
+
+                        try {
+                            Thread.sleep(1000)
+                        } catch (e: Exception) {
+                            //
+                        }
                     }
+                }
+            } else {
+                val t = suFileReadLine("/sys/class/thermal/thermal_zone$no/type")
+                title.text = t
 
-                    try {
-                        Thread.sleep(1000)
-                    } catch (e: Exception) {
-                        //
+                thread = Thread {
+                    var d: StringBuilder
+                    var lastData = ""
+                    while (true) {
+                        d = StringBuilder(suFileReadLine("/sys/class/thermal/thermal_zone$no/temp"))
+                        d.insert(2, ".")
+                        if (lastData != d.toString()) {
+                            activity.runOnUiThread { content.text = d }
+                            lastData = d.toString()
+                        }
+
+                        try {
+                            Thread.sleep(1000)
+                        } catch (e: Exception) {
+                            //
+                        }
                     }
                 }
             }

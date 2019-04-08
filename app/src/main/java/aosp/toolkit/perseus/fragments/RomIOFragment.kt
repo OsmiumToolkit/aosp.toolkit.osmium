@@ -13,6 +13,7 @@ import aosp.toolkit.perseus.R
 import aosp.toolkit.perseus.base.BaseIndex.*
 import aosp.toolkit.perseus.base.BaseOperation.Companion.ShortToast
 import aosp.toolkit.perseus.base.BaseOperation.Companion.checkFilePresent
+import aosp.toolkit.perseus.base.BaseOperation.Companion.javaFileReadLine
 import aosp.toolkit.perseus.base.BaseOperation.Companion.suFileReadLine
 import aosp.toolkit.perseus.base.ViewPagerAdapter
 
@@ -69,7 +70,11 @@ class RomIOFragment : Fragment() {
             val seekBar: AppCompatSeekBar = view.findViewById(R.id.seekBar)
             Thread {
                 if (checkFilePresent("/sys/block/mmcblk0/queue/rq_affinity")) {
-                    val status = suFileReadLine("/sys/block/mmcblk0/queue/rq_affinity")
+                    val status = if (javaFileReadLine("/sys/block/mmcblk0/queue/rq_affinity") != "Fail") {
+                        javaFileReadLine("/sys/block/mmcblk0/queue/rq_affinity")
+                    } else {
+                        suFileReadLine("/sys/block/mmcblk0/queue/rq_affinity")
+                    }
                     activity!!.runOnUiThread {
                         seekBar.progress = if (status == "Fail") {
                             1
