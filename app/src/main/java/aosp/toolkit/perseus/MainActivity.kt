@@ -50,13 +50,13 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     // 定义fragments
     private var mainFragment: MainFragment = MainFragment()
     //private var aboutFragment: Fragment? = null
-    private var deviceInfoFragment: Fragment? = null
-    private var chargingFragment: Fragment? = null
-    private var coreFragment: Fragment? = null
-    private var applyYCFragment: Fragment? = null
-    private var applyPixelCatFragment: Fragment? = null
-    private var romIOFragment: Fragment? = null
-    private var otherFragment: Fragment? = null
+    private lateinit var deviceInfoFragment: Fragment
+    private lateinit var chargingFragment: Fragment
+    private lateinit var coreFragment: Fragment
+    private lateinit var applyYCFragment: Fragment
+    private lateinit var applyPixelCatFragment: Fragment
+    private lateinit var romIOFragment: Fragment
+    private lateinit var otherFragment: Fragment
 
     // 显示的fragment
     private var currentFragment: Fragment = mainFragment
@@ -232,73 +232,73 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             when (id) {
                 R.id.nav_charging -> {
                     title = R.string.nav_charging
-                    if (chargingFragment != null) {
-                        fragmentTransaction.show(chargingFragment!!)
+                    if (!::chargingFragment.isInitialized) {
+                        fragmentTransaction.show(chargingFragment)
                     } else {
                         chargingFragment = ChargingFragment()
-                        fragmentTransaction.add(R.id.frameLayout_main, chargingFragment!!)
+                        fragmentTransaction.add(R.id.frameLayout_main, chargingFragment)
                     }
-                    frag = chargingFragment!!
+                    frag = chargingFragment
                 }
                 R.id.nav_cores -> {
                     title = R.string.nav_processor
-                    if (coreFragment != null) {
-                        fragmentTransaction.show(coreFragment!!)
+                    if (!::coreFragment.isInitialized) {
+                        fragmentTransaction.show(coreFragment)
                     } else {
                         coreFragment = CoreFragment()
-                        fragmentTransaction.add(R.id.frameLayout_main, coreFragment!!)
+                        fragmentTransaction.add(R.id.frameLayout_main, coreFragment)
                     }
-                    frag = coreFragment!!
+                    frag = coreFragment
                 }
                 R.id.nav_applyyc -> {
                     title = R.string.nav_yc
-                    if (applyYCFragment != null) {
-                        fragmentTransaction.show(applyYCFragment!!)
+                    if (::applyYCFragment.isInitialized) {
+                        fragmentTransaction.show(applyYCFragment)
                     } else {
                         applyYCFragment = ApplyYCFragment()
-                        fragmentTransaction.add(R.id.frameLayout_main, applyYCFragment!!)
+                        fragmentTransaction.add(R.id.frameLayout_main, applyYCFragment)
                     }
-                    frag = applyYCFragment!!
+                    frag = applyYCFragment
                 }
                 R.id.nav_applypc -> {
                     title = R.string.nav_pc
-                    if (applyPixelCatFragment != null) {
-                        fragmentTransaction.show(applyPixelCatFragment!!)
+                    if (::applyPixelCatFragment.isInitialized) {
+                        fragmentTransaction.show(applyPixelCatFragment)
                     } else {
                         applyPixelCatFragment = ApplyPixelCatFragment()
-                        fragmentTransaction.add(R.id.frameLayout_main, applyPixelCatFragment!!)
+                        fragmentTransaction.add(R.id.frameLayout_main, applyPixelCatFragment)
                     }
-                    frag = applyPixelCatFragment!!
+                    frag = applyPixelCatFragment
                 }
                 R.id.nav_romio -> {
                     title = R.string.nav_romio
-                    if (romIOFragment != null) {
-                        fragmentTransaction.show(romIOFragment!!)
+                    if (::romIOFragment.isInitialized) {
+                        fragmentTransaction.show(romIOFragment)
                     } else {
                         romIOFragment = RomIOFragment()
-                        fragmentTransaction.add(R.id.frameLayout_main, romIOFragment!!)
+                        fragmentTransaction.add(R.id.frameLayout_main, romIOFragment)
                     }
-                    frag = romIOFragment!!
+                    frag = romIOFragment
                 }
                 R.id.nav_others -> {
                     title = R.string.nav_other
-                    if (otherFragment != null) {
-                        fragmentTransaction.show(otherFragment!!)
+                    if (!::otherFragment.isInitialized) {
+                        fragmentTransaction.show(otherFragment)
                     } else {
                         otherFragment = OtherFragment()
-                        fragmentTransaction.add(R.id.frameLayout_main, otherFragment!!)
+                        fragmentTransaction.add(R.id.frameLayout_main, otherFragment)
                     }
-                    frag = otherFragment!!
+                    frag = otherFragment
                 }
                 R.id.nav_deviceinfo -> {
                     title = R.string.nav_deviceinfo
-                    if (deviceInfoFragment != null) {
-                        fragmentTransaction.show(deviceInfoFragment!!)
+                    if (!::deviceInfoFragment.isInitialized) {
+                        fragmentTransaction.show(deviceInfoFragment)
                     } else {
                         deviceInfoFragment = DeviceInfoFragment()
-                        fragmentTransaction.add(R.id.frameLayout_main, deviceInfoFragment!!)
+                        fragmentTransaction.add(R.id.frameLayout_main, deviceInfoFragment)
                     }
-                    frag = deviceInfoFragment!!
+                    frag = deviceInfoFragment
                 }
                 else -> {
                     frag = mainFragment

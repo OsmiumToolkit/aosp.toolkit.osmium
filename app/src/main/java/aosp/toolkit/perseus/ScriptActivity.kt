@@ -27,7 +27,7 @@ import java.net.URL
  */
 
 class ScriptActivity : AppCompatActivity() {
-    private var file: File? = null
+    private lateinit var file: File
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -78,7 +78,7 @@ class ScriptActivity : AppCompatActivity() {
 
                 val inputStream = url.openStream()
 
-                if (!file!!.exists() || file!!.length() < -1) {
+                if (!file.exists() || file.length() < -1) {
 
                     val fileOutputStream = FileOutputStream(file)
 
@@ -115,16 +115,16 @@ class ScriptActivity : AppCompatActivity() {
          *
          */
 
-        if (file!!.length() > 1) {
+        if (file.length() > 1) {
             runOnUiThread {
-                script_download.append(file!!.length().toString() + "Bytes\n")
+                script_download.append(file.length().toString() + "Bytes\n")
                 script_download.append(getString(R.string.script_download_done))
                 script_target_title.visibility = View.VISIBLE
                 script_target.text = file.toString()
                 script_permission_title.visibility = View.VISIBLE
             }
 
-            if (setPermission(file!!.toString())) {
+            if (setPermission(file.toString())) {
                 runOnUiThread {
                     script_permission.setText(R.string.script_permission_done)
                     script_command_title.visibility = View.VISIBLE

@@ -1,5 +1,6 @@
 package aosp.toolkit.perseus.fragments
 
+import android.annotation.SuppressLint
 import android.app.Dialog
 import android.os.Bundle
 import android.support.v4.app.Fragment
@@ -29,6 +30,7 @@ class ApplyPixelCatFragment : Fragment() {
         return inflater.inflate(R.layout.fragment_applypixelcat, container, false)
     }
 
+    @SuppressLint("InflateParams")
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 

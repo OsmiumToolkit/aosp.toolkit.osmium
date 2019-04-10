@@ -1,5 +1,8 @@
+@file:Suppress("NAME_SHADOWING")
+
 package aosp.toolkit.perseus
 
+import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.BroadcastReceiver
 import android.content.Context
@@ -42,13 +45,14 @@ import java.util.Arrays
  *
  */
 
-@Suppress("all", "NAME_SHADOWING")
+@Suppress("all")
 class UsageActivity : AppCompatActivity() {
-    private var batteryReceiver: BatteryReceiver? = null
+    private lateinit var batteryReceiver: BatteryReceiver
     private val coreFreqViewList = mutableListOf<CoreFreqView>()
     private val sensorDataChildViewList = mutableListOf<SensorDataChildView>()
     private val threadList = mutableListOf<Thread>()
 
+    @SuppressLint("SetTextI18n")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_usage)
@@ -317,6 +321,7 @@ class UsageActivity : AppCompatActivity() {
         }
     }
 
+    @SuppressLint("ViewConstructor")
     class CoreFreqView(activity: Activity, core: Int, root: Boolean) : LinearLayout(activity) {
         var thread: Thread? = null
 
