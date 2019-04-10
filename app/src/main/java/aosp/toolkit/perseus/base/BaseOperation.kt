@@ -61,11 +61,22 @@ class BaseOperation {
         }
 
         fun suFileReadLine(filePath: String): String {
-            return Shell.su("cat $filePath").exec().out[0] ?: "Fail"
+            val line:String? = try {
+                Shell.su("cat $filePath").exec().out[0]
+            } catch (e: Exception) {
+                "Fail"
+            }
+            return line?: "Fail"
         }
 
         fun javaFileReadLine(file: String): String {
-            return FileInputStream(file).bufferedReader(Charsets.UTF_8).readLine() ?: "Fail"
+            val line: String? = try {
+                FileInputStream(file).bufferedReader(Charsets.UTF_8).readLine()
+            } catch (e: Exception) {
+                "Fail"
+            }
+
+            return line?:"Fail"
         }
 
         fun checkFilePresent(filePath: String): Boolean {
