@@ -12,6 +12,7 @@ import android.os.BatteryManager
 import android.os.Bundle
 import android.support.v4.content.ContextCompat
 import android.support.v7.app.AppCompatActivity
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.GridLayout
@@ -117,11 +118,20 @@ class UsageActivity : AppCompatActivity() {
                     // 文件权限不足时会抛出IOException, 从而判断是否需要ROOT
                     // IOException thrown when "Permission Denied", applied to consider using ROOT
                     ShortToast(this, e, false)
-                    stat = ArrayList(
-                        Arrays.asList(
-                            *Shell.su("cat /proc/stat").exec().out[0].split((" ").toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()
+                    Log.e("stack", e.toString())
+                    stat = try {
+                        ArrayList(
+                            Arrays.asList(
+                                *Shell.su("cat /proc/stat").exec().out[0].split((" ").toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()
+                            )
                         )
-                    )
+                    } catch (e: Exception) {
+                        runOnUiThread {
+                            usage.text = "/proc/stat: Permission denied"
+                            percent.visibility = View.GONE
+                        }
+                        arrayListOf()
+                    }
                     root = true
                 }
 
@@ -158,7 +168,6 @@ class UsageActivity : AppCompatActivity() {
                             lastIdle = nowIdle
                             lastTotal = nowTotal
                         } catch (e: Exception) {
-                            runOnUiThread { ShortToast(this, e, false) }
                             break
                         }
                         try {
@@ -188,7 +197,6 @@ class UsageActivity : AppCompatActivity() {
                             lastIdle = nowIdle
                             lastTotal = nowTotal
                         } catch (e: Exception) {
-                            runOnUiThread { ShortToast(this, e, false) }
                             break
                         }
                         try {
@@ -243,6 +251,7 @@ class UsageActivity : AppCompatActivity() {
             for (i: Int in 0 until file) {
                 val sensorDataChildView = SensorDataChildView(this, i, root)
                 runOnUiThread { rootThermal.addView(sensorDataChildView) }
+
                 sensorDataChildViewList.add(sensorDataChildView)
             }
         }
@@ -286,10 +295,7 @@ class UsageActivity : AppCompatActivity() {
     }
 
     class BatteryReceiver(
-        activity: UsageActivity,
-        progressBar: ProgressBar,
-        level: TextView,
-        voltage: TextView
+        activity: UsageActivity, progressBar: ProgressBar, level: TextView, voltage: TextView
     ) : BroadcastReceiver() {
         private var activity: UsageActivity? = null
         private var progressBar: ProgressBar? = null
@@ -333,7 +339,8 @@ class UsageActivity : AppCompatActivity() {
                     var f: String
                     var lastFreq = ""
                     while (true) {
-                        f = javaFileReadLine("/sys/devices/system/cpu/cpu$core/cpufreq/scaling_cur_freq")
+                        f =
+                            javaFileReadLine("/sys/devices/system/cpu/cpu$core/cpufreq/scaling_cur_freq")
                         // 减低UI线程使用,对比上一秒频率
                         // For reduce usage of UI Thread, compare freq of last second
                         if (lastFreq != f) {
@@ -382,7 +389,8 @@ class UsageActivity : AppCompatActivity() {
     }
 
     class SensorDataChildView(activity: Activity, no: Int, root: Boolean) : LinearLayout(activity) {
-        var thread: Thread? = null
+        var thread: Thread
+        lateinit var d: StringBuilder
 
         init {
             LayoutInflater.from(activity).inflate(R.layout.view_sensordata, this)
@@ -391,20 +399,23 @@ class UsageActivity : AppCompatActivity() {
                 title.text = t
 
                 thread = Thread {
-                    var d: StringBuilder
-                    var lastData = ""
-                    while (true) {
-                        d = StringBuilder(javaFileReadLine("/sys/class/thermal/thermal_zone$no/temp"))
-                        d.insert(2, ".")
-                        if (lastData != d.toString()) {
-                            activity.runOnUiThread { content.text = d }
-                            lastData = d.toString()
-                        }
+                    d = StringBuilder(javaFileReadLine("/sys/class/thermal/thermal_zone$no/temp"))
+                    if (d.toString() != "Fail") {
+                        var lastData = ""
+                        while (true) {
+                            d =
+                                StringBuilder(javaFileReadLine("/sys/class/thermal/thermal_zone$no/temp"))
+                            d.insert(2, ".")
+                            if (lastData != d.toString()) {
+                                activity.runOnUiThread { content.text = d }
+                                lastData = d.toString()
+                            }
 
-                        try {
-                            Thread.sleep(1000)
-                        } catch (e: Exception) {
-                            //
+                            try {
+                                Thread.sleep(1000)
+                            } catch (e: Exception) {
+                                //
+                            }
                         }
                     }
                 }
@@ -413,29 +424,32 @@ class UsageActivity : AppCompatActivity() {
                 title.text = t
 
                 thread = Thread {
-                    var d: StringBuilder
-                    var lastData = ""
-                    while (true) {
-                        d = StringBuilder(suFileReadLine("/sys/class/thermal/thermal_zone$no/temp"))
-                        d.insert(2, ".")
-                        if (lastData != d.toString()) {
-                            activity.runOnUiThread { content.text = d }
-                            lastData = d.toString()
-                        }
+                    d = StringBuilder(suFileReadLine("/sys/class/thermal/thermal_zone$no/temp"))
+                    if (d.toString() != "Fail") {
+                        var lastData = ""
+                        while (true) {
+                            d =
+                                StringBuilder(suFileReadLine("/sys/class/thermal/thermal_zone$no/temp"))
+                            d.insert(2, ".")
+                            if (lastData != d.toString()) {
+                                activity.runOnUiThread { content.text = d }
+                                lastData = d.toString()
+                            }
 
-                        try {
-                            Thread.sleep(1000)
-                        } catch (e: Exception) {
-                            //
+                            try {
+                                Thread.sleep(1000)
+                            } catch (e: Exception) {
+                                //
+                            }
                         }
                     }
                 }
             }
-            thread!!.start()
+            thread.start()
         }
 
         fun interruptThread() {
-            this.thread!!.interrupt()
+            this.thread.interrupt()
         }
     }
 

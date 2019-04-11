@@ -15,7 +15,7 @@ import java.net.URL
 
 class CheckUpdate {
     class CheckVersion : Thread() {
-        private var version: String? = null
+        private lateinit var version: String
 
         override fun run() {
             super.run()

@@ -232,7 +232,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             when (id) {
                 R.id.nav_charging -> {
                     title = R.string.nav_charging
-                    if (!::chargingFragment.isInitialized) {
+                    if (::chargingFragment.isInitialized) {
                         fragmentTransaction.show(chargingFragment)
                     } else {
                         chargingFragment = ChargingFragment()
@@ -242,7 +242,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 }
                 R.id.nav_cores -> {
                     title = R.string.nav_processor
-                    if (!::coreFragment.isInitialized) {
+                    if (::coreFragment.isInitialized) {
                         fragmentTransaction.show(coreFragment)
                     } else {
                         coreFragment = CoreFragment()
@@ -282,7 +282,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 }
                 R.id.nav_others -> {
                     title = R.string.nav_other
-                    if (!::otherFragment.isInitialized) {
+                    if (::otherFragment.isInitialized) {
                         fragmentTransaction.show(otherFragment)
                     } else {
                         otherFragment = OtherFragment()
@@ -292,7 +292,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 }
                 R.id.nav_deviceinfo -> {
                     title = R.string.nav_deviceinfo
-                    if (!::deviceInfoFragment.isInitialized) {
+                    if (::deviceInfoFragment.isInitialized) {
                         fragmentTransaction.show(deviceInfoFragment)
                     } else {
                         deviceInfoFragment = DeviceInfoFragment()
