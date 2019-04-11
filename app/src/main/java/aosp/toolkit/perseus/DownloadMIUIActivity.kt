@@ -197,7 +197,7 @@ class DownloadMIUIActivity : AppCompatActivity() {
         init {
             LayoutInflater.from(context).inflate(R.layout.view_device, this)
             model.text = m
-            version.text = if (v.contains("I1")) {
+            version.text = if (!v.contains("I10") && !v.contains("I9") && v.endsWith("1")) {
                 v.plus("0")
             } else {
                 v

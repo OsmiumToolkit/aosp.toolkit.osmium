@@ -18,10 +18,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:columnCount="2"
-                android:orientation="horizontal"
-                android:scrollbars="vertical" />
+                android:orientation="horizontal" />
         </LinearLayout>
     </ScrollView>
-
-
 </android.support.v4.widget.NestedScrollView>
