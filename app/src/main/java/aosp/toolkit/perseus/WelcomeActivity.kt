@@ -4,8 +4,6 @@ import android.content.Intent
 import android.graphics.Paint
 import android.os.Bundle
 import android.support.v4.app.Fragment
-import android.support.v4.app.FragmentManager
-import android.support.v4.app.FragmentPagerAdapter
 import android.support.v4.content.ContextCompat
 import android.support.v7.app.AppCompatActivity
 import android.view.LayoutInflater
@@ -42,7 +40,7 @@ import java.lang.Exception
  *
  */
 class WelcomeActivity : AppCompatActivity() {
-    private var t: Thread? = null
+    private lateinit var t: Thread
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_welcome)
@@ -88,11 +86,11 @@ class WelcomeActivity : AppCompatActivity() {
                 }
             }
         }
-        t!!.start()
+        t.start()
     }
 
     override fun finish() {
-        t!!.interrupt()
+        t.interrupt()
         super.finish()
     }
 
