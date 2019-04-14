@@ -4,8 +4,12 @@ import android.annotation.SuppressLint
 import android.app.Service
 import android.content.Intent
 import android.os.IBinder
+import android.util.Log
 import aosp.toolkit.perseus.BuildConfig
+import aosp.toolkit.perseus.R
+import aosp.toolkit.perseus.base.BaseManager
 import org.jsoup.Jsoup
+import java.lang.StringBuilder
 
 
 /*
@@ -17,38 +21,85 @@ import org.jsoup.Jsoup
  */
 
 @SuppressLint("Registered")
-class UpdateService: Service() {
+class UpdateService : Service() {
     private lateinit var listener: UpdateServiceListener
-    private lateinit var thread: Thread
+    //private lateinit var thread: Thread
+
     override fun onCreate() {
         super.onCreate()
+        listener = BaseManager.getInstance().mainActivity as UpdateServiceListener
     }
 
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
-        listener = intent!!.extras!!.get("listener") as UpdateServiceListener
+        listener.onUpdateChecking()
         Thread {
-            val document = Jsoup.connect("").get()
+            val document = Jsoup.connect("https://toolkitperseus.github.io/perseus.html").get()
+            Log.e("document", document.toString())
 
-            val v = document.getElementById("currentVersion").select("a").text()
-            if (v == BuildConfig.VERSION_NAME) {
+            val c = document.getElementById("currentCode").select("div").text()
+            if (c == BuildConfig.VERSION_CODE.toString()) {
+                listener.onNewest(c, document.getElementById("currentVersion").select("a").text())
+            } else {
+                val v = document.getElementById("currentVersion").select("a")
+                val vName = v.text()
+                val url = v.attr("href")
 
+                val zh = StringBuilder()
+                val en = StringBuilder()
+                for (i in document.getElementById("changelogZh").select("li")) {
+                    zh.append(i.text().plus("\n"))
+                }
+                for (i in document.getElementById("changelogEn").select("li")) {
+                    en.append(i.text().plus("\n"))
+                }
+
+                listener.onUpdate(
+                    vName,
+                    url,
+                    document.getElementById("date").select("div").text(),
+                    if (zh.isEmpty()) {
+                        getText(R.string.toast_failed).toString()
+                    } else {
+                        zh.toString()
+                    },
+                    if (en.isEmpty()) {
+                        getText(R.string.toast_failed).toString()
+                    } else {
+                        en.toString()
+                    }
+                )
             }
 
         }.start()
         return super.onStartCommand(intent, flags, startId)
     }
+
     override fun onBind(intent: Intent?): IBinder? {
         return null
     }
-    interface UpdateServiceListener{
-        fun onFinish() {
+
+    interface UpdateServiceListener {
+        fun onUpdateChecking() {
         }
-        fun onUpdate(version: String,
-                     date: String,
-                     changelogZh: String,
-                     changelogEn: String) {
+
+        /*
+         * interface onUpdate
+         * @param version
+         * @param url
+         * @param date
+         * @param changelogZh
+         * @param changelogEn
+         *
+         * return void
+         *
+         */
+        fun onUpdate(
+            version: String, url: String, date: String, changelogZh: String, changelogEn: String
+        ) {
+
         }
-        fun onNewest() {
+
+        fun onNewest(version: String, code: String) {
         }
     }
 }

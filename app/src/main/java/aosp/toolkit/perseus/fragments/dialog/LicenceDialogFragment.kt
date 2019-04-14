@@ -32,7 +32,7 @@ class LicenceDialogFragment : DialogFragment() {
         //val webView = view.findViewById<WebView>(R.id.webView)
         val textView = view.findViewById<TextView>(R.id.textView)
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-            for (i in context!!.assets.open("licence.txt").bufferedReader(Charsets.UTF_8).readLines()) {
+            for (i in context!!.assets.open("license.txt").bufferedReader(Charsets.UTF_8).readLines()) {
                 textView.append(Html.fromHtml(i, FROM_HTML_MODE_LEGACY))
                 textView.append("\n")
             }

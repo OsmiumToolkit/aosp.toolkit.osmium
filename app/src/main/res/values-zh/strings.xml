@@ -55,6 +55,8 @@
 
     <string name="systemApp">&#60;系统应用&#62;</string>
 
+    <string name="update_startcheck">检查更新…</string>
+    <string name="update_alreadynew">已是最新版本: v%s(%s)</string>
     <string name="update_check">检查更新</string>
     <string name="update_fail">更新检查失败: 请检查网络连接后尝试</string>
     <string name="update_found">更新已发布!</string>
@@ -110,6 +112,7 @@
     <string name="sw_none">不可用</string>
     <string name="toast_succeed">成功!</string>
     <string name="toast_failed">失败!</string>
+
 
     <string name="charging_not_support">警告：\n设备部分功能不受支持</string>
     <string name="charging_qc3_title">QC3.0 快充</string>

@@ -54,7 +54,9 @@
     <string name="warning" >Copyright &#169;1552980358 &#8211; 2019</string >
     
     <string name="systemApp" >&#60;SYSTEM APP&#62;</string >
-    
+
+    <string name="update_startcheck">Checking update…</string>
+    <string name="update_alreadynew">Already the newest version: v%s(%s)</string>
     <string name="update_check" >Check for update</string >
     <string name="update_fail" >Fail to check: Please check your Internet connection</string >
     <string name="update_found" >New Update is released!</string >

@@ -32,20 +32,23 @@ import android.view.View
 import android.widget.RelativeLayout
 
 import aosp.toolkit.perseus.base.BaseManager
+import aosp.toolkit.perseus.base.BaseOperation
+import aosp.toolkit.perseus.base.BaseOperation.Companion.ShortToast
 import aosp.toolkit.perseus.base.BaseOperation.Companion.getPackageVersion
 import aosp.toolkit.perseus.fragments.*
 import aosp.toolkit.perseus.fragments.dialog.AboutmeDialogFragment
 import aosp.toolkit.perseus.fragments.dialog.LicenceDialogFragment
+import aosp.toolkit.perseus.fragments.dialog.UpdateDialogFragment
+import aosp.toolkit.perseus.services.UpdateService
 
 import com.topjohnwu.superuser.Shell
 
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.app_bar_main.*
 
-import java.util.*
-
-class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener,
-    View.OnClickListener {
+class MainActivity : AppCompatActivity(),
+    NavigationView.OnNavigationItemSelectedListener,
+    View.OnClickListener, UpdateService.UpdateServiceListener {
 
     // 定义fragments
     private var mainFragment: MainFragment = MainFragment()
@@ -63,10 +66,13 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        // 移除上一个activity
-        BaseManager.getInstance().finishActivities()
-        BaseManager.instance.setMainActivity(this, mainFragment)
+        Thread {
+            // 移除上一个activity
+            BaseManager.getInstance().finishActivities()
+            BaseManager.instance.setMainActivity(this, mainFragment)
+        }.start()
 
+        checkUpdate()
         setContentView(R.layout.activity_main)
 
         Thread {
@@ -85,13 +91,11 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
         initUI()
         addFragment()
-        Timer().schedule(object : TimerTask() {
-            override fun run() {
-                runOnUiThread {
-                    drawer_layout.openDrawer(GravityCompat.START)
-                }
+        Thread {
+            runOnUiThread {
+                drawer_layout.openDrawer(GravityCompat.START)
             }
-        }, 500)
+        }.start()
     }
 
     private fun initUI() {
@@ -118,6 +122,10 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             // 6.0加入的API 无法适配 5.0 / 5.1
             // window.navigationBarColor = resources.getColor(R.color.colorPrimary, null)
         }
+    }
+
+    fun checkUpdate() {
+        startService(Intent(applicationContext, UpdateService::class.java))
     }
 
     fun exceptionBeaker() {
@@ -208,6 +216,27 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     fun navigationViewBottomListener(view: View) {
         view.findViewById<RelativeLayout>(R.id.nav_about).setOnClickListener(this)
         view.findViewById<RelativeLayout>(R.id.nav_aboutme).setOnClickListener(this)
+    }
+
+    override fun onUpdateChecking() {
+        super.onUpdateChecking()
+        ShortToast(this, R.string.update_startcheck, false)
+    }
+
+    override fun onUpdate(
+        version: String,
+        url: String,
+        date: String,
+        changelogZh: String,
+        changelogEn: String
+    ) {
+        super.onUpdate(version, url, date, changelogZh, changelogEn)
+        UpdateDialogFragment().setData(version, url, date, changelogZh, changelogEn).show(supportFragmentManager, "UpdateDialogFragment()")
+    }
+
+    override fun onNewest(version: String, code: String) {
+        super.onNewest(version, code)
+        ShortToast(this, String.format(getString(R.string.update_alreadynew), version, code), false)
     }
 
     override fun onClick(v: View?) {

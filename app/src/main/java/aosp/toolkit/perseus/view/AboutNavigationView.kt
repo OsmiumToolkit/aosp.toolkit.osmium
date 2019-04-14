@@ -27,6 +27,7 @@ import kotlinx.android.synthetic.main.view_about_navigation.view.*
  *
  */
 
+@Suppress("UNUSED_PARAMETER")
 class AboutNavigationView : LinearLayout {
     constructor(context: Context, attributeSet: AttributeSet?): this(context)
     constructor(context: Context) : super(context) {
@@ -36,24 +37,7 @@ class AboutNavigationView : LinearLayout {
             Accessing.accessCoolapkAccount(mainActivity, BaseIndex.MaintainerCoolapkID)
         }
         update.setOnClickListener {
-            Thread {
-                val version = CheckUpdate.CheckVersion().getVersion()
-                if (version != (getPackageVersion(context)) && version != null) {
-                    val getChangelog = CheckUpdate.GetChangelog()
-                    getChangelog.onFetching()
-                    val updateDialogFragment = UpdateDialogFragment().setData(
-                        version,
-                        CheckUpdate.GetDate().returnData(),
-                        getChangelog.changelogZh,
-                        getChangelog.changelogEn
-                    )
-                    mainActivity.runOnUiThread {
-                        updateDialogFragment.show(
-                            mainActivity.supportFragmentManager, "updateChecking"
-                        )
-                    }
-                }
-            }.start()
+            BaseManager.getInstance().mainActivity.checkUpdate()
         }
         source.setOnClickListener {
             Accessing.accessGitHub(mainActivity, BaseIndex.Repo_Source)
