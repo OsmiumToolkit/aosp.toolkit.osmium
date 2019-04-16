@@ -8,6 +8,7 @@ import android.util.Log
 import aosp.toolkit.perseus.BuildConfig
 import aosp.toolkit.perseus.R
 import aosp.toolkit.perseus.base.BaseManager
+import aosp.toolkit.perseus.base.BaseOperation.Companion.ShortToast
 import org.jsoup.Jsoup
 import java.lang.StringBuilder
 
@@ -33,43 +34,49 @@ class UpdateService : Service() {
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
         listener.onUpdateChecking()
         Thread {
-            val document = Jsoup.connect("https://toolkitperseus.github.io/perseus.html").get()
-            Log.e("document", document.toString())
+            try {
+                val document = Jsoup.connect("https://toolkitperseus.github.io/perseus.html").get()
+                //Log.e("document", document.toString())
 
-            val c = document.getElementById("currentCode").select("div").text()
-            if (c == BuildConfig.VERSION_CODE.toString()) {
-                listener.onNewest(c, document.getElementById("currentVersion").select("a").text())
-            } else {
-                val v = document.getElementById("currentVersion").select("a")
-                val vName = v.text()
-                val url = v.attr("href")
+                val c = document.getElementById("currentCode").select("div").text()
+                if (c == BuildConfig.VERSION_CODE.toString()) {
+                    listener.onNewest(
+                        c,
+                        document.getElementById("currentVersion").select("a").text()
+                    )
+                } else {
+                    val v = document.getElementById("currentVersion").select("a")
+                    val vName = v.text()
+                    val url = v.attr("href")
 
-                val zh = StringBuilder()
-                val en = StringBuilder()
-                for (i in document.getElementById("changelogZh").select("li")) {
-                    zh.append(i.text().plus("\n"))
-                }
-                for (i in document.getElementById("changelogEn").select("li")) {
-                    en.append(i.text().plus("\n"))
-                }
-
-                listener.onUpdate(
-                    vName,
-                    url,
-                    document.getElementById("date").select("div").text(),
-                    if (zh.isEmpty()) {
-                        getText(R.string.toast_failed).toString()
-                    } else {
-                        zh.toString()
-                    },
-                    if (en.isEmpty()) {
-                        getText(R.string.toast_failed).toString()
-                    } else {
-                        en.toString()
+                    val zh = StringBuilder()
+                    val en = StringBuilder()
+                    for (i in document.getElementById("changelogZh").select("li")) {
+                        zh.append(i.text().plus("\n"))
                     }
-                )
-            }
+                    for (i in document.getElementById("changelogEn").select("li")) {
+                        en.append(i.text().plus("\n"))
+                    }
 
+                    listener.onUpdate(
+                        vName,
+                        url,
+                        document.getElementById("date").select("div").text(),
+                        if (zh.isEmpty()) {
+                            getText(R.string.toast_failed).toString()
+                        } else {
+                            zh.toString()
+                        },
+                        if (en.isEmpty()) {
+                            getText(R.string.toast_failed).toString()
+                        } else {
+                            en.toString()
+                        }
+                    )
+                }
+            } catch (e: Exception) {
+                ShortToast(BaseManager.getInstance().mainActivity, e, false)
+            }
         }.start()
         return super.onStartCommand(intent, flags, startId)
     }
