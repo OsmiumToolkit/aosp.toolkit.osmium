@@ -11,9 +11,11 @@ import aosp.toolkit.perseus.base.BaseOperation.Companion.setPermission
 import aosp.toolkit.perseus.base.BaseOperation.Companion.ShortToast
 
 import com.topjohnwu.superuser.Shell
+
 import kotlinx.android.synthetic.main.activity_script.*
 
-import java.io.*
+import java.io.File
+import java.io.FileOutputStream
 import java.lang.Exception
 import java.net.URL
 
@@ -78,24 +80,27 @@ class ScriptActivity : AppCompatActivity() {
 
                 val inputStream = url.openStream()
 
-                if (!file.exists() || file.length() < -1) {
-
-                    val fileOutputStream = FileOutputStream(file)
-
-                    val buffer = ByteArray(10240)
-
-                    // 输出到文件 Output to file
-                    var len: Int = inputStream.read(buffer)
-                    while (len != -1) {
-                        fileOutputStream.write(buffer, 0, len)
-                        len = inputStream.read(buffer)
-                    }
-
-                    // 释放资源 release resources
-                    fileOutputStream.flush()
-                    inputStream.close()
-                    fileOutputStream.close()
+                if (file.exists()) {
+                    file.delete()
                 }
+
+                val fileOutputStream = FileOutputStream(file)
+
+                val buffer = ByteArray(
+                    10240
+                )
+
+                // 输出到文件 Output to file
+                var len: Int = inputStream.read(buffer)
+                while (len != -1) {
+                    fileOutputStream.write(buffer, 0, len)
+                    len = inputStream.read(buffer)
+                }
+
+                // 释放资源 release resources
+                fileOutputStream.flush()
+                inputStream.close()
+                fileOutputStream.close()
             } catch (e: Exception) {
                 ShortToast(this, e, false)
             }
@@ -151,7 +156,7 @@ class ScriptActivity : AppCompatActivity() {
 
         val stdOut = mutableListOf<String>()
         val stdError = mutableListOf<String>()
-        Shell.su("/system/bin/sh ${file.toString()}").to(stdOut, stdError).exec()
+        Shell.su("/system/bin/sh $file").to(stdOut, stdError).exec()
 
         // 内容输出 output process
         if (stdOut.size > 0) {
