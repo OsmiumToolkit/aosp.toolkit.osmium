@@ -1,4 +1,4 @@
-![ICON](https://github.com/1552980358/aosp.toolkit.perseus/blob/master/app/src/main/res/mipmap/ic_launcher_round.png?raw=true)
+![ICON](https://github.com/1552980358/aosp.toolkit.perseus/blob/3dd2d43c3287d7d9a895d7ca758a2195b1e538e4/app/src/main/res/mipmap/ic_launcher_round.png?raw=true)
 # Toolkit Perseus - 英仙
 ### 包名 / Package Name
 - aosp.toolkit.perseus
