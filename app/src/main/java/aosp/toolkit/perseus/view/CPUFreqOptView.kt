@@ -34,7 +34,8 @@ class CPUFreqOptView(activity: Activity, type: String, index: String, board: Str
                 .setPositiveButton(R.string.cont) { _, _ ->
                     activity.startActivity(
                         Intent(activity, ScriptActivity::class.java)
-                            .putExtra("path", "$type/$index/$board")
+                            .putExtra("path", "$type/$index")
+                            .putExtra("script", board)
                     )
                 }
                 .setNegativeButton(R.string.cancel) { _, _ ->

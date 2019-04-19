@@ -2,33 +2,28 @@
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent" >
-    
-    <LinearLayout
+    android:layout_height="match_parent"
+    android:background="@android:color/transparent">
+
+    <RelativeLayout
+        android:id="@+id/root_S"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@android:color/black" >
-        
-        <RelativeLayout
-            android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/dp_1"
+        android:layout_marginEnd="@dimen/dp_1"
+        android:background="@drawable/ripple_effect"
+        android:clickable="true"
+        android:focusable="true">
+
+        <android.support.v7.widget.AppCompatTextView
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="@dimen/dp_1"
-            android:layout_marginStart="@dimen/dp_1"
-            android:background="@drawable/ripple_effect"
-            android:id="@+id/root_S"
-            android:clickable="true"
-            android:focusable="true" >
-            
-            <android.support.v7.widget.AppCompatTextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="@dimen/sp_40"
-                android:layout_alignParentBottom="true"
-                android:layout_centerHorizontal="true"
-                android:textColor="@android:color/white"
-                android:text="@string/welcome_ready_content"
-                android:paddingBottom="@dimen/dp_200" />
-        
-        </RelativeLayout >
-    </LinearLayout >
-</LinearLayout >
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:paddingBottom="@dimen/dp_200"
+            android:text="@string/welcome_ready_content"
+            android:textColor="@android:color/white"
+            android:textSize="@dimen/sp_40" />
+
+    </RelativeLayout>
+</LinearLayout>

@@ -16,6 +16,7 @@ package aosp.toolkit.perseus.fragments.dialog;
  */
 
 
+import android.annotation.SuppressLint;
 import android.app.*;
 import android.os.Bundle;
 import android.support.annotation.*;
@@ -23,13 +24,17 @@ import android.support.v4.app.DialogFragment;
 import android.view.*;
 import android.widget.TextView;
 
+import java.util.Objects;
+
 import aosp.toolkit.perseus.R;
 import aosp.toolkit.perseus.base.Accessing;
 
-import static aosp.toolkit.perseus.base.BaseIndex.*;
+import static aosp.toolkit.perseus.base.BaseIndex.Repo_Release;
+import static aosp.toolkit.perseus.base.BaseIndex.PackageName;
 
 public class UpdateDialogFragment extends DialogFragment {
     String version;
+    String url;
     String date;
     String changelogEn;
     String changelogZh;
@@ -38,7 +43,7 @@ public class UpdateDialogFragment extends DialogFragment {
     @Override
     public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-        View view = LayoutInflater.from(getActivity()).inflate(R.layout.dialogfragment_update, null);
+        @SuppressLint("InflateParams") View view = LayoutInflater.from(getActivity()).inflate(R.layout.dialogfragment_update, null);
 
         TextView v = view.findViewById(R.id.update_version);
         TextView d = view.findViewById(R.id.update_date);
@@ -56,11 +61,13 @@ public class UpdateDialogFragment extends DialogFragment {
         En.setOnClickListener(v1 -> cEn.setVisibility(cEn.getVisibility() == View.GONE ? View.VISIBLE : View.GONE));
 
         builder.setTitle(R.string.update_found);
-        builder.setPositiveButton(R.string.update_github, (dialog, which) -> {
-            Accessing.Companion.accessGitHub(getActivity(), Repo_Release);
-        }).setNegativeButton(R.string.update_coolapk, (dialog, which) -> {
-            Accessing.Companion.accessCoolapkRelease(getActivity(), PackageName);
-        }).setNeutralButton(R.string.cancel, (dialog, which) -> {
+        builder.setPositiveButton(R.string.update_github,
+            (dialog, which) ->
+                Accessing.Companion.accessGitHub(Objects.requireNonNull(getActivity()), url))
+            .setNegativeButton(R.string.update_coolapk,
+            (dialog, which) ->
+                Accessing.Companion.accessCoolapkRelease(getActivity(), PackageName))
+            .setNeutralButton(R.string.cancel, (dialog, which) -> {
 
         });
 
@@ -68,8 +75,9 @@ public class UpdateDialogFragment extends DialogFragment {
         return builder.create();
     }
 
-    public UpdateDialogFragment setData(String version, String date, String changelogZh, String changelogEn) {
+    public UpdateDialogFragment setData(String version, String url, String date, String changelogZh, String changelogEn) {
         this.version = version;
+        this.url = url;
         this.date = date;
         this.changelogZh = changelogZh;
         this.changelogEn = changelogEn;

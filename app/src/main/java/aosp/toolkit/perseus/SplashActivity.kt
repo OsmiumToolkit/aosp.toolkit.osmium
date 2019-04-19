@@ -16,27 +16,48 @@ package aosp.toolkit.perseus
  *
  */
 
-import android.content.*
+import android.annotation.SuppressLint
+import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.support.v4.app.ActivityCompat
 import android.support.v7.app.AppCompatActivity
+import kotlinx.android.synthetic.main.activity_splash.*
 
 class SplashActivity : AppCompatActivity() {
+    @SuppressLint("SetTextI18n")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_splash)
 
         val permission = arrayOf(android.Manifest.permission.INTERNET)
-
         ActivityCompat.requestPermissions(this, permission, 1)
 
-        if (getSharedPreferences("splash", Context.MODE_PRIVATE)
-                .getBoolean("welcome", false)
-        ) {
-            startActivity(Intent(this, MainActivity::class.java))
-        } else {
-            startActivity(Intent(this, WelcomeActivity::class.java))
-        }
+        info.text =
+            "${BuildConfig.APPLICATION_ID}\n${BuildConfig.BUILD_TYPE}\nv${BuildConfig.VERSION_NAME}\n${BuildConfig.VERSION_CODE}"
 
-        finish()
+        Thread {
+            try {
+                Thread.sleep(2000)
+            } catch (e: Exception) {
+                //
+            }
+            startActivity(
+                Intent(
+                    this,
+                    if (getSharedPreferences("launch", Context.MODE_PRIVATE).getBoolean(
+                            "welcome",
+                            false
+                        )
+                    ) {
+                        MainActivity::class.java
+                    } else {
+                        WelcomeActivity::class.java
+                    }
+                )
+            )
+
+            finish()
+        }.start()
     }
 }

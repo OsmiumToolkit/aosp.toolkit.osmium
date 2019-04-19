@@ -1,22 +1,35 @@
 package aosp.toolkit.perseus.fragments
 
+import android.annotation.SuppressLint
 import android.app.Activity
 import android.app.Dialog
 import android.content.Context
 import android.os.Bundle
 import android.support.v4.app.Fragment
-import android.view.*
-import android.widget.*
+import android.util.Log
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import android.widget.ArrayAdapter
+import android.widget.LinearLayout
+import android.widget.AdapterView
 
 import aosp.toolkit.perseus.R
 import aosp.toolkit.perseus.base.BaseOperation
 import aosp.toolkit.perseus.base.BaseOperation.Companion.ShortToast
 import aosp.toolkit.perseus.base.BaseOperation.Companion.getAvailableCore
+import aosp.toolkit.perseus.base.BaseOperation.Companion.javaFileReadLine
+import aosp.toolkit.perseus.base.BaseOperation.Companion.suFileReadLine
 
 import com.topjohnwu.superuser.Shell
 
 import kotlinx.android.synthetic.main.fragment_core.*
-import java.util.*
+import kotlinx.android.synthetic.main.view_core.view.*
+
+import java.util.TimerTask
+import java.util.Timer
+import java.util.Arrays
+
 
 /*
  * OsToolkit - Kotlin
@@ -36,10 +49,13 @@ import java.util.*
  */
 
 class CoreFragment : Fragment() {
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
+    ): View? {
         return inflater.inflate(R.layout.fragment_core, container, false)
     }
 
+    @SuppressLint("InflateParams")
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
@@ -50,8 +66,13 @@ class CoreFragment : Fragment() {
 
         Thread {
             try {
+                val root =
+                    javaFileReadLine("/sys/devices/system/cpu/cpu0/cpufreq/scaling_available_frequencies") == "Fail"
+                Log.e("checkRoot", root.toString())
+
+
                 for (i: Int in 0 until getAvailableCore()) {
-                    val coreCardView = CoreView(activity!!, i)
+                    val coreCardView = CoreView(activity!!, i, root)
                     activity!!.runOnUiThread {
                         core_rootView.addView(coreCardView)
                     }
@@ -73,6 +94,180 @@ class CoreFragment : Fragment() {
         }.start()
     }
 
+    @SuppressLint("ViewConstructor")
+    class CoreView(
+        activity: Activity, core: Int, root: Boolean
+    ) : LinearLayout(activity as Context) {
+
+        init {
+            LayoutInflater.from(activity).inflate(R.layout.view_core, this)
+            title.append(core.toString())
+
+            val list = if (!root) {
+                ArrayList(
+                    Arrays.asList(
+                        *javaFileReadLine(
+                            "/sys/devices/system/cpu/cpu$core/cpufreq/scaling_available_frequencies"
+                        ).split((" ").toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()
+                    )
+                )
+            } else {
+                Arrays.asList(
+                    *suFileReadLine(
+                        "/sys/devices/system/cpu/cpu$core/cpufreq/scaling_available_frequencies"
+                    ).split((" ").toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()
+                )
+            }
+
+            Thread {
+                val tmp = list
+                val freq = if (!root) {
+                    javaFileReadLine(
+                        "/sys/devices/system/cpu/cpu$core/cpufreq/scaling_max_freq"
+                    )
+                } else {
+                    suFileReadLine("/sys/devices/system/cpu/cpu$core/cpufreq/scaling_max_freq")
+                }
+
+                val i = if (tmp.contains(freq)) {
+                    tmp.indexOf(freq)
+                } else {
+                    tmp.add(freq)
+                    list.size
+                }
+
+                val arrayAdapter = ArrayAdapter(
+                    activity, android.R.layout.simple_spinner_dropdown_item, tmp
+                )
+                arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+
+                activity.runOnUiThread {
+                    max_freq.adapter = arrayAdapter
+                    max_freq.setSelection(i)
+                    max_freq.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+                        override fun onItemSelected(
+                            parent: AdapterView<*>, view: View, position: Int, id: Long
+                        ) {
+                            Thread {
+                                try {
+                                    Shell.su("echo \"${tmp[position]}\" > sys/devices/system/cpu/cpu$core/cpufreq/scaling_max_freq")
+                                } catch (e: Exception) {
+                                    BaseOperation.ShortToast(activity, e, true)
+                                }
+                            }.start()
+                        }
+
+                        override fun onNothingSelected(parent: AdapterView<*>) {
+
+                        }
+                    }
+                }
+            }.start()
+            Thread {
+                val tmp = list
+                val freq = if (!root) {
+                    javaFileReadLine(
+                        "/sys/devices/system/cpu/cpu$core/cpufreq/scaling_min_freq"
+                    )
+                } else {
+                    suFileReadLine("/sys/devices/system/cpu/cpu$core/cpufreq/scaling_min_freq")
+                }
+
+                val i = if (tmp.contains(freq)) {
+                    tmp.indexOf(freq)
+                } else {
+                    tmp.add(freq)
+                    list.size
+                }
+
+                val arrayAdapter = ArrayAdapter(
+                    activity, android.R.layout.simple_spinner_dropdown_item, tmp
+                )
+                arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+
+                activity.runOnUiThread {
+                    min_freq.adapter = arrayAdapter
+                    min_freq.setSelection(i)
+                    min_freq.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+                        override fun onItemSelected(
+                            parent: AdapterView<*>, view: View, position: Int, id: Long
+                        ) {
+                            Thread {
+                                try {
+                                    Shell.su("echo \"${tmp[position]}\" > sys/devices/system/cpu/cpu$core/cpufreq/scaling_min_freq")
+                                } catch (e: Exception) {
+                                    BaseOperation.ShortToast(activity, e, true)
+                                }
+                            }.start()
+                        }
+
+                        override fun onNothingSelected(parent: AdapterView<*>) {
+
+                        }
+                    }
+                }
+            }.start()
+            Thread {
+                val gList = if (!root) {
+                    ArrayList(
+                        Arrays.asList(
+                            *javaFileReadLine(
+                                ("/sys/devices/system/cpu/cpu$core/cpufreq/scaling_available_governors")
+                            ).split((" ").toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()
+                        )
+                    )
+                } else {
+                    ArrayList(
+                        Arrays.asList(
+                            *suFileReadLine(
+                                ("/sys/devices/system/cpu/cpu$core/cpufreq/scaling_available_governors")
+                            ).split((" ").toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()
+                        )
+                    )
+                }
+
+                val gov = if (!root) {
+                    javaFileReadLine(
+                        "sys/devices/system/cpu/cpu$core/cpufreq/scaling_governor"
+                    )
+                } else {
+                    suFileReadLine(
+                        "sys/devices/system/cpu/cpu$core/cpufreq/scaling_governor"
+                    )
+                }
+
+                val i = gList.indexOf(gov)
+
+                val arrayAdapter = ArrayAdapter(
+                    activity, android.R.layout.simple_spinner_dropdown_item, gList
+                )
+                arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+                activity.runOnUiThread {
+                    governor.adapter = arrayAdapter
+                    governor.setSelection(i)
+                    governor.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+                        override fun onItemSelected(
+                            parent: AdapterView<*>, view: View, position: Int, id: Long
+                        ) {
+                            try {
+                                Shell.su("echo \"${list[position]}\" > sys/devices/system/cpu/cpu$core/cpufreq/scaling_governor")
+                                    .exec()
+                            } catch (e: Exception) {
+                                BaseOperation.ShortToast(activity, e, true)
+                            }
+
+                        }
+
+                        override fun onNothingSelected(arg0: AdapterView<*>) {}
+                    }
+                }
+
+
+            }.start()
+        }
+    }
+
+    /*
     @Suppress("ViewConstructor")
     class CoreView(private val activity: Activity, private val core: Int) : LinearLayout(activity) {
 
@@ -105,21 +300,12 @@ class CoreFragment : Fragment() {
                         + core + "/cpufreq/" + "scaling_max_freq")
             )
 
-            var i = 0
-
-            if (list.contains(freq)) {
+            val i = if (!list.contains(freq)) {
                 list.add(freq)
-                i = list.size - 1
+                list.size - 1
             } else {
-                while (i < list.size) {
-                    if (list[i] == freq) {
-                        break
-                    } else {
-                        i++
-                    }
-                }
+                list.indexOf(freq)
             }
-            val a = i
 
             val arrayAdapter = ArrayAdapter(
                 activity,
@@ -130,7 +316,7 @@ class CoreFragment : Fragment() {
             activity.runOnUiThread {
                 arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
                 spinner.adapter = arrayAdapter
-                spinner.setSelection(a)
+                spinner.setSelection(i)
                 spinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
                     override fun onItemSelected(parent: AdapterView<*>, view: View, position: Int, id: Long) {
                         try {
@@ -164,22 +350,12 @@ class CoreFragment : Fragment() {
 
             val freq = BaseOperation.readFile("/sys/devices/system/cpu/cpu$core/cpufreq/scaling_min_freq")
 
-            var j = 0
-
-            if (!list.contains(freq)) {
+            val i = if (!list.contains(freq)) {
                 list.add(freq)
-                j = list.size - 1
+                list.size - 1
             } else {
-                while (j < list.size) {
-                    if (list[j] == freq) {
-                        break
-                    } else {
-                        j++
-                    }
-                }
+                list.indexOf(freq)
             }
-
-            val a = j
 
             val arrayAdapter = ArrayAdapter(
                 activity,
@@ -190,7 +366,7 @@ class CoreFragment : Fragment() {
             activity.runOnUiThread {
                 arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
                 spinner.adapter = arrayAdapter
-                spinner.setSelection(a)
+                spinner.setSelection(i)
                 spinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
                     override fun onItemSelected(parent: AdapterView<*>, view: View, position: Int, id: Long) {
                         try {
@@ -229,17 +405,7 @@ class CoreFragment : Fragment() {
                         + core + "/cpufreq/scaling_governor")
             )
 
-            var k = 0
-
-            while (k < list.size) {
-                if (list[k] == governor) {
-                    break
-                } else {
-                    k++
-                }
-            }
-
-            val a = k
+            val i = list.indexOf(governor)
 
             val arrayAdapter = ArrayAdapter(
                 activity,
@@ -250,7 +416,7 @@ class CoreFragment : Fragment() {
             activity.runOnUiThread {
                 arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
                 spinner.adapter = arrayAdapter
-                spinner.setSelection(a)
+                spinner.setSelection(i)
                 spinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
                     override fun onItemSelected(parent: AdapterView<*>, view: View, position: Int, id: Long) {
                         try {
@@ -267,5 +433,6 @@ class CoreFragment : Fragment() {
             }
         }
     }
+    */
 
 }

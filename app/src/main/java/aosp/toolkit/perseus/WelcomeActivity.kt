@@ -1,22 +1,26 @@
 package aosp.toolkit.perseus
 
+import android.content.Context
 import android.content.Intent
-import android.graphics.Color
 import android.graphics.Paint
 import android.os.Bundle
 import android.support.v4.app.Fragment
-import android.support.v4.app.FragmentManager
-import android.support.v4.app.FragmentPagerAdapter
 import android.support.v4.content.ContextCompat
 import android.support.v7.app.AppCompatActivity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.View.*
 import android.view.ViewGroup
+
+import aosp.toolkit.perseus.base.BaseIndex.versionIndex
 import aosp.toolkit.perseus.base.BaseManager
+import aosp.toolkit.perseus.base.ViewPagerAdapter
+
 import kotlinx.android.synthetic.main.activity_welcome.*
+import kotlinx.android.synthetic.main.fragment_license.*
 import kotlinx.android.synthetic.main.fragment_ready.*
 import kotlinx.android.synthetic.main.fragment_welcome.*
+
 import java.lang.Exception
 
 /*
@@ -38,22 +42,25 @@ import java.lang.Exception
  *
  */
 class WelcomeActivity : AppCompatActivity() {
-    private var t: Thread? = null
+    private lateinit var t: Thread
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_welcome)
 
         BaseManager.getInstance().setWelcomeActivity(this)
 
-        val option = (SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
-                or SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
-                or SYSTEM_UI_FLAG_LAYOUT_STABLE)
+        val option =
+            (SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION or SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN or SYSTEM_UI_FLAG_LAYOUT_STABLE)
         window.decorView.systemUiVisibility = option
 
-        val tabList = listOf(getString(R.string.welcome_tab_welcome), getString(R.string.welcome_tab_ready))
-        val fragmentList = listOf(WelcomeFragment(), ReadyFragment())
+        val tabList = listOf(
+            getString(R.string.welcome_tab_welcome),
+            getString(R.string.welcome_tab_license),
+            getString(R.string.welcome_tab_ready)
+        )
+        val fragmentList = listOf(WelcomeFragment(), LicenseFragment(), ReadyFragment())
 
-        viewPager.adapter = ViewPagerAdapter(supportFragmentManager, tabList, fragmentList)
+        viewPager.adapter = ViewPagerAdapter(supportFragmentManager, fragmentList, tabList)
         tabLayout.setupWithViewPager(viewPager)
 
         t = Thread {
@@ -82,53 +89,57 @@ class WelcomeActivity : AppCompatActivity() {
                 }
             }
         }
-        t!!.start()
+        t.start()
     }
 
     override fun finish() {
-        t!!.interrupt()
+        t.interrupt()
         super.finish()
     }
 
-    class ViewPagerAdapter(
-        fragmentManager: FragmentManager,
-        private val tavList: List<String>,
-        private val fragmentList: List<Fragment>
-    ) : FragmentPagerAdapter(fragmentManager) {
-        override fun getCount(): Int {
-            return fragmentList.size
-        }
-
-        override fun getItem(p0: Int): Fragment {
-            return fragmentList[p0]
-        }
-
-        override fun getPageTitle(position: Int): CharSequence? {
-            return tavList[position]
-        }
-    }
-
-    class WelcomeFragment: Fragment() {
-        override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    class WelcomeFragment : Fragment() {
+        override fun onCreateView(
+            inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
+        ): View? {
             return inflater.inflate(R.layout.fragment_welcome, container, false)
         }
 
         override fun onActivityCreated(savedInstanceState: Bundle?) {
             super.onActivityCreated(savedInstanceState)
             val array = resources.getStringArray(R.array.version)
-            version.text = array[0]
+            version.text = array[versionIndex]
             version.paint.flags = Paint.UNDERLINE_TEXT_FLAG
+            author.paint.flags = Paint.UNDERLINE_TEXT_FLAG
         }
     }
 
-    class ReadyFragment: Fragment() {
-        override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    class LicenseFragment : Fragment() {
+        override fun onCreateView(
+            inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
+        ): View? {
+            return inflater.inflate(R.layout.fragment_license, container, false)
+        }
+
+        override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+            super.onViewCreated(view, savedInstanceState)
+            webView.loadUrl("https://raw.githubusercontent.com/1552980358/aosp.toolkit.perseus/master/LICENSE")
+        }
+    }
+
+    class ReadyFragment : Fragment() {
+        override fun onCreateView(
+            inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
+        ): View? {
             return inflater.inflate(R.layout.fragment_ready, container, false)
         }
 
         override fun onActivityCreated(savedInstanceState: Bundle?) {
             super.onActivityCreated(savedInstanceState)
-            root_S.setOnClickListener { startActivity(Intent(context!!, MainActivity::class.java)) }
+            root_S.setOnClickListener {
+                context!!.getSharedPreferences("launch", Context.MODE_PRIVATE).edit()
+                    .putBoolean("welcome", true).apply()
+                startActivity(Intent(context!!, MainActivity::class.java))
+            }
         }
     }
 }

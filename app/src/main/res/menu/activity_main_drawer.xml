@@ -2,86 +2,84 @@
 <menu
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:showIn="navigation_view" >
-    
-    <group >
+    tools:showIn="navigation_view">
+
+    <group>
         <item
             android:id="@+id/nav_main"
-            android:icon="@drawable/ic_home"
-            android:title="@string/nav_main"
             android:checkable="true"
-            android:checked="true" />
-        
+            android:checked="true"
+            android:icon="@drawable/ic_home"
+            android:title="@string/nav_main" />
         <item
-            android:title="@string/nav_about"
-            android:id="@+id/nav_about"
-            android:icon="@drawable/ic_about"
-            android:checkable="true" />
-        
-        <item
-            android:title="@string/nav_deviceinfo"
             android:id="@+id/nav_deviceinfo"
+            android:checkable="true"
             android:icon="@drawable/ic_phone"
-            android:checkable="true" />
+            android:title="@string/nav_deviceinfo" />
         <item
-            android:title="@string/nav_monitor"
             android:id="@+id/nav_monitor"
+            android:checkable="false"
             android:icon="@drawable/ic_visibility"
-            android:checkable="false" />
-    </group >
-    
-    <item android:title="@string/nav_title_extends" >
-        <menu >
+            android:title="@string/nav_monitor" />
+    </group>
+
+    <item android:title="@string/nav_title_extends">
+        <menu>
             <item
                 android:id="@+id/nav_tower"
-                android:title="@string/nav_tower"
+                android:checkable="false"
                 android:icon="@mipmap/disable_foreground"
-                android:checkable="false" />
+                android:title="@string/nav_tower" />
             <item
                 android:id="@+id/nav_zxing"
-                android:title="@string/nav_zxing"
+                android:checkable="false"
                 android:icon="@drawable/ic_zxing"
+                android:title="@string/nav_zxing" />
+            <item
+                android:title="@string/nav_downloadmiui"
+                android:icon="@drawable/ic_download"
+                android:id="@+id/nav_downloadmiui"
                 android:checkable="false" />
-        </menu >
-    </item >
-    
-    <item android:title="@string/nav_title_toolkit" >
-        <menu >
+        </menu>
+    </item>
+
+    <item android:title="@string/nav_title_toolkit">
+        <menu>
             <item
                 android:id="@+id/nav_charging"
+                android:checkable="true"
                 android:icon="@drawable/ic_charging"
-                android:title="@string/nav_charging"
-                android:checkable="true" />
+                android:title="@string/nav_charging" />
             <item
                 android:id="@+id/nav_cores"
+                android:checkable="true"
                 android:icon="@drawable/ic_developer_board"
-                android:title="@string/nav_processor"
-                android:checkable="true" />
+                android:title="@string/nav_processor" />
             <item
                 android:id="@+id/nav_romio"
+                android:checkable="true"
                 android:icon="@drawable/ic_memory"
-                android:title="@string/nav_romio"
-                android:checkable="true" />
+                android:title="@string/nav_romio" />
             <item
                 android:id="@+id/nav_others"
+                android:checkable="true"
                 android:icon="@drawable/ic_adb"
-                android:title="@string/nav_other"
-                android:checkable="true" />
-        </menu >
-    </item >
-    
-    <item android:title="@string/nav_title_3rd" >
-        <menu >
+                android:title="@string/nav_other" />
+        </menu>
+    </item>
+
+    <item android:title="@string/nav_title_3rd">
+        <menu>
             <item
                 android:id="@+id/nav_applyyc"
+                android:checkable="true"
                 android:icon="@drawable/ic_yc"
-                android:title="@string/nav_yc"
-                android:checkable="true" />
+                android:title="@string/nav_yc" />
             <item
                 android:id="@+id/nav_applypc"
+                android:checkable="true"
                 android:icon="@drawable/ic_yc"
-                android:title="@string/nav_pc"
-                android:checkable="true" />
-        </menu >
-    </item >
-</menu >
+                android:title="@string/nav_pc" />
+        </menu>
+    </item>
+</menu>

@@ -1,72 +1,84 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest
     xmlns:android="http://schemas.android.com/apk/res/android"
-    package="aosp.toolkit.perseus" >
-    
+    xmlns:tools="http://schemas.android.com/tools"
+    package="aosp.toolkit.perseus">
+
+    <!-- 限权 Permission -->
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-    
+
     <application
+        android:name="aosp.toolkit.perseus.base.BaseManager"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
-        android:name="aosp.toolkit.perseus.base.BaseManager"
-        android:usesCleartextTraffic="true" >
-        
+        android:usesCleartextTraffic="true"
+        tools:ignore="AllowBackup,UnusedAttribute">
+        <!-- 活动 Activities -->
         <activity
             android:name="aosp.toolkit.perseus.SplashActivity"
             android:label="@string/app_name"
-            android:theme="@android:style/Theme.NoDisplay" >
-            <intent-filter >
+            android:theme="@style/AppTheme.Translucent">
+            <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-                
+
                 <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter >
-            
+            </intent-filter>
+
             <meta-data
                 android:name="android.app.shortcuts"
                 android:resource="@xml/shortcuts" />
-        
-        </activity >
-        
+        </activity>
         <activity
             android:name="aosp.toolkit.perseus.MainActivity"
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar" />
-        
         <activity
             android:name="aosp.toolkit.perseus.WelcomeActivity"
             android:theme="@style/AppTheme.NoActionBar" />
-        
         <activity
             android:name="aosp.toolkit.perseus.ScriptActivity"
             android:theme="@style/AppTheme.NoActionBar" />
-        
         <activity
             android:name="aosp.toolkit.perseus.UsageActivity"
+            android:label="@string/nav_monitor"
             android:theme="@style/AppTheme.NoActionBar" />
-        
         <activity
             android:name="aosp.toolkit.perseus.DisableAppActivity"
+            android:label="@string/nav_tower"
             android:theme="@style/AppTheme.NoActionBar" />
-        
         <activity
             android:name="aosp.toolkit.perseus.DisableAppActivity$DisableSelectActivity"
+            android:label="@string/disable_select"
             android:theme="@style/AppTheme.NoActionBar" />
-        
         <activity
             android:name="aosp.toolkit.perseus.ShortcutDisableActivity"
             android:theme="@android:style/Theme.NoDisplay" />
-        
         <activity
             android:name="aosp.toolkit.perseus.ZXingActivity"
+            android:label="@string/nav_zxing"
             android:theme="@style/AppTheme.NoActionBar" />
-    
-    </application >
+        <activity
+            android:name=".DownloadMIUIActivity"
+            android:label="@string/nav_downloadmiui"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".DownloadMIUIActivity$SelectDownloadActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".DownloadActivity"
+            android:label="@string/downloading"
+            android:launchMode="singleTask"
+            android:theme="@style/AppTheme.NoActionBar" />
 
-</manifest >
+        <!-- 服务 Services -->
+        <service android:name=".services.UpdateService" />
+    </application>
+
+</manifest>

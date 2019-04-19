@@ -38,7 +38,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="@dimen/cardView_padding"
-                android:layout_margin="@dimen/cardView_margin" >
+                android:layout_margin="@dimen/cardView_margin"
+                app:cardElevation="@dimen/dp_0"
+                app:cardCornerRadius="@dimen/dp_5">
                 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -106,7 +108,8 @@
                                 android:gravity="center"
                                 android:layout_centerVertical="true"
                                 android:layout_centerHorizontal="true"
-                                android:textColor="@color/colorPrimaryDark" />
+                                android:textColor="@color/colorPrimaryDark"
+                                tools:ignore="RelativeOverlap" />
                             
                             <android.support.v7.widget.AppCompatImageView
                                 android:layout_width="wrap_content"
@@ -133,7 +136,8 @@
                                 android:gravity="center"
                                 android:layout_centerVertical="true"
                                 android:layout_centerHorizontal="true"
-                                android:textColor="@color/colorPrimaryDark" />
+                                android:textColor="@color/colorPrimaryDark"
+                                tools:ignore="RelativeOverlap" />
                             
                             <android.support.v7.widget.AppCompatImageView
                                 android:layout_width="wrap_content"
@@ -150,7 +154,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="@dimen/cardView_padding"
-                android:layout_margin="@dimen/cardView_margin" >
+                android:layout_margin="@dimen/cardView_margin"
+                app:cardElevation="@dimen/dp_0"
+                app:cardCornerRadius="@dimen/dp_5">
                 
                 <LinearLayout
                     android:layout_width="match_parent"

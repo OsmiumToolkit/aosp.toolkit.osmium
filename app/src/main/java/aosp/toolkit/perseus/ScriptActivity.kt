@@ -11,9 +11,11 @@ import aosp.toolkit.perseus.base.BaseOperation.Companion.setPermission
 import aosp.toolkit.perseus.base.BaseOperation.Companion.ShortToast
 
 import com.topjohnwu.superuser.Shell
+
 import kotlinx.android.synthetic.main.activity_script.*
 
-import java.io.*
+import java.io.File
+import java.io.FileOutputStream
 import java.lang.Exception
 import java.net.URL
 
@@ -27,7 +29,7 @@ import java.net.URL
  */
 
 class ScriptActivity : AppCompatActivity() {
-    private var file: File? = null
+    private lateinit var file: File
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -78,24 +80,27 @@ class ScriptActivity : AppCompatActivity() {
 
                 val inputStream = url.openStream()
 
-                if (!file!!.exists() || file!!.length() < -1) {
-
-                    val fileOutputStream = FileOutputStream(file)
-
-                    val buffer = ByteArray(10240)
-
-                    // 输出到文件 Output to file
-                    var len: Int = inputStream.read(buffer)
-                    while (len != -1) {
-                        fileOutputStream.write(buffer, 0, len)
-                        len = inputStream.read(buffer)
-                    }
-
-                    // 释放资源 release resources
-                    fileOutputStream.flush()
-                    inputStream.close()
-                    fileOutputStream.close()
+                if (file.exists()) {
+                    file.delete()
                 }
+
+                val fileOutputStream = FileOutputStream(file)
+
+                val buffer = ByteArray(
+                    10240
+                )
+
+                // 输出到文件 Output to file
+                var len: Int = inputStream.read(buffer)
+                while (len != -1) {
+                    fileOutputStream.write(buffer, 0, len)
+                    len = inputStream.read(buffer)
+                }
+
+                // 释放资源 release resources
+                fileOutputStream.flush()
+                inputStream.close()
+                fileOutputStream.close()
             } catch (e: Exception) {
                 ShortToast(this, e, false)
             }
@@ -115,16 +120,16 @@ class ScriptActivity : AppCompatActivity() {
          *
          */
 
-        if (file!!.length() > 1) {
+        if (file.length() > 1) {
             runOnUiThread {
-                script_download.append(file!!.length().toString() + "Bytes\n")
+                script_download.append(file.length().toString() + "Bytes\n")
                 script_download.append(getString(R.string.script_download_done))
                 script_target_title.visibility = View.VISIBLE
                 script_target.text = file.toString()
                 script_permission_title.visibility = View.VISIBLE
             }
 
-            if (setPermission(file!!.toString())) {
+            if (setPermission(file.toString())) {
                 runOnUiThread {
                     script_permission.setText(R.string.script_permission_done)
                     script_command_title.visibility = View.VISIBLE
@@ -151,7 +156,7 @@ class ScriptActivity : AppCompatActivity() {
 
         val stdOut = mutableListOf<String>()
         val stdError = mutableListOf<String>()
-        Shell.su("/system/bin/sh ${file.toString()}").to(stdOut, stdError).exec()
+        Shell.su("/system/bin/sh $file").to(stdOut, stdError).exec()
 
         // 内容输出 output process
         if (stdOut.size > 0) {

@@ -8,16 +8,16 @@ package aosp.toolkit.perseus.base;
  *
  */
 
+import android.app.Application;
 import android.support.v4.app.Fragment;
 
 import aosp.toolkit.perseus.BuildConfig;
 import aosp.toolkit.perseus.fragments.MainFragment;
 import aosp.toolkit.perseus.*;
 
-import com.topjohnwu.superuser.ContainerApp;
 import com.topjohnwu.superuser.Shell;
 
-public class BaseManager extends ContainerApp {
+public class BaseManager extends Application  {
 
     public BaseManager() {
 
@@ -27,7 +27,7 @@ public class BaseManager extends ContainerApp {
         // Set configurations in a static block
         Shell.Config.setFlags(Shell.FLAG_REDIRECT_STDERR);
         Shell.Config.verboseLogging(BuildConfig.DEBUG);
-        Shell.Config.setTimeout(60);
+        Shell.Config.setTimeout(10);
     }
 
     public static BaseManager instance;
@@ -65,12 +65,10 @@ public class BaseManager extends ContainerApp {
 
     private MainActivity mainActivity;
     private MainFragment mainFragment;
-
     public void setMainActivity(MainActivity mainActivity, MainFragment mainFragment) {
         this.mainActivity = mainActivity;
         this.mainFragment = mainFragment;
     }
-
     public MainActivity getMainActivity() {
         return this.mainActivity;
     }
@@ -79,34 +77,4 @@ public class BaseManager extends ContainerApp {
         mainActivity.getSupportFragmentManager().beginTransaction().remove(fragment).show(mainFragment).commit();
         mainActivity.exceptionBeaker();
     }
-
-    /*
-    private ChargingFragment chargingFragment;
-    private OtherFragment extendsFragment;
-
-    public void setChargingFragment(ChargingFragment chargingFragment) {
-        this.chargingFragment = chargingFragment;
-    }
-
-    public void setExtendsFragment(OtherFragment extendsFragment) {
-        this.extendsFragment = extendsFragment;
-    }
-
-
-    public void restartChargingFragment() {
-        ChargingFragment tmp = new ChargingFragment();
-        FragmentTransaction fragmentTransaction = mainActivity.getSupportFragmentManager().beginTransaction();
-        fragmentTransaction.remove(chargingFragment).add(R.id.frameLayout_main, tmp).commit();
-        this.chargingFragment = tmp;
-        mainActivity.onRecreateChargingFragment(tmp);
-    }
-
-    public void restartExtendsFragmet() {
-        OtherFragment tmp = new OtherFragment();
-        FragmentTransaction fragmentTransaction = mainActivity.getSupportFragmentManager().beginTransaction();
-        fragmentTransaction.remove(extendsFragment).add(R.id.frameLayout_main, tmp).commit();
-        this.extendsFragment = tmp;
-        mainActivity.onRecreateExtendsFragment(tmp);
-    }
-    */
 }

@@ -11,9 +11,11 @@
     
     <string name="cont" >Continue</string >
     <string name="cancel" >Cancel</string >
+    <string name="yes">Yes</string>
     
     <string name="nav_main" >Home</string >
     <string name="nav_monitor" >Device monitor</string >
+    <string name="nav_downloadmiui">Download MIUI</string>
     <string name="nav_about" >AboutToolkit</string >
     <string name="nav_deviceinfo" >DeviceInfo</string >
     <string name="nav_title_extends">Extends</string>
@@ -27,6 +29,14 @@
     <string name="nav_yc" >YC cpufreq-interactive-opt</string >
     <string name="nav_pc" >Pixel Cat cpufreq</string >
     <string name="nav_tower" >- Tower -</string >
+
+    <string name="check_root_title">Request for ROOT Access</string>
+    <string name="check_root_content1">Click white region to start</string>
+    <string name="check_root_content2">Result: </string>
+    <string name="check_root_pass">Pass</string>
+    <string name="check_root_fail">Fail</string>
+    <string name="main_left">&lt;------------------------\nFeatures</string>
+    <string name="main_right">About\n------------------------&gt;</string>
     
     <string name="main_reb" >Reboot Device</string >
     <string name="main_soft" >Soft Reboot</string >
@@ -44,7 +54,9 @@
     <string name="warning" >Copyright &#169;1552980358 &#8211; 2019</string >
     
     <string name="systemApp" >&#60;SYSTEM APP&#62;</string >
-    
+
+    <string name="update_startcheck">Checking update…</string>
+    <string name="update_alreadynew">Already the newest version: v%s(%s)</string>
     <string name="update_check" >Check for update</string >
     <string name="update_fail" >Fail to check: Please check your Internet connection</string >
     <string name="update_found" >New Update is released!</string >
@@ -66,13 +78,15 @@
     <string name="about_sourcecode" >Source Code</string >
     <string name="about_coolapk" >Coolapk</string >
     <string name="about_github" >GitHub</string >
-    <string name="aboout_credit" >Credit</string >
-    <string name="about_xzr_sum" >Lanthanum System Toolbox</string >
-    <string name="about_yc9559_sum" >yc9559 cpufreq-interactive-opt</string >
-    <string name="about_pc_sum">cjybyjk PixelCat</string>
-    <string name="about_johnwu_sum">libsu</string>
     <string name="about_set_navBar" >NavBar color follows theme color</string >
     <string name="about_set_theme" >Customize theme</string >
+
+
+    <string name="about_me">About Maintainer</string>
+    <!-- 235443368 -->
+    <string name="qqgroup">QQ Group</string>
+
+    <string name="licence">Open Source Licence</string>
     
     <string name="script_title_head" >Run Script \"%s\"</string >
     
@@ -92,12 +106,15 @@
     
     
     <string name="welcome_tab_welcome" >Welcome</string >
+    <string name="welcome_tab_license" >License</string >
     <string name="welcome_tab_ready">Ready-to-go</string>
     
     <string name="welcome_ready_content">-Press anywhere to go-</string>
     
     <string name="welcome_welcome_1">Perseus</string>
     <string name="welcome_welcome_2">Current Version</string>
+    <string name="welcome_welcome_3" translatable="false">SkyNight</string>
+    <string name="welcome_welcome_4">PRESENTS</string>
     
     
     <string name="sw_dis" >Disabled</string >
@@ -211,4 +228,16 @@
     <string name="zxing_camera">From Camera</string>
     <string name="zxing_gallery">From Gallery</string>
     <string name="zxing_generate">Generate QRCode</string>
+
+    <string name="size">Size: </string>
+    <string name="status">Status: </string>
+    <string name="status_finish">Succeed</string>
+    <string name="status_failed">Failed</string>
+    <string name="downloading">Downloading…</string>
+    <string name="download_success">Download Success:\n</string>
+    <string name="download_failed">Download Failed:\n</string>
+    <string name="ver_cn">China</string>
+    <string name="ver_global">Global</string>
+    <string name="MIUIverName">Version: </string>
+    <string name="MIUIverID">Version ID: </string>
 </resources >

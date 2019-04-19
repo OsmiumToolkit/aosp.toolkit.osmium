@@ -3,17 +3,19 @@ package aosp.toolkit.perseus.fragments
 import android.content.Intent
 import android.os.Bundle
 import android.support.v4.app.Fragment
-import android.support.v4.app.FragmentManager
-import android.support.v4.app.FragmentPagerAdapter
 import android.support.v7.widget.AppCompatSeekBar
-import android.view.*
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 import android.widget.SeekBar
 
 import aosp.toolkit.perseus.R
 import aosp.toolkit.perseus.base.BaseIndex.*
 import aosp.toolkit.perseus.base.BaseOperation.Companion.ShortToast
 import aosp.toolkit.perseus.base.BaseOperation.Companion.checkFilePresent
-import aosp.toolkit.perseus.base.BaseOperation.Companion.readFile
+import aosp.toolkit.perseus.base.BaseOperation.Companion.javaFileReadLine
+import aosp.toolkit.perseus.base.BaseOperation.Companion.suFileReadLine
+import aosp.toolkit.perseus.base.ViewPagerAdapter
 
 import kotlinx.android.synthetic.main.fragment_romio.*
 import kotlinx.android.synthetic.main.fragment_romio_emmc.*
@@ -45,23 +47,6 @@ class RomIOFragment : Fragment() {
         tabLayout.setupWithViewPager(viewPager)
     }
 
-    class ViewPagerAdapter(
-        fragmentManager: FragmentManager?,
-        private var fragmentList: List<Fragment>,
-        private var tabList: List<String>
-    ) : FragmentPagerAdapter(fragmentManager) {
-        override fun getItem(p0: Int): Fragment {
-            return fragmentList[p0]
-        }
-
-        override fun getCount(): Int {
-            return fragmentList.size
-        }
-
-        override fun getPageTitle(position: Int): CharSequence? {
-            return tabList[position]
-        }
-    }
 
     class RomIOeMMCFragment : Fragment() {
 
@@ -85,7 +70,11 @@ class RomIOFragment : Fragment() {
             val seekBar: AppCompatSeekBar = view.findViewById(R.id.seekBar)
             Thread {
                 if (checkFilePresent("/sys/block/mmcblk0/queue/rq_affinity")) {
-                    val status = readFile("/sys/block/mmcblk0/queue/rq_affinity")
+                    val status = if (javaFileReadLine("/sys/block/mmcblk0/queue/rq_affinity") != "Fail") {
+                        javaFileReadLine("/sys/block/mmcblk0/queue/rq_affinity")
+                    } else {
+                        suFileReadLine("/sys/block/mmcblk0/queue/rq_affinity")
+                    }
                     activity!!.runOnUiThread {
                         seekBar.progress = if (status == "Fail") {
                             1
@@ -156,7 +145,7 @@ class RomIOFragment : Fragment() {
             val seekBar: AppCompatSeekBar = view.findViewById(R.id.seekBar)
             Thread {
                 if (checkFilePresent("/sys/block/sda/queue/rq_affinity")) {
-                    val status = readFile("/sys/block/sda/queue/rq_affinity")
+                    val status = suFileReadLine("/sys/block/sda/queue/rq_affinity")
                     activity!!.runOnUiThread {
                         seekBar.progress = if (status == "Fail") {
                             1

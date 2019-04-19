@@ -16,7 +16,8 @@
         app:cardCornerRadius="@dimen/cardView_cardCornerRadius"
         android:clickable="true"
         android:focusable="true"
-        android:background="@drawable/ripple_effect">
+        android:background="@drawable/ripple_effect"
+        app:cardElevation="@dimen/dp_0">
 
         <TextView
             android:layout_width="wrap_content"

@@ -6,7 +6,12 @@ import android.content.pm.PackageInfo
 import android.content.pm.PackageManager
 import android.net.Uri
 import android.support.v4.app.FragmentActivity
-import aosp.toolkit.perseus.base.BaseIndex.*
+
+import aosp.toolkit.perseus.base.BaseIndex.Coolapk_User
+import aosp.toolkit.perseus.base.BaseIndex.Coolapk_Apk
+import aosp.toolkit.perseus.base.BaseIndex.Market_Head
+import aosp.toolkit.perseus.base.BaseIndex.CoolapkPackageName
+
 import java.lang.Exception
 
 /*
@@ -28,8 +33,8 @@ import java.lang.Exception
 
 class Accessing {
     companion object {
-        fun accessGitHub(fragmentActivity: FragmentActivity?, source: String) {
-            fragmentActivity!!.startActivity(
+        fun accessGitHub(activity: Activity, source: String) {
+            activity.startActivity(
                 Intent().setData(Uri.parse(source)).setAction(
                     Intent.ACTION_VIEW
                 )
@@ -72,8 +77,8 @@ class Accessing {
             }
         }
 
-        fun accessCoolapkAccount(fragmentActivity: FragmentActivity?, account: String) {
-            val packageInfoList: List<PackageInfo> = fragmentActivity!!.packageManager.getInstalledPackages(0)
+        fun accessCoolapkAccount(activity: Activity, account: String) {
+            val packageInfoList: List<PackageInfo> = activity.packageManager.getInstalledPackages(0)
             val packageName: ArrayList<String> = ArrayList()
 
             for (i: Int in 0 until packageInfoList.size) {
@@ -82,21 +87,21 @@ class Accessing {
 
             if (packageName.contains(CoolapkPackageName)) {
                 try {
-                    fragmentActivity.startActivity(
+                    activity.startActivity(
                         Intent().setData(Uri.parse("$Coolapk_User$account")).setPackage(
                             CoolapkPackageName
                         ).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
                     )
                 } catch (e: Exception) {
                     e.printStackTrace()
-                    fragmentActivity.startActivity(
+                    activity.startActivity(
                         Intent().setData(Uri.parse("$Coolapk_User$account")).setAction(
                             Intent.ACTION_VIEW
                         )
                     )
                 }
             } else {
-                fragmentActivity.startActivity(
+                activity.startActivity(
                     Intent().setData(Uri.parse("$Coolapk_User$account")).setAction(
                         Intent.ACTION_VIEW
                     )

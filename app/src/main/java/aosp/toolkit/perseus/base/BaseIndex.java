@@ -17,6 +17,7 @@ public class BaseIndex {
     public final static String CoolapkPackageName = "com.coolapk.market";
     public final static String OsToolkitSubstratumName = "substratum.earth.OsToolkit";
     public final static String SubstratumName = "projekt.substratum";
+    public final static int versionIndex = 0;
 
     // Coolapk / 酷安
     public final static String MaintainerCoolapkID = "724354";
@@ -26,6 +27,8 @@ public class BaseIndex {
     public final static String Market_Head = "market://details?id=";
     public final static String Coolapk_Apk = "http://www.coolapk.com/apk/";
     public final static String Coolapk_User = "http://www.coolapk.com/u/";
+
+    public final static String QQGroupKey = "Zbl6GscS86zcFBrelPvBW2lPcOPtqzt-";
 
 
     // Github

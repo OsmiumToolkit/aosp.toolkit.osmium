@@ -3,7 +3,9 @@ package aosp.toolkit.perseus.fragments
 import android.content.Intent
 import android.os.Bundle
 import android.support.v4.app.Fragment
-import android.view.*
+import android.view.LayoutInflater
+import android.view.ViewGroup
+import android.view.View
 
 import aosp.toolkit.perseus.R
 

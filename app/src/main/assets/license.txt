@@ -1,0 +1,114 @@
+Github@1552980358
+Licence: Apache License 2.0
+Source: https://github.com/1552980358/aosp.toolkit.perseus
+Release: https://github.com/1552980358/aosp.toolkit.perseus/releases
+Script Repo: https://github.com/ToolkitPerseus/scripts
+
+===============
+libsu-core
+===============
+Version: 2.3.3
+Maintainer: topjohnwu
+Licence: Apache License 2.0
+Source: https://github.com/topjohnwu/libsu
+
+===============
+libsu-io
+===============
+Version: 2.3.3
+Maintainer: topjohnwu
+Licence: Apache License 2.0
+Source: https://github.com/topjohnwu/libsu
+
+===============
+Jsoup
+===============
+Version: 1.11.3
+Maintainer: jhy
+Licence: Apache License 2.0
+Source: https://github.com/jhy/jsoup/
+
+===============
+OkHttp3
+===============
+Version: 3.14.0
+Maintainer: Square Open Source
+Licence: Apache License 2.0
+Source: https://github.com/square/okhttp
+
+===============
+zxing-core
+===============
+Version: 3.3.3
+Maintainer: ZXing Project
+Licence: Apache License 2.0
+Source: https://github.com/zxing/zxing
+
+===============
+zxing-javase
+===============
+Version: 3.3.3
+Maintainer: ZXing Project
+Licence: Apache License 2.0
+Source: https://github.com/zxing/zxing
+
+===============
+Lanthanum-system-toolbox-v2
+===============
+Maintainer: xzr467706992
+Licence: None
+Source: https://github.com/Lanthanum-system-toolbox-v2
+
+===============
+cpufreq-interactive-opt
+===============
+Maintainer: yc9559
+Licence: GNU General Public License v3.0
+Source: >https://github.com/yc9559/cpufreq-interactive-opt
+
+===============
+powercfg_generator
+===============
+Maintainer: cjybyjk
+Licence: GNU General Public License v3.0
+Source: https://github.com/cjybyjk/powercfg_generator
+
+===============
+org.jetbrains.kotlin-kotlin-stdlib
+===============
+Version: 1.3.21
+Maintainer: JetBrains
+Licence: Apache License 2.0
+Source: https://mvnrepository.com/artifact/org.jetbrains.kotlin/kotlin-stdlib
+
+===============
+com.android.support-support-v4
+===============
+Version: 28.0.0
+Maintainer: Google Inc
+Licence: Apache License 2.0
+Source: https://mvnrepository.com/artifact/com.android.support/support-v4
+
+===============
+com.android.support-appcompat-v7
+===============
+Version: 28.0.0
+Maintainer: Google Inc
+Licence: Apache License 2.0
+Source: https://mvnrepository.com/artifact/com.android.support/appcompat-v7
+
+===============
+com.android.support-design
+===============
+Version: 28.0.0
+Maintainer: Google Inc
+Licence: Apache License 2.0
+Source: https://mvnrepository.com/artifact/com.android.support/design
+
+===============
+com.android.support.constraint-constraint-layout
+===============
+Version: 1.1.3
+Maintainer: Google Inc
+Licence: Apache License 2.0
+Source: https://mvnrepository.com/artifact/com.android.support.constraint/constraint-layout

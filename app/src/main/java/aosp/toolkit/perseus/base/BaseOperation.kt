@@ -1,5 +1,6 @@
 package aosp.toolkit.perseus.base
 
+import android.annotation.SuppressLint
 import android.app.Activity
 import android.app.ActivityManager
 import android.content.Context
@@ -16,7 +17,6 @@ import java.util.regex.Pattern
 
 import aosp.toolkit.perseus.R
 
-
 /*
  * OsToolkit - Kotlin
  *
@@ -28,23 +28,6 @@ import aosp.toolkit.perseus.R
 
 class BaseOperation {
     companion object {
-        fun checkRoot(): Boolean {
-            try {
-                val process: Process = Runtime.getRuntime().exec("su")
-                val dataOutPutStream = DataOutputStream(process.outputStream)
-                dataOutPutStream.writeBytes("exit\n")
-                dataOutPutStream.flush()
-                dataOutPutStream.close()
-                val i = process.waitFor()
-                if (i == 1)
-                    return false
-                return true
-            } catch (e: Exception) {
-                e.printStackTrace()
-            }
-            return false
-        }
-
         fun getPackageVersion(context: Context?): String {
             try {
                 return context?.packageManager!!.getPackageInfo(aosp.toolkit.perseus.base.BaseIndex.PackageName, 0).versionName
@@ -77,21 +60,23 @@ class BaseOperation {
             return file.canExecute()
         }
 
-        fun readFile(filePath: String): String {
-            val su = Shell.su("cat $filePath").exec().out
-            val stringBuilder = StringBuilder()
-            for (i: Int in 0 until su.size) {
-                stringBuilder.append(su[i])
-                if (i != su.size - 1) {
-                    stringBuilder.append("\n")
-                }
-            }
-
-            return if (!stringBuilder.toString().isEmpty()) {
-                stringBuilder.toString()
-            } else {
+        fun suFileReadLine(filePath: String): String {
+            val line:String? = try {
+                Shell.su("cat $filePath").exec().out[0]
+            } catch (e: Exception) {
                 "Fail"
             }
+            return line?: "Fail"
+        }
+
+        fun javaFileReadLine(file: String): String {
+            val line: String? = try {
+                FileInputStream(file).bufferedReader(Charsets.UTF_8).readLine()
+            } catch (e: Exception) {
+                "Fail"
+            }
+
+            return line?:"Fail"
         }
 
         fun checkFilePresent(filePath: String): Boolean {
@@ -190,9 +175,29 @@ class BaseOperation {
             return memoryInfo
         }
 
+        fun ShortToast(context: Context, int: Int) {
+            this.ShortToast(context, context.getString(int))
+        }
+        fun ShortToast(context: Context, exception: Exception) {
+            this.ShortToast(context, exception.toString())
+        }
+        @SuppressLint("InflateParams")
+        fun ShortToast(context: Context, string: String) {
+            val toast = Toast(context)
+            val view = LayoutInflater.from(context).inflate(R.layout.toast, null)
+            val textView = view.findViewById<TextView>(R.id.toast)
+            textView.text = string
+            toast.view = view
+            toast.duration = LENGTH_SHORT
+            toast.show()
+        }
         fun ShortToast(activity: Activity, exception: Exception, UIThread: Boolean) {
             this.ShortToast(activity, exception.toString(), UIThread)
         }
+        fun ShortToast(activity: Activity, content: Int, UIThread: Boolean) {
+            this.ShortToast(activity, activity.getString(content), UIThread)
+        }
+        @SuppressLint("InflateParams")
         fun ShortToast(activity: Activity, string: String, UIThread: Boolean) {
             if (UIThread) {
                 val toast = Toast(activity as Context)
@@ -203,13 +208,15 @@ class BaseOperation {
                 toast.duration = LENGTH_SHORT
                 toast.show()
             } else {
-                val t = Toast(activity as Context)
                 val view = LayoutInflater.from(activity as Context).inflate(R.layout.toast, null)
                 val textView = view.findViewById<TextView>(R.id.toast)
                 textView.text = string
-                t.view = view
-                t.duration = LENGTH_SHORT
-                activity.runOnUiThread { t.show() }
+                activity.runOnUiThread {
+                    val t = Toast(activity)
+                    t.view = view
+                    t.duration = LENGTH_SHORT
+                    t.show()
+                }
             }
 
         }
