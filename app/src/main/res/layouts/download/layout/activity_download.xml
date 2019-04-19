@@ -46,25 +46,30 @@
                         android:id="@+id/name"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Name: "
                         android:textColor="@android:color/black"
-                        android:textSize="@dimen/cardview_title"
-                        tools:ignore="HardcodedText" />
+                        android:textSize="@dimen/cardview_title"/>
                     <TextView
                         android:id="@+id/size"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Size: "
-                        tools:ignore="HardcodedText" />
+                        android:text="@string/size"/>
                     <RelativeLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content">
-                        <TextView
-                            android:id="@+id/status"
+                        <LinearLayout
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Status: "
-                            tools:ignore="HardcodedText" />
+                            android:orientation="horizontal">
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/status"/>
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:id="@+id/status"/>
+                        </LinearLayout>
+
                         <TextView
                             android:id="@+id/progress"
                             android:layout_width="wrap_content"

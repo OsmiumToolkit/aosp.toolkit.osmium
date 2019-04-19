@@ -73,12 +73,12 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".DownloadActivity"
+            android:label="@string/downloading"
             android:launchMode="singleTask"
             android:theme="@style/AppTheme.NoActionBar" />
 
         <!-- 服务 Services -->
         <service android:name=".services.UpdateService" />
-        <service android:name=".services.DownloadService" />
     </application>
 
 </manifest>

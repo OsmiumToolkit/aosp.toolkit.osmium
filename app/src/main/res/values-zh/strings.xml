@@ -221,6 +221,9 @@
     <string name="zxing_generate">生成二维码</string>
 
     <string name="size">大小: </string>
+    <string name="status">状态: </string>
+    <string name="status_finish">已完成</string>
+    <string name="status_failed">失败</string>
     <string name="downloading">下载中…</string>
     <string name="download_failed">下载失败:\n</string>
     <string name="download_success">下载完成:\n</string>

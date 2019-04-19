@@ -227,6 +227,9 @@
     <string name="zxing_generate">Generate QRCode</string>
 
     <string name="size">Size: </string>
+    <string name="status">Status: </string>
+    <string name="status_finish">Succeed</string>
+    <string name="status_failed">Failed</string>
     <string name="downloading">Downloading…</string>
     <string name="download_success">Download Success:\n</string>
     <string name="download_failed">Download Failed:\n</string>

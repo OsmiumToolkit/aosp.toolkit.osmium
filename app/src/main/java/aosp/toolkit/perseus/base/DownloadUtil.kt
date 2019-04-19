@@ -46,7 +46,7 @@ class DownloadUtil(
 
                     try {
                         inputStream = response.body()!!.byteStream()
-                        val byteArray = ByteArray(102400)
+                        val byteArray = ByteArray(102400) // 满速下载 Full speed downloading
                         val size = response.body()!!.contentLength()
                         val fileOutputStream = FileOutputStream(file)
 

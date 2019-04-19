@@ -299,7 +299,6 @@ class DownloadMIUIActivity : AppCompatActivity() {
                             val size = support.substring(support.indexOf(getSize) + getSizeDiff)
 
                             val u =j.getElementsByClass(downloadBtn).select("a").attr("href")
-                            Log.e("downloadurl", u)
 
                             val selectDownloadItem = SelectDownloadItem(this, vN, v, size, u)
                             selectDownloadView.addView(selectDownloadItem)
@@ -363,7 +362,8 @@ class DownloadMIUIActivity : AppCompatActivity() {
                     context.startActivity(Intent(context, DownloadActivity::class.java)
                         .putExtra("url", u)
                         .putExtra("filePath", Environment.getExternalStorageDirectory().absolutePath)
-                        .putExtra("fileName", file))
+                        .putExtra("fileName", file)
+                        .putExtra("size", s))
 
 /*
                     val id = 0x3

@@ -2,21 +2,18 @@ package aosp.toolkit.perseus
 
 import android.Manifest
 import android.annotation.SuppressLint
-import android.content.ComponentName
-import android.content.Context
-import android.content.Intent
-import android.content.ServiceConnection
 import android.content.pm.PackageManager
 import android.os.Bundle
-import android.os.IBinder
 import android.support.v4.app.ActivityCompat
+import android.support.v4.content.ContextCompat
 import android.support.v7.app.AppCompatActivity
-import aosp.toolkit.perseus.base.BaseManager
+
 import aosp.toolkit.perseus.base.BaseOperation.Companion.ShortToast
 import aosp.toolkit.perseus.base.DownloadUtil
-import kotlinx.android.synthetic.main.activity_download.*
-import java.lang.Exception
 
+import kotlinx.android.synthetic.main.activity_download.*
+
+import java.lang.Exception
 
 /*
  * @File:   DownloadActivity
@@ -27,10 +24,12 @@ import java.lang.Exception
  */
 
 class DownloadActivity : AppCompatActivity() {
+    var downloading = true
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_download)
-
+        initialize()
 
         if (ActivityCompat.checkSelfPermission(
                 this, Manifest.permission.READ_EXTERNAL_STORAGE
@@ -49,6 +48,16 @@ class DownloadActivity : AppCompatActivity() {
         }
     }
 
+    private fun initialize() {
+        setSupportActionBar(toolbar)
+
+        supportActionBar!!.setDisplayHomeAsUpEnabled(true)
+
+        window.navigationBarColor = ContextCompat.getColor(this, R.color.colorPrimaryDark)
+
+        toolbar.setNavigationOnClickListener { onBackPressed() }
+    }
+
     override fun onRequestPermissionsResult(
         requestCode: Int, permissions: Array<out String>, grantResults: IntArray
     ) {
@@ -57,36 +66,54 @@ class DownloadActivity : AppCompatActivity() {
     }
 
     private fun startDownload() {
+        val n = intent!!.getStringExtra("fileName")
         DownloadUtil(intent!!.getStringExtra("url"),
             intent!!.getStringExtra("filePath"),
-            intent!!.getStringExtra("fileName"),
+            n,
             object : DownloadInterface {
+                @SuppressLint("SetTextI18n")
                 override fun onProcessChange(p: Int) {
                     super.onProcessChange(p)
                     runOnUiThread {
                         progressBar.progress = p
-                        progress.text = p.toString()
+                        progress.text = "$p%"
                     }
                 }
 
-                @SuppressLint("SetTextI18n")
                 override fun onStartTask() {
                     super.onStartTask()
-                    runOnUiThread { status.text = "Downloading" }
+                    runOnUiThread {
+                        status.text = getString(R.string.downloading)
+                        name.text = n
+                        size.append(intent.getStringExtra("size"))
+                    }
                 }
 
-                @SuppressLint("SetTextI18n")
                 override fun onTaskFail(e: Exception) {
                     super.onTaskFail(e)
-                    ShortToast(this@DownloadActivity, e, false)
-                    runOnUiThread { status.text = "Failed" }
+                    ShortToast(
+                        this@DownloadActivity,
+                        getString(R.string.download_failed) + e.toString(),
+                        false
+                    )
+                    runOnUiThread { status.text = getString(R.string.status_failed) }
+                    downloading = false
                 }
 
                 @SuppressLint("SetTextI18n")
                 override fun onTaskFinished(file: String, size: Long) {
                     super.onTaskFinished(file, size)
-                    ShortToast(this@DownloadActivity, "$$size: $file", false)
-                    runOnUiThread { status.text = "Finished" }
+                    ShortToast(
+                        this@DownloadActivity,
+                        getString(R.string.download_success) + "$size: $file",
+                        false
+                    )
+                    runOnUiThread {
+                        status.text = getString(R.string.status_finish)
+                        progress.text = "100%"
+                        progressBar.progress = 100
+                    }
+                    downloading = false
                 }
             }).start()
 
@@ -116,27 +143,9 @@ class DownloadActivity : AppCompatActivity() {
         }
     }
 
-    class Data(
-        private val listener: DownloadInterface,
-        private val url: String,
-        private val filePath: String,
-        private val fileName: String
-    ) {
-
-        fun getListener(): DownloadInterface {
-            return this.listener
-        }
-
-        fun getUrl(): String {
-            return this.url
-        }
-
-        fun getFilePath(): String {
-            return this.filePath
-        }
-
-        fun getFileName(): String {
-            return this.fileName
+    override fun onBackPressed() {
+        if (!downloading) {
+            super.onBackPressed()
         }
     }
 }
