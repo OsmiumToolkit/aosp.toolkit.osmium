@@ -41,8 +41,8 @@ class UpdateService : Service() {
                 val c = document.getElementById("currentCode").select("div").text()
                 if (c == BuildConfig.VERSION_CODE.toString()) {
                     listener.onNewest(
-                        c,
-                        document.getElementById("currentVersion").select("a").text()
+                        document.getElementById("currentVersion").select("a").text(),
+                        c
                     )
                 } else {
                     val v = document.getElementById("currentVersion").select("a")
