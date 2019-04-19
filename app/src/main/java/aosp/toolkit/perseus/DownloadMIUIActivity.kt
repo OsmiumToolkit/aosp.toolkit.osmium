@@ -6,12 +6,15 @@ import android.content.Context
 import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
+import android.graphics.Canvas
 import android.os.Bundle
 import android.os.Environment
 import android.support.v4.app.Fragment
 import android.support.v4.app.NotificationCompat
+import android.support.v4.content.ContextCompat
 import android.support.v4.content.ContextCompat.startActivity
 import android.support.v7.app.AppCompatActivity
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -155,14 +158,25 @@ class DownloadMIUIActivity : AppCompatActivity() {
                             }
                         }
 
+
                         if (!tables.isEmpty()) {
                             // 解析 Decode
                             val jsonArray = JSONObject(tables).getJSONArray("phone")
                             for (i: Int in 0 until jsonArray.length()) {
                                 val jsonObject = jsonArray.getJSONObject(i)
+                                val s = jsonObject.getString("pic")
+                                Log.e("pic", s)
+                                val bitmap = try {
+                                    BitmapFactory.decodeStream(URL(s).openStream())
+                                } catch (e: Exception) {
+                                    val drawable = ContextCompat.getDrawable(context!! ,R.drawable.ic_phone_android)
+                                    val b = Bitmap.createBitmap(drawable!!.intrinsicWidth, drawable.intrinsicHeight, Bitmap.Config.ARGB_8888)
+                                    val canvas = Canvas(b)
+                                    drawable.setBounds(0, 0, canvas.width, canvas.height)
+                                    drawable.draw(canvas)
+                                    b
+                                }
 
-                                val bitmap =
-                                    BitmapFactory.decodeStream(URL(jsonObject.getString("pic")).openStream())
                                 val deviceView = DeviceView(
                                     activity!!,
                                     jsonObject.getString("name"),
