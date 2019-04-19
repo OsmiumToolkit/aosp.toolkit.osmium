@@ -77,4 +77,11 @@ public class BaseManager extends Application  {
         mainActivity.getSupportFragmentManager().beginTransaction().remove(fragment).show(mainFragment).commit();
         mainActivity.exceptionBeaker();
     }
+    private DownloadActivity.Data data;
+    public void setData(DownloadActivity.Data data) {
+        this.data = data;
+    }
+    public DownloadActivity.Data getData() {
+        return this.data;
+    }
 }

@@ -46,7 +46,7 @@ class DownloadUtil(
 
                     try {
                         inputStream = response.body()!!.byteStream()
-                        val byteArray = ByteArray(inputStream.available())
+                        val byteArray = ByteArray(102400)
                         val size = response.body()!!.contentLength()
                         val fileOutputStream = FileOutputStream(file)
 

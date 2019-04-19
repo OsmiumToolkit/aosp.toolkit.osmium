@@ -1,17 +1,20 @@
 package aosp.toolkit.perseus
 
+import android.Manifest
 import android.annotation.SuppressLint
 import android.content.ComponentName
 import android.content.Context
 import android.content.Intent
 import android.content.ServiceConnection
+import android.content.pm.PackageManager
 import android.os.Bundle
 import android.os.IBinder
+import android.support.v4.app.ActivityCompat
 import android.support.v7.app.AppCompatActivity
+import aosp.toolkit.perseus.base.BaseManager
 import aosp.toolkit.perseus.base.BaseOperation.Companion.ShortToast
-import aosp.toolkit.perseus.services.DownloadService
+import aosp.toolkit.perseus.base.DownloadUtil
 import kotlinx.android.synthetic.main.activity_download.*
-import java.io.Serializable
 import java.lang.Exception
 
 
@@ -24,60 +27,70 @@ import java.lang.Exception
  */
 
 class DownloadActivity : AppCompatActivity() {
-    private lateinit var downloadService: DownloadService
-    private var binded = false
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_download)
 
-        val data = Data(
+
+        if (ActivityCompat.checkSelfPermission(
+                this, Manifest.permission.READ_EXTERNAL_STORAGE
+            ) == PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(
+                this, Manifest.permission.WRITE_EXTERNAL_STORAGE
+            ) == PackageManager.PERMISSION_GRANTED
+        ) {
+            startDownload()
+        } else {
+            ActivityCompat.requestPermissions(
+                this, arrayOf(
+                    Manifest.permission.WRITE_EXTERNAL_STORAGE,
+                    Manifest.permission.READ_EXTERNAL_STORAGE
+                ), 0
+            )
+        }
+    }
+
+    override fun onRequestPermissionsResult(
+        requestCode: Int, permissions: Array<out String>, grantResults: IntArray
+    ) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        startDownload()
+    }
+
+    private fun startDownload() {
+        DownloadUtil(intent!!.getStringExtra("url"),
+            intent!!.getStringExtra("filePath"),
+            intent!!.getStringExtra("fileName"),
             object : DownloadInterface {
                 override fun onProcessChange(p: Int) {
                     super.onProcessChange(p)
-                    progressBar.progress = p
-                    progress.text = p.toString()
+                    runOnUiThread {
+                        progressBar.progress = p
+                        progress.text = p.toString()
+                    }
                 }
 
                 @SuppressLint("SetTextI18n")
                 override fun onStartTask() {
                     super.onStartTask()
-                    status.text = "Downloading"
+                    runOnUiThread { status.text = "Downloading" }
                 }
 
                 @SuppressLint("SetTextI18n")
                 override fun onTaskFail(e: Exception) {
                     super.onTaskFail(e)
-                    ShortToast(this@DownloadActivity, e)
-                    status.text = "Failed"
+                    ShortToast(this@DownloadActivity, e, false)
+                    runOnUiThread { status.text = "Failed" }
                 }
 
                 @SuppressLint("SetTextI18n")
                 override fun onTaskFinished(file: String, size: Long) {
                     super.onTaskFinished(file, size)
-                    ShortToast(this@DownloadActivity, "$$size: $file")
-                    status.text = "Finished"
+                    ShortToast(this@DownloadActivity, "$$size: $file", false)
+                    runOnUiThread { status.text = "Finished" }
                 }
-            },
-            intent!!.getStringExtra("url"),
-            intent!!.getStringExtra("filePath"),
-            intent!!.getStringExtra("fileName")
-        )
+            }).start()
 
-        // 绑定Service
-        // Bind service
-        val intent = Intent(this, DownloadService::class.java).putExtra("data", data)
-        startService(intent)
-        bindService(intent, object : ServiceConnection {
-            override fun onServiceConnected(name: ComponentName?, service: IBinder?) {
-                downloadService = (service as DownloadService.ServiceBinder).getService()
-                binded = true
-            }
 
-            override fun onServiceDisconnected(name: ComponentName?) {
-                binded = false
-            }
-        }, Context.BIND_AUTO_CREATE)
     }
 
     /* 监听 listener */
@@ -108,7 +121,7 @@ class DownloadActivity : AppCompatActivity() {
         private val url: String,
         private val filePath: String,
         private val fileName: String
-    ) : Serializable {
+    ) {
 
         fun getListener(): DownloadInterface {
             return this.listener

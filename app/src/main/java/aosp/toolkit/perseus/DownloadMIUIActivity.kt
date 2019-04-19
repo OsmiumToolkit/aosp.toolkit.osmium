@@ -165,7 +165,6 @@ class DownloadMIUIActivity : AppCompatActivity() {
                             for (i: Int in 0 until jsonArray.length()) {
                                 val jsonObject = jsonArray.getJSONObject(i)
                                 val s = jsonObject.getString("pic")
-                                Log.e("pic", s)
                                 val bitmap = try {
                                     BitmapFactory.decodeStream(URL(s).openStream())
                                 } catch (e: Exception) {
@@ -299,7 +298,8 @@ class DownloadMIUIActivity : AppCompatActivity() {
                             )
                             val size = support.substring(support.indexOf(getSize) + getSizeDiff)
 
-                            val u = id.getElementsByClass(downloadBtn).select("a").attr("href")
+                            val u =j.getElementsByClass(downloadBtn).select("a").attr("href")
+                            Log.e("downloadurl", u)
 
                             val selectDownloadItem = SelectDownloadItem(this, vN, v, size, u)
                             selectDownloadView.addView(selectDownloadItem)
@@ -324,6 +324,7 @@ class DownloadMIUIActivity : AppCompatActivity() {
                         val size = support.substring(support.indexOf(getSize) + getSizeDiff)
 
                         val u = i.getElementsByClass(downloadBtn).select("a").attr("href")
+                        Log.e("downloadurl", u)
                         val selectDownloadItem = SelectDownloadItem(this, vN, v, size, u)
                         selectDownloadView.addView(selectDownloadItem)
                     }
@@ -357,6 +358,14 @@ class DownloadMIUIActivity : AppCompatActivity() {
             size.text = s
             root_linear.setOnClickListener {
                 Thread {
+
+                    val file = u.substring(u.indexOf("/m") + 1)
+                    context.startActivity(Intent(context, DownloadActivity::class.java)
+                        .putExtra("url", u)
+                        .putExtra("filePath", Environment.getExternalStorageDirectory().absolutePath)
+                        .putExtra("fileName", file))
+
+/*
                     val id = 0x3
                     val builder = NotificationCompat.Builder(context, "Notify")
                     builder.setContentTitle(context.getString(R.string.downloading))
@@ -398,8 +407,10 @@ class DownloadMIUIActivity : AppCompatActivity() {
                             builder.setProgress(100, progress, false)
                             notificationManager.notify(id, builder.build())
                         }
-                    })
+                    })*/
+
                 }.start()
+
             }
         }
     }
