@@ -104,7 +104,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         app:icon="@drawable/ic_source"
-                        app:summary="https://github.com/1552980358/com.earth.OsToolkit"
+                        app:summary="https://github.com/1552980358/aosp.toolkit.perseus/"
                         app:title="@string/about_sourcecode" />
 
                     <aosp.toolkit.perseus.view.AboutView
