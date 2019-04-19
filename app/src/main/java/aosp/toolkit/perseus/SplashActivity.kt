@@ -33,7 +33,8 @@ class SplashActivity : AppCompatActivity() {
         val permission = arrayOf(android.Manifest.permission.INTERNET)
         ActivityCompat.requestPermissions(this, permission, 1)
 
-        info.text = "${BuildConfig.APPLICATION_ID}\n${BuildConfig.BUILD_TYPE}\nv${BuildConfig.VERSION_NAME}\n${BuildConfig.VERSION_CODE}"
+        info.text =
+            "${BuildConfig.APPLICATION_ID}\n${BuildConfig.BUILD_TYPE}\nv${BuildConfig.VERSION_NAME}\n${BuildConfig.VERSION_CODE}"
 
         Thread {
             try {
@@ -43,8 +44,11 @@ class SplashActivity : AppCompatActivity() {
             }
             startActivity(
                 Intent(
-                    this, if (getSharedPreferences("launch", Context.MODE_PRIVATE)
-                            .getBoolean("welcome", false)
+                    this,
+                    if (getSharedPreferences("launch", Context.MODE_PRIVATE).getBoolean(
+                            "welcome",
+                            false
+                        )
                     ) {
                         MainActivity::class.java
                     } else {

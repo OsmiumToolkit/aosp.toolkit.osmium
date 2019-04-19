@@ -100,7 +100,7 @@
     <string name="script_error"> - 错误 :</string>
 
     <string name="welcome_tab_welcome">欢迎</string>
-    <string name="welcome_tab_license" >开源许可证</string >
+    <string name="welcome_tab_license">开源许可证</string>
     <string name="welcome_tab_ready">准备开始</string>
 
     <string name="welcome_welcome_1">英仙 Perseus</string>

@@ -1,5 +1,6 @@
 package aosp.toolkit.perseus
 
+import android.content.Context
 import android.content.Intent
 import android.graphics.Paint
 import android.os.Bundle
@@ -135,8 +136,8 @@ class WelcomeActivity : AppCompatActivity() {
         override fun onActivityCreated(savedInstanceState: Bundle?) {
             super.onActivityCreated(savedInstanceState)
             root_S.setOnClickListener {
-                //context!!.getSharedPreferences("launch", Context.MODE_PRIVATE).edit()
-                //    .putBoolean("launch", true).apply()
+                context!!.getSharedPreferences("launch", Context.MODE_PRIVATE).edit()
+                    .putBoolean("welcome", true).apply()
                 startActivity(Intent(context!!, MainActivity::class.java))
             }
         }

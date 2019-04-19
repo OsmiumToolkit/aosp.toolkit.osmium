@@ -10,8 +10,8 @@ android {
         applicationId "aosp.toolkit.perseus"
         minSdkVersion 21
         targetSdkVersion 28
-        versionCode 106
-        versionName "1.3.0E"
+        versionCode 107
+        versionName "1.4.0E"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     compileOptions {
