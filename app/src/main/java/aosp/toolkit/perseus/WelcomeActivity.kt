@@ -16,6 +16,7 @@ import aosp.toolkit.perseus.base.BaseManager
 import aosp.toolkit.perseus.base.ViewPagerAdapter
 
 import kotlinx.android.synthetic.main.activity_welcome.*
+import kotlinx.android.synthetic.main.fragment_license.*
 import kotlinx.android.synthetic.main.fragment_ready.*
 import kotlinx.android.synthetic.main.fragment_welcome.*
 
@@ -48,14 +49,15 @@ class WelcomeActivity : AppCompatActivity() {
         BaseManager.getInstance().setWelcomeActivity(this)
 
         val option =
-            (SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION or
-                    SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN or
-                    SYSTEM_UI_FLAG_LAYOUT_STABLE)
+            (SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION or SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN or SYSTEM_UI_FLAG_LAYOUT_STABLE)
         window.decorView.systemUiVisibility = option
 
-        val tabList =
-            listOf(getString(R.string.welcome_tab_welcome), getString(R.string.welcome_tab_ready))
-        val fragmentList = listOf(WelcomeFragment(), ReadyFragment())
+        val tabList = listOf(
+            getString(R.string.welcome_tab_welcome),
+            getString(R.string.welcome_tab_license),
+            getString(R.string.welcome_tab_ready)
+        )
+        val fragmentList = listOf(WelcomeFragment(), LicenseFragment(), ReadyFragment())
 
         viewPager.adapter = ViewPagerAdapter(supportFragmentManager, fragmentList, tabList)
         tabLayout.setupWithViewPager(viewPager)
@@ -96,9 +98,7 @@ class WelcomeActivity : AppCompatActivity() {
 
     class WelcomeFragment : Fragment() {
         override fun onCreateView(
-            inflater: LayoutInflater,
-            container: ViewGroup?,
-            savedInstanceState: Bundle?
+            inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
         ): View? {
             return inflater.inflate(R.layout.fragment_welcome, container, false)
         }
@@ -108,35 +108,37 @@ class WelcomeActivity : AppCompatActivity() {
             val array = resources.getStringArray(R.array.version)
             version.text = array[versionIndex]
             version.paint.flags = Paint.UNDERLINE_TEXT_FLAG
+            author.paint.flags = Paint.UNDERLINE_TEXT_FLAG
         }
     }
 
-    class LicenceFragment: Fragment() {
+    class LicenseFragment : Fragment() {
         override fun onCreateView(
-            inflater: LayoutInflater,
-            container: ViewGroup?,
-            savedInstanceState: Bundle?
+            inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
         ): View? {
-            return super.onCreateView(inflater, container, savedInstanceState)
+            return inflater.inflate(R.layout.fragment_license, container, false)
         }
 
         override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
             super.onViewCreated(view, savedInstanceState)
+            webView.loadUrl("https://raw.githubusercontent.com/1552980358/aosp.toolkit.perseus/master/LICENSE")
         }
     }
 
     class ReadyFragment : Fragment() {
         override fun onCreateView(
-            inflater: LayoutInflater,
-            container: ViewGroup?,
-            savedInstanceState: Bundle?
+            inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
         ): View? {
             return inflater.inflate(R.layout.fragment_ready, container, false)
         }
 
         override fun onActivityCreated(savedInstanceState: Bundle?) {
             super.onActivityCreated(savedInstanceState)
-            root_S.setOnClickListener { startActivity(Intent(context!!, MainActivity::class.java)) }
+            root_S.setOnClickListener {
+                //context!!.getSharedPreferences("launch", Context.MODE_PRIVATE).edit()
+                //    .putBoolean("launch", true).apply()
+                startActivity(Intent(context!!, MainActivity::class.java))
+            }
         }
     }
 }
