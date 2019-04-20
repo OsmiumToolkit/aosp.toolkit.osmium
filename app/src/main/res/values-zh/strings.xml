@@ -88,16 +88,25 @@
 
     <string name="script_title_head">运行脚本 \"%s\"</string>
     <string name="script_head">================================\n英仙 Perseus\nBy 住在地球真累\n================================</string>
-    <string name="script_download"> - 下载脚本中&#8230;</string>
-    <string name="script_download_done">下载完成!</string>
-    <string name="script_download_fail">下载失败!</string>
-    <string name="script_target">- 目标 :</string>
-    <string name="script_permission"> - 设置限权中&#8230;</string>
-    <string name="script_permission_done">限权设置成功!</string>
-    <string name="script_permission_fail">限权设置失败!</string>
-    <string name="script_command"> - 命令 :</string>
-    <string name="script_process"> - 过程 :</string>
-    <string name="script_error"> - 错误 :</string>
+    <string name="script_present_ext"> - 已在外置存储中找到脚本\n</string>
+    <string name="script_download" > - 下载中&#8230;\n</string >
+    <string name="script_download_done" > - 下载成功!\n</string >
+    <string name="script_download_fail" > - 下载失败!\n</string >
+    <string name="script_copy" > - 复制&#8230;\n</string >
+    <string name="script_copy_done" > - 复制成功!\n</string >
+    <string name="script_copy_fail" > - 复制失败!\n</string >
+    <string name="script_size"> - 文件大小: %s Bytes\n</string>
+    <string name="script_target" >- 目标 :</string >
+    <string name="script_permission" > - 设置限权&#8230;\n</string >
+    <string name="script_permission_done" > - 设置限权成功!\n</string >
+    <string name="script_permission_fail" > - 限权设置失败!\n</string >
+    <string name="script_command" > - 命令 :\n</string >
+    <string name="script_process" > - 过程 :\n</string >
+    <string name="script_error" > - 错误 :\n</string >
+    <string name="script_exception" > - 异常 :\n</string >
+    <string name="script_removing"> - 移除脚本中…\n</string>
+    <string name="script_remove_success"> - 移除成功!</string>
+    <string name="script_remove_failed"> - 移除失败!</string>
 
     <string name="welcome_tab_welcome">欢迎</string>
     <string name="welcome_tab_license">开源许可证</string>

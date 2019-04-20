@@ -91,20 +91,27 @@
     <string name="script_title_head" >Run Script \"%s\"</string >
     
     <string name="script_head" >================================\nOsToolkit\nBy SkyNight(1552980358)\n================================</string >
-    <string name="script_download" > - Downloading&#8230;</string >
-    <string name="script_download_done" >Succeed to download!</string >
-    <string name="script_download_fail" >Failed to download!</string >
+    <string name="script_present_ext"> - Script found in External Storage</string>
+    <string name="script_download" > - Downloading&#8230;\n</string >
+    <string name="script_download_done" > - Succeed to download!\n</string >
+    <string name="script_download_fail" > - Failed to download!\n</string >
+    <string name="script_copy" > - Copying&#8230;\n</string >
+    <string name="script_copy_done" > - Succeed to copy!\n</string >
+    <string name="script_copy_fail" > - Failed to copy!\n</string >
+    <string name="script_size"> - Size: %s Bytes\n</string>
     <string name="script_target" >- Target :</string >
-    <string name="script_permission" > - Setting permission&#8230;</string >
-    <string name="script_permission_done" >Succeed to set permission!</string >
-    <string name="script_permission_fail" >Failed to set permission!</string >
-    <string name="script_command" > - Command :</string >
-    <string name="script_process" > - Process :</string >
-    <string name="script_error" > - Error :</string >
+    <string name="script_permission" > - Setting permission&#8230;\n</string >
+    <string name="script_permission_done" > - Succeed to set permission!\n</string >
+    <string name="script_permission_fail" > - Failed to set permission!\n</string >
+    <string name="script_command" > - Command :\n</string >
+    <string name="script_process" > - Process :\n</string >
+    <string name="script_error" > - Error :\n</string >
+    <string name="script_exception" > - Exception :\n</string >
+    <string name="script_removing"> - Removing script…\n</string>
+    <string name="script_remove_success"> - Succeed to remove script!</string>
+    <string name="script_remove_failed"> - Fail to remove script!</string>
     
-    
-    
-    
+
     <string name="welcome_tab_welcome" >Welcome</string >
     <string name="welcome_tab_license" >License</string >
     <string name="welcome_tab_ready">Ready-to-go</string>

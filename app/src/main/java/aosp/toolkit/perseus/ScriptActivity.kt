@@ -1,21 +1,21 @@
 package aosp.toolkit.perseus
 
-import android.app.Activity
+import android.Manifest
+import android.content.pm.PackageManager
 import android.os.Bundle
+import android.support.v4.app.ActivityCompat
 import android.support.v4.content.ContextCompat
 import android.support.v7.app.AppCompatActivity
 import android.view.View
 
 import aosp.toolkit.perseus.base.BaseIndex.Script_Head
-import aosp.toolkit.perseus.base.BaseOperation.Companion.setPermission
-import aosp.toolkit.perseus.base.BaseOperation.Companion.ShortToast
-
-import com.topjohnwu.superuser.Shell
+import aosp.toolkit.perseus.base.BaseOperation
+import aosp.toolkit.perseus.base.BaseOperation.Companion.checkFilePresent
 
 import kotlinx.android.synthetic.main.activity_script.*
 
 import java.io.File
-import java.io.FileOutputStream
+import java.io.FileWriter
 import java.lang.Exception
 import java.net.URL
 
@@ -28,6 +28,206 @@ import java.net.URL
  *
  */
 
+class ScriptActivity : AppCompatActivity() {
+    private lateinit var script: String
+    private lateinit var path: String
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_script)
+        script = if (intent.getStringExtra("script").endsWith(".sh")) {
+            intent.getStringExtra("script")
+        } else {
+            intent.getStringExtra("script").plus(".sh")
+        }
+        toolbar.title = script
+        initialize()
+        checkPermission()
+    }
+
+    private fun initialize() {
+        setSupportActionBar(toolbar)
+
+        supportActionBar!!.setDisplayHomeAsUpEnabled(true)
+
+        window.statusBarColor = ContextCompat.getColor(this, android.R.color.black)
+
+        toolbar.setNavigationOnClickListener { onBackPressed() }
+    }
+
+    private fun checkPermission() {
+        Thread {
+            /* 检查限权 Check permission */
+            if (ActivityCompat.checkSelfPermission(
+                    this, Manifest.permission.READ_EXTERNAL_STORAGE
+                ) == PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(
+                    this, Manifest.permission.WRITE_EXTERNAL_STORAGE
+                ) == PackageManager.PERMISSION_GRANTED
+            ) {
+                checkFile()
+            } else {
+                ActivityCompat.requestPermissions(
+                    this, arrayOf(
+                        Manifest.permission.READ_EXTERNAL_STORAGE,
+                        Manifest.permission.WRITE_EXTERNAL_STORAGE
+                    ), 0
+                )
+            }
+        }.start()
+    }
+
+    override fun onRequestPermissionsResult(
+        requestCode: Int, permissions: Array<out String>, grantResults: IntArray
+    ) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        checkPermission()
+    }
+
+    private fun checkFile() {
+        path = cacheDir.absolutePath + File.separator + script
+        if (checkFilePresent(externalCacheDir!!.absolutePath + File.separator + script)) {
+            copying()
+        } else {
+            downloading()
+        }
+    }
+
+    private fun copying() {
+        try {
+            val text = File(externalCacheDir!!.absolutePath + File.separator + script).inputStream()
+                .bufferedReader().readText()
+            val fileWriter = FileWriter(File(path))
+            fileWriter.write(text)
+            fileWriter.flush()
+            fileWriter.close()
+            if (File(path).length() > 0) {
+                runOnUiThread {
+                    onPrep.append(getString(R.string.script_copy_done))
+                    onPrep.append(
+                        String.format(
+                            getString(R.string.script_size), File(path).length()
+                        )
+                    )
+                }
+                setPermission()
+            } else {
+                runOnUiThread {
+                    onPrep.append(getString(R.string.script_copy_fail))
+                }
+            }
+        } catch (e: Exception) {
+            runOnUiThread {
+                onPrep.append(getString(R.string.script_copy_fail))
+                onExce.visibility = View.VISIBLE
+                onExce.append(e.toString())
+            }
+        }
+    }
+
+    private fun downloading() {
+        try {
+            val text = URL(Script_Head + intent.getStringExtra("path") + script).openStream()
+                .bufferedReader().readText()
+            val fileWriter = FileWriter(File(path))
+            fileWriter.write(text)
+            fileWriter.flush()
+            fileWriter.close()
+            if (File(path).length() > 0) {
+                runOnUiThread {
+                    onPrep.append(getString(R.string.script_download_done))
+                    onPrep.append(
+                        String.format(
+                            getString(R.string.script_size), File(path).length()
+                        )
+                    )
+                }
+                setPermission()
+            } else {
+                runOnUiThread {
+                    onPrep.append(getString(R.string.script_download_fail))
+                }
+            }
+        } catch (e: Exception) {
+            runOnUiThread {
+                onPrep.append(getString(R.string.script_download_fail))
+                onExce.visibility = View.VISIBLE
+                onExce.append(e.toString())
+            }
+        }
+    }
+
+
+    private fun setPermission() {
+        runOnUiThread {
+            onPrep.visibility = View.VISIBLE
+            onPrep.append(getString(R.string.script_permission))
+        }
+        if (BaseOperation.setPermission(path)) {
+            runOnUiThread {
+                onPrep.append(getString(R.string.script_permission_done))
+            }
+            runScript()
+        } else {
+            // 设置失败
+            runOnUiThread { onPrep.append(getString(R.string.script_permission_fail)) }
+        }
+    }
+
+    private fun runScript() {
+        try {
+            val p = Runtime.getRuntime().exec("su -c /system/bin/sh $path")
+            val i = p.inputStream.bufferedReader().readText()
+            if (!i.isEmpty()) {
+                runOnUiThread {
+                    onProcess.visibility = View.VISIBLE
+                    onProcess.append(i)
+                }
+            }
+            val j = p.errorStream.bufferedReader().readText()
+            if (!j.isEmpty()) {
+                runOnUiThread {
+                    onError.visibility = View.VISIBLE
+                    onError.append(j)
+                }
+            }
+        } catch (e: Exception) {
+            // 发生错误
+            runOnUiThread {
+                onExce.visibility = View.VISIBLE
+                onExce.append(e.toString())
+            }
+        }
+        removeFile()
+    }
+
+    private fun removeFile() {
+        runOnUiThread {
+            onRemove.visibility = View.VISIBLE
+        }
+        try {
+            val res = if (File(path).delete()) {
+                getString(R.string.script_remove_success)
+            } else {
+                getString(R.string.script_remove_failed)
+            }
+            runOnUiThread {
+                onRemove.text = res
+            }
+        } catch (e: Exception) {
+            // 发生异常
+            runOnUiThread {
+                onRemove.visibility = View.VISIBLE
+                onRemove.append(getString(R.string.script_remove_failed))
+                onExce.visibility = View.VISIBLE
+                onExce.append(e.toString())
+            }
+        }
+
+    }
+}
+
+
+/*
 class ScriptActivity : AppCompatActivity() {
     private lateinit var file: File
 
@@ -184,3 +384,4 @@ class ScriptActivity : AppCompatActivity() {
         super.onBackPressed()
     }
 }
+        */
