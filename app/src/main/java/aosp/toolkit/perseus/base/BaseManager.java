@@ -45,6 +45,10 @@ public class BaseManager extends Application  {
         this.welcomeActivity = welcomeActivity;
     }
 
+    public WelcomeActivity getWelcomeActivity() {
+        return this.welcomeActivity;
+    }
+
     public void finishActivities() {
         if (welcomeActivity != null) {
             try {

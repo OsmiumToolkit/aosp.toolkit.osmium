@@ -1,27 +1,39 @@
 package aosp.toolkit.perseus
 
+import android.app.Activity
 import android.content.Context
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.graphics.Paint
 import android.os.Bundle
+import android.provider.MediaStore
+import android.support.v4.app.ActivityCompat
 import android.support.v4.app.Fragment
 import android.support.v4.content.ContextCompat
+import android.support.v7.app.AlertDialog
 import android.support.v7.app.AppCompatActivity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.View.*
 import android.view.ViewGroup
+import aosp.toolkit.perseus.base.BaseIndex.OffLinePack
 
 import aosp.toolkit.perseus.base.BaseIndex.versionIndex
 import aosp.toolkit.perseus.base.BaseManager
+import aosp.toolkit.perseus.base.BaseOperation.Companion.ShortToast
 import aosp.toolkit.perseus.base.ViewPagerAdapter
+import aosp.toolkit.perseus.fragments.dialog.LoadingDialogFragment
 
 import kotlinx.android.synthetic.main.activity_welcome.*
+import kotlinx.android.synthetic.main.fragment_importofflinepackage.*
 import kotlinx.android.synthetic.main.fragment_license.*
 import kotlinx.android.synthetic.main.fragment_ready.*
 import kotlinx.android.synthetic.main.fragment_welcome.*
 
+import java.io.File
 import java.lang.Exception
+import java.net.URL
+import java.util.zip.ZipFile
 
 /*
  * OsToolkit - Kotlin
@@ -47,7 +59,7 @@ class WelcomeActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_welcome)
 
-        BaseManager.getInstance().setWelcomeActivity(this)
+        BaseManager.getInstance().welcomeActivity = this
 
         val option =
             (SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION or SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN or SYSTEM_UI_FLAG_LAYOUT_STABLE)
@@ -56,9 +68,15 @@ class WelcomeActivity : AppCompatActivity() {
         val tabList = listOf(
             getString(R.string.welcome_tab_welcome),
             getString(R.string.welcome_tab_license),
+            getString(R.string.welcome_tab_offline),
             getString(R.string.welcome_tab_ready)
         )
-        val fragmentList = listOf(WelcomeFragment(), LicenseFragment(), ReadyFragment())
+        val fragmentList = listOf(
+            WelcomeFragment(),
+            LicenseFragment(),
+            ImportOfflinePackageFragment(),
+            ReadyFragment()
+        )
 
         viewPager.adapter = ViewPagerAdapter(supportFragmentManager, fragmentList, tabList)
         tabLayout.setupWithViewPager(viewPager)
@@ -92,8 +110,128 @@ class WelcomeActivity : AppCompatActivity() {
         t.start()
     }
 
+    private fun checkPermission0() {
+        if (ActivityCompat.checkSelfPermission(
+                this, android.Manifest.permission.READ_EXTERNAL_STORAGE
+            ) == PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(
+                this, android.Manifest.permission.WRITE_EXTERNAL_STORAGE
+            ) == PackageManager.PERMISSION_GRANTED
+        ) {
+            downloadZip()
+        } else {
+            ActivityCompat.requestPermissions(
+                this, arrayOf(
+                    android.Manifest.permission.READ_EXTERNAL_STORAGE,
+                    android.Manifest.permission.WRITE_EXTERNAL_STORAGE
+                ), 0
+            )
+        }
+    }
+
+    private fun checkPermission1() {
+        if (ActivityCompat.checkSelfPermission(
+                this, android.Manifest.permission.READ_EXTERNAL_STORAGE
+            ) == PackageManager.PERMISSION_GRANTED
+        ) {
+            selectFile()
+        } else {
+            ActivityCompat.requestPermissions(
+                this, arrayOf(
+                    android.Manifest.permission.READ_EXTERNAL_STORAGE
+                ), 1
+            )
+        }
+    }
+
+    private val loadingDialogFragment = LoadingDialogFragment()
+    private fun downloadZip() {
+        loadingDialogFragment.show(
+            supportFragmentManager, "loadingDialogFragment"
+        )
+        Thread {
+            try {
+                val path = externalCacheDir!!.absolutePath + "Perseus_Offline_$OffLinePack.zip"
+                val url =
+                    URL("https://raw.githubusercontent.com/ToolkitPerseus/scripts/master/Perseus_Offline_107.zip")
+                File(path).writeBytes(url.openStream().readBytes())
+                unZip(path)
+            } catch (e: Exception) {
+                ShortToast(this, e, false)
+            }
+        }.start()
+    }
+
+    private fun selectFile() {
+        startActivityForResult(
+            Intent(Intent.ACTION_GET_CONTENT).setType("*/*").addCategory(Intent.CATEGORY_OPENABLE),
+            0
+        )
+    }
+
+    private fun unZip(path: String) {
+        Thread {
+            try {
+                val target = externalCacheDir!!.absolutePath + File.separator
+
+                if (File(path).length() > 0) {
+                    val zipFile = ZipFile(path)
+                    val entries = zipFile.entries()
+                    while (entries.hasMoreElements()) {
+                        val entry = entries.nextElement()
+                        val file = File(target, entry.name)
+                        if (file.exists()) {
+                            file.delete()
+                        }
+                        file.createNewFile()
+                        // 输出
+                        file.writeBytes(zipFile.getInputStream(entry).readBytes())
+                    }
+                }
+                File(path).delete()
+                ShortToast(this, "Finish", false)
+            } catch (e: Exception) {
+                ShortToast(this, "Fail: $e", false)
+            }
+            loadingDialogFragment.dismiss()
+        }.start()
+    }
+
+    override fun onRequestPermissionsResult(
+        requestCode: Int, permissions: Array<out String>, grantResults: IntArray
+    ) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        when (requestCode) {
+            0 -> checkPermission0()
+            1 -> checkPermission1()
+            else -> return
+        }
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (resultCode == Activity.RESULT_OK) {
+            loadingDialogFragment.show(
+                supportFragmentManager, "loadingDialogFragment"
+            )
+            val url = data!!.data
+
+            val cursor = contentResolver.query(
+                url!!, arrayOf(MediaStore.Images.Media.DATA), null, null, null
+            )
+            unZip(cursor!!.getString(cursor.getColumnIndex(MediaStore.Images.Media.DATA)))
+            cursor.close()
+        } else {
+            // 取消操作
+            ShortToast(this, R.string.cancelled)
+        }
+    }
+
     override fun finish() {
-        t.interrupt()
+        try {
+            t.interrupt()
+        } catch (e: Exception) {
+            //
+        }
         super.finish()
     }
 
@@ -123,6 +261,35 @@ class WelcomeActivity : AppCompatActivity() {
         override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
             super.onViewCreated(view, savedInstanceState)
             webView.loadUrl("https://raw.githubusercontent.com/1552980358/aosp.toolkit.perseus/master/LICENSE")
+        }
+    }
+
+    class ImportOfflinePackageFragment : Fragment() {
+        override fun onCreateView(
+            inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
+        ): View? {
+            return inflater.inflate(R.layout.fragment_importofflinepackage, container, false)
+        }
+
+        override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+            super.onViewCreated(view, savedInstanceState)
+            radioGroup.setOnCheckedChangeListener { _, checkedId ->
+                when (checkedId) {
+                    R.id.rb_2 -> {
+                        BaseManager.getInstance().welcomeActivity.checkPermission0()
+                    }
+                    R.id.rb_3 -> {
+                        BaseManager.getInstance().welcomeActivity.checkPermission1()
+                    }
+                    R.id.rb_4 -> {
+                        AlertDialog.Builder(context!!).setTitle(R.string.welcome_offline_5)
+                            .setPositiveButton(R.string.ok) { _, _ -> }.setView(R.layout.dialog_rb_4)
+                            .setCancelable(false)
+                            .show()
+
+                    }
+                }
+            }
         }
     }
 

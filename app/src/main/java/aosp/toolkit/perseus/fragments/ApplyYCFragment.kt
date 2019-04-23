@@ -17,6 +17,7 @@ package aosp.toolkit.perseus.fragments
  *
  */
 
+import android.annotation.SuppressLint
 import android.app.Dialog
 import android.os.*
 import android.support.v4.app.Fragment
@@ -37,6 +38,7 @@ class ApplyYCFragment : Fragment() {
         return inflater.inflate(R.layout.fragment_applyyc, container, false)
     }
 
+    @SuppressLint("InflateParams")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -57,7 +59,7 @@ class ApplyYCFragment : Fragment() {
                 val date = lines[0]
 
                 for (i: Int in 1 until lines.size) {
-                    val cpuFreqOptView = CPUFreqOptView(activity!!, type_yc, date, lines[i])
+                    val cpuFreqOptView = CPUFreqOptView(activity!!, type_yc, date, "yc_" + lines[i])
                     when {
                         lines[i].startsWith("sd") -> activity!!.runOnUiThread { snap.addView(cpuFreqOptView) }
                         lines[i].startsWith("exynos") -> activity!!.runOnUiThread { exynos.addView(cpuFreqOptView) }

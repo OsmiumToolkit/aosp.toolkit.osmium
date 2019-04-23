@@ -1,5 +1,6 @@
 package aosp.toolkit.perseus.view
 
+import android.annotation.SuppressLint
 import android.app.Activity
 import android.app.AlertDialog
 import android.content.Intent
@@ -20,6 +21,7 @@ import aosp.toolkit.perseus.ScriptActivity
  *
  */
  
+@SuppressLint("ViewConstructor")
 class CPUFreqOptView(activity: Activity, type: String, index: String, board: String) :
     LinearLayout(activity) {
     init {
@@ -34,7 +36,7 @@ class CPUFreqOptView(activity: Activity, type: String, index: String, board: Str
                 .setPositiveButton(R.string.cont) { _, _ ->
                     activity.startActivity(
                         Intent(activity, ScriptActivity::class.java)
-                            .putExtra("path", "$type/$index")
+                            .putExtra("path", "$type/$index/")
                             .putExtra("script", board)
                     )
                 }

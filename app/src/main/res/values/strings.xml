@@ -109,13 +109,22 @@
     <string name="script_exception" > - Exception :\n</string >
     <string name="script_removing"> - Removing script…\n</string>
     <string name="script_remove_success"> - Succeed to remove script!</string>
+    <string name="welcome_offline_5">About unzip</string>
+    <string name="welcome_offline_6">Unzip to one of following directory:\n(Selectable for copying)</string>
     <string name="script_remove_failed"> - Fail to remove script!</string>
-    
+
+    <string name="ok">Okay</string>
+
+    <string name="cancelled">Cancelled</string>
 
     <string name="welcome_tab_welcome" >Welcome</string >
     <string name="welcome_tab_license" >License</string >
+    <string name="welcome_tab_offline">OfflinePackage</string>
     <string name="welcome_tab_ready">Ready-to-go</string>
-    
+    <string name="welcome_offline_1">Download latest script when needed(recommended)</string>
+    <string name="welcome_offline_2">Download scripts package for offline use(Remove when app updates)</string>
+    <string name="welcome_offline_3">Select downloaded scripts packages from local(Remove when app updates)</string>
+    <string name="welcome_offline_4">Manually download and unzip, click to known unzip location(Remove when app updates)</string>
     <string name="welcome_ready_content">-Press anywhere to go-</string>
     
     <string name="welcome_welcome_1">Perseus</string>
@@ -247,4 +256,5 @@
     <string name="ver_global">Global</string>
     <string name="MIUIverName">Version: </string>
     <string name="MIUIverID">Version ID: </string>
+
 </resources >
