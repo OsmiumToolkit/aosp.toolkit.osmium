@@ -79,6 +79,7 @@
 
         <!-- 服务 Services -->
         <service android:name=".services.UpdateService" />
+        <service android:name=".services.ImportOfflinePackageService" />
     </application>
 
 </manifest>

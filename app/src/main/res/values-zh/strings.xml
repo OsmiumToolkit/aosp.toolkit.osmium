@@ -30,6 +30,8 @@
     <string name="nav_pc">橘猫调度</string>
     <string name="nav_tower">- 镇魂塔 -</string>
 
+    <string name="backgroundOperation">后台运行中…</string>
+
     <string name="check_root_title">检测ROOT限权</string>
     <string name="check_root_content1">点击白色区域开始</string>
     <string name="check_root_content2">结果: </string>
@@ -80,6 +82,9 @@
     <string name="about_github">GitHub</string>
     <string name="about_set_navBar">导航栏颜色跟随主题</string>
     <string name="about_set_theme">自定义主题</string>
+    <string name="about_offlline_1">每次使用时从服务器下载最新脚本(推荐)</string>
+    <string name="about_offlline_2">从服务器下载脚本包(应用版本更新时移除)</string>
+    <string name="about_offlline_3">导入本地离线包(应用版本更新时移除)</string>
 
     <string name="about_me">关于作者</string>
     <string name="qqgroup">QQ群</string>
@@ -89,21 +94,21 @@
     <string name="script_title_head">运行脚本 \"%s\"</string>
     <string name="script_head">================================\n英仙 Perseus\nBy 住在地球真累\n================================</string>
     <string name="script_present_ext"> - 已在外置存储中找到脚本\n</string>
-    <string name="script_download" > - 下载中&#8230;\n</string >
-    <string name="script_download_done" > - 下载成功!\n</string >
-    <string name="script_download_fail" > - 下载失败!\n</string >
-    <string name="script_copy" > - 复制&#8230;\n</string >
-    <string name="script_copy_done" > - 复制成功!\n</string >
-    <string name="script_copy_fail" > - 复制失败!\n</string >
+    <string name="script_download"> - 下载中&#8230;\n</string>
+    <string name="script_download_done"> - 下载成功!\n</string>
+    <string name="script_download_fail"> - 下载失败!\n</string>
+    <string name="script_copy"> - 复制&#8230;\n</string>
+    <string name="script_copy_done"> - 复制成功!\n</string>
+    <string name="script_copy_fail"> - 复制失败!\n</string>
     <string name="script_size"> - 文件大小: %s Bytes\n</string>
-    <string name="script_target" >- 目标 :</string >
-    <string name="script_permission" > - 设置限权&#8230;\n</string >
-    <string name="script_permission_done" > - 设置限权成功!\n</string >
-    <string name="script_permission_fail" > - 限权设置失败!\n</string >
-    <string name="script_command" > - 命令 :\n</string >
-    <string name="script_process" > - 过程 :\n</string >
-    <string name="script_error" > - 错误 :\n</string >
-    <string name="script_exception" > - 异常 :\n</string >
+    <string name="script_target">- 目标 :</string>
+    <string name="script_permission"> - 设置限权&#8230;\n</string>
+    <string name="script_permission_done"> - 设置限权成功!\n</string>
+    <string name="script_permission_fail"> - 限权设置失败!\n</string>
+    <string name="script_command"> - 命令 :\n</string>
+    <string name="script_process"> - 过程 :\n</string>
+    <string name="script_error"> - 错误 :\n</string>
+    <string name="script_exception"> - 异常 :\n</string>
     <string name="script_removing"> - 移除脚本中…\n</string>
     <string name="script_remove_success"> - 移除成功!</string>
     <string name="script_remove_failed"> - 移除失败!</string>
@@ -117,8 +122,8 @@
     <string name="welcome_welcome_2">当前版本系</string>
     <string name="welcome_welcome_4">为您呈现</string>
     <string name="welcome_offline_1">每次使用时从服务器下载最新脚本(推荐)</string>
-    <string name="welcome_offline_2">从服务器下载脚本包并解压(应用版本更新时移除)</string>
-    <string name="welcome_offline_3">从本地选择离线脚本压缩包解压(应用版本更新时移除)</string>
+    <string name="welcome_offline_2">从服务器下载脚本包(应用版本更新时移除)</string>
+    <string name="welcome_offline_3">导入本地离线包(应用版本更新时移除)</string>
     <string name="welcome_offline_4">自行下载解压, 点击查看解压目录(应用版本更新时移除)</string>
     <string name="welcome_offline_5">关于解压</string>
     <string name="welcome_offline_6">请解压到其中一条目录:\n(长按复制)</string>

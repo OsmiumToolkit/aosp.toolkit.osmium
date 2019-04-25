@@ -16,13 +16,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.View.*
 import android.view.ViewGroup
-import aosp.toolkit.perseus.base.BaseIndex.OffLinePack
 
 import aosp.toolkit.perseus.base.BaseIndex.versionIndex
 import aosp.toolkit.perseus.base.BaseManager
 import aosp.toolkit.perseus.base.BaseOperation.Companion.ShortToast
 import aosp.toolkit.perseus.base.ViewPagerAdapter
-import aosp.toolkit.perseus.fragments.dialog.LoadingDialogFragment
+import aosp.toolkit.perseus.services.ImportOfflinePackageService
 
 import kotlinx.android.synthetic.main.activity_welcome.*
 import kotlinx.android.synthetic.main.fragment_importofflinepackage.*
@@ -30,10 +29,7 @@ import kotlinx.android.synthetic.main.fragment_license.*
 import kotlinx.android.synthetic.main.fragment_ready.*
 import kotlinx.android.synthetic.main.fragment_welcome.*
 
-import java.io.File
 import java.lang.Exception
-import java.net.URL
-import java.util.zip.ZipFile
 
 /*
  * OsToolkit - Kotlin
@@ -72,10 +68,7 @@ class WelcomeActivity : AppCompatActivity() {
             getString(R.string.welcome_tab_ready)
         )
         val fragmentList = listOf(
-            WelcomeFragment(),
-            LicenseFragment(),
-            ImportOfflinePackageFragment(),
-            ReadyFragment()
+            WelcomeFragment(), LicenseFragment(), ImportOfflinePackageFragment(), ReadyFragment()
         )
 
         viewPager.adapter = ViewPagerAdapter(supportFragmentManager, fragmentList, tabList)
@@ -117,7 +110,11 @@ class WelcomeActivity : AppCompatActivity() {
                 this, android.Manifest.permission.WRITE_EXTERNAL_STORAGE
             ) == PackageManager.PERMISSION_GRANTED
         ) {
-            downloadZip()
+            startService(
+                Intent(this, ImportOfflinePackageService::class.java).putExtra(
+                    "download", true
+                )
+            )
         } else {
             ActivityCompat.requestPermissions(
                 this, arrayOf(
@@ -131,69 +128,22 @@ class WelcomeActivity : AppCompatActivity() {
     private fun checkPermission1() {
         if (ActivityCompat.checkSelfPermission(
                 this, android.Manifest.permission.READ_EXTERNAL_STORAGE
+            ) == PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(
+                this, android.Manifest.permission.WRITE_EXTERNAL_STORAGE
             ) == PackageManager.PERMISSION_GRANTED
         ) {
-            selectFile()
+            startActivityForResult(
+                Intent(Intent.ACTION_GET_CONTENT).setType("*/*").addCategory(Intent.CATEGORY_OPENABLE),
+                0
+            )
         } else {
             ActivityCompat.requestPermissions(
                 this, arrayOf(
-                    android.Manifest.permission.READ_EXTERNAL_STORAGE
-                ), 1
+                    android.Manifest.permission.READ_EXTERNAL_STORAGE,
+                    android.Manifest.permission.WRITE_EXTERNAL_STORAGE
+                ), 0
             )
         }
-    }
-
-    private val loadingDialogFragment = LoadingDialogFragment()
-    private fun downloadZip() {
-        loadingDialogFragment.show(
-            supportFragmentManager, "loadingDialogFragment"
-        )
-        Thread {
-            try {
-                val path = externalCacheDir!!.absolutePath + "Perseus_Offline_$OffLinePack.zip"
-                val url =
-                    URL("https://raw.githubusercontent.com/ToolkitPerseus/scripts/master/Perseus_Offline_107.zip")
-                File(path).writeBytes(url.openStream().readBytes())
-                unZip(path)
-            } catch (e: Exception) {
-                ShortToast(this, e, false)
-            }
-        }.start()
-    }
-
-    private fun selectFile() {
-        startActivityForResult(
-            Intent(Intent.ACTION_GET_CONTENT).setType("*/*").addCategory(Intent.CATEGORY_OPENABLE),
-            0
-        )
-    }
-
-    private fun unZip(path: String) {
-        Thread {
-            try {
-                val target = externalCacheDir!!.absolutePath + File.separator
-
-                if (File(path).length() > 0) {
-                    val zipFile = ZipFile(path)
-                    val entries = zipFile.entries()
-                    while (entries.hasMoreElements()) {
-                        val entry = entries.nextElement()
-                        val file = File(target, entry.name)
-                        if (file.exists()) {
-                            file.delete()
-                        }
-                        file.createNewFile()
-                        // 输出
-                        file.writeBytes(zipFile.getInputStream(entry).readBytes())
-                    }
-                }
-                File(path).delete()
-                ShortToast(this, "Finish", false)
-            } catch (e: Exception) {
-                ShortToast(this, "Fail: $e", false)
-            }
-            loadingDialogFragment.dismiss()
-        }.start()
     }
 
     override fun onRequestPermissionsResult(
@@ -210,15 +160,21 @@ class WelcomeActivity : AppCompatActivity() {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (resultCode == Activity.RESULT_OK) {
-            loadingDialogFragment.show(
-                supportFragmentManager, "loadingDialogFragment"
-            )
             val url = data!!.data
 
             val cursor = contentResolver.query(
                 url!!, arrayOf(MediaStore.Images.Media.DATA), null, null, null
             )
-            unZip(cursor!!.getString(cursor.getColumnIndex(MediaStore.Images.Media.DATA)))
+            cursor!!.getString(cursor.getColumnIndex(MediaStore.Images.Media.DATA))
+
+            startService(
+                Intent(this, ImportOfflinePackageService::class.java).putExtra(
+                    "download", false
+                ).putExtra(
+                    "zipLocation",
+                    cursor.getString(cursor.getColumnIndex(MediaStore.Images.Media.DATA))
+                )
+            )
             cursor.close()
         } else {
             // 取消操作
@@ -283,9 +239,8 @@ class WelcomeActivity : AppCompatActivity() {
                     }
                     R.id.rb_4 -> {
                         AlertDialog.Builder(context!!).setTitle(R.string.welcome_offline_5)
-                            .setPositiveButton(R.string.ok) { _, _ -> }.setView(R.layout.dialog_rb_4)
-                            .setCancelable(false)
-                            .show()
+                            .setPositiveButton(R.string.ok) { _, _ -> }
+                            .setView(R.layout.dialog_rb_4).setCancelable(false).show()
 
                     }
                 }
