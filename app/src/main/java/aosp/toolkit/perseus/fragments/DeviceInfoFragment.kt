@@ -108,10 +108,16 @@ class DeviceInfoFragment : Fragment() {
         val t5 = Thread {
             val runtime = Runtime.getRuntime()
 
+            val ver = ChildView(activity, "java.version", System.getProperty("java.version"))
+            val ven = ChildView(activity, "java.vendor", System.getProperty("java.vendor"))
+            val jvmsver = ChildView(activity, "java.vm.specification.version", System.getProperty("java.vm.specification.version"))
+            val jvmsven = ChildView(activity, "java.vm.specification.name", System.getProperty("java.vm.specification.name"))
+            val jvmver = ChildView(activity, "java.vm.version", System.getProperty("java.vm.version"))
+            val jvmven = ChildView(activity, "java.vm.version", System.getProperty("java.vm.version"))
             val m = ChildView(activity, R.string.deviceinfo_jvm_maxmem, unitConvert(runtime.maxMemory()))
             val t = ChildView(activity, R.string.deviceinfo_jvm_totalmem, unitConvert(runtime.totalMemory()))
 
-            activity!!.runOnUiThread { jvmRoot.addViews(m, t) }
+            activity!!.runOnUiThread { jvmRoot.addViews(ver, ven, jvmsver, jvmsven, jvmver, jvmven, m, t) }
         }
         t5.start()
 

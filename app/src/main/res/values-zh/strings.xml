@@ -48,13 +48,6 @@
     <string name="warn_9008_title">警告</string>
     <string name="warn_9008_msg">此操作可能具有一定危险性\n请确保在已经学会如何使用9008后再进入该模式\n部分机型可能会出现卡住无法改出的情况</string>
 
-    <string name="name_yc9559">\u0040yc9559</string>
-    <string name="name_xzr">\u0040xzr467706992</string>
-    <string name="name_cjybyjk">\u0040cjybyjk</string>
-    <string name="name_topjohnwu">\u0040topjohnwu</string>
-
-    <string name="warning">Copyright &#169;1552980358 &#8211; 2019</string>
-
     <string name="systemApp">&#60;系统应用&#62;</string>
 
     <string name="update_startcheck">检查更新…</string>
@@ -191,7 +184,6 @@
     <string name="deviceinfo_ram_totalMem">总内存</string>
     <string name="deviceinfo_ram_threshold">临界值</string>
 
-    <string name="deviceinfo_jvm_title">Java Runtime</string>
     <string name="deviceinfo_jvm_maxmem">JVM 最高内存</string>
     <string name="deviceinfo_jvm_totalmem">JVM 总内存</string>
 

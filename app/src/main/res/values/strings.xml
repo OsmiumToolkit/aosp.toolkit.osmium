@@ -48,12 +48,12 @@
     <string name="warn_9008_title">WARNING</string>
     <string name="warn_9008_msg">This operation is DANGEROUS\nMake SURE you have learn operation of 9008 before entering\nStop running may be found on some devices</string>
 
-    <string name="name_yc9559">\u0040yc9559</string>
-    <string name="name_xzr">\u0040xzr467706992</string>
-    <string name="name_cjybyjk">\u0040cjybyjk</string>
-    <string name="name_topjohnwu">\u0040topjohnwu</string>
+    <string name="name_yc9559" translatable="false">\u0040yc9559</string>
+    <string name="name_xzr" translatable="false">\u0040xzr467706992</string>
+    <string name="name_cjybyjk" translatable="false">\u0040cjybyjk</string>
+    <string name="name_topjohnwu" translatable="false">\u0040topjohnwu</string>
 
-    <string name="warning">Copyright &#169;1552980358 &#8211; 2019</string>
+    <string name="warning" translatable="false">Copyright &#169;1552980358 &#8211; 2019</string>
 
     <string name="systemApp">&#60;SYSTEM APP&#62;</string>
 
@@ -195,7 +195,7 @@
     <string name="deviceinfo_ram_totalMem">Total RAM</string>
     <string name="deviceinfo_ram_threshold">Threshold</string>
 
-    <string name="deviceinfo_jvm_title">Java Runtime</string>
+    <string name="deviceinfo_jvm_title" translatable="false" >Java Runtime</string>
     <string name="deviceinfo_jvm_maxmem">JVM Max Memory</string>
     <string name="deviceinfo_jvm_totalmem">JVM Total Memory</string>
 
