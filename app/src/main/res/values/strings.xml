@@ -177,14 +177,17 @@
     <string name="deviceinfo_display_densityDpi">Density DPI</string>
     <string name="deviceinfo_display_scaledDensity">Scaled Density</string>
 
-    <string name="deviceinfo_android_title">Android</string>
+    <string name="deviceinfo_android_title" translatable="false">Android</string>
     <string name="deviceinfo_android_version">Version</string>
     <string name="deviceinfo_soc_board">Board</string>
     <string name="deviceinfo_android_versionName">VersionName</string>
     <string name="deviceinfo_android_sdk">SDK</string>
     <string name="deviceinfo_android_type">Build Type</string>
 
-    <string name="deviceinfo_soc_title">SoC</string>
+    <string name="deviceinfo_linux_title" translatable="false">Linux</string>
+    <string name="deviceinfo_linux_version">Kernel Version</string>
+
+    <string name="deviceinfo_soc_title" translatable="false">SoC</string>
     <string name="deviceinfo_soc_manufacturer">Manufacturer</string>
     <string name="deviceinfo_soc_cores">Cores</string>
     <string name="deviceinfo_soc_abis">Supported ABIs</string>

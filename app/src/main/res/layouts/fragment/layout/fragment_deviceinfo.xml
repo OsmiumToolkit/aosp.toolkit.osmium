@@ -26,7 +26,13 @@
             android:layout_height="wrap_content"
             android:id="@+id/androidRoot"
             app:title="@string/deviceinfo_android_title" />
-        
+
+        <aosp.toolkit.perseus.view.DeviceInfoView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/linuxRoot"
+            app:title="@string/deviceinfo_linux_title"/>
+
         <aosp.toolkit.perseus.view.DeviceInfoView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

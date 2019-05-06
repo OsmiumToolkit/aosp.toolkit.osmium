@@ -20,6 +20,7 @@ import aosp.toolkit.perseus.base.BaseOperation.Companion.getMemory
 import aosp.toolkit.perseus.view.DeviceInfoView.ChildView
 
 import kotlinx.android.synthetic.main.fragment_deviceinfo.*
+import java.io.File
 
 import java.util.*
 
@@ -47,6 +48,7 @@ class DeviceInfoFragment : Fragment() {
         return inflater.inflate(R.layout.fragment_deviceinfo, container, false)
     }
 
+    @Suppress("SpellCheckingInspection")
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         val dialog = Dialog(activity as Context)
@@ -105,7 +107,7 @@ class DeviceInfoFragment : Fragment() {
         }
         t4.start()
 
-        val t5 = Thread {
+        @Suppress("SpellCheckingInspection") val t5 = Thread {
             val runtime = Runtime.getRuntime()
 
             val ver = ChildView(activity, "java.version", System.getProperty("java.version"))
@@ -143,8 +145,27 @@ class DeviceInfoFragment : Fragment() {
         }
         t6.start()
 
+        val t7 = Thread {
+
+            val lv = try {
+                val v = File("/proc/version").inputStream().bufferedReader().readText()
+                v.substring(0, v.indexOf("-"))
+            } catch (e: Exception) {
+                // permission denied
+                try {
+                    val v = Runtime.getRuntime().exec("su -c cat /proc/version").inputStream.bufferedReader().readText()
+                    v.substring(0, v.indexOf("-"))
+                } catch (e: Exception) {
+                    "cat /proc/version: Permission denied"
+                }
+            }
+            val v = ChildView(activity, R.string.deviceinfo_linux_version, lv)
+            activity!!.runOnUiThread { linuxRoot.addViews(v) }
+        }
+        t7.start()
+
         Thread {
-            while (t1.isAlive || t2.isAlive || t3.isAlive || t4.isAlive || t5.isAlive || t6.isAlive) {
+            while (t1.isAlive || t2.isAlive || t3.isAlive || t4.isAlive || t5.isAlive || t6.isAlive || t7.isAlive) {
                 Thread.sleep(1)
             }
             Timer().schedule(object : TimerTask() {
