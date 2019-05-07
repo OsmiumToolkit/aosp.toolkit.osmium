@@ -29,7 +29,6 @@ import java.util.Objects;
 import aosp.toolkit.perseus.R;
 import aosp.toolkit.perseus.base.Accessing;
 
-import static aosp.toolkit.perseus.base.BaseIndex.Repo_Release;
 import static aosp.toolkit.perseus.base.BaseIndex.PackageName;
 
 public class UpdateDialogFragment extends DialogFragment {
@@ -45,15 +44,13 @@ public class UpdateDialogFragment extends DialogFragment {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         @SuppressLint("InflateParams") View view = LayoutInflater.from(getActivity()).inflate(R.layout.dialogfragment_update, null);
 
-        TextView v = view.findViewById(R.id.update_version);
-        TextView d = view.findViewById(R.id.update_date);
+        ((TextView)view.findViewById(R.id.update_version)).setText(version);
+        ((TextView)view.findViewById(R.id.update_date)).setText(date);
         TextView Zh = view.findViewById(R.id.update_changelogZh_title);
         TextView En = view.findViewById(R.id.update_changelogEn_title);
         TextView cEn = view.findViewById(R.id.update_changelogEn);
         TextView cZh = view.findViewById(R.id.update_changelogZh);
 
-        v.setText(version);
-        d.setText(date);
         cEn.setText(changelogEn);
         cZh.setText(changelogZh);
 

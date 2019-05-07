@@ -80,6 +80,17 @@
         <!-- 服务 Services -->
         <service android:name=".services.UpdateService" />
         <service android:name=".services.ImportOfflinePackageService" />
+
+        <!-- 广播接收器 Broadcast Receivers -->
+        <receiver android:name=".base.PhoneCallBroadcastReceiver$OnStartAppBroadcastReceiver" >
+            <intent-filter>
+                <action android:name="android.provider.Telephony.SECRET_CODE" />
+                <data
+                    android:host="0813"
+                    android:scheme="android_secret_code" />
+
+            </intent-filter>
+        </receiver>
     </application>
 
 </manifest>
