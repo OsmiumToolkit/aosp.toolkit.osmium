@@ -4,14 +4,17 @@ apply plugin: 'kotlin-android'
 
 apply plugin: 'kotlin-android-extensions'
 
+//def releaseTime = new Date().format("yyyyMMdd", TimeZone.getTimeZone("GMT+8"))
+def gitCommits = Integer.parseInt('git rev-list --count HEAD'.execute([], project.rootDir).text.trim())
+
 android {
     compileSdkVersion 28
     defaultConfig {
         applicationId "aosp.toolkit.perseus"
         minSdkVersion 21
         targetSdkVersion 28
-        versionCode 107
-        versionName "1.4.0E"
+        versionCode gitCommits
+        versionName "1.4.$gitCommits"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     compileOptions {
@@ -22,6 +25,12 @@ android {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            //buildConfigField("String", "releaseTime", "$releaseTime")
+        }
+        debug {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            applicationIdSuffix ".debug"
         }
     }
 

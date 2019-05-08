@@ -1,7 +1,6 @@
 package aosp.toolkit.perseus
 
 import android.annotation.SuppressLint
-import android.app.NotificationManager
 import android.content.Context
 import android.content.Intent
 import android.graphics.Bitmap
@@ -10,7 +9,6 @@ import android.graphics.Canvas
 import android.os.Bundle
 import android.os.Environment
 import android.support.v4.app.Fragment
-import android.support.v4.app.NotificationCompat
 import android.support.v4.content.ContextCompat
 import android.support.v4.content.ContextCompat.startActivity
 import android.support.v7.app.AppCompatActivity
@@ -88,7 +86,7 @@ class DownloadMIUIActivity : AppCompatActivity() {
                             }
                         }
 
-                        if (!tables.isEmpty()) {
+                        if (tables.isNotEmpty()) {
 
                             // 解析 Decode
                             val jsonArray = JSONObject(tables).getJSONArray("phone")
@@ -109,15 +107,19 @@ class DownloadMIUIActivity : AppCompatActivity() {
                                 layoutParams.columnSpec = GridLayout.spec(i % 2, 1f)
                                 layoutParams.rowSpec = GridLayout.spec(i / 2, 1f)
 
-                                activity!!.runOnUiThread {
-                                    gridLayout.addView(
-                                        deviceView, layoutParams
-                                    )
+                                activity?.runOnUiThread {
+                                    try {
+                                        gridLayout.addView(
+                                            deviceView, layoutParams
+                                        )
+                                    } catch (e: Exception) {
+                                        ShortToast(BaseManager.getInstance().mainActivity, e, false)
+                                    }
                                 }
                             }
                         }
                     } catch (e: Exception) {
-                        ShortToast(activity!!, e, false)
+                        ShortToast(BaseManager.getInstance().mainActivity, e, false)
                     }
                     created = true
                 }.start()
@@ -159,7 +161,7 @@ class DownloadMIUIActivity : AppCompatActivity() {
                         }
 
 
-                        if (!tables.isEmpty()) {
+                        if (tables.isNotEmpty()) {
                             // 解析 Decode
                             val jsonArray = JSONObject(tables).getJSONArray("phone")
                             for (i: Int in 0 until jsonArray.length()) {
@@ -188,15 +190,19 @@ class DownloadMIUIActivity : AppCompatActivity() {
                                 layoutParams.columnSpec = GridLayout.spec(i % 2, 1f)
                                 layoutParams.rowSpec = GridLayout.spec(i / 2, 1f)
 
-                                activity!!.runOnUiThread {
-                                    gridLayout.addView(
-                                        deviceView, layoutParams
-                                    )
+                                activity?.runOnUiThread {
+                                    try {
+                                        gridLayout.addView(
+                                            deviceView, layoutParams
+                                        )
+                                    } catch (e: Exception) {
+                                        ShortToast(BaseManager.getInstance().mainActivity, e, false)
+                                    }
                                 }
                             }
                         }
                     } catch (e: Exception) {
-                        ShortToast(activity!!, e, false)
+                        ShortToast(BaseManager.getInstance().mainActivity, e, false)
                     }
                     created = true
                 }.start()
@@ -247,7 +253,7 @@ class DownloadMIUIActivity : AppCompatActivity() {
                 val getSizeDiff: Int
                 val downloadBtn: String
 
-                val url = if (!site.isEmpty()) {
+                val url = if (site.isNotEmpty()) {
                     getVersion1 = "n: "
                     getVersion1Diff = 3
                     getVersion2 = ") "
