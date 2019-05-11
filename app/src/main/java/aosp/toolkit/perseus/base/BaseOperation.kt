@@ -66,7 +66,7 @@ class BaseOperation {
 
         fun suFileReadLine(filePath: String): String {
             val line: String? = try {
-                Shell.su("cat $filePath").exec().out[0]
+                Runtime.getRuntime().exec("su -c cat $filePath").inputStream.bufferedReader().readLine()
             } catch (e: Exception) {
                 "Fail"
             }
