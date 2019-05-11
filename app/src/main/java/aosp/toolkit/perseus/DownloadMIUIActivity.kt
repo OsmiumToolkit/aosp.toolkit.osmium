@@ -12,7 +12,6 @@ import android.support.v4.app.Fragment
 import android.support.v4.content.ContextCompat
 import android.support.v4.content.ContextCompat.startActivity
 import android.support.v7.app.AppCompatActivity
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -329,7 +328,7 @@ class DownloadMIUIActivity : AppCompatActivity() {
                         val size = support.substring(support.indexOf(getSize) + getSizeDiff)
 
                         val u = i.getElementsByClass(downloadBtn).select("a").attr("href")
-                        Log.e("downloadurl", u)
+                        //Log.e("downloadurl", u)
                         val selectDownloadItem = SelectDownloadItem(this, vN, v, size, u)
                         selectDownloadView.addView(selectDownloadItem)
                     }
