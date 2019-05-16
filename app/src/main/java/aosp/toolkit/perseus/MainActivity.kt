@@ -32,7 +32,6 @@ import android.view.View
 import android.widget.RelativeLayout
 
 import aosp.toolkit.perseus.base.BaseManager
-import aosp.toolkit.perseus.base.BaseOperation
 import aosp.toolkit.perseus.base.BaseOperation.Companion.ShortToast
 import aosp.toolkit.perseus.base.BaseOperation.Companion.getPackageVersion
 import aosp.toolkit.perseus.fragments.*
@@ -185,9 +184,8 @@ class MainActivity : AppCompatActivity(),
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         // Handle navigation view item clicks here.
-        val id = item.itemId
 
-        when (id) {
+        when (val id = item.itemId) {
             R.id.nav_monitor -> startActivity(Intent(this, UsageActivity::class.java))
             R.id.nav_tower -> startActivity(Intent(this, DisableAppActivity::class.java))
             R.id.nav_zxing -> startActivity(Intent(this, ZXingActivity::class.java))
@@ -240,14 +238,13 @@ class MainActivity : AppCompatActivity(),
     }
 
     override fun onClick(v: View?) {
-        val id = v!!.id
-        when (id) {
+        when (v!!.id) {
             R.id.nav_about -> {
                 drawer_layout.closeDrawer(GravityCompat.START)
                 drawer_layout.openDrawer(GravityCompat.END)
             }
             R.id.nav_aboutme -> {
-                AboutmeDialogFragment().show(supportFragmentManager, "AboutmeDialogFragment()")
+                @Suppress("SpellCheckingInspection") AboutmeDialogFragment().show(supportFragmentManager, "AboutmeDialogFragment()")
             }
         }
     }

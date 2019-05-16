@@ -4,7 +4,6 @@ import android.annotation.SuppressLint
 import android.app.Service
 import android.content.Intent
 import android.os.IBinder
-import android.util.Log
 import aosp.toolkit.perseus.BuildConfig
 import aosp.toolkit.perseus.R
 import aosp.toolkit.perseus.base.BaseManager
