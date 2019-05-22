@@ -65,11 +65,11 @@
             android:label="@string/nav_zxing"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".DownloadMIUIActivity"
+            android:name=".MIUIActivity"
             android:label="@string/nav_downloadmiui"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".DownloadMIUIActivity$SelectDownloadActivity"
+            android:name=".MIUIActivity$SelectDownloadActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".DownloadActivity"

@@ -39,7 +39,7 @@ android {
             res.srcDirs =
                     [
                             'src/main/res/layouts/download',
-                            'src/main/res/layouts/downloadmiui',
+                            'src/main/res/layouts/miui',
                             'src/main/res/layouts/main',
                             'src/main/res/layouts/usage',
                             'src/main/res/layouts/welcome',

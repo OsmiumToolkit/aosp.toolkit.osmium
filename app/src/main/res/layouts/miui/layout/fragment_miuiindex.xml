@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v4.widget.NestedScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior">
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="@dimen/dp_5">
+
+            <android.support.v7.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/cardView_margin"
+                android:padding="@dimen/cardView_padding"
+                app:cardCornerRadius="@dimen/cardView_cardCornerRadius"
+                app:cardElevation="@dimen/dp_0">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="@dimen/cardView_linear_padding">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@android:color/black"
+                        android:textSize="@dimen/cardview_title" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <android.support.v7.widget.AppCompatEditText
+                            android:id="@+id/originUrl"
+                            android:layout_width="@dimen/dp_0"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="9" />
+
+                        <RelativeLayout
+                            android:id="@+id/getLink"
+                            android:layout_width="@dimen/dp_0"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:clickable="true"
+                            android:focusable="true">
+
+                            <ImageView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_centerHorizontal="true"
+                                android:layout_centerVertical="true"
+                                android:src="@drawable/ic_go"
+                                tools:ignore="ContentDescription" />
+
+                        </RelativeLayout>
+
+                    </LinearLayout>
+
+                    <RadioGroup
+                        android:id="@+id/miuiVersion"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <RadioButton
+                            android:id="@+id/miui_0"
+                            android:layout_width="@dimen/dp_0"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="V4"
+                            tools:ignore="HardcodedText" />
+                        <RadioButton
+                            android:id="@+id/miui_1"
+                            android:layout_width="@dimen/dp_0"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="V5"
+                            tools:ignore="HardcodedText" />
+                        <RadioButton
+                            android:id="@+id/miui_2"
+                            android:layout_width="@dimen/dp_0"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="V6/V7"
+                            tools:ignore="HardcodedText" />
+                        <RadioButton
+                            android:id="@+id/miui_3"
+                            android:layout_width="@dimen/dp_0"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="V8/V9"
+                            tools:ignore="HardcodedText" />
+
+                        <RadioButton
+                            android:id="@+id/miui_4"
+                            android:layout_width="@dimen/dp_0"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:checked="true"
+                            android:text="V10"
+                            tools:ignore="HardcodedText" />
+
+                    </RadioGroup>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:id="@+id/generatedLink"
+                            android:layout_width="@dimen/dp_0"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="9"
+                            android:textIsSelectable="true" />
+
+                        <RelativeLayout
+                            android:id="@+id/copyLink"
+                            android:layout_width="@dimen/dp_0"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:background="?android:attr/selectableItemBackground"
+                            android:clickable="true"
+                            android:focusable="true">
+
+                            <ImageView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_centerHorizontal="true"
+                                android:layout_centerVertical="true"
+                                android:padding="@dimen/dp_5"
+                                android:src="@drawable/ic_copy"
+                                tools:ignore="ContentDescription" />
+
+                        </RelativeLayout>
+
+                    </LinearLayout>
+
+                    <TextView
+                        android:id="@+id/mtzSize"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:text="Size\n"
+                        android:textIsSelectable="true"
+                        tools:ignore="HardcodedText" />
+
+                    <TextView
+                        android:id="@+id/mtzHash"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:text="Hash\n"
+                        android:textIsSelectable="true"
+                        tools:ignore="HardcodedText" />
+
+                </LinearLayout>
+
+            </android.support.v7.widget.CardView>
+
+        </LinearLayout>
+    </ScrollView>
+</android.support.v4.widget.NestedScrollView>

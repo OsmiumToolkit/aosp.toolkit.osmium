@@ -12,6 +12,7 @@ import android.support.v4.app.Fragment
 import android.support.v4.content.ContextCompat
 import android.support.v4.content.ContextCompat.startActivity
 import android.support.v7.app.AppCompatActivity
+import android.text.TextUtils
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -23,6 +24,7 @@ import aosp.toolkit.perseus.base.BaseOperation.Companion.ShortToast
 import kotlinx.android.synthetic.main.activity_downloadmiui.*
 import kotlinx.android.synthetic.main.activity_selectdownload.*
 import kotlinx.android.synthetic.main.fragment_download.*
+import kotlinx.android.synthetic.main.fragment_miuiindex.*
 import kotlinx.android.synthetic.main.item_selectdownload.view.*
 import kotlinx.android.synthetic.main.view_device.view.*
 import kotlinx.android.synthetic.main.view_selectdownload.view.*
@@ -35,14 +37,24 @@ import java.lang.Exception
 import java.net.URL
 
 /*
- * @File:   DownloadMIUIActivity
+ * @File:   MIUIActivity
  * @Author: 1552980358
  * @Time:   6:28 PM
  * @Date:   5 Apr 2019
  * 
  */
 
-class DownloadMIUIActivity : AppCompatActivity() {
+class MIUIActivity : AppCompatActivity() {
+    companion object {
+        val VERSION = arrayListOf(
+            "?capability=w%2Cb%2Cs%2Cm%2Ch5%2Cv%3A8%2Cvw&miuiUIVersion=V4\u0000",   //V4
+            "?capability=w%2Cb%2Cs%2Cm%2Ch5%2Cv%3A8%2Cvw&miuiUIVersion=V5\u0000",   //V5
+            "?capability=w%2Cb%2Cs%2Cm%2Ch5%2Cv%3A8%2Cvw&miuiUIVersion=V6\u0000",   //V6
+            "?capability=w%2Cb%2Cs%2Cm%2Ch5%2Cv%3A8%2Cvw&miuiUIVersion=V8\u0000",   //V8
+            "?capability=w%2Cb%2Cs%2Cm%2Ch5%2Cv%3A8%2Cvw&miuiUIVersion=V10\u0000"   //V10
+        )
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_downloadmiui)
@@ -51,11 +63,71 @@ class DownloadMIUIActivity : AppCompatActivity() {
         supportActionBar!!.setDisplayHomeAsUpEnabled(true)
         toolbar.setNavigationOnClickListener { finish() }
 
-        val tabList = listOf(getString(R.string.ver_cn), getString(R.string.ver_global))
-        val fragmentList = listOf(MIUIChinaFragment(), MIUIGlobalFragment())
+        val tabList = listOf("主页",getString(R.string.ver_cn), getString(R.string.ver_global))
+        val fragmentList = listOf(MIUIIndexFragment(), MIUIChinaFragment(), MIUIGlobalFragment())
         viewPager.adapter = ViewPagerAdapter(supportFragmentManager, fragmentList, tabList)
         tabLayout.setupWithViewPager(viewPager)
 
+    }
+
+    class MIUIIndexFragment: Fragment() {
+        override fun onCreateView(
+            inflater: LayoutInflater,
+            container: ViewGroup?,
+            savedInstanceState: Bundle?
+        ): View? {
+            return  inflater.inflate(R.layout.fragment_miuiindex, container, false)
+        }
+
+        override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+            super.onViewCreated(view, savedInstanceState)
+            var v: String = VERSION[4]
+            miuiVersion.setOnCheckedChangeListener { _, checkedId ->
+                v = when (checkedId) {
+                    R.id.miui_0 -> VERSION[0]
+                    R.id.miui_1 -> VERSION[1]
+                    R.id.miui_2 -> VERSION[2]
+                    R.id.miui_3 -> VERSION[3]
+                    R.id.miui_4 -> VERSION[4]
+                    else -> VERSION[4]
+                }
+            }
+            getLink.setOnClickListener {
+                Thread {
+                    try {
+                        if (TextUtils.isEmpty(originUrl.text)) {
+                            return@Thread
+                        }
+
+                        val url = originUrl.text.toString()
+                        val u = if (url.contains("http://zhuti.xiaomi.com/detail/")) {
+                            url.replace("http://zhuti.xiaomi.com/detail/",
+                                "https://thm.market.xiaomi.com/thm/download/v2/") + v
+                        } else {
+                            throw Exception("LinkFormatUnMatchException")
+                        }
+
+                        val apiData = JSONObject(URL(u).openStream().bufferedReader().readText())
+                            .getJSONObject("apiData")
+
+                        val link = apiData.getString("downloadUrl")
+
+                        val size = apiData.getString("fileSize")
+
+                        val hash = apiData.getString("fileHash")
+
+                        activity!!.runOnUiThread {
+                            generatedLink.text = link
+                            mtzSize.text = size
+                            mtzHash.text = hash
+                        }
+
+                    } catch (e: Exception) {
+                        ShortToast(activity!!, e, false)
+                    }
+                }.start()
+            }
+        }
     }
 
     class MIUIChinaFragment : Fragment() {
