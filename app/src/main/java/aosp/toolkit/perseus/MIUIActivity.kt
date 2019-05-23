@@ -49,8 +49,8 @@ class MIUIActivity : AppCompatActivity() {
         val VERSION = arrayListOf(
             "?capability=w%2Cb%2Cs%2Cm%2Ch5%2Cv%3A8%2Cvw&miuiUIVersion=V4\u0000",   //V4
             "?capability=w%2Cb%2Cs%2Cm%2Ch5%2Cv%3A8%2Cvw&miuiUIVersion=V5\u0000",   //V5
-            "?capability=w%2Cb%2Cs%2Cm%2Ch5%2Cv%3A8%2Cvw&miuiUIVersion=V6\u0000",   //V6
-            "?capability=w%2Cb%2Cs%2Cm%2Ch5%2Cv%3A8%2Cvw&miuiUIVersion=V8\u0000",   //V8
+            "?capability=w%2Cb%2Cs%2Cm%2Ch5%2Cv%3A8%2Cvw&miuiUIVersion=V6\u0000",   //V6/7
+            "?capability=w%2Cb%2Cs%2Cm%2Ch5%2Cv%3A8%2Cvw&miuiUIVersion=V8\u0000",   //V8/9
             "?capability=w%2Cb%2Cs%2Cm%2Ch5%2Cv%3A8%2Cvw&miuiUIVersion=V10\u0000"   //V10
         )
     }

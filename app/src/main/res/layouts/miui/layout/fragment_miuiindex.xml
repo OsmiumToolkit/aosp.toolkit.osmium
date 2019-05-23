@@ -52,7 +52,8 @@
                             android:layout_height="match_parent"
                             android:layout_weight="1"
                             android:clickable="true"
-                            android:focusable="true">
+                            android:focusable="true"
+                            android:background="?attr/selectableItemBackground">
 
                             <ImageView
                                 android:layout_width="wrap_content"
@@ -68,44 +69,40 @@
 
                     <RadioGroup
                         android:id="@+id/miuiVersion"
-                        android:layout_width="match_parent"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:orientation="horizontal">
+                        android:orientation="horizontal"
+                        android:layout_gravity="center">
 
                         <RadioButton
                             android:id="@+id/miui_0"
-                            android:layout_width="@dimen/dp_0"
+                            android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_weight="1"
                             android:text="V4"
                             tools:ignore="HardcodedText" />
                         <RadioButton
                             android:id="@+id/miui_1"
-                            android:layout_width="@dimen/dp_0"
+                            android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_weight="1"
                             android:text="V5"
                             tools:ignore="HardcodedText" />
                         <RadioButton
                             android:id="@+id/miui_2"
-                            android:layout_width="@dimen/dp_0"
+                            android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_weight="1"
                             android:text="V6/V7"
                             tools:ignore="HardcodedText" />
                         <RadioButton
                             android:id="@+id/miui_3"
-                            android:layout_width="@dimen/dp_0"
+                            android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_weight="1"
                             android:text="V8/V9"
                             tools:ignore="HardcodedText" />
 
                         <RadioButton
                             android:id="@+id/miui_4"
-                            android:layout_width="@dimen/dp_0"
+                            android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_weight="1"
                             android:checked="true"
                             android:text="V10"
                             tools:ignore="HardcodedText" />
@@ -122,7 +119,8 @@
                             android:layout_width="@dimen/dp_0"
                             android:layout_height="wrap_content"
                             android:layout_weight="9"
-                            android:textIsSelectable="true" />
+                            android:textIsSelectable="true"
+                            android:gravity="center"/>
 
                         <RelativeLayout
                             android:id="@+id/copyLink"
