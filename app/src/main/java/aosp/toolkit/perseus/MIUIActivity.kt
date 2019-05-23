@@ -63,7 +63,7 @@ class MIUIActivity : AppCompatActivity() {
         supportActionBar!!.setDisplayHomeAsUpEnabled(true)
         toolbar.setNavigationOnClickListener { finish() }
 
-        val tabList = listOf("主页",getString(R.string.ver_cn), getString(R.string.ver_global))
+        val tabList = listOf(getString(R.string.MIUIindex),getString(R.string.ver_cn), getString(R.string.ver_global))
         val fragmentList = listOf(MIUIIndexFragment(), MIUIChinaFragment(), MIUIGlobalFragment())
         viewPager.adapter = ViewPagerAdapter(supportFragmentManager, fragmentList, tabList)
         tabLayout.setupWithViewPager(viewPager)
@@ -118,8 +118,8 @@ class MIUIActivity : AppCompatActivity() {
 
                         activity!!.runOnUiThread {
                             generatedLink.text = link
-                            mtzSize.text = size
-                            mtzHash.text = hash
+                            mtzSize.append(size)
+                            mtzHash.append(hash)
                         }
 
                     } catch (e: Exception) {

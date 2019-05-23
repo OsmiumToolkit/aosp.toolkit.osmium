@@ -15,7 +15,7 @@
 
     <string name="nav_main">Home</string>
     <string name="nav_monitor">Device monitor</string>
-    <string name="nav_downloadmiui">Download MIUI</string>
+    <string name="nav_miui">MIUI\'s Space</string>
     <string name="nav_about">AboutToolkit</string>
     <string name="nav_deviceinfo">DeviceInfo</string>
     <string name="nav_title_extends">Extends</string>
@@ -263,5 +263,6 @@
     <string name="ver_global">Global</string>
     <string name="MIUIverName">Version: </string>
     <string name="MIUIverID">Version ID: </string>
+    <string name="MIUIindex">Index</string>
 
 </resources>
