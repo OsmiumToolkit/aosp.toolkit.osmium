@@ -16,6 +16,7 @@ package aosp.toolkit.perseus.view;
  */
 
 
+import android.app.Activity;
 import android.content.*;
 import android.content.res.TypedArray;
 import android.support.v4.app.Fragment;
@@ -27,13 +28,16 @@ import android.support.v7.widget.SwitchCompat;
 import aosp.toolkit.perseus.ScriptActivity;
 import aosp.toolkit.perseus.R;
 
+import aosp.toolkit.perseus.base.BaseManager;
 import aosp.toolkit.perseus.base.BaseOperation;
 
 @SuppressWarnings("all")
 public class LoadScriptView extends LinearLayout {
+    private Activity activity;
 
     public LoadScriptView(Context context, AttributeSet attributeSet) {
         super(context, attributeSet);
+        activity = BaseManager.getInstance().getMainActivity();
 
         LayoutInflater.from(context).inflate(R.layout.view_loadscript, this);
 
@@ -52,25 +56,36 @@ public class LoadScriptView extends LinearLayout {
         SwitchCompat switchCompat = findViewById(R.id.switchCompact);
         TextView indicator = findViewById(R.id.indicator);
 
-        if (!BaseOperation.Companion.checkFilePresent(file)) {
-            switchCompat.setClickable(false);
-            indicator.setText(R.string.sw_none);
-        } else {
-            boolean status;
-            if (BaseOperation.Companion.javaFileReadLine(file) != "Fail") {
-                status = BaseOperation.Companion.javaFileReadLine(file).equals("1");
+        new Thread(() -> {
+            if (!BaseOperation.Companion.checkFilePresent(file)) {
+                activity.runOnUiThread(() -> {
+                    switchCompat.setClickable(false);
+                    indicator.setText(R.string.sw_none);
+                });
+
             } else {
-                status = BaseOperation.Companion.suFileReadLine(file).equals("1");
+                boolean status;
+                String line = BaseOperation.Companion.javaFileReadLine(file);
+                status = line.equals("Fail") ? BaseOperation.Companion.suFileReadLine(file).equals("1") : line.equals("1");
+
+                /*
+                if (BaseOperation.Companion.javaFileReadLine(file) != "Fail") {
+                    status = BaseOperation.Companion.javaFileReadLine(file).equals("1");
+                } else {
+                    status = BaseOperation.Companion.suFileReadLine(file).equals("1");
+                }
+                */
+
+                activity.runOnUiThread(() -> {
+                    switchCompat.setChecked(status);
+                    indicator.setText(status ? R.string.sw_en : R.string.sw_dis);
+                    switchCompat.setOnCheckedChangeListener((buttonView, isChecked) -> {
+                        startActivityForResult(fragment, type, index, name);
+                    });
+                });
             }
-
-            switchCompat.setChecked(status);
-            indicator.setText(status ? R.string.sw_en : R.string.sw_dis);
-            switchCompat.setOnCheckedChangeListener((buttonView, isChecked) -> {
-                startActivityForResult(fragment, type, index, name);
-
-            });
-        }
-        setLinearLayoutOnClickListener();
+            setLinearLayoutOnClickListener();
+        }).start();
     }
 
     public void init(Fragment fragment, String command, String type, String index, String name, boolean enable) {
@@ -78,18 +93,20 @@ public class LoadScriptView extends LinearLayout {
         TextView indicator = findViewById(R.id.indicator);
 
         if (!enable) {
-            switchCompat.setClickable(false);
-            indicator.setText(R.string.sw_none);
+            activity.runOnUiThread(() -> {
+                switchCompat.setClickable(false);
+                indicator.setText(R.string.sw_none);
+            });
         } else {
-            boolean status = false;
-            if (BaseOperation.Companion.readShellContent(command).equals("1")) {
-                status = true;
-            }
+            boolean status = BaseOperation.Companion.readShellContent(command).equals("1");
 
-            switchCompat.setChecked(status);
-            indicator.setText(status ? R.string.sw_en : R.string.sw_dis);
-            switchCompat.setOnCheckedChangeListener((buttonView, isChecked) -> {
-                startActivityForResult(fragment, type, index, name);
+            activity.runOnUiThread(() -> {
+
+                switchCompat.setChecked(status);
+                indicator.setText(status ? R.string.sw_en : R.string.sw_dis);
+                switchCompat.setOnCheckedChangeListener((buttonView, isChecked) -> {
+                    startActivityForResult(fragment, type, index, name);
+                });
             });
         }
         setLinearLayoutOnClickListener();
@@ -106,8 +123,8 @@ public class LoadScriptView extends LinearLayout {
 
     private void startActivityForResult(Fragment fragment, String type, String index, String name) {
         new Thread(() -> fragment.startActivityForResult(new Intent(getContext(), ScriptActivity.class)
-                        .putExtra("path", type + "/" + index + "/" ).putExtra("script", name),
-                0)).start();
+                                                             .putExtra("path", type + "/" + index + "/").putExtra("script", name),
+            0)).start();
     }
 
     private void setLinearLayoutOnClickListener() {

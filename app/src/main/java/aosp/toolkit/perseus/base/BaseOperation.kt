@@ -16,6 +16,7 @@ import java.io.*
 import java.util.regex.Pattern
 
 import aosp.toolkit.perseus.R
+import java.util.*
 
 /*
  * OsToolkit - Kotlin
@@ -26,11 +27,14 @@ import aosp.toolkit.perseus.R
  *
  */
 
+@Suppress("FunctionName")
 class BaseOperation {
     companion object {
         fun getPackageVersion(context: Context?): String {
             try {
-                return context?.packageManager!!.getPackageInfo(aosp.toolkit.perseus.base.BaseIndex.PackageName, 0).versionName
+                return context?.packageManager!!.getPackageInfo(
+                    BaseIndex.PackageName, 0
+                ).versionName
             } catch (e: java.lang.Exception) {
                 e.printStackTrace()
             }
@@ -40,7 +44,7 @@ class BaseOperation {
         fun getAvailableCore(): Int {
             try {
                 val dir = File("/sys/devices/system/cpu/")
-                val file: Array<File> = dir.listFiles(FileFilter {
+                val file: Array<java.io.File> = dir.listFiles(FileFilter {
                     Pattern.matches("cpu[0-9]", it.name)
                 })
                 return file.size
@@ -61,12 +65,12 @@ class BaseOperation {
         }
 
         fun suFileReadLine(filePath: String): String {
-            val line:String? = try {
-                Shell.su("cat $filePath").exec().out[0]
+            val line: String? = try {
+                Runtime.getRuntime().exec("su -c cat $filePath").inputStream.bufferedReader().readLine()
             } catch (e: Exception) {
                 "Fail"
             }
-            return line?: "Fail"
+            return line ?: "Fail"
         }
 
         fun javaFileReadLine(file: String): String {
@@ -76,7 +80,7 @@ class BaseOperation {
                 "Fail"
             }
 
-            return line?:"Fail"
+            return line ?: "Fail"
         }
 
         fun checkFilePresent(filePath: String): Boolean {
@@ -170,7 +174,8 @@ class BaseOperation {
 
         fun getMemory(context: Context): ActivityManager.MemoryInfo {
             val memoryInfo = ActivityManager.MemoryInfo()
-            val activityManager = context.getSystemService(Context.ACTIVITY_SERVICE) as ActivityManager
+            val activityManager =
+                context.getSystemService(Context.ACTIVITY_SERVICE) as ActivityManager
             activityManager.getMemoryInfo(memoryInfo)
             return memoryInfo
         }
@@ -178,9 +183,11 @@ class BaseOperation {
         fun ShortToast(context: Context, int: Int) {
             this.ShortToast(context, context.getString(int))
         }
+
         fun ShortToast(context: Context, exception: Exception) {
             this.ShortToast(context, exception.toString())
         }
+
         @SuppressLint("InflateParams")
         fun ShortToast(context: Context, string: String) {
             val toast = Toast(context)
@@ -191,12 +198,15 @@ class BaseOperation {
             toast.duration = LENGTH_SHORT
             toast.show()
         }
+
         fun ShortToast(activity: Activity, exception: Exception, UIThread: Boolean) {
             this.ShortToast(activity, exception.toString(), UIThread)
         }
+
         fun ShortToast(activity: Activity, content: Int, UIThread: Boolean) {
             this.ShortToast(activity, activity.getString(content), UIThread)
         }
+
         @SuppressLint("InflateParams")
         fun ShortToast(activity: Activity, string: String, UIThread: Boolean) {
             if (UIThread) {
@@ -218,7 +228,81 @@ class BaseOperation {
                     t.show()
                 }
             }
+        }
+    }
 
+    class File {
+        private var file: java.io.File
+        private var filePath: String
+        private lateinit var fileName: String
+
+        constructor(filePath: String, fileName: String) : super() {
+            this.filePath = filePath
+            this.fileName = fileName
+            file = File(filePath + fileName)
+        }
+
+        constructor(filePath: String, containsFileName: Boolean) : super() {
+            if (containsFileName) {
+                val arrayList = try {
+                    Arrays.asList(
+                        *filePath.split(
+                            (java.io.File.separator).toRegex()
+                        ).dropLastWhile { it.isEmpty() }.toTypedArray()
+                    )
+                } catch (e: Exception) {
+                    arrayListOf(filePath)
+                }
+                this.fileName = if (arrayList.size < 2) {
+                    this.filePath = arrayList.first()
+                    ""
+                } else {
+                    for (i: Int in 0 until arrayList.size - 2) {
+                        this.filePath = ""
+                        this.filePath += arrayList[i] + java.io.File.separator
+                    }
+                    arrayList[arrayList.size - 1]
+                }
+            }
+            this.filePath = filePath
+            file = File(filePath)
+        }
+
+        fun setFileName(fileName: String) {
+            this.fileName = fileName
+        }
+
+        fun isExists(): Boolean {
+            return file.exists()
+        }
+
+        fun getFilePath(): String {
+            return this.filePath
+        }
+
+        fun getFileName(): String {
+            return if (!::fileName.isInitialized) {
+                this.fileName
+            } else {
+                ""
+            }
+        }
+
+        fun getFileString(): String {
+            return file.toString()
+        }
+
+        fun getFile(): java.io.File {
+            return this.file
+        }
+
+        fun delete(): Boolean {
+            return this.file.delete()
+        }
+
+        fun createNewFile(): java.io.File {
+            file.createNewFile()
+            return file
         }
     }
 }

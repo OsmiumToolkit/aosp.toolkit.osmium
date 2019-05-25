@@ -22,7 +22,7 @@
         tools:ignore="AllowBackup,UnusedAttribute">
         <!-- 活动 Activities -->
         <activity
-            android:name="aosp.toolkit.perseus.SplashActivity"
+            android:name=".SplashActivity"
             android:label="@string/app_name"
             android:theme="@style/AppTheme.Translucent">
             <intent-filter>
@@ -36,49 +36,68 @@
                 android:resource="@xml/shortcuts" />
         </activity>
         <activity
-            android:name="aosp.toolkit.perseus.MainActivity"
+            android:name=".MainActivity"
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name="aosp.toolkit.perseus.WelcomeActivity"
+            android:name=".WelcomeActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name="aosp.toolkit.perseus.ScriptActivity"
+            android:name=".ScriptActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name="aosp.toolkit.perseus.UsageActivity"
+            android:name=".UsageActivity"
             android:label="@string/nav_monitor"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name="aosp.toolkit.perseus.DisableAppActivity"
+            android:name=".DisableAppActivity"
             android:label="@string/nav_tower"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name="aosp.toolkit.perseus.DisableAppActivity$DisableSelectActivity"
+            android:name=".DisableAppActivity$DisableSelectActivity"
             android:label="@string/disable_select"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name="aosp.toolkit.perseus.ShortcutDisableActivity"
+            android:name=".ShortcutDisableActivity"
             android:theme="@android:style/Theme.NoDisplay" />
         <activity
-            android:name="aosp.toolkit.perseus.ZXingActivity"
+            android:name=".ZXingActivity"
             android:label="@string/nav_zxing"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".DownloadMIUIActivity"
-            android:label="@string/nav_downloadmiui"
+            android:name=".MIUIActivity"
+            android:label="@string/nav_miui"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".DownloadMIUIActivity$SelectDownloadActivity"
+            android:name=".MIUIActivity$SelectDownloadActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".DownloadActivity"
             android:label="@string/downloading"
             android:launchMode="singleTask"
             android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".AOSPActivity"
+            android:label="AOSP"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".AOSPActivity$AOSPSelectRomActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
 
         <!-- 服务 Services -->
         <service android:name=".services.UpdateService" />
+        <service android:name=".services.ImportOfflinePackageService" />
+
+        <!-- 广播接收器 Broadcast Receivers -->
+        <receiver android:name=".base.PhoneCallBroadcastReceiver$OnStartAppBroadcastReceiver" >
+            <intent-filter>
+                <action android:name="android.provider.Telephony.SECRET_CODE" />
+                <data
+                    android:host="0813"
+                    android:scheme="android_secret_code" />
+
+            </intent-filter>
+        </receiver>
     </application>
 
 </manifest>

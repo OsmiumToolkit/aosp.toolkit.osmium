@@ -18,6 +18,7 @@ public class BaseIndex {
     public final static String OsToolkitSubstratumName = "substratum.earth.OsToolkit";
     public final static String SubstratumName = "projekt.substratum";
     public final static int versionIndex = 0;
+    public final static int OffLinePack = 107;
 
     // Coolapk / 酷安
     public final static String MaintainerCoolapkID = "724354";
@@ -33,14 +34,9 @@ public class BaseIndex {
 
     // Github
     public final static String Script_Head = "https://raw.githubusercontent.com/ToolkitPerseus/scripts/master/";
-    public final static String CheckUpdate_Version = "https://raw.githubusercontent.com/ToolkitPerseus/update/master/Version";
-    public final static String CheckUpdate_Date = "https://raw.githubusercontent.com/ToolkitPerseus/update/master/Date";
-    public final static String CheckUpdate_ChangelogZh = "https://raw.githubusercontent.com/ToolkitPerseus/update/master/ChangelogZh";
-    public final static String CheckUpdate_ChangelogEn = "https://raw.githubusercontent.com/ToolkitPerseus/update/master/ChangelogEn";
 
     public final static String Repo_Source = "https://github.com/1552980358/aosp.toolkit.perseus";
     public final static String Repo_Release = "https://github.com/ToolkitPerseus/aosp.toolkit.perseus/releases";
-    public final static String Repo_libsu = "https://github.com/topjohnwu/libsu";
 
 
     // Path / 路径

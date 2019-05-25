@@ -22,6 +22,8 @@ import android.content.Intent
 import android.os.Bundle
 import android.support.v4.app.ActivityCompat
 import android.support.v7.app.AppCompatActivity
+import android.widget.Toast
+import android.widget.Toast.LENGTH_SHORT
 import kotlinx.android.synthetic.main.activity_splash.*
 
 class SplashActivity : AppCompatActivity() {
@@ -36,28 +38,32 @@ class SplashActivity : AppCompatActivity() {
         info.text =
             "${BuildConfig.APPLICATION_ID}\n${BuildConfig.BUILD_TYPE}\nv${BuildConfig.VERSION_NAME}\n${BuildConfig.VERSION_CODE}"
 
-        Thread {
-            try {
-                Thread.sleep(2000)
-            } catch (e: Exception) {
-                //
-            }
-            startActivity(
-                Intent(
-                    this,
-                    if (getSharedPreferences("launch", Context.MODE_PRIVATE).getBoolean(
-                            "welcome",
-                            false
-                        )
-                    ) {
-                        MainActivity::class.java
-                    } else {
-                        WelcomeActivity::class.java
-                    }
+        if (!BuildConfig.DEBUG) {
+            Thread {
+                try {
+                    Thread.sleep(2000)
+                } catch (e: Exception) {
+                    //
+                }
+                startActivity(
+                    Intent(
+                        this,
+                        if (getSharedPreferences("launch", Context.MODE_PRIVATE).getBoolean(
+                                "welcome",
+                                false
+                            )
+                        ) {
+                            MainActivity::class.java
+                        } else {
+                            WelcomeActivity::class.java
+                        }
+                    )
                 )
-            )
+            }.start()
+        } else {
+            startActivity(Intent(this, MainActivity::class.java))
+        }
 
-            finish()
-        }.start()
+        finish()
     }
 }

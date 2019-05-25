@@ -63,70 +63,77 @@ class OtherFragment : Fragment() {
     }
 
     private fun setMac() {
-        if (checkFilePresent("/sys/class/net/wlan0/address")) {
-
-            editText.setText(if (javaFileReadLine("/sys/class/net/wlan0/address") != "Fail") {
-                javaFileReadLine("/sys/class/net/wlan0/address")
-            } else {
-                suFileReadLine("/sys/class/net/wlan0/address")
-            })
-
-            editText.addTextChangedListener(object : TextWatcher {
-                override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+        Thread {
+            if (checkFilePresent("/sys/class/net/wlan0/address")) {
+                val tmp = javaFileReadLine("/sys/class/net/wlan0/address")
+                val t = if (tmp == "Fail") {
+                    suFileReadLine("/sys/class/net/wlan0/address")
+                } else {
+                    tmp
                 }
 
-                override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                    editText.removeTextChangedListener(this)
-
-                    if (before == 0) {
-                        when (s.toString().length) {
-                            2, 5, 8, 11, 14 -> {
-                                editText.setText(s.toString().plus(":").toLowerCase())
-                            }
-                            17 -> {
-                                editText.setText(s.toString().toLowerCase())
-                            }
-                        }
-                    }
-                    editText.addTextChangedListener(this)
+                activity?.runOnUiThread {
+                    editText.setText(t)
                 }
 
-                override fun afterTextChanged(s: Editable?) {
-                    try {
-                        editText.setSelection(s.toString().length.plus(1))
-                    } catch (e: Exception) {
-                        ShortToast(activity!!, e, true)
-                        try {
-                            editText.setSelection(s.toString().length)
-                        } catch (e: Exception) {
-                            ShortToast(activity!!, e, true)
-                        }
+                editText.addTextChangedListener(object : TextWatcher {
+                    override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
                     }
 
-                }
-            })
-            val pattern = "(([a-z]|\\d){2}:){5}([a-z]|\\d){2}".toRegex()
-            done.setOnClickListener {
-                val mac = editText.text.toString()
-                if (mac.length == 17 && pattern.matches(mac)) {
-                    Thread {
+                    override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                        editText.removeTextChangedListener(this)
+
+                        if (before == 0) {
+                            when (s.toString().length) {
+                                2, 5, 8, 11, 14 -> {
+                                    activity?.let { it.runOnUiThread { editText.setText(s.toString().plus(":").toLowerCase()) } }
+                                }
+                                17 -> {
+                                    activity?.let { it.runOnUiThread { editText.setText(s.toString().toLowerCase()) }}
+                                }
+                            }
+                        }
+                        editText.addTextChangedListener(this)
+                    }
+
+                    override fun afterTextChanged(s: Editable?) {
                         try {
-                            Shell.su(
-                                "chmod 644 /sys/class/net/wlan0/address",
-                                "svc wifi disable", "ifconfig wlan0 down",
-                                "echo $mac > /sys/class/net/wlan0/address",
-                                "ifconfig wlan0 hw ether $mac",
-                                "ifconfig wlan0 up",
-                                "svc wifi enable"
-                            ).exec()
+                            activity!!.runOnUiThread { editText.setSelection(s.toString().length.plus(1)) }
                         } catch (e: Exception) {
                             ShortToast(activity!!, e, false)
+                            try {
+                                editText.setSelection(s.toString().length)
+                            } catch (e: Exception) {
+                                ShortToast(activity!!, e, false)
+                            }
                         }
-                    }.start()
-                }
-            }
 
-        }
+                    }
+                })
+                val pattern = "(([a-z]|\\d){2}:){5}([a-z]|\\d){2}".toRegex()
+                done.setOnClickListener {
+                    val mac = editText.text.toString()
+                    if (mac.length == 17 && pattern.matches(mac)) {
+                        Thread {
+                            try {
+                                Shell.su(
+                                    "chmod 644 /sys/class/net/wlan0/address",
+                                    "svc wifi disable", "ifconfig wlan0 down",
+                                    "echo $mac > /sys/class/net/wlan0/address",
+                                    "ifconfig wlan0 hw ether $mac",
+                                    "ifconfig wlan0 up",
+                                    "svc wifi enable"
+                                ).exec()
+                            } catch (e: Exception) {
+                                ShortToast(activity!!, e, false)
+                            }
+                        }.start()
+                    }
+                }
+
+            }
+        }.start()
+
     }
 
     private fun setShortUrl() {

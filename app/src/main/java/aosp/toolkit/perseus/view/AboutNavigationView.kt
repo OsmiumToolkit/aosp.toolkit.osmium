@@ -7,6 +7,7 @@ import android.graphics.Paint
 import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.widget.LinearLayout
+import aosp.toolkit.perseus.BuildConfig
 import aosp.toolkit.perseus.MainActivity
 
 import aosp.toolkit.perseus.R
@@ -43,10 +44,7 @@ class AboutNavigationView : LinearLayout {
         version.text = array[BaseIndex.versionIndex]
         version.paint.flags = Paint.UNDERLINE_TEXT_FLAG
         release.setSummary(
-            mainActivity.packageManager?.getPackageInfo(
-                BaseIndex.PackageName,
-                0
-            )?.versionName
+            BuildConfig.VERSION_NAME
         )
         val sharedPreferences = mainActivity.getSharedPreferences("ui", Context.MODE_PRIVATE)
         switchCompact.isChecked = sharedPreferences.getBoolean("navBar", true)

@@ -15,7 +15,9 @@
 
     <string name="nav_main">主页</string>
     <string name="nav_monitor">实时检测</string>
-    <string name="nav_downloadmiui">下载MIUI</string>
+    <string name="nav_title_flashing">刷机</string>
+    <string name="nav_aosp">AOSP专区</string>
+    <string name="nav_miui">MIUI专区</string>
     <string name="nav_about">关于应用</string>
     <string name="nav_deviceinfo">设备信息</string>
     <string name="nav_title_extends">扩展功能</string>
@@ -29,6 +31,8 @@
     <string name="nav_yc">YC调度</string>
     <string name="nav_pc">橘猫调度</string>
     <string name="nav_tower">- 镇魂塔 -</string>
+
+    <string name="backgroundOperation">后台运行中…</string>
 
     <string name="check_root_title">检测ROOT限权</string>
     <string name="check_root_content1">点击白色区域开始</string>
@@ -45,13 +49,6 @@
     <string name="main_9008">重启到9008模式</string>
     <string name="warn_9008_title">警告</string>
     <string name="warn_9008_msg">此操作可能具有一定危险性\n请确保在已经学会如何使用9008后再进入该模式\n部分机型可能会出现卡住无法改出的情况</string>
-
-    <string name="name_yc9559">\u0040yc9559</string>
-    <string name="name_xzr">\u0040xzr467706992</string>
-    <string name="name_cjybyjk">\u0040cjybyjk</string>
-    <string name="name_topjohnwu">\u0040topjohnwu</string>
-
-    <string name="warning">Copyright &#169;1552980358 &#8211; 2019</string>
 
     <string name="systemApp">&#60;系统应用&#62;</string>
 
@@ -80,6 +77,9 @@
     <string name="about_github">GitHub</string>
     <string name="about_set_navBar">导航栏颜色跟随主题</string>
     <string name="about_set_theme">自定义主题</string>
+    <string name="about_offlline_1">每次使用时从服务器下载最新脚本(推荐)</string>
+    <string name="about_offlline_2">从服务器下载脚本包(应用版本更新时移除)</string>
+    <string name="about_offlline_3">导入本地离线包(应用版本更新时移除)</string>
 
     <string name="about_me">关于作者</string>
     <string name="qqgroup">QQ群</string>
@@ -88,33 +88,51 @@
 
     <string name="script_title_head">运行脚本 \"%s\"</string>
     <string name="script_head">================================\n英仙 Perseus\nBy 住在地球真累\n================================</string>
-    <string name="script_download"> - 下载脚本中&#8230;</string>
-    <string name="script_download_done">下载完成!</string>
-    <string name="script_download_fail">下载失败!</string>
+    <string name="script_present_ext"> - 已在外置存储中找到脚本\n</string>
+    <string name="script_download"> - 下载中&#8230;\n</string>
+    <string name="script_download_done"> - 下载成功!\n</string>
+    <string name="script_download_fail"> - 下载失败!\n</string>
+    <string name="script_copy"> - 复制&#8230;\n</string>
+    <string name="script_copy_done"> - 复制成功!\n</string>
+    <string name="script_copy_fail"> - 复制失败!\n</string>
+    <string name="script_size"> - 文件大小: %s Bytes\n</string>
     <string name="script_target">- 目标 :</string>
-    <string name="script_permission"> - 设置限权中&#8230;</string>
-    <string name="script_permission_done">限权设置成功!</string>
-    <string name="script_permission_fail">限权设置失败!</string>
-    <string name="script_command"> - 命令 :</string>
-    <string name="script_process"> - 过程 :</string>
-    <string name="script_error"> - 错误 :</string>
+    <string name="script_permission"> - 设置限权&#8230;\n</string>
+    <string name="script_permission_done"> - 设置限权成功!\n</string>
+    <string name="script_permission_fail"> - 限权设置失败!\n</string>
+    <string name="script_command"> - 命令 :\n</string>
+    <string name="script_process"> - 过程 :\n</string>
+    <string name="script_error"> - 错误 :\n</string>
+    <string name="script_exception"> - 异常 :\n</string>
+    <string name="script_removing"> - 移除脚本中…\n</string>
+    <string name="script_remove_success"> - 移除成功!</string>
+    <string name="script_remove_failed"> - 移除失败!</string>
 
     <string name="welcome_tab_welcome">欢迎</string>
+    <string name="welcome_tab_offline">离线脚本包</string>
     <string name="welcome_tab_license">开源许可证</string>
     <string name="welcome_tab_ready">准备开始</string>
 
     <string name="welcome_welcome_1">英仙 Perseus</string>
     <string name="welcome_welcome_2">当前版本系</string>
     <string name="welcome_welcome_4">为您呈现</string>
-
+    <string name="welcome_offline_1">每次使用时从服务器下载最新脚本(推荐)</string>
+    <string name="welcome_offline_2">从服务器下载脚本包(应用版本更新时移除)</string>
+    <string name="welcome_offline_3">导入本地离线包(应用版本更新时移除)</string>
+    <string name="welcome_offline_4">自行下载解压, 点击查看解压目录(应用版本更新时移除)</string>
+    <string name="welcome_offline_5">关于解压</string>
+    <string name="welcome_offline_6">请解压到其中一条目录:\n(长按复制)</string>
     <string name="welcome_ready_content">- 点击任意处进入 -</string>
+
+    <string name="ok">了解</string>
+
+    <string name="cancelled">已取消</string>
 
     <string name="sw_dis">已禁用</string>
     <string name="sw_en">已启用</string>
     <string name="sw_none">不可用</string>
     <string name="toast_succeed">成功!</string>
     <string name="toast_failed">失败!</string>
-
 
     <string name="charging_not_support">警告：\n设备部分功能不受支持</string>
     <string name="charging_qc3_title">QC3.0 快充</string>
@@ -150,13 +168,13 @@
     <string name="deviceinfo_display_densityDpi">像素密度DPI</string>
     <string name="deviceinfo_display_scaledDensity">字体缩放比例</string>
 
-    <string name="deviceinfo_android_title">Android</string>
     <string name="deviceinfo_android_version">版本</string>
     <string name="deviceinfo_android_versionName">版本名</string>
     <string name="deviceinfo_android_sdk">SDK</string>
     <string name="deviceinfo_android_type">编译类型</string>
 
-    <string name="deviceinfo_soc_title">SoC</string>
+    <string name="deviceinfo_linux_version">内核版本</string>
+
     <string name="deviceinfo_soc_manufacturer">厂商</string>
     <string name="deviceinfo_soc_board">主板</string>
     <string name="deviceinfo_soc_abis">支持的ABIs</string>
@@ -168,7 +186,6 @@
     <string name="deviceinfo_ram_totalMem">总内存</string>
     <string name="deviceinfo_ram_threshold">临界值</string>
 
-    <string name="deviceinfo_jvm_title">Java Runtime</string>
     <string name="deviceinfo_jvm_maxmem">JVM 最高内存</string>
     <string name="deviceinfo_jvm_totalmem">JVM 总内存</string>
 
@@ -233,4 +250,5 @@
     <string name="ver_global">Global</string>
     <string name="MIUIverName">版本名: </string>
     <string name="MIUIverID">版本号: </string>
+    <string name="MIUIindex">主页</string>
 </resources>

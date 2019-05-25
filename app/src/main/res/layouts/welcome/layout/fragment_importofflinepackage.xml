@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/black"
+    android:orientation="vertical">
+
+    <RadioGroup
+        android:id="@+id/radioGroup"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:background="@android:color/transparent"
+        android:gravity="start"
+        android:orientation="vertical">
+        <android.support.v7.widget.AppCompatRadioButton
+            android:id="@+id/rb_1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:checked="true"
+            android:text="@string/welcome_offline_1"
+            android:textColor="@android:color/white"
+            android:textSize="24sp"
+            android:gravity="center"/>
+        <android.support.v7.widget.AppCompatRadioButton
+            android:id="@+id/rb_2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/welcome_offline_2"
+            android:textColor="@android:color/white"
+            android:textSize="24sp"
+            android:gravity="center"/>
+        <android.support.v7.widget.AppCompatRadioButton
+            android:id="@+id/rb_3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/welcome_offline_3"
+            android:textColor="@android:color/white"
+            android:textSize="24sp"
+            android:gravity="center"/>
+        <android.support.v7.widget.AppCompatRadioButton
+            android:id="@+id/rb_4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/welcome_offline_4"
+            android:textColor="@android:color/white"
+            android:textSize="24sp"
+            android:gravity="center"/>
+    </RadioGroup>
+
+</RelativeLayout>

@@ -49,7 +49,7 @@ class ApplyPixelCatFragment : Fragment() {
                 val date = lines[0]
 
                 for (i: Int in 1 until lines.size) {
-                    val cpuFreqOptView = CPUFreqOptView(activity!!, type_pixelcat, date, lines[i])
+                    val cpuFreqOptView = CPUFreqOptView(activity!!, type_pixelcat, date, "pc_" + lines[i])
                     when {
                         lines[i].startsWith("sd") -> activity!!.runOnUiThread { snap.addView(cpuFreqOptView) }
                         else -> activity!!.runOnUiThread { exynos.addView(cpuFreqOptView) }
