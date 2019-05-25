@@ -78,7 +78,7 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".AOSPActivity"
-            android:label="aosp"
+            android:label="AOSP"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".AOSPActivity$AOSPSelectRomActivity"

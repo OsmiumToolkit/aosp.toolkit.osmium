@@ -58,7 +58,10 @@ class AOSPActivity : AppCompatActivity() {
             super.onCreate(savedInstanceState)
             setContentView(R.layout.activity_aospselectrom)
 
-            toolbarAOSPSelection.title = intent.getStringExtra("device")
+            toolbarAOSPSelection.title =
+                "${intent.getStringExtra("brand")} ${intent.getStringExtra("model")} (${intent.getStringExtra(
+                    "device"
+                )})"
 
             setSupportActionBar(toolbarAOSPSelection)
             supportActionBar!!.setDisplayHomeAsUpEnabled(true)
@@ -115,8 +118,7 @@ class AOSPActivity : AppCompatActivity() {
                         val path = context.externalCacheDir!!.absolutePath
                         context.startActivity(
                             Intent(context, DownloadActivity::class.java).putExtra(
-                                "fileName",
-                                fileName
+                                "fileName", fileName
                             ).putExtra("url", url).putExtra("filePath", path)
                         )
                     }.start()
@@ -149,11 +151,11 @@ class AOSPActivity : AppCompatActivity() {
 
                         for (i in document.getElementsByClass("no-padding")) {
                             // Brand
+                            val brand =
+                                i.getElementsByClass("collapsible-header waves-effect waves-teal bold")
+                                    .select("a").text()
                             val losBrandView = LOSBrandView(
-                                context!!,
-                                i.getElementsByClass("collapsible-header waves-effect waves-teal bold").select(
-                                    "a"
-                                ).text()
+                                context!!, brand
                             )
 
                             for (j in i.getElementsByClass("device-link")) {
@@ -162,7 +164,15 @@ class AOSPActivity : AppCompatActivity() {
                                 val model = info[0].select("div").text()            // Model
                                 val device = info[1].select("div").text()           // Device
 
-                                losBrandView.addView(LOSDeviceItem(context!!, model, device, href))
+                                losBrandView.addView(
+                                    LOSDeviceItem(
+                                        context!!,
+                                        brand,
+                                        model,
+                                        device,
+                                        href
+                                    )
+                                )
                             }
 
                             activity!!.runOnUiThread { losRoot.addView(losBrandView) }
@@ -197,15 +207,21 @@ class AOSPActivity : AppCompatActivity() {
     }
 
     @SuppressLint("ViewConstructor")
-    class LOSDeviceItem(context: Context, model: String, device: String, href: String) :
-        LinearLayout(context) {
+    class LOSDeviceItem(
+        context: Context,
+        brand: String,
+        model: String,
+        device: String,
+        href: String
+    ) : LinearLayout(context) {
         init {
             LayoutInflater.from(context).inflate(R.layout.item_losdevice, this)
             losModel.text = model
             losdevice.text = device
             losDeviceRoot.setOnClickListener {
                 val intent = Intent().setClass(context, AOSPSelectRomActivity::class.java)
-                    .putExtra("rom", "los").putExtra("href", href)
+                    .putExtra("rom", "los").putExtra("href", href).putExtra("device", device)
+                    .putExtra("model", model).putExtra("brand", brand)
                 context.startActivity(intent)
             }
         }
