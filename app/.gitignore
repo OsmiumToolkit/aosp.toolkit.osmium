@@ -1,2 +1,3 @@
 /build
-/aosp.toolkit.perseus/SplashActivity.kt
+/release
+/src/main/java/aosp/toolkit/perseus/SplashActivity.kt

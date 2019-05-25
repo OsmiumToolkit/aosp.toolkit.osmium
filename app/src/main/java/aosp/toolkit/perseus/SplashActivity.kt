@@ -30,6 +30,8 @@ class SplashActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_splash)
 
+
+
         val permission = arrayOf(android.Manifest.permission.INTERNET)
         ActivityCompat.requestPermissions(this, permission, 1)
 
