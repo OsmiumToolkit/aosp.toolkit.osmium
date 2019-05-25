@@ -1,12 +1,13 @@
 package aosp.toolkit.perseus
 
 import android.annotation.SuppressLint
+import android.content.ClipData
+import android.content.ClipboardManager
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v7.app.AppCompatActivity
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -20,6 +21,7 @@ import kotlinx.android.synthetic.main.activity_aospselectrom.*
 import kotlinx.android.synthetic.main.fragment_lineageos.*
 import kotlinx.android.synthetic.main.view_losbrand.view.*
 import kotlinx.android.synthetic.main.item_losdevice.view.*
+import kotlinx.android.synthetic.main.view_devicedownload.view.*
 
 import org.jsoup.Jsoup
 
@@ -46,7 +48,7 @@ class AOSPActivity : AppCompatActivity() {
         tabLayout.setupWithViewPager(viewPager)
     }
 
-    class AOSPSelectRomActivity: AppCompatActivity() {
+    class AOSPSelectRomActivity : AppCompatActivity() {
 
         companion object {
             val head = mapOf("los" to "https://download.lineageos.org")
@@ -66,23 +68,67 @@ class AOSPActivity : AppCompatActivity() {
                 val href = intent.getStringExtra("href")
                 val rom = intent.getStringExtra("rom")
 
-                val document = Jsoup.connect(head[rom] + href).get().getElementsByTag("tbody")[0].getElementsByTag("tr")
+                val document =
+                    Jsoup.connect(head[rom] + href).get().getElementsByTag("tbody")[0].getElementsByTag(
+                        "tr"
+                    )
 
                 for (i in document) {
                     val td = i.getElementsByTag("td")
 
                     val buildType = td[0].select("td").text()   // Build Type
+                    val version = td[1].select("td").text()     // Version
                     val a = td[2].select("td").select("a")[0]
                     val fileName = a.text()                             // File Name
                     val url = a.attr("href")                  // URL
                     val size = td[3].select("td").text()        // Size
                     val date = td[4].select("td").text()        // Date
 
-                    Log.e("document", "$buildType\n$fileName\n$url\n$size\n$date")
+                    val deviceDownloadView =
+                        DeviceDownloadView(this, url, fileName, date, buildType, size, version)
+                    runOnUiThread { aospSelectROMContainer.addView(deviceDownloadView) }
+
                 }
 
             }.start()
 
+        }
+
+        @SuppressLint("ViewConstructor", "SetTextI18n")
+        class DeviceDownloadView(
+            context: Context,
+            url: String,
+            fileName: String,
+            date: String,
+            type: String,
+            size: String,
+            version: String
+        ) : LinearLayout(context) {
+            init {
+                LayoutInflater.from(context).inflate(R.layout.view_devicedownload, this)
+                romFile.text = fileName
+                romSize.text = size
+                romDate.text = date
+                romVersion.text = "$version-$type"
+                romDownload.setOnClickListener {
+                    Thread {
+                        val path = context.externalCacheDir!!.absolutePath
+                        context.startActivity(
+                            Intent(context, DownloadActivity::class.java).putExtra(
+                                "fileName",
+                                fileName
+                            ).putExtra("url", url).putExtra("filePath", path)
+                        )
+                    }.start()
+                }
+                romLinkCopy.setOnClickListener {
+                    Thread {
+                        (context.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager).primaryClip =
+                            ClipData.newPlainText("text", url)
+
+                    }.start()
+                }
+            }
         }
     }
 
@@ -159,8 +205,7 @@ class AOSPActivity : AppCompatActivity() {
             losdevice.text = device
             losDeviceRoot.setOnClickListener {
                 val intent = Intent().setClass(context, AOSPSelectRomActivity::class.java)
-                    .putExtra("rom", "los")
-                    .putExtra("href", href)
+                    .putExtra("rom", "los").putExtra("href", href)
                 context.startActivity(intent)
             }
         }
