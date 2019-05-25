@@ -21,12 +21,12 @@ import android.widget.LinearLayout
 import aosp.toolkit.perseus.base.*
 import aosp.toolkit.perseus.base.BaseOperation.Companion.ShortToast
 
-import kotlinx.android.synthetic.main.activity_downloadmiui.*
+import kotlinx.android.synthetic.main.activity_miui.*
 import kotlinx.android.synthetic.main.activity_selectdownload.*
 import kotlinx.android.synthetic.main.fragment_download.*
 import kotlinx.android.synthetic.main.fragment_miuiindex.*
 import kotlinx.android.synthetic.main.item_selectdownload.view.*
-import kotlinx.android.synthetic.main.view_device.view.*
+import kotlinx.android.synthetic.main.view_miuidevice.view.*
 import kotlinx.android.synthetic.main.view_selectdownload.view.*
 
 import org.json.JSONObject
@@ -57,7 +57,7 @@ class MIUIActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_downloadmiui)
+        setContentView(R.layout.activity_miui)
 
         setSupportActionBar(toolbar)
         supportActionBar!!.setDisplayHomeAsUpEnabled(true)
@@ -285,7 +285,7 @@ class MIUIActivity : AppCompatActivity() {
     class DeviceView(context: Context, m: String, v: String, b: Bitmap, pid: String, site: String) :
         LinearLayout(context) {
         init {
-            LayoutInflater.from(context).inflate(R.layout.view_device, this)
+            LayoutInflater.from(context).inflate(R.layout.view_miuidevice, this)
             model.text = m
             version.text = if (v.endsWith("1")) {
                 v.plus("0")

@@ -38,6 +38,7 @@ android {
         main {
             res.srcDirs =
                     [
+                            'src/main/res/layouts/aosp',
                             'src/main/res/layouts/download',
                             'src/main/res/layouts/miui',
                             'src/main/res/layouts/main',

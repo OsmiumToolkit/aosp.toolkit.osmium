@@ -76,6 +76,13 @@
             android:label="@string/downloading"
             android:launchMode="singleTask"
             android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".AOSPActivity"
+            android:label="aosp"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".AOSPActivity$AOSPSelectRomActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
 
         <!-- 服务 Services -->
         <service android:name=".services.UpdateService" />
