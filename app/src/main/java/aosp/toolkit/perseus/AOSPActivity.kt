@@ -72,7 +72,7 @@ class AOSPActivity : AppCompatActivity() {
                     val td = i.getElementsByTag("td")
 
                     val buildType = td[0].select("td").text()   // Build Type
-                    val a = td[2].select("td").select("a")
+                    val a = td[2].select("td").select("a")[0]
                     val fileName = a.text()                             // File Name
                     val url = a.attr("href")                  // URL
                     val size = td[3].select("td").text()        // Size
