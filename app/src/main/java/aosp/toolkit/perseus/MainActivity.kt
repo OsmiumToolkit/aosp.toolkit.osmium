@@ -190,6 +190,7 @@ class MainActivity : AppCompatActivity(),
             R.id.nav_tower -> startActivity(Intent(this, DisableAppActivity::class.java))
             R.id.nav_zxing -> startActivity(Intent(this, ZXingActivity::class.java))
             R.id.nav_miui -> startActivity(Intent(this, MIUIActivity::class.java))
+            R.id.nav_aosp -> startActivity(Intent(this, AOSPActivity::class.java))
             else -> exchangeFragment(id)
         }
         return true

@@ -61,7 +61,7 @@ class SplashActivity : AppCompatActivity() {
                 )
             }.start()
         } else {
-            startActivity(Intent(this, AOSPActivity::class.java))
+            startActivity(Intent(this, MainActivity::class.java))
         }
 
         finish()

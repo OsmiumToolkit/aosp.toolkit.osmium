@@ -35,10 +35,20 @@
                 android:checkable="false"
                 android:icon="@drawable/ic_zxing"
                 android:title="@string/nav_zxing" />
+        </menu>
+    </item>
+
+    <item android:title="@string/nav_title_flashing">
+        <menu>
             <item
                 android:title="@string/nav_miui"
                 android:icon="@drawable/ic_download"
                 android:id="@+id/nav_miui"
+                android:checkable="false" />
+            <item
+                android:title="@string/nav_aosp"
+                android:icon="@drawable/ic_download"
+                android:id="@+id/nav_aosp"
                 android:checkable="false" />
         </menu>
     </item>

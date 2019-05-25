@@ -15,6 +15,8 @@
 
     <string name="nav_main">主页</string>
     <string name="nav_monitor">实时检测</string>
+    <string name="nav_title_flashing">刷机</string>
+    <string name="nav_aosp">AOSP专区</string>
     <string name="nav_miui">MIUI专区</string>
     <string name="nav_about">关于应用</string>
     <string name="nav_deviceinfo">设备信息</string>
